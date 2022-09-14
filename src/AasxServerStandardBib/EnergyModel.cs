@@ -2,6 +2,7 @@
 using AasxServer;
 using AasxTimeSeries;
 using AdminShellNS;
+using Kusto.Cloud.Platform.Utils;
 using Kusto.Data;
 using Kusto.Data.Common;
 using Kusto.Data.Net.Client;
@@ -246,24 +247,38 @@ namespace AasxDemonstration
 
                         // login
                         string watttimePassword = Environment.GetEnvironmentVariable("WATTTIME_PASSWORD");
-                        webClient.DefaultRequestHeaders.Add("Authorization", Convert.ToBase64String(Encoding.UTF8.GetBytes(watttimeUser + ":" + watttimePassword)));
+                        webClient.DefaultRequestHeaders.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(watttimeUser + ":" + watttimePassword)));
 
                         HttpResponseMessage response = await webClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, "https://api2.watttime.org/v2/login")).ConfigureAwait(false);
                         string token = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        token = token.TrimStart("{\"token\":\"").TrimEnd("\"}");
 
                         // now use bearer token returned previously
                         webClient.DefaultRequestHeaders.Remove("Authorization");
-                        webClient.DefaultRequestHeaders.Add("Authorization", Convert.ToBase64String(Encoding.UTF8.GetBytes("Bearer " + token)));
+                        webClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
                         // determine grid region
                         string watttimeLatitude = Environment.GetEnvironmentVariable("WATTTIME_LATITUDE");
                         string watttimeLongitude = Environment.GetEnvironmentVariable("WATTTIME_LONGITUDE");
                         response = await webClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, "https://api2.watttime.org/v2/ba-from-loc?latitude=" + watttimeLatitude + "&longitude=" + watttimeLongitude)).ConfigureAwait(false);
-                        string region = JsonConvert.DeserializeObject<string>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                        RegionQueryResult region = JsonConvert.DeserializeObject<RegionQueryResult>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
 
                         // get the carbon intensity
-                        response = await webClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, "https://api2.watttime.org/v2/index?ba=" + region + "&style=moer")).ConfigureAwait(false);
-                        _currentIntensity = JsonConvert.DeserializeObject<CarbonIntensityQueryResult>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                        response = await webClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, "https://api2.watttime.org/v2/index?ba=" + region.abbrev + "&style=moer")).ConfigureAwait(false);
+                        string content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        WattTimeQueryResult result = JsonConvert.DeserializeObject<WattTimeQueryResult>(content);
+
+                        _currentIntensity = new CarbonIntensityQueryResult()
+                        {
+                            data = new CarbonData[1]
+                        };
+
+                        // convert from lbs/MWh to g/KWh
+                        _currentIntensity.data[0] = new CarbonData();
+                        _currentIntensity.data[0].intensity = new CarbonIntensity()
+                        {
+                            actual = (int) (result.moer * 453.592f / 1000.0f)
+                        };
                     }
                     catch (Exception)
                     {

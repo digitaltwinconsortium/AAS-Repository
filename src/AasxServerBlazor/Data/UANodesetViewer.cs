@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using UACloudLibrary;
@@ -19,7 +19,7 @@ namespace AasxServerBlazor.Data
     {
         public static List<string> _nodeSetFilenames = new List<string>();
 
-        private WebClient _client = new WebClient();
+        private HttpClient _client = new HttpClient();
 
         private ApplicationInstance _application = new ApplicationInstance();
 
@@ -29,14 +29,13 @@ namespace AasxServerBlazor.Data
 
         public void Login(string instanceUrl, string clientId, string secret)
         {
-            _client.Headers.Remove("Authorization");
-            _client.Headers.Add("Authorization", "basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(clientId + ":" + secret)));
-            _client.Headers.Add("Content-Type", "application/json");
+            _client.DefaultRequestHeaders.Remove("Authorization");
+            _client.DefaultRequestHeaders.Add("Authorization", "basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(clientId + ":" + secret)));
 
             // get namespaces
             string address = "https://uacloudlibrary.opcfoundation.org/infomodel/namespaces";
-            string response = _client.DownloadString(address);
-            string[] identifiers = JsonConvert.DeserializeObject<string[]>(response);
+            HttpResponseMessage response = _client.Send(new HttpRequestMessage(HttpMethod.Get, address));
+            string[] identifiers = JsonConvert.DeserializeObject<string[]>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
 
             _namespacesInCloudLibrary.Clear();
             foreach (string nodeset in identifiers)
@@ -45,8 +44,8 @@ namespace AasxServerBlazor.Data
                 _namespacesInCloudLibrary.Add(tuple[0], tuple[1]);
             }
 
-            response = _client.DownloadString(instanceUrl);
-            AddressSpace addressSpace = JsonConvert.DeserializeObject<AddressSpace>(response);
+            response = _client.Send(new HttpRequestMessage(HttpMethod.Get, instanceUrl));
+            AddressSpace addressSpace = JsonConvert.DeserializeObject<AddressSpace>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
 
             // store the file locally
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), "nodeset2.xml");
@@ -156,8 +155,8 @@ namespace AasxServerBlazor.Data
                         {
                             // try to auto-download the missing references from the UA Cloud Library
                             string address = _client.BaseAddress + "infomodel/download/" + Uri.EscapeDataString(_namespacesInCloudLibrary[modelreference]);
-                            string response = _client.DownloadString(address);
-                            AddressSpace addressSpace = JsonConvert.DeserializeObject<AddressSpace>(response);
+                            HttpResponseMessage response = _client.Send(new HttpRequestMessage(HttpMethod.Get, address));
+                            AddressSpace addressSpace = JsonConvert.DeserializeObject<AddressSpace>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
 
                             // store the file on the webserver
                             string filePath = Path.Combine(Directory.GetCurrentDirectory(), addressSpace.Category.Name + ".nodeset2.xml");
