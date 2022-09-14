@@ -16,8 +16,8 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
-using static AdminShellNS.AdminShellV20;
 
 namespace AasxDemonstration
 {
@@ -176,7 +176,7 @@ namespace AasxDemonstration
                     client.BaseAddress = new Uri(aasServerAddress);
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    Submodel submodel = null;
+                    AdminShellV20.Submodel submodel = null;
                     var path = $"/aas/{aasId}/submodels/{smIdShort}/complete";
                     HttpResponseMessage response = client.GetAsync(path).GetAwaiter().GetResult();
                     if (response.IsSuccessStatusCode)
@@ -187,7 +187,7 @@ namespace AasxDemonstration
                         {
                             JsonSerializer serializer = new JsonSerializer();
                             serializer.Converters.Add(new AdminShellConverters.JsonAasxConverter("modelType", "name"));
-                            submodel = (Submodel)serializer.Deserialize(reader, typeof(Submodel));
+                            submodel = (AdminShellV20.Submodel)serializer.Deserialize(reader, typeof(AdminShellV20.Submodel));
                         }
                     }
 
@@ -235,16 +235,54 @@ namespace AasxDemonstration
                 // read the row from our OPC UA telemetry table
                 RunADXQuery("opcua_telemetry | where creationTimeUtc > (now() - 2m) | where creationTimeUtc < (now() - 1m) | top 1 by creationTimeUtc desc", _values1MinuteAgo);
 
-                try
+
+                string watttimeUser = Environment.GetEnvironmentVariable("WATTTIME_USER");
+                if (!string.IsNullOrEmpty(watttimeUser))
                 {
-                    // read current carbon intensity from the UK national energy grid's carbon intensity service at https://api.carbonintensity.org.uk/intensity
-                    HttpClient webClient = new HttpClient();
-                    var response = await webClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, "https://api.carbonintensity.org.uk/intensity")).ConfigureAwait(false);
-                    _currentIntensity = JsonConvert.DeserializeObject<CarbonIntensityQueryResult>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                    try
+                    {
+                        // read current carbon intensity from the WattTime service at https://api2.watttime.org/v2
+                        HttpClient webClient = new HttpClient();
+
+                        // login
+                        string watttimePassword = Environment.GetEnvironmentVariable("WATTTIME_PASSWORD");
+                        webClient.DefaultRequestHeaders.Add("Authorization", Convert.ToBase64String(Encoding.UTF8.GetBytes(watttimeUser + ":" + watttimePassword)));
+
+                        HttpResponseMessage response = await webClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, "https://api2.watttime.org/v2/login")).ConfigureAwait(false);
+                        string token = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+                        // now use bearer token returned previously
+                        webClient.DefaultRequestHeaders.Remove("Authorization");
+                        webClient.DefaultRequestHeaders.Add("Authorization", Convert.ToBase64String(Encoding.UTF8.GetBytes("Bearer " + token)));
+
+                        // determine grid region
+                        string watttimeLatitude = Environment.GetEnvironmentVariable("WATTTIME_LATITUDE");
+                        string watttimeLongitude = Environment.GetEnvironmentVariable("WATTTIME_LONGITUDE");
+                        response = await webClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, "https://api2.watttime.org/v2/ba-from-loc?latitude=" + watttimeLatitude + "&longitude=" + watttimeLongitude)).ConfigureAwait(false);
+                        string region = JsonConvert.DeserializeObject<string>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+
+                        // get the carbon intensity
+                        response = await webClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, "https://api2.watttime.org/v2/index?ba=" + region + "&style=moer")).ConfigureAwait(false);
+                        _currentIntensity = JsonConvert.DeserializeObject<CarbonIntensityQueryResult>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                    }
+                    catch (Exception)
+                    {
+                        // do nothing
+                    }
                 }
-                catch (Exception)
+                else
                 {
-                    // do nothing
+                    try
+                    {
+                        // read current carbon intensity from the UK national energy grid's carbon intensity service at https://api.carbonintensity.org.uk/intensity
+                        HttpClient webClient = new HttpClient();
+                        HttpResponseMessage response = await webClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, "https://api.carbonintensity.org.uk/intensity")).ConfigureAwait(false);
+                        _currentIntensity = JsonConvert.DeserializeObject<CarbonIntensityQueryResult>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                    }
+                    catch (Exception)
+                    {
+                        // do nothing
+                    }
                 }
 
                 // get CO2 foot print data from our supply chain, in this case the GE machine's AAS
