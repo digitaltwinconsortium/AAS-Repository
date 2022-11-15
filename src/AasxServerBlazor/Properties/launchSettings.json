@@ -28,16 +28,8 @@
       "commandName": "Docker",
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-      "publishAllPorts": true,
-      "environmentVariables": {
-        "ADX_PASSWORD": "ldo8Q~4FVKsDQBj.pIekabkTAc6QiLXHm.fvCbvT",
-        "UACLUsername": "erichb@microsoft.com",
-        "UACLPassword": "EMoerike11!!",
-        "WATTTIME_USER": "cesmii4i40",
-        "WATTTIME_PASSWORD": "3VZdqNWN8GbUXT@q",
-        "WATTTIME_LATITUDE": "42.372",
-        "WATTTIME_LONGITUDE": "-72.519"
-      }
+      "publishAllPorts": true
+
     }
   }
 }
