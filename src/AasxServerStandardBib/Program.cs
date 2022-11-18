@@ -161,6 +161,7 @@ namespace AasxServer
 
         public static string redirectServer = "";
         public static string authType = "";
+        public static string DataPath { get; set; }
 
         public static bool isLoading = true;
         public static int count = 0;
@@ -283,6 +284,7 @@ namespace AasxServer
 
             if (a.DataPath != null)
             {
+                DataPath = a.DataPath;
                 Console.WriteLine($"Serving the AASXs from: {a.DataPath}");
                 AasxHttpContextHelper.DataPath = a.DataPath;
             }
