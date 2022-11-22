@@ -64,76 +64,86 @@ namespace AasxServerBlazor.Data
             lock (Program.changeAasxFile)
             {
                 items = new List<Item>();
+                int environmentIndex = 0;
                 for (int i = 0; i < Program.envimax; i++)
                 {
-                    Item root = new Item();
-                    root.envIndex = i;
-                    if (Program.env[i] != null)
+                    AdminShellPackageEnv environment = Program.env[i];
+                    if (environment != null)
                     {
-                        root.Text = Program.env[i].AasEnv.AssetAdministrationShells[0].IdShort;
-                        root.Tag = Program.env[i].AasEnv.AssetAdministrationShells[0];
-                        if (Program.envSymbols[i] != "L")
+                        int aasCount = Program.env[i].AasEnv.AssetAdministrationShells.Count;
+
+                        for (int j = 0; j < aasCount; ++j)
                         {
-                            List<Item> childs = new List<Item>();
-                            var env = AasxServer.Program.env[i];
-                            var aas = env.AasEnv.AssetAdministrationShells[0];
-                            if (env != null && aas.Submodels != null && aas.Submodels.Count > 0)
-                                foreach (var smr in aas.Submodels)
-                                {
-                                    var sm = env.AasEnv.FindSubmodel(smr);
-                                    if (sm != null && sm.IdShort != null)
+                            Item root = new Item();
+                            root.envIndex = environmentIndex++;
+
+                            root.Text = environment.AasEnv.AssetAdministrationShells[j].IdShort;
+                            root.Tag = environment.AasEnv.AssetAdministrationShells[j];
+
+                            if (Program.envSymbols[i] != "L")
+                            {
+                                List<Item> childs = new List<Item>();
+                                AssetAdministrationShell aas = environment.AasEnv.AssetAdministrationShells[j];
+                                if (environment != null && aas.Submodels != null && aas.Submodels.Count > 0)
+                                    foreach (var smr in aas.Submodels)
                                     {
-                                        var smItem = new Item();
-                                        smItem.envIndex = i;
-                                        smItem.Text = sm.IdShort;
-                                        smItem.Tag = sm;
-                                        childs.Add(smItem);
-                                        List<Item> smChilds = new List<Item>();
-                                        if (sm.SubmodelElements != null)
-                                            foreach (var sme in sm.SubmodelElements)
-                                            {
-                                                var smeItem = new Item();
-                                                smeItem.envIndex = i;
-                                                smeItem.Text = sme.IdShort;
-                                                smeItem.Tag = sme;
-                                                smChilds.Add(smeItem);
-                                                if (sme is SubmodelElementCollection)
+                                        var sm = environment.AasEnv.FindSubmodel(smr);
+                                        if (sm != null && sm.IdShort != null)
+                                        {
+                                            var smItem = new Item();
+                                            smItem.envIndex = i;
+                                            smItem.Text = sm.IdShort;
+                                            smItem.Tag = sm;
+                                            childs.Add(smItem);
+                                            List<Item> smChilds = new List<Item>();
+                                            if (sm.SubmodelElements != null)
+                                                foreach (var sme in sm.SubmodelElements)
                                                 {
-                                                    var smec = sme as SubmodelElementCollection;
-                                                    createSMECItems(smeItem, smec, i);
+                                                    var smeItem = new Item();
+                                                    smeItem.envIndex = i;
+                                                    smeItem.Text = sme.IdShort;
+                                                    smeItem.Tag = sme;
+                                                    smChilds.Add(smeItem);
+                                                    if (sme is SubmodelElementCollection)
+                                                    {
+                                                        var smec = sme as SubmodelElementCollection;
+                                                        createSMECItems(smeItem, smec, i);
+                                                    }
+                                                    if (sme is Operation)
+                                                    {
+                                                        var o = sme as Operation;
+                                                        createOperationItems(smeItem, o, i);
+                                                    }
+                                                    if (sme is Entity)
+                                                    {
+                                                        var e = sme as Entity;
+                                                        createEntityItems(smeItem, e, i);
+                                                    }
+                                                    if (sme is AnnotatedRelationshipElement annotatedRelationshipElement)
+                                                    {
+                                                        CreateAnnotedRelationshipElementItems(smeItem, annotatedRelationshipElement, i);
+                                                    }
+                                                    if (sme is SubmodelElementList smeList)
+                                                    {
+                                                        CreateSMEListItems(smeItem, smeList, i);
+                                                    }
                                                 }
-                                                if (sme is Operation)
-                                                {
-                                                    var o = sme as Operation;
-                                                    createOperationItems(smeItem, o, i);
-                                                }
-                                                if (sme is Entity)
-                                                {
-                                                    var e = sme as Entity;
-                                                    createEntityItems(smeItem, e, i);
-                                                }
-                                                if (sme is AnnotatedRelationshipElement annotatedRelationshipElement)
-                                                {
-                                                    CreateAnnotedRelationshipElementItems(smeItem, annotatedRelationshipElement, i);
-                                                }
-                                                if (sme is SubmodelElementList smeList)
-                                                {
-                                                    CreateSMEListItems(smeItem, smeList, i);
-                                                }
-                                            }
-                                        smItem.Childs = smChilds;
-                                        foreach (var c in smChilds)
-                                            c.parent = smItem;
+                                            smItem.Childs = smChilds;
+                                            foreach (var c in smChilds)
+                                                c.parent = smItem;
+                                        }
                                     }
-                                }
-                            root.Childs = childs;
-                            foreach (var c in childs)
-                                c.parent = root;
-                            items.Add(root);
+                                root.Childs = childs;
+                                foreach (var c in childs)
+                                    c.parent = root;
+                                items.Add(root);
+                            }
                         }
+
                     }
                     if (Program.envSymbols[i] == "L")
                     {
+                        Item root = new Item();
                         root.Text = System.IO.Path.GetFileName(Program.envFileName[i]);
                         items.Add(root);
                     }

@@ -1198,7 +1198,7 @@ namespace AdminShellNS
             {
                 throw new InvalidOperationException("Unexpected unreadable result stream");
             }
-
+            Console.WriteLine("Stream: " + result.ToString());
             return result;
         }
 

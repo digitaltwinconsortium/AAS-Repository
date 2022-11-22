@@ -462,11 +462,11 @@
      filename,
      data
      );
-        /*
-        await js.InvokeAsync<object>(
+    /*
+    await js.InvokeAsync<object>(
         "saveAsFile",
         filename,
-    Convert.ToBase64String(data)
+        Convert.ToBase64String(data)
         );
         */
         /*
@@ -787,6 +787,7 @@
                 {
                     using (System.IO.Stream s = Program.env[item.envIndex].GetLocalThumbnailStream())
                     {
+                        Console.WriteLine("after stream: " + s);
                         if (s != null)
                         {
                             using (var m = new System.IO.MemoryStream())
