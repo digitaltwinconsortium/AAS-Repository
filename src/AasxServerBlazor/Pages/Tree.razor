@@ -4,6 +4,7 @@ https://github.com/mwinkler/Blazor.Components/blob/master/LICENSE
 
 @using Microsoft.AspNetCore.Components.Web
 @using MW.Blazor
+@using AasCore.Aas3_0_RC02
 
 @typeparam TNode
 @*@using static AdminShellNS.AdminShellV20;*@
@@ -15,6 +16,22 @@ https://github.com/mwinkler/Blazor.Components/blob/master/LICENSE
         var nodeExpanded = ExpandedNodes.Contains(node);
         var nodeSelected = node.Equals(SelectedNode);
         var hasChilds = HasChildNodes(node);
+        var isAas = (node as Item).Tag is AssetAdministrationShell;
+		var isSubmodel = (node as Item).Tag is Submodel;
+		var color = "";
+		
+		if (isAas)
+		{
+			color = "#88A6D2";
+		}
+		else if (isSubmodel)
+		{
+			color = "#CBD8EB";
+		}
+		else
+		{
+			color = "#F4F4F5";
+		}
         // @("nodeExpanded " + nodeExpanded + " nodeSelected " + nodeSelected + " hasChilds " + hasChilds)
 
         <div>
@@ -28,15 +45,17 @@ https://github.com/mwinkler/Blazor.Components/blob/master/LICENSE
                 </span>
             }
 
-            <div class="uic-tree__title">
+            <div class="flex space-x-8 flex-col mb-1 pr-4 ml-4 cursor-pointer @(nodeSelected ? "border-2 border-[#D42044]" : "") bg-[@(color)]" @onclick="@(() => OnSelectNode(node))">
+                    <div class="flex flex-row">
                 @{
                     string titleId = "";
                     if (AasxServer.Program.htmlId)
                         titleId = HtmlId(node as Item) + "._title";
-                    <span class="@Style.NodeTitleClass @(nodeSelected ? Style.NodeTitleSelectedClass : "")" @onclick="@(() => OnSelectNode(node))" id="@titleId">
+                        <div class="inline @Style.NodeTitleClass" @onclick="@(() => OnSelectNode(node))" id="@titleId">
                         @TitleTemplate(node) @{ /* @(" " + node.GetHashCode() + " ") */ }
-                    </span>
-                }
+                    </div>
+                    }
+                </div>
             </div>
 
             @if (hasChilds)
