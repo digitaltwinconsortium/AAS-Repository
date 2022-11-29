@@ -66,6 +66,7 @@ namespace AasxServerBlazor.Data
                 items = new List<Item>();
                 for (int i = 0; i < Program.envimax; i++)
                 {
+
                     Item root = new Item();
                     root.envIndex = i;
                     if (Program.env[i] != null)
