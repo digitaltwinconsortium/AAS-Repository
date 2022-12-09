@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AasCore.Aas3_0_RC02;
+using AasxRestServerLibrary;
 using AasxServer;
 using AdminShellNS;
 using Extenstions;
@@ -64,6 +66,23 @@ namespace AasxServerBlazor.Data
             lock (Program.changeAasxFile)
             {
                 items = new List<Item>();
+
+                // Check for README
+                if (Directory.Exists("./readme"))
+                {
+                    var fileNames = Directory.GetFiles("./readme", "*.HTML");
+                    Array.Sort(fileNames);
+                    foreach (var fname in fileNames)
+                    {
+                        var fname2 = fname.Replace("\\", "/");
+                        Item demo = new Item();
+                        demo.envIndex = -1;
+                        demo.Text = fname2;
+                        demo.Tag = "README";
+                        items.Add(demo);
+                    }
+                }
+
                 for (int i = 0; i < Program.envimax; i++)
                 {
                     Item root = new Item();

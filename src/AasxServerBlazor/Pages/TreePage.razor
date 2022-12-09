@@ -50,8 +50,24 @@
     <div class="col-8" style="border-width: 3px; border-style: solid; border-color: blue; border-radius: 8px; position: sticky">
         <div class="sticky-top" style="word-wrap:break-word;word-break:break-all;">
             @{
-                <span style="color:white;background-color:blue;" id="SelectedNodeInfoType">@ViewNodeType(selectedNode)</span>
-                <span id="SelectedNodeInfoId">@ViewNodeID(selectedNode)</span><br>
+                if (selectedNode != null)
+                {
+                    if (!(selectedNode.Tag is string))
+                    {
+                        <span style="color:white;background-color:blue;" id="SelectedNodeInfoType">@ViewNodeType(selectedNode)</span>
+                        <span id="SelectedNodeInfoId">@ViewNodeID(selectedNode)</span>
+                        <br>
+                    }
+                    else
+                    {
+                        if (selectedNode.Tag is string && selectedNode.Text.Contains("/readme"))
+                        {
+                            string text = System.IO.File.ReadAllText(selectedNode.Text);
+                            text = text.Replace("%BLAZOR%", Program.externalBlazor);
+                            <span>@((MarkupString)text)</span>
+                        }
+                    }
+                }
                 for (int line = 0; line < 6; line++)
                 {
                     string nodeDetails0 = ViewNodeDetails(selectedNode, line, 0);
@@ -62,7 +78,8 @@
                         string detailsId="SelectedNodeDetailsLeft_" + line;
                         <span style="color:white;background-color:blue;" id="@detailsId">@nodeDetails0</span>
                         detailsId = "SelectedNodeDetailsRight_" + line;
-                        <span id="@detailsId">@nodeDetails1 @nodeDetails2</span><br>
+                        <span id="@detailsId">&nbsp;@nodeDetails1 @nodeDetails2</span>
+                        <br>
                     }
                 }
                 if (selectedNode != null && selectedNode.Tag is IReferable r)
@@ -70,6 +87,9 @@
                     <span style="color:lightgray;">UPDATE @r.TimeStamp.ToString("yy-MM-dd HH:mm:ss.fff")</span><br />
                     <button style="border-width: 1px; border-color: black; background-color: lightgray" @onclick="setTimeStamp">TIMESTAMP</button><br />
                     <span style="color:lightgray;">CREATE @r.TimeStampCreate.ToString("yy-MM-dd HH:mm:ss.fff")</span><br />
+                    <span style="color:lightgray;">TREE @r.TimeStampTree.ToString("yy-MM-dd HH:mm:ss.fff")</span>
+
+                    <br />
                     @code {
                         private void setTimeStamp()
                         {
@@ -194,7 +214,7 @@
 
                     try
                     {
-                        semanticId = smc.SemanticId.GetAsIdentifier();
+                        semanticId = smc.SemanticId?.GetAsIdentifier();
                     }
                     catch { }
                     if (semanticId == "https://admin-shell.io/sandbox/zvei/TimeSeriesData/TimeSeries/1/0" ||
@@ -464,9 +484,9 @@
      );
         /*
         await js.InvokeAsync<object>(
-        "saveAsFile",
-        filename,
-    Convert.ToBase64String(data)
+    "saveAsFile",
+    filename,
+        Convert.ToBase64String(data)
         );
         */
         /*
@@ -1169,8 +1189,13 @@
         {
         ret = (o as Referable).GetElementName();
         return (ret);
-    }
-    */
+        }
+        */
+
+        if (o is string && item.Text.Contains("/readme"))
+        {
+            ret += item.Text;
+        }
 
         if (o == null && Program.envSymbols[item.envIndex] == "L")
         {
@@ -1278,6 +1303,11 @@
             ret = item.Text;
         }
 
+        if (o is string && item.Text.Contains("/readme"))
+        {
+            ret = " ";
+        }
+
         if (o is AssetAdministrationShell)
         {
             var aas = o as AssetAdministrationShell;
@@ -1372,9 +1402,12 @@
         {
             var sme = o as SubmodelElementCollection;
             // ret = sm.identification.ToString();
-            if (sme.Value.Count > 0)
+            if (sme.Value != null)
             {
-                ret += " #" + sme.Value.Count;
+                if (sme.Value.Count > 0)
+                {
+                    ret += " #" + sme.Value.Count;
+                }
             }
             if (sme.Qualifiers != null && sme.Qualifiers.Count > 0)
             {
@@ -1386,7 +1419,7 @@
             if (o is Property)
             {
                 var prop = o as Property;
-                if (prop.Value != "")
+                if (prop.Value!= null && prop.Value != "")
                 {
                     string v = prop.Value;
                     if (v.Length > 100)
@@ -1400,7 +1433,8 @@
             }
             if (o is AasCore.Aas3_0_RC02.File f)
             {
-                ret = " = " + f.Value;
+                if (f.Value != null)
+                    ret = " = " + f.Value;
                 if (f.Qualifiers != null && f.Qualifiers.Count > 0)
                 {
                     ret += " @QUALIFIERS";
@@ -1410,7 +1444,8 @@
         if (o is AasCore.Aas3_0_RC02.Range)
         {
             var r = o as AasCore.Aas3_0_RC02.Range;
-            ret = " = " + r.Min + " .. " + r.Max;
+            if (r.Min != null && r.Max != null)
+                ret = " = " + r.Min + " .. " + r.Max;
             if (r.Qualifiers != null && r.Qualifiers.Count > 0)
             {
                 ret += " @QUALIFIERS";
@@ -1420,12 +1455,15 @@
         {
             var mlp = o as MultiLanguageProperty;
             var ls = mlp.Value;
-            ret = " = ";
-            for (int i = 0; i < ls.LangStrings.Count; i++)
+            if (ls != null)
             {
-                ret += ls.LangStrings[i].Language + " ";
-                if (i == 0)
-                    ret += ls.LangStrings[i].Text + " ";
+                ret = " = ";
+                for (int i = 0; i < ls.LangStrings.Count; i++)
+                {
+                    ret += ls.LangStrings[i].Language + " ";
+                    if (i == 0)
+                        ret += ls.LangStrings[i].Text + " ";
+                }
             }
             if (mlp.Qualifiers != null && mlp.Qualifiers.Count > 0)
             {

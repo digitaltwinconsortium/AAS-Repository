@@ -1,4 +1,5 @@
 ﻿using AasCore.Aas3_0_RC02;
+using AasxServer;
 using AasxServerStandardBib.Exceptions;
 using AasxServerStandardBib.Extenstions;
 using AdminShellNS;
@@ -7,10 +8,12 @@ using IO.Swagger.V1RC03.ApiModel;
 using IO.Swagger.V1RC03.APIModels.Core;
 using IO.Swagger.V1RC03.APIModels.ValueOnly;
 using IO.Swagger.V1RC03.Logging;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.IO.Packaging;
 using System.Linq;
@@ -19,6 +22,8 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
+using static IO.Swagger.V1RC03.Controllers.AssetAdministrationShellEnvironmentAPIController;
 using File = AasCore.Aas3_0_RC02.File;
 
 namespace IO.Swagger.V1RC03.Services
@@ -27,6 +32,7 @@ namespace IO.Swagger.V1RC03.Services
     {
         private readonly IAppLogger<AssetAdministrationShellEnvironmentService> _logger;
         private AdminShellPackageEnv[] _packages;
+        private AasSecurityContext _securityContext;
 
         /// <summary>
         /// Constructor
@@ -36,6 +42,93 @@ namespace IO.Swagger.V1RC03.Services
         {
             _logger = logger;
             _packages = AasxServer.Program.env;
+        }
+
+        public void SecurityCheckInit(HttpContext _context, string _route, string _httpOperation)
+        {
+            if (!AasxRestServerLibrary.AasxHttpContextHelper.withAuthentification)
+                return;
+
+            int index = -1;
+            NameValueCollection query = HttpUtility.ParseQueryString(_context.Request.QueryString.ToString());
+            NameValueCollection headers = new NameValueCollection();
+            foreach (var kvp in _context.Request.Headers)
+            {
+                headers.Add(kvp.Key.ToString(), kvp.Value.ToString());
+            }
+            string accessRights = AasxRestServerLibrary.AasxHttpContextHelper.SecurityCheck(query, headers, ref index);
+
+            _securityContext = new AasSecurityContext(accessRights, _route, _httpOperation);
+        }
+
+        public void SecurityCheck(string objPath = "", string aasOrSubmodel = null, object objectAasOrSubmodel = null)
+        {
+            if (!AasxRestServerLibrary.AasxHttpContextHelper.withAuthentification)
+                return;
+
+            checkAccessRights(_securityContext.accessRights, _securityContext.route, _securityContext.neededRights,
+                objPath, aasOrSubmodel, objectAasOrSubmodel);
+       }
+
+        public bool SecurityCheckTestOnly(string objPath = "", string aasOrSubmodel = null, object objectAasOrSubmodel = null)
+        {
+            if (!AasxRestServerLibrary.AasxHttpContextHelper.withAuthentification)
+                return(true);
+
+            return checkAccessRights(_securityContext.accessRights, _securityContext.route, _securityContext.neededRights,
+                objPath, aasOrSubmodel, objectAasOrSubmodel, true);
+        }
+
+        public static bool checkAccessRights(string currentRole, string operation, string neededRights,
+            string objPath = "", string aasOrSubmodel = null, object objectAasOrSubmodel = null, bool testOnly = false)
+        {
+            string error = "Access not allowed";
+
+            if (Program.secretStringAPI != null)
+            {
+                if (neededRights == "READ")
+                    return true;
+                if ((neededRights == "UPDATE" || neededRights == "DELETE") && currentRole == "UPDATE")
+                    return true;
+            }
+            else
+            {
+                if (AasxRestServerLibrary.AasxHttpContextHelper.checkAccessLevelWithError(out error, currentRole, operation, neededRights, objPath,
+                    aasOrSubmodel, objectAasOrSubmodel))
+                        return true;
+
+                if (currentRole == null)
+                {
+                    /*
+                    if (AasxServer.Program.redirectServer != "")
+                    {
+                        System.Collections.Specialized.NameValueCollection queryString = System.Web.HttpUtility.ParseQueryString(string.Empty);
+                        string originalRequest = context.Request.Url.ToString();
+                        queryString.Add("OriginalRequest", originalRequest);
+                        Console.WriteLine("\nRedirect OriginalRequset: " + originalRequest);
+                        string response = AasxServer.Program.redirectServer + "?" + "authType=" + AasxServer.Program.authType + "&" + queryString;
+                        Console.WriteLine("Redirect Response: " + response + "\n");
+                        SendRedirectResponse(context, response);
+                        return false;
+                    }
+                    */
+                }
+            }
+
+            /*
+            dynamic res = new ExpandoObject();
+            res.error = "You are not authorized for this operation!";
+            context.Response.StatusCode = HttpStatusCode.Unauthorized;
+            SendJsonResponse(context, res);
+            */
+
+            // Exception
+            if (!testOnly)
+            {
+                throw new NotAllowed(error);
+            }
+
+            return false;
         }
 
         #region AssetAdministrationShell
@@ -429,6 +522,8 @@ namespace IO.Swagger.V1RC03.Services
 
             if (found)
             {
+                SecurityCheck("", "aas", output);
+
                 return output;
             }
             else
@@ -870,6 +965,8 @@ namespace IO.Swagger.V1RC03.Services
             bool found = IsSubmodelPresent(submodelIdentifier, out Submodel output, out packageIndex);
             if (found)
             {
+                // SecurityCheck(output.IdShort, "submodel", output);
+
                 return output;
             }
             else
@@ -903,38 +1000,83 @@ namespace IO.Swagger.V1RC03.Services
             return false;
         }
 
+        private List<ISubmodelElement> filterSubmodelElements(Submodel submodel, List<ISubmodelElement> output, DateTime diff = new DateTime())
+        {
+            List<ISubmodelElement> filtered = new List<ISubmodelElement>();
+            if (output != null)
+            {
+                foreach (var o in output)
+                {
+                    if (o.TimeStampTree >= diff)
+                    {
+                        if (SecurityCheckTestOnly(submodel.IdShort + "." + o.IdShort, "submodel", submodel))
+                            filtered.Add(o);
+                        // if further iteration into is needed
+                        /*
+                        if (o is SubmodelElementCollection sc)
+                        {
+                            if (o.TimeStamp >= diff)
+                                filtered.Add(o);
+                            filtered.AddRange(filterSubmodelElements(submodel, sc.Value, diff));
+                        }
+                        else
+                        if (o is SubmodelElementList sl)
+                        {
+                            if (o.TimeStamp >= diff)
+                                filtered.Add(o);
+                            filtered.AddRange(filterSubmodelElements(submodel, sl.Value, diff));
+                        }
+                        else
+                            if (o.TimeStamp >= diff)
+                                filtered.Add(o);
+                        */
+                    }
+                }
+            }
+
+            return filtered;
+        }
         public object GetAllSubmodelElementsFromSubmodel(string submodelIdentifier, OutputModifierContext outputModifierContext = null)
         {
             object output = null;
             //Find Submodel
             var submodel = GetSubmodelById(submodelIdentifier, out _);
-            if (submodel != null)
-            {
-                output = submodel.SubmodelElements;
-            }
 
-            if (submodel != null)
+            if (submodel == null)
+                return null;
+
+            output = submodel.SubmodelElements;
+            if (outputModifierContext == null)
             {
-                if (outputModifierContext != null)
+                SecurityCheck(submodel.IdShort, "submodel", submodel);
+            }
+            else
+            {
+                if (!outputModifierContext.Content.Equals("path", StringComparison.OrdinalIgnoreCase))
                 {
-                    if (outputModifierContext.Content.Equals("path", StringComparison.OrdinalIgnoreCase))
+                    output = filterSubmodelElements(submodel, submodel.SubmodelElements, outputModifierContext.Diff);
+                }
+                else
+                {
+                    //Need to handle this here it self, to append idShort of Submodel to every SME in the list.
+                    //level = core, then indirect children should be avoided.
+                    //Hence, setting IncludeChildren = false here itself.
+                    if (outputModifierContext.Level.Equals("core", StringComparison.OrdinalIgnoreCase))
                     {
-                        //Need to handle this here it self, to append idShort of Submodel to every SME in the list.
-                        //level = core, then indirect children should be avoided.
-                        //Hence, setting IncludeChildren = false here itself.
-                        if (outputModifierContext.Level.Equals("core", StringComparison.OrdinalIgnoreCase))
-                        {
-                            outputModifierContext.IncludeChildren = false;
-                        }
-                        foreach (var submodelElement in submodel.SubmodelElements)
+                        outputModifierContext.IncludeChildren = false;
+                    }
+                    foreach (var submodelElement in submodel.SubmodelElements)
+                    {
+                        if (submodelElement.TimeStamp >= outputModifierContext.Diff || submodelElement.TimeStampTree >= outputModifierContext.Diff)
                         {
                             outputModifierContext.ParentPath = submodel.IdShort;
+                            outputModifierContext.submodel = submodel;
+                            outputModifierContext.aasEnvService = this;
                             PathSerializer.ToIdShortPath(submodelElement, outputModifierContext);
-                            //output.Add(idShortPath);
                         }
-
-                        return outputModifierContext.IdShortPaths;
                     }
+
+                    return outputModifierContext.IdShortPaths;
                 }
             }
 
@@ -953,7 +1095,11 @@ namespace IO.Swagger.V1RC03.Services
                     var env = package.AasEnv;
                     if (env != null)
                     {
-                        output.AddRange(env.Submodels);
+                        foreach (var s in env.Submodels)
+                        {
+                            if (SecurityCheckTestOnly(s.IdShort, "", s))
+                                output.Add(s);
+                        }
                     }
                 }
             }
@@ -1036,6 +1182,8 @@ namespace IO.Swagger.V1RC03.Services
 
             if (submodel != null)
             {
+                SecurityCheck(submodel.IdShort + "." + idShortPath, "", submodel);
+
                 output = GetSubmodelElementByPath(submodel, idShortPath, out object parent);
                 smeParent = parent;
                 if (output != null)
@@ -1186,12 +1334,14 @@ namespace IO.Swagger.V1RC03.Services
             string fileName = null;
             fileSize = 0;
 
-            _ = GetSubmodelById(submodelIdentifier, out int packageIndex);
+            var submodel = GetSubmodelById(submodelIdentifier, out int packageIndex);
 
             var fileElement = GetSubmodelElementByPathSubmodelRepo(submodelIdentifier, idShortPath, out _);
 
             if (fileElement != null)
             {
+                SecurityCheck(submodel.IdShort + "." + idShortPath);
+
                 if (fileElement is File file)
                 {
                     fileName = file.Value;
