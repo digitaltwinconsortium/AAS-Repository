@@ -4046,7 +4046,7 @@ namespace AasxRestServerLibrary
                     context.Response.AddHeader("Content-Type", "application/aas");
                     res.client = "I40 IT client";
                     res.assetID = assetId;
-                    res.humanEndpoint = "https://admin-shell-io.com:5001";
+                    res.humanEndpoint = "https://admin-shell-io.com";
                     res.restEndpoint = "http://" + AasxServer.Program.hostPort;
 
                     var settings = new JsonSerializerSettings();
@@ -4066,7 +4066,7 @@ namespace AasxRestServerLibrary
             }
 
             // SendJsonResponse(context, res);
-            SendRedirectResponse(context, "https://admin-shell-io.com:5001");
+            SendRedirectResponse(context, "https://admin-shell-io.com");
         }
 
         public void EvalGetAASX(IHttpContext context, int fileIndex)

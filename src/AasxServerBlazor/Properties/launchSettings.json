@@ -10,18 +10,17 @@
     },
     "AasxServerBlazor": {
       "commandName": "Project",
-      "commandLineArgs": "--rest --data-path \"C:\\Development\\Swagger\" --edit --external-blazor http://localhost:5001",
+      "commandLineArgs": "--rest --data-path \"C:\\Development\\Swagger\" --edit --external-blazor http://localhost",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:5001",
+      "applicationUrl": "http://localhost",
       "jsWebView2Debugging": true
     },
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:5001",
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
       "publishAllPorts": true
     }
@@ -30,7 +29,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:5001",
+      "applicationUrl": "http://localhost",
       "sslPort": 0
     }
   }
