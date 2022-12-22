@@ -17,13 +17,20 @@
       },
       "applicationUrl": "http://localhost:5001",
       "jsWebView2Debugging": true
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:5001",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "publishAllPorts": true
     }
   },
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:56189",
+      "applicationUrl": "http://localhost:5001",
       "sslPort": 0
     }
   }

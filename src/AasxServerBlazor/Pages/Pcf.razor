@@ -1,14 +1,15 @@
 ﻿@page "/pcf";
 
 @using AasCore.Aas3_0_RC02
-@using Data
-@inject AASService SubmodelService
+@using AasxServerBlazor.Data
+@inject AasxServerBlazor.Data.AASService SubmodelService
+@using AAS_Repository;
 @using AasxServer;
 @using System.Drawing;
 @using System.Globalization;
 @implements IDisposable
 
-@{ 
+@{
     DateTime timeStamp = DateTime.UtcNow;
     // AasxTask.cfpNode node = AasxTask.createCfpTree(0, timeStamp);
     // AasxTask.cfpNode node = AasxTask.root;
