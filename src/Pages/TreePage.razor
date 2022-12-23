@@ -1,0 +1,1311 @@
+﻿@page "/"
+
+@using AasxServerBlazor
+@using AasxServerBlazor.Data
+@using static AdminShellNS.AdminShellV20;
+@using System
+@using System.Net;
+@using System.Drawing;
+@using AasxServer;
+
+@implements IDisposable
+
+@inject TreeBuilder treeBuilder
+
+<div class="col-12 row">
+    <br />
+    <div class="col-8" style="border-style:solid;border-color:blue;border-radius:8px;word-wrap:break-word;word-break:break-all;position:sticky">
+        @if (Program.isLoading)
+        {
+            <span style="color:white;background-color:blue;">Loading...</span>
+        }
+
+        @UpdateVisibleTree(SelectedNode)
+
+        <TreeNode Nodes="Nodes" ChildSelector="@(item => item.Children)" @bind-SelectedNode="SelectedNode" @bind-ExpandedNodes="ExpandedNodes" HasChildNodes="@(item => item.Children?.Any() == true)">
+            <TitleTemplate>
+                <span style="color:white;background-color:blue;">@ViewNodeType(context)</span>
+                @ViewNodeID(context)
+                @ViewNodeInfo(context)
+            </TitleTemplate>
+        </TreeNode>
+    </div>
+    <div class="col-4" style="border-style:solid;border-color:blue;border-radius:8px;position:sticky">
+        <div class="sticky-top" style="word-wrap:break-word;word-break:break-all;">
+            @{
+                <span style="color:white;background-color:blue;">@ViewNodeType(SelectedNode)</span> @ViewNodeID(SelectedNode)<br>
+                for (int line = 0; line < 6; line++)
+                {
+                    string nodeDetails0 = ViewNodeDetails(SelectedNode, line, 0);
+                    string nodeDetails1 = ViewNodeDetails(SelectedNode, line, 1);
+                    if (nodeDetails0 != string.Empty && nodeDetails1 != string.Empty)
+                    {
+                        <span style="color:white;background-color:blue;">@nodeDetails0</span> @nodeDetails1<br>
+                    }
+                }
+                if (SelectedNode != null && SelectedNode.Tag is Referable r)
+                {
+                    <span style="color:lightgray;">UPDATE @r.TimeStamp.ToString("yy-MM-dd HH:mm:ss.fff")</span><br />
+                    <button style="background-color:lightgray" @onclick="setTimeStamp">TIMESTAMP</button><br />
+                    <span style="color:lightgray;">CREATE @r.TimeStampCreate.ToString("yy-MM-dd HH:mm:ss.fff")</span><br />
+                    @code{
+                        private void setTimeStamp()
+                        {
+                            (SelectedNode.Tag as Referable).setTimeStamp(DateTime.UtcNow);
+                        }
+                    }
+                }
+
+                bool externalLink = false;
+                string link = getLink(SelectedNode, out externalLink);
+                if (SelectedNode != null && link != string.Empty)
+                {
+                    <a href="@link" target="_blank">@link</a><br>
+                }
+                if (SelectedNode != null && SelectedNode.Tag is Property && Program.edit)
+                {
+                    <input @bind="CurrentValue" /> <span style="color:white;background-color:blue;">@CurrentValue</span><br>
+                    @code { private string CurrentValue { get; set; } }
+                    if (CurrentValue != null && CurrentValue != string.Empty)
+                    {
+                        if (SelectedNode.Tag is Property)
+                        {
+                            (SelectedNode.Tag as Property).value = CurrentValue;
+                            (SelectedNode.Tag as Property).setTimeStamp(DateTime.UtcNow);
+                            this.StateHasChanged();
+                        }
+                        CurrentValue = string.Empty;
+                    }
+                }
+                if (SelectedNode != null && (SelectedNode.Tag is AdministrationShell || SelectedNode.Tag is File))
+                {
+                    if (SelectedNode.Tag is AdministrationShell)
+                    {
+                        <button style="color:white;background-color:blue" @onclick="runCreateQRCodeImage">QRCODE</button><br />
+                        string qrcodeLink = getQRCodeLink(SelectedNode);
+                        if (Program.generatedQrCodes.ContainsKey(SelectedNode))
+                        {
+                            string qrcodeImage = getQRCodeImage(SelectedNode);
+                            if (qrcodeImage != string.Empty)
+                            {
+                                <a href="@qrcodeLink" target="_blank">
+                                    <div>
+                                        <img src=data:image;base64,@qrcodeImage style="max-width: 40%;" alt="Qrcode Image" />
+                                    </div>
+                                </a>
+                            }
+                        }
+                        else
+                        {
+                            <a href="@qrcodeLink" target="_blank">@qrcodeLink</a><br>
+                        }
+                        @code {
+                            private void runCreateQRCodeImage()
+                            {
+                                createQRCodeImage(SelectedNode);
+                            }
+                        }
+                    }
+
+                    string detailsImage = createDetailsImage(SelectedNode);
+                    if (detailsImage != string.Empty)
+                    {
+                        <br />
+                        <div>
+                            <img src=data:image;base64,@detailsImage style="max-width: 100%;" alt="Details Image" />
+                        </div>
+                    }
+                }
+                if (SelectedNode != null && (SelectedNode.Tag is AdminShellNS.AdminShellV20.BasicEvent be))
+                {
+                    if (be.observed != null)
+                    {
+                        string okey = be.observed.GetAsExactlyOneKey().ToString();
+                        <span style="color:white;background-color:blue;">Observed</span>
+                        <span>@(" " + okey)</span><br />
+                        var refsme = Program.env[0].AasEnv.FindReferableByReference(be.observed);
+                        if (refsme != null)
+                        {
+                            <span style="color:lightgray;">UPDATE @refsme.TimeStamp.ToString("yy-MM-dd HH:mm:ss.fff")</span><br />
+                            <span style="color:lightgray;">CREATE @refsme.TimeStampCreate.ToString("yy-MM-dd HH:mm:ss.fff")</span><br />
+                        }
+                        else
+                        {
+                            <span>Referenced element does not exist!</span><br />
+                        }
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+
+    public class TreeNodeData
+    {
+        public string Text { get; set; }
+
+        public IEnumerable<TreeNodeData> Children { get; set; }
+
+        public object Parent { get; set; }
+
+        public string Type { get; set; }
+
+        public object Tag { get; set; }
+
+        public int EnvIndex { get; set; }
+    }
+
+    List<TreeNodeData> Nodes = null;
+
+    IList<TreeNodeData> ExpandedNodes = new List<TreeNodeData>();
+
+    TreeNodeData SelectedNode { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Program.NewDataAvailable += NewData;
+    }
+
+    public void Dispose()
+    {
+        Program.NewDataAvailable -= NewData;
+    }
+
+    Program.TreeUpdateMode CurrentTreeUpdateMode = Program.TreeUpdateMode.RebuildAndCollapse;
+
+    private void NewData(object source, EventArgs args)
+    {
+        if (CurrentTreeUpdateMode == Program.TreeUpdateMode.ValuesOnly)
+        {
+            CurrentTreeUpdateMode = (Program.TreeUpdateMode) source;
+            InvokeAsync(() => this.StateHasChanged());
+        }
+    }
+
+    string UpdateVisibleTree(TreeNodeData selectedNode)
+    {
+        if (CurrentTreeUpdateMode == Program.TreeUpdateMode.ValuesOnly)
+        {
+            return string.Empty;
+        }
+
+        Nodes = treeBuilder.BuildTree();
+
+        if (CurrentTreeUpdateMode == Program.TreeUpdateMode.RebuildAndCollapse)
+        {
+            ExpandedNodes.Clear();
+            selectedNode = null;
+        }
+
+        CurrentTreeUpdateMode = 0;
+        SelectedNode = selectedNode;
+
+        return string.Empty;
+    }
+
+    void updateNode(TreeNodeData i)
+    {
+        var clist = i.Children as List<TreeNodeData>;
+        List<string> listIdshort = new List<string>();
+        bool done = false;
+        if (!done && i.Tag is Submodel sm)
+        {
+            foreach (var smew1 in sm.submodelElements)
+            {
+                listIdshort.Add(smew1.submodelElement.idShort);
+            }
+            done = true;
+        }
+        if (!done && i.Tag is SubmodelElementCollection smec)
+        {
+            foreach (var smew2 in smec.value)
+            {
+                listIdshort.Add(smew2.submodelElement.idShort);
+            }
+            done = true;
+        }
+        if (!done && i.Tag is SubmodelElement sme)
+        {
+            listIdshort.Add(sme.idShort);
+            done = true;
+        }
+        // check if child name exists in data children idshorts, if not delete
+        if (done)
+        {
+            List<TreeNodeData> toDelete = new List<TreeNodeData>();
+            if (clist != null)
+            {
+                foreach (var c in clist)
+                {
+                    if (!listIdshort.Contains(c.Text))
+                    {
+                        toDelete.Add(c);
+                    }
+                }
+            }
+            else
+            {
+                if (!listIdshort.Contains(i.Text))
+                {
+                    toDelete.Add(i);
+                }
+            }
+            foreach (var c in toDelete)
+            {
+                var parent = c.Parent as TreeNodeData;
+                if (parent != null)
+                {
+                    (parent.Children as List<TreeNodeData>).Remove(c);
+                }
+            }
+        }
+        // check if data children idshorts exist in child names, if not insert
+        if (clist != null)
+        {
+            foreach (var c in clist)
+            {
+                updateNode(c);
+            }
+        }
+    }
+
+    string createDetailsImage(TreeNodeData item)
+    {
+        if (item == null)
+        {
+            return string.Empty;
+        }
+
+        object o = item.Tag;
+
+        if (o is AdministrationShell)
+        {
+            var aas = o as AdministrationShell;
+            lock (Program.changeAasxFile)
+            {
+                System.IO.Stream s = null;
+                try
+                {
+                    s = Program.env[item.EnvIndex].GetLocalThumbnailStream();
+                }
+                catch { }
+                if (s != null)
+                {
+                    using (var m = new System.IO.MemoryStream())
+                    {
+                        s.CopyTo(m);
+                        return System.Convert.ToBase64String(m.ToArray());
+                    }
+                }
+            }
+        }
+
+        if (o is File)
+        {
+            var f = o as File;
+            // Test for /aasx/
+            string[] split = f.value.Split(new Char[] { '/' });
+            if (split[1].ToLower() == "aasx")
+            {
+                split = f.value.Split(new Char[] { '.' });
+                switch(split.Last().ToLower())
+                {
+                    case "jpg":
+                    case "bmp":
+                    case "png":
+                        var s = Program.env[item.EnvIndex].GetLocalStreamFromPackage(f.value);
+                        if (s != null)
+                        {
+                            using (var m = new System.IO.MemoryStream())
+                            {
+                                s.CopyTo(m);
+                                return System.Convert.ToBase64String(m.ToArray());
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+
+        return string.Empty;
+    }
+
+    string getQRCodeLink(TreeNodeData item)
+    {
+        if (item == null)
+        {
+            return string.Empty;
+        }
+
+        string hostPort = Program.hostPort;
+
+        string[] split = Program.hostPort.Split(':');
+
+        object o = item.Tag;
+
+        if (o is AdministrationShell)
+        {
+            var aas = o as AdministrationShell;
+            var asset = Program.env[item.EnvIndex].AasEnv.FindAsset(aas.assetRef);
+            if (asset != null)
+            {
+                string url = WebUtility.UrlEncode(asset.identification.id);
+                string link = Program.externalRest + "/server/getaasxbyassetid/" + url;
+
+                return link;
+            }
+        }
+
+        return string.Empty;
+    }
+
+    string getQRCodeImage(TreeNodeData item)
+    {
+        if (item == null)
+        {
+            return string.Empty;
+        }
+
+        object o = item.Tag;
+
+        if (o is AdministrationShell)
+        {
+            string image = Program.generatedQrCodes[item];
+
+            if (image != null)
+                return image;
+        }
+
+        return string.Empty;
+    }
+
+    void createQRCodeImage(TreeNodeData item)
+    {
+        if (item == null)
+        {
+            return;
+        }
+
+        string hostPort = Program.hostPort;
+
+        object o = item.Tag;
+
+        if (o is AdministrationShell)
+        {
+            if (Program.generatedQrCodes.ContainsKey(item))
+            {
+                Program.generatedQrCodes.Remove(item);
+                return;
+            }
+
+            var aas = o as AdministrationShell;
+            var asset = Program.env[item.EnvIndex].AasEnv.FindAsset(aas.assetRef);
+            if (asset != null)
+            {
+                string url = WebUtility.UrlEncode(asset.identification.id);
+                string link = Program.externalRest + "/server/getaasxbyassetid/" + url;
+                return;
+            }
+        }
+
+        return;
+    }
+
+    bool hasDownloadFile(TreeNodeData item)
+    {
+        if (item == null)
+        {
+            return false;
+        }
+
+        object o = item.Tag;
+
+        if (o is File)
+        {
+
+            var f = o as File;
+
+            // Test for /aasx/
+            string[] split = f.value.Split(new Char[] { '/' });
+            if (split[1].ToLower() == "aasx")
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    string getLink(TreeNodeData item, out bool external)
+    {
+        external = false;
+
+        if (item == null)
+        {
+            return string.Empty;
+        }
+
+        string hostPort = Program.hostPort;
+
+        string[] split = Program.hostPort.Split(':');
+        if (split[0].ToLower() == "admin-shell-io.com")
+        {
+            hostPort = split[0] + ":" + (Convert.ToInt32(split[1]) + 1);
+        }
+
+        object o = item.Tag;
+
+        if (o is AdministrationShell)
+        {
+            return Program.externalRest + "/server/getaasx/" + Convert.ToString(SelectedNode.EnvIndex);
+        }
+
+        if (o is File || o is Property)
+        {
+            string value = string.Empty;
+
+            if (o is File)
+            {
+                value = (o as File).value;
+            }
+            if (o is Property)
+            {
+                value = (o as Property).value;
+            }
+
+            split = value.Split(new Char[] { ':' });
+            if (split[0].ToLower() == "http" || split[0].ToLower() == "https")
+            {
+                external = true;
+                return value;
+            }
+
+            // Test for /aasx/
+            split = value.Split(new Char[] { '/' });
+            if (split.Length > 1)
+            {
+                if (split[1].ToLower() == "aasx")
+                {
+                    return Program.externalRest + "/server/getfile/" + item.EnvIndex.ToString() + value;
+                }
+            }
+        }
+
+        return string.Empty;
+    }
+
+    string ViewNodeType(TreeNodeData item)
+    {
+        if (item == null)
+        {
+            return string.Empty;
+        }
+
+        string ret = string.Empty;
+
+        if (item.Type != null)
+        {
+            ret = item.Type + " ";
+        }
+
+        object o = item.Tag;
+
+        if (o is AdministrationShell)
+        {
+            ret += "AAS";
+        }
+        if (o is Submodel)
+        {
+            ret += "Sub";
+        }
+        if (o is SubmodelElement)
+        {
+            if (o is SubmodelElementCollection)
+            {
+                ret += "Coll";
+            }
+            if (o is Property)
+            {
+                ret += "Prop";
+            }
+        }
+        if (o is Operation)
+        {
+            ret += "Opr";
+        }
+        if (o is File)
+        {
+            ret += "File";
+        }
+        if (o is Blob)
+        {
+            ret += "Blob";
+        }
+        if (o is AdminShellNS.AdminShellV20.Range)
+        {
+            ret += "Range";
+        }
+        if (o is MultiLanguageProperty)
+        {
+            ret += "Lang";
+        }
+        if (o is RelationshipElement)
+        {
+            ret += "Rel";
+        }
+        if (o is ReferenceElement)
+        {
+            ret += "Ref";
+        }
+        if (o is Entity)
+        {
+            ret += "Ent";
+        }
+        if (o is AdminShellNS.AdminShellV20.BasicEvent)
+        {
+            ret += "Evt";
+        }
+
+        return (ret);
+    }
+
+    string ViewTimeStamp(TreeNodeData item)
+    {
+        if (item == null)
+        {
+            return string.Empty;
+        }
+
+        string ret = string.Empty;
+
+        object o = item.Tag;
+
+        if (o is Referable r)
+            // ret += " (" + r.TimeStamp.Ticks + ") ";
+            ret += " (" + r.TimeStamp.ToString("yy-MM-dd HH:mm:ss.fff") + ") ";
+
+        return ret;
+    }
+
+    string ViewNodeID(TreeNodeData item)
+    {
+        if (item == null)
+        {
+            return string.Empty;
+        }
+
+        string ret = "NULL";
+
+        object o = item.Tag;
+
+        if (o is AdministrationShell)
+        {
+            var aas = o as AdministrationShell;
+            ret = aas.idShort;
+        }
+        if (o is Submodel)
+        {
+            var sm = o as Submodel;
+            ret = string.Empty;
+            if (sm.kind != null && sm.kind.IsTemplate)
+                ret += "<T> ";
+            ret += sm.idShort;
+        }
+        if (o is SubmodelElement)
+        {
+            var sme = o as SubmodelElement;
+            ret = string.Empty;
+            if (sme.kind != null && sme.kind.IsTemplate)
+                ret += "<T> ";
+            ret += sme.idShort;
+        }
+        if (o is File)
+        {
+            var f = o as File;
+            ret = string.Empty;
+            if (f.kind != null && f.kind.IsTemplate)
+                ret += "<T> ";
+            ret += f.idShort;
+        }
+        if (o is Blob)
+        {
+            var b = o as Blob;
+            ret = string.Empty;
+            if (b.kind != null && b.kind.IsTemplate)
+                ret += "<T> ";
+            ret += b.idShort;
+        }
+        if (o is AdminShellNS.AdminShellV20.Range)
+        {
+            var r = o as AdminShellNS.AdminShellV20.Range;
+            ret = string.Empty;
+            if (r.kind != null && r.kind.IsTemplate)
+                ret += "<T> ";
+            ret += r.idShort;
+        }
+        if (o is MultiLanguageProperty)
+        {
+            var mlp = o as MultiLanguageProperty;
+            ret = string.Empty;
+            if (mlp.kind != null && mlp.kind.IsTemplate)
+                ret += "<T> ";
+            ret += mlp.idShort;
+        }
+        return (ret);
+    }
+
+    string ViewNodeInfo(TreeNodeData item)
+    {
+        if (item == null)
+        {
+            return string.Empty;
+        }
+
+        string ret = string.Empty;
+
+        object o = item.Tag;
+
+        if (o is AdministrationShell)
+        {
+            var aas = o as AdministrationShell;
+            // ret = aas.identification.ToString();
+        }
+        if (o is Submodel)
+        {
+            var sm = o as Submodel;
+            // ret = sm.identification.ToString();
+            if (sm.qualifiers != null && sm.qualifiers.Count > 0)
+            {
+                ret += " @QUALIFIERS";
+            }
+        }
+        if (o is SubmodelElementCollection)
+        {
+            var sme = o as SubmodelElementCollection;
+            // ret = sm.identification.ToString();
+            if (sme.value.Count > 0)
+            {
+                ret += " #" + sme.value.Count;
+            }
+        }
+        if (o is SubmodelElement)
+        {
+            if (o is Property)
+            {
+                var prop = o as Property;
+                if (prop.value != string.Empty)
+                {
+                    ret = " = " + prop.value;
+                }
+                if (prop.qualifiers != null && prop.qualifiers.Count > 0)
+                {
+                    ret += " @QUALIFIERS";
+                }
+            }
+            if (o is File)
+            {
+                var f = o as File;
+                ret = " = " + f.value;
+                if (f.qualifiers != null && f.qualifiers.Count > 0)
+                {
+                    ret += " @QUALIFIERS";
+                }
+            }
+        }
+        if (o is AdminShellNS.AdminShellV20.Range)
+        {
+            var r = o as AdminShellNS.AdminShellV20.Range;
+            ret = " = " + r.min + " .. " + r.max;
+            if (r.qualifiers != null && r.qualifiers.Count > 0)
+            {
+                ret += " @QUALIFIERS";
+            }
+        }
+        if (o is MultiLanguageProperty)
+        {
+            var mlp = o as MultiLanguageProperty;
+            var ls = mlp.value;
+            ret = " = ";
+            for (int i = 0; i < ls.Count; i++)
+            {
+                ret += ls.langString[i].lang + " ";
+            }
+            if (mlp.qualifiers != null && mlp.qualifiers.Count > 0)
+            {
+                ret += " @QUALIFIERS";
+            }
+        }
+        return (ret);
+    }
+
+    string ViewNodeDetails(TreeNodeData item, int line, int col)
+    {
+        if (item == null)
+        {
+            return string.Empty;
+        }
+
+        string ret = "NULL";
+
+        object tag = item.Tag;
+
+        if (tag == null)
+        {
+            return string.Empty;
+        }
+
+        if (tag is AdministrationShell)
+        {
+            ret = string.Empty;
+            var aas = tag as AdministrationShell;
+
+            var asset = Program.env[item.EnvIndex].AasEnv.FindAsset(aas.assetRef);
+
+            switch (line)
+            {
+                case 0:
+                    ret = "ID";
+                    if (col == 1)
+                        ret = aas.identification + string.Empty;
+                    break;
+                case 1:
+                    if (asset != null)
+                    {
+                        ret = "ASSET";
+                        if (col == 1)
+                            ret = asset.idShort;
+                    }
+                    break;
+                case 2:
+                    if (asset != null)
+                    {
+                        ret = "ASSETID";
+                        if (col == 1)
+                            ret = asset.identification + string.Empty;
+                    }
+                    break;
+                case 3:
+                    if (asset != null)
+                    {
+                        ret = "ASSETID URLENCODED";
+                        if (col == 1)
+                        {
+                            string url = WebUtility.UrlEncode(asset.identification.id);
+                            ret = url;
+                        }
+                    }
+                    break;
+                default:
+                    ret = string.Empty;
+                    break;
+            }
+            return ret;
+        }
+
+        if (tag is Submodel)
+        {
+            var sm = tag as Submodel;
+            switch (line)
+            {
+                case 0:
+                    ret = "ID";
+                    if (col == 1)
+                        ret = sm.identification + string.Empty;
+                    break;
+                case 1:
+                    ret = "Semantic ID";
+                    if (col == 1)
+                    {
+                        ret = "NULL";
+                        var k = sm.semanticId?.GetAsExactlyOneKey();
+                        if (k != null)
+                        {
+                            ret = k.ToString();
+                        }
+                    }
+                    break;
+                case 2:
+                    ret = getQualifiers(sm.qualifiers, col);
+                    break;
+                default:
+                    ret = string.Empty;
+                    break;
+            }
+            return ret;
+        }
+
+        if (tag is Property)
+        {
+            var prop = tag as Property;
+            ret += ", " + prop.value;
+            switch (line)
+            {
+                case 0:
+                    ret = "Semantic ID";
+                    if (col == 1)
+                    {
+                        ret = "NULL";
+                        var k = prop.semanticId?.GetAsExactlyOneKey();
+                        if (k != null)
+                        {
+                            ret = k.ToString();
+                        }
+                    }
+                    break;
+                case 1:
+                    ret = "Value Type";
+                    if (col == 1)
+                        ret = prop.valueType + string.Empty;
+                    break;
+                case 2:
+                    ret = "Value";
+                    if (col == 1)
+                        ret = prop.value + string.Empty;
+                    break;
+                case 3:
+                    ret = getQualifiers(prop.qualifiers, col);
+                    break;
+                case 4:
+                    ret = getUnit(item, prop, col);
+                    break;
+               default:
+                    ret = string.Empty;
+                    break;
+            }
+            return ret;
+        }
+
+        if (tag is Entity)
+        {
+            var e = tag as Entity;
+            ret += ", " + e.entityType;
+            switch (line)
+            {
+                case 0:
+                    ret = "Semantic ID";
+                    if (col == 1)
+                    {
+                        ret = "NULL";
+                        var k = e.semanticId?.GetAsExactlyOneKey();
+                        if (k != null)
+                        {
+                            ret = k.ToString();
+                        }
+                    }
+                    break;
+                case 1:
+                    ret = "Entity Type";
+                    if (col == 1)
+                        ret = e.entityType + string.Empty;
+                    break;
+                case 2:
+                    ret = string.Empty;
+                    if (e.GetEntityType() == Entity.EntityTypeEnum.SelfManagedEntity)
+                    {
+                        if (e.assetRef != null)
+                        {
+                            ret = "Asset";
+                            if (col == 1)
+                            {
+                                var k = e.assetRef.Keys;
+                                if (k != null)
+                                {
+                                    ret = k.ToString();
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case 3:
+                    ret = getQualifiers(e.qualifiers, col);
+                    break;
+                default:
+                    ret = string.Empty;
+                    break;
+            }
+            return ret;
+        }
+
+        if (tag is File)
+        {
+            var f = tag as File;
+            ret += ", " + f.value;
+            switch (line)
+            {
+                case 0:
+                    ret = "Semantic ID";
+                    if (col == 1)
+                    {
+                        ret = "NULL";
+                        var k = f.semanticId?.GetAsExactlyOneKey();
+                        if (k != null)
+                        {
+                            ret = k.ToString();
+                        }
+                    }
+                    break;
+                case 1:
+                    ret = "Value";
+                    if (col == 1)
+                        ret = f.value;
+                    break;
+                case 2:
+                    ret = getQualifiers(f.qualifiers, col);
+                    break;
+                default:
+                    ret = string.Empty;
+                    break;
+            }
+            return ret;
+        }
+
+        if (tag is Blob)
+        {
+            var b = tag as Blob;
+            switch (line)
+            {
+                case 0:
+                    ret = "Semantic ID";
+                    if (col == 1)
+                    {
+                        ret = "NULL";
+                        var k = b.semanticId?.GetAsExactlyOneKey();
+                        if (k != null)
+                        {
+                            ret = k.ToString();
+                        }
+                    }
+                    break;
+                case 1:
+                    ret = "MimeType";
+                    if (col == 1)
+                        ret = b.mimeType;
+                    break;
+                case 2:
+                    ret = "Value";
+                    if (col == 1)
+                        ret = b.value;
+                    break;
+                case 3:
+                    ret = getQualifiers(b.qualifiers, col);
+                    break;
+                default:
+                    ret = string.Empty;
+                    break;
+            }
+            return ret;
+        }
+
+        if (tag is AdminShellNS.AdminShellV20.Range)
+        {
+            var r = tag as AdminShellNS.AdminShellV20.Range;
+            ret = r.idShort;
+            switch (line)
+            {
+                case 0:
+                    ret = "Semantic ID";
+                    if (col == 1)
+                    {
+                        ret = "NULL";
+                        var k = r.semanticId?.GetAsExactlyOneKey();
+                        if (k != null)
+                        {
+                            ret = k.ToString();
+                        }
+                    }
+                    break;
+                case 1:
+                    ret = "Min";
+                    if (col == 1)
+                        ret = r.min + string.Empty;
+                    break;
+                case 2:
+                    ret = "Max";
+                    if (col == 1)
+                        ret = r.max + string.Empty;
+                    break;
+                case 3:
+                    ret = getQualifiers(r.qualifiers, col);
+                    break;
+                case 4:
+                    ret = getUnit(item, r, col);
+                    break;
+                default:
+                    ret = string.Empty;
+                    break;
+            }
+            return ret;
+        }
+
+        if (tag is Operation)
+        {
+            var op = tag as Operation;
+            ret = op.idShort;
+            switch (line)
+            {
+                case 0:
+                    ret = "Semantic ID";
+                    if (col == 1)
+                    {
+                        ret = "NULL";
+                        var k = op.semanticId?.GetAsExactlyOneKey();
+                        if (k != null)
+                        {
+                            ret = k.ToString();
+                        }
+                    }
+                    break;
+                case 1:
+                    ret = "CountInputs";
+                    if (col == 1)
+                    {
+                        ret = "0";
+                        if (op.inputVariable != null)
+                        {
+                            ret = op.inputVariable.Count + string.Empty;
+                        }
+                    }
+                    break;
+                case 2:
+                    ret = "CountOutputs";
+                    if (col == 1)
+                    {
+                        ret = "0";
+                        if (op.outputVariable != null)
+                        {
+                            ret = op.outputVariable.Count + string.Empty;
+                        }
+                    }
+                    break;
+                case 3:
+                    ret = getQualifiers(op.qualifiers, col);
+                    break;
+                default:
+                    ret = string.Empty;
+                    break;
+            }
+            return ret;
+        }
+
+        if (tag is RelationshipElement)
+        {
+            var r = tag as RelationshipElement;
+            ret = r.idShort;
+            switch (line)
+            {
+                case 0:
+                    ret = "Semantic ID";
+                    if (col == 1)
+                    {
+                        ret = "NULL";
+                        var k = r.semanticId?.GetAsExactlyOneKey();
+                        if (k != null)
+                        {
+                            ret = k.ToString();
+                        }
+                    }
+                    break;
+                case 1:
+                    ret = "First";
+                    if (col == 1)
+                    {
+                        ret = "NULL";
+                        var k = r.first;
+                        if (k != null)
+                        {
+                            ret = k.Keys.ToString();
+                        }
+                    }
+                    break;
+                case 2:
+                    ret = "Second";
+                    if (col == 1)
+                    {
+                        ret = "NULL";
+                        var k = r.second;
+                        if (k != null)
+                        {
+                            ret = k.Keys.ToString();
+                        }
+                    }
+                    break;
+                case 3:
+                    ret = getQualifiers(r.qualifiers, col);
+                    break;
+                default:
+                    ret = string.Empty;
+                    break;
+            }
+            return ret;
+        }
+
+        if (tag is ReferenceElement)
+        {
+            var r = tag as ReferenceElement;
+            ret = r.idShort;
+            switch (line)
+            {
+                case 0:
+                    ret = "Semantic ID";
+                    if (col == 1)
+                    {
+                        ret = "NULL";
+                        var k = r.semanticId?.GetAsExactlyOneKey();
+                        if (k != null)
+                        {
+                            ret = k.ToString();
+                        }
+                    }
+                    break;
+                case 1:
+                    ret = "Value";
+                    if (col == 1)
+                    {
+                        ret = "NULL";
+                        if (!(r.value == null || r.value.IsEmpty))
+                        {
+                            var k = r.value.Keys;
+                            if (k != null)
+                            {
+                                ret = k.ToString();
+                            }
+                        }
+                    }
+                    break;
+                case 2:
+                    ret = getQualifiers(r.qualifiers, col);
+                    break;
+                default:
+                    ret = string.Empty;
+                    break;
+            }
+            return ret;
+        }
+
+        if (tag is MultiLanguageProperty)
+        {
+            var mlp = tag as MultiLanguageProperty;
+            var ls = mlp.value;
+            for (int i = 0; i < ls.Count; i++)
+            {
+                ret += ls.langString[i].lang + " ";
+            }
+            switch (line)
+            {
+                case 0:
+                    ret = "Semantic ID";
+                    if (col == 1)
+                    {
+                        ret = "NULL";
+                        var k = mlp.semanticId?.GetAsExactlyOneKey();
+                        if (k != null)
+                        {
+                            ret = k.ToString();
+                        }
+                    }
+                    break;
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    ret = string.Empty;
+                    if (ls.Count > line - 1)
+                    {
+                        ret = ls.langString[line - 1].lang;
+                        if (col == 1)
+                            ret = ls.langString[line - 1].str + string.Empty;
+                    }
+                    break;
+                case 5:
+                    ret = getQualifiers(mlp.qualifiers, col);
+                    break;
+                default:
+                    ret = string.Empty;
+                    break;
+            }
+            return ret;
+        }
+
+        if (tag is SubmodelElement)
+        {
+            var sme = tag as SubmodelElement;
+            ret = sme.idShort + ", " + sme.semanticId;
+            switch (line)
+            {
+                case 0:
+                    ret = "Semantic ID";
+                    if (col == 1)
+                    {
+                        ret = "NULL";
+                        var k = sme.semanticId?.GetAsExactlyOneKey();
+                        if (k != null)
+                        {
+                            ret = k.ToString();
+                        }
+                    }
+                    break;
+                case 1:
+                    ret = getQualifiers(sme.qualifiers, col);
+                    break;
+                default:
+                    ret = string.Empty;
+                    break;
+            }
+            return ret;
+        }
+
+        return (ret);
+    }
+
+    static string getQualifiers(QualifierCollection q, int col)
+    {
+        string ret = string.Empty;
+
+        if (q != null && q.Count > 0)
+        {
+            ret = "Qualifiers";
+            if (col == 1)
+            {
+                ret = string.Empty;
+                for (int i = 0; i < q.Count; i++)
+                {
+                    if (i != 0)
+                        ret += ", ";
+                    ret += q[i].type + " ";
+                    if (q[i].value != string.Empty)
+                    {
+                        ret += "= " + q[i].value;
+                    }
+                }
+            }
+        }
+        return ret;
+    }
+
+    public string getUnit(TreeNodeData item, SubmodelElement se, int col)
+    {
+        string ret = string.Empty;
+        if (se.semanticId == null || se.semanticId.Keys == null)
+        {
+            return ret;
+        }
+        var cd = Program.env[item.EnvIndex].AasEnv.FindConceptDescription(se.semanticId.Keys);
+        if (cd != null)
+        {
+            var iec = cd.GetIEC61360();
+            if (iec != null)
+            {
+                ret = "Unit";
+                if (col == 1)
+                {
+                    ret = iec.unit;
+                    if (iec.unitId != null && iec.unitId.keys != null && iec.unitId.keys.Count > 0)
+                        ret += " (UnitId = " + iec.unitId.keys[0].ToString() + ")";
+                }
+            }
+        }
+        return ret;
+    }
+}
