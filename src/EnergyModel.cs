@@ -362,19 +362,22 @@ namespace AasxDemonstration
                 : base()
             {
                 string key = Environment.GetEnvironmentVariable("ADX_PASSWORD");
-                KustoConnectionStringBuilder connectionString = new KustoConnectionStringBuilder(sourceAddress, credentials).WithAadApplicationKeyAuthentication(user, key, tenant);
-                _queryProvider = KustoClientFactory.CreateCslQueryProvider(connectionString);
+                if (!string.IsNullOrEmpty(key))
+                {
+                    KustoConnectionStringBuilder connectionString = new KustoConnectionStringBuilder(sourceAddress, credentials).WithAadApplicationKeyAuthentication(user, key, tenant);
+                    _queryProvider = KustoClientFactory.CreateCslQueryProvider(connectionString);
 
-                string queryInternval = Environment.GetEnvironmentVariable("ADX_QUERY_INTERVAL");
-                int interval = 5000;
-                if ((queryInternval != null) && int.TryParse(queryInternval, out interval))
-                {
-                    _queryTimer.Change(interval, interval);
-                }
-                else
-                {
-                    // default to 5s interval
-                    _queryTimer.Change(5000, 5000);
+                    string queryInternval = Environment.GetEnvironmentVariable("ADX_QUERY_INTERVAL");
+                    int interval = 5000;
+                    if ((queryInternval != null) && int.TryParse(queryInternval, out interval))
+                    {
+                        _queryTimer.Change(interval, interval);
+                    }
+                    else
+                    {
+                        // default to 5s interval
+                        _queryTimer.Change(5000, 5000);
+                    }
                 }
             }
 

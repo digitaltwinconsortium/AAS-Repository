@@ -29,37 +29,41 @@ namespace AasxServerBlazor.Data
 
         public void Login(string instanceUrl, string clientId, string secret)
         {
-            _client.DefaultRequestHeaders.Remove("Authorization");
-            _client.DefaultRequestHeaders.Add("Authorization", "basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(clientId + ":" + secret)));
-
-            // get namespaces
-            string address = "https://uacloudlibrary.opcfoundation.org/infomodel/namespaces";
-            HttpResponseMessage response = _client.Send(new HttpRequestMessage(HttpMethod.Get, address));
-            string[] identifiers = JsonConvert.DeserializeObject<string[]>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-
-            _namespacesInCloudLibrary.Clear();
-            foreach (string nodeset in identifiers)
+            if (!string.IsNullOrEmpty(clientId) && !string.IsNullOrEmpty(secret))
             {
-                string[] tuple = nodeset.Split(",");
-                _namespacesInCloudLibrary.Add(tuple[0], tuple[1]);
+                _client.DefaultRequestHeaders.Remove("Authorization");
+                _client.DefaultRequestHeaders.Add("Authorization", "basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(clientId + ":" + secret)));
+
+                // get namespaces
+                string address = "https://uacloudlibrary.opcfoundation.org/infomodel/namespaces";
+                HttpResponseMessage response = _client.Send(new HttpRequestMessage(HttpMethod.Get, address));
+                string[] identifiers = JsonConvert.DeserializeObject<string[]>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+
+                _namespacesInCloudLibrary.Clear();
+                foreach (string nodeset in identifiers)
+                {
+                    string[] tuple = nodeset.Split(",");
+                    _namespacesInCloudLibrary.Add(tuple[0], tuple[1]);
+                }
+
+                response = _client.Send(new HttpRequestMessage(HttpMethod.Get, instanceUrl));
+                AddressSpace addressSpace = JsonConvert.DeserializeObject<AddressSpace>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+
+                // store the file locally
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "nodeset2.xml");
+                File.WriteAllText(filePath, addressSpace.Nodeset.NodesetXml);
+                _nodeSetFilenames.Add(filePath);
+
+                ValidateNamespacesAndModels(true);
+
+                // (re-)start the UA server
+                if (_application.Server != null)
+                {
+                    _application.Stop();
+                }
+
+                StartServerAsync().GetAwaiter().GetResult();
             }
-
-            response = _client.Send(new HttpRequestMessage(HttpMethod.Get, instanceUrl));
-            AddressSpace addressSpace = JsonConvert.DeserializeObject<AddressSpace>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
-
-            // store the file locally
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "nodeset2.xml");
-            File.WriteAllText(filePath, addressSpace.Nodeset.NodesetXml);
-            _nodeSetFilenames.Add(filePath);
-
-            ValidateNamespacesAndModels(true);
-
-            // (re-)start the UA server
-            if (_application.Server != null)
-            {
-                _application.Stop();
-            }
-            StartServerAsync().GetAwaiter().GetResult();
         }
 
         private string ValidateNamespacesAndModels(bool autodownloadreferences)
