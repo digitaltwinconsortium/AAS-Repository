@@ -1,0 +1,85 @@
+﻿/*
+Copyright (c) 2018-2021 Festo AG & Co. KG <https://www.festo.com/net/de_de/Forms/web/contact_international>
+Author: Michael Hoffmeister
+
+This source code is licensed under the Apache License 2.0 (see LICENSE.txt).
+
+This source code may use other Open Source software components (see LICENSE.txt).
+*/
+
+using Newtonsoft.Json;
+using System.Xml;
+using System.Xml.Serialization;
+
+namespace AasxCompatibilityModels
+{
+    #region AdminShell_V2_0
+
+    public partial class AdminShellV20
+    {
+        [XmlType(TypeName = "langString", Namespace = "http://www.admin-shell.io/2/0")]
+        public class LangStr
+        {
+            // constants
+            public static string LANG_DEFAULT = "en";
+
+            // members
+
+            [MetaModelName("LangStr.lang")]
+            [TextSearchable]
+            [XmlAttribute(Namespace = "http://www.admin-shell.io/2/0")]
+            [JsonProperty(PropertyName = "language")]
+            [CountForHash]
+            public string lang = "";
+
+            [MetaModelName("LangStr.str")]
+            [TextSearchable]
+            [XmlText]
+            [JsonProperty(PropertyName = "text")]
+            [CountForHash]
+            public string str = "";
+
+            // constructors
+
+            public LangStr() { }
+
+            public LangStr(LangStr src)
+            {
+                this.lang = src.lang;
+                this.str = src.str;
+            }
+
+#if !DoNotUseAasxCompatibilityModels
+            public LangStr(AasxCompatibilityModels.AdminShellV10.LangStr src)
+            {
+                this.lang = src.lang;
+                this.str = src.str;
+            }
+#endif
+
+            public LangStr(string lang, string str)
+            {
+                this.lang = lang;
+                this.str = str;
+            }
+
+            public static ListOfLangStr CreateManyFromStringArray(string[] s)
+            {
+                var r = new ListOfLangStr();
+                var i = 0;
+                while ((i + 1) < s.Length)
+                {
+                    r.Add(new LangStr(s[i], s[i + 1]));
+                    i += 2;
+                }
+                return r;
+            }
+        }
+
+
+
+    }
+
+    #endregion
+}
+
