@@ -7,16 +7,11 @@ This source code is licensed under the Apache License 2.0 (see LICENSE.txt).
 This source code may use other Open Source software components (see LICENSE.txt).
 */
 
+using System.Collections.Generic;
+
 namespace AdminShellNS
 {
-
-    public enum AasValidationSeverity
+    public class AasValidationRecordList : List<AasValidationRecord>
     {
-        Hint, Warning, SpecViolation, SchemaViolation, Serialization
-    }
-
-    public enum AasValidationAction
-    {
-        No, ToBeDeleted
     }
 }
