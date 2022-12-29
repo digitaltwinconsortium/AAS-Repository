@@ -1,14 +1,12 @@
 ﻿#define UseAasxCompatibilityModels
 
+using AdminShell_V30;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Packaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
-using Newtonsoft.Json;
 
 namespace AdminShellNS
 {
@@ -114,7 +112,7 @@ namespace AdminShellNS
 #if UseAasxCompatibilityModels
                 XmlSerializer serializer = new XmlSerializer(typeof(AasxCompatibilityModels.AdminShellV10.AdministrationShellEnv), "http://www.admin-shell.io/aas/1/0");
                 var v10 = serializer.Deserialize(s) as AasxCompatibilityModels.AdminShellV10.AdministrationShellEnv;
-                res = new AdminShellV20.AdministrationShellEnv(v10);
+                res = new AdminShellV30.AdministrationShellEnv(v10);
                 return res;
 #else
                 throw (new Exception("Cannot handle AAS file format http://www.admin-shell.io/aas/1/0 !"));
@@ -339,7 +337,7 @@ namespace AdminShellNS
 #if UseAasxCompatibilityModels
                                         XmlSerializer serializer = new XmlSerializer(typeof(AasxCompatibilityModels.AdminShellV10.AdministrationShellEnv), "http://www.admin-shell.io/aas/1/0");
                                         var v10 = serializer.Deserialize(s) as AasxCompatibilityModels.AdminShellV10.AdministrationShellEnv;
-                                        this.aasenv = new AdminShellV20.AdministrationShellEnv(v10);
+                                        this.aasenv = new AdminShellV30.AdministrationShellEnv(v10);
 #else
                 throw (new Exception("Cannot handle AAS file format http://www.admin-shell.io/aas/1/0 !"));
 #endif

@@ -2,7 +2,6 @@
 using AasxRestServerLibrary;
 using AasxServerBlazor;
 using AdminShellNS;
-using IO.Swagger.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -11,7 +10,7 @@ using System.Dynamic;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
-using static AdminShellNS.AdminShellV20;
+using static AdminShell_V30.AdminShellV30;
 
 namespace IO.Swagger.Controllers
 {
@@ -27,7 +26,6 @@ namespace IO.Swagger.Controllers
 
         [HttpGet]
         [Route("/server/listaas")]
-        [ValidateModelState]
         public virtual IActionResult ListAAS()
         {
             ExpandoObject result = _helper.EvalGetListAAS(HttpContext);
@@ -36,7 +34,6 @@ namespace IO.Swagger.Controllers
 
         [HttpGet]
         [Route("/server/getaasx/{id}")]
-        [ValidateModelState]
         public virtual IActionResult GetAASX([FromRoute][Required] int id)
         {
             Stream fileStream = _helper.EvalGetAASX(HttpContext, id);
@@ -52,7 +49,6 @@ namespace IO.Swagger.Controllers
 
         [HttpGet]
         [Route("/aas/{id}/core")]
-        [ValidateModelState]
         public virtual IActionResult GetAASInfo([FromRoute][Required] int id)
         {
             ExpandoObject result = _helper.EvalGetAasAndAsset(HttpContext, id.ToString());
@@ -64,7 +60,6 @@ namespace IO.Swagger.Controllers
 
         [HttpGet]
         [Route("/aas/{aasId}/submodels/{smIdShort}/complete")]
-        [ValidateModelState]
         public virtual IActionResult GetSubmodelComplete([FromRoute][Required] int aasId, [FromRoute][Required] string smIdShort)
         {
             // access the AAS

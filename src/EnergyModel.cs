@@ -1,7 +1,5 @@
-﻿using AasxRestServerLibrary;
-using AasxServer;
-using AasxServerBlazor;
-using AasxTimeSeries;
+﻿using AasxCompatibilityModels;
+using AdminShell_V30;
 using AdminShellNS;
 using Kusto.Cloud.Platform.Utils;
 using Kusto.Data;
@@ -31,8 +29,6 @@ namespace AasxDemonstration
     /// </summary>
     public class EnergyModel
     {
-        public static EventMessage eventMessage = new EventMessage();
-
         /// <summary>
         /// Associated class can release trigger events
         /// </summary>
@@ -178,7 +174,7 @@ namespace AasxDemonstration
                     client.BaseAddress = new Uri(aasServerAddress);
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    AdminShellV20.Submodel submodel = null;
+                    AdminShellV30.Submodel submodel = null;
                     var path = $"/aas/{aasId}/submodels/{smIdShort}/complete";
                     HttpResponseMessage response = client.GetAsync(path).GetAwaiter().GetResult();
                     if (response.IsSuccessStatusCode)
@@ -189,7 +185,7 @@ namespace AasxDemonstration
                         {
                             JsonSerializer serializer = new JsonSerializer();
                             serializer.Converters.Add(new AdminShellConverters.JsonAasxConverter("modelType", "name"));
-                            submodel = (AdminShellV20.Submodel)serializer.Deserialize(reader, typeof(AdminShellV20.Submodel));
+                            submodel = (AdminShellV30.Submodel)serializer.Deserialize(reader, typeof(AdminShellV30.Submodel));
                         }
                     }
 
@@ -198,18 +194,15 @@ namespace AasxDemonstration
 
                     // access electrical energy
                     var smcEe = submodel?.submodelElements?.FindFirstSemanticIdAs<AdminShell.SubmodelElementCollection>(
-                        new AdminShell.Key(AdminShell.Key.ConceptDescription, false, AdminShell.Identification.IRI,
-                            "https://admin-shell.io/sandbox/idta/carbon-reporting/cd/electrical-energy/1/0"), mm);
+                        new AdminShell.Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/electrical-energy/1/0"));
 
                     // access CO2 per 1 minute
                     foreach (var smcPhase in smcEe?.value?.FindAllSemanticIdAs<AdminShell.SubmodelElementCollection>(
-                        new AdminShell.Key(AdminShell.Key.ConceptDescription, false, AdminShell.Identification.IRI,
-                            "https://admin-shell.io/sandbox/idta/carbon-reporting/cd/electrical-total/1/0"), mm))
+                        new AdminShell.Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/electrical-total/1/0"), mm))
                     {
                         // get value
                         var value = smcPhase.value.FindFirstSemanticIdAs<AdminShell.Property>(
-                            new AdminShell.Key(AdminShell.Key.ConceptDescription, false, AdminShell.Identification.IRI,
-                            "https://admin-shell.io/sandbox/idta/carbon-reporting/cd/co2-equivalent-per-1-min/1/0"), mm)?.value;
+                            new AdminShell.Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/co2-equivalent-per-1-min/1/0"), mm)?.value;
 
                         if (value != null && float.TryParse(value, out float f))
                         {
@@ -449,7 +442,7 @@ namespace AasxDemonstration
         {
             var newElem = AdminShell.SubmodelElementWrapper.CreateAdequateType(typeof(T));
             newElem.idShort = idShort;
-            newElem.semanticId = new AdminShell.SemanticId(semanticIdKey);
+            newElem.semanticId = new AdminShell.SemanticId(semanticIdKey.ToId());
             newElem.setTimeStamp(timestamp);
             newElem.TimeStampCreate = timestamp;
             if (parent?.value != null)
@@ -593,40 +586,7 @@ namespace AasxDemonstration
                     v => String.Format(CultureInfo.InvariantCulture, "[{0}, {1}]", totalSamples++, v)
                 ));
             }
-
-            /// <summary>
-            /// Create a new set of SubmodelElements for the segment.
-            /// The <c>SegmentSmc</c> and <c>ValueArray</c> will be updated!
-            /// </summary>
-            public void CreateVariableSmc(
-                SourceSystemBase sosy,
-                AdminShell.SubmodelElementCollection segmentSmc,
-                int totalSamples,
-                DateTime timeStamp)
-            {
-                VariableSmc = AddToSMC<AdminShell.SubmodelElementCollection>(
-                    timeStamp, segmentSmc,
-                    "TSvariable_" + TemplateRecordId,
-                    semanticIdKey: PrefTimeSeries10.CD_TimeSeriesVariable);
-
-                CopySmeFeatures(VariableSmc, TemplateVariable,
-                    copyDescription: true, copyQualifers: true);
-
-                AddToSMC<AdminShell.Property>(timeStamp, VariableSmc,
-                    "RecordId", semanticIdKey: PrefTimeSeries10.CD_RecordId,
-                    smeValue: "" + TemplateRecordId);
-
-                var p = AddToSMC<AdminShell.Property>(timeStamp, VariableSmc,
-                    "" + TemplateDataPoint?.idShort, semanticIdKey: null);
-
-                CopySmeFeatures(p, TemplateDataPoint,
-                    copySemanticId: true, copyDescription: true, copyQualifers: true);
-
-                ValueArray = AddToSMC<AdminShell.Blob>(timeStamp, VariableSmc,
-                    "ValueArray", semanticIdKey: PrefTimeSeries10.CD_ValueArray,
-                    smeValue: RenderValueBlob(sosy, totalSamples));
-            }
-
+                  
             /// <summary>
             /// Updates the currently tracked set of SubmodelElements for the segment.
             /// </summary>
@@ -726,49 +686,7 @@ namespace AasxDemonstration
                 ));
             }
 
-            /// <summary>
-            /// Create a new set of SubmodelElements for the segment.
-            /// The <c>SegmentSmc</c> and <c>ValueArray</c> will be updated!
-            /// </summary>
-            public AdminShell.SubmodelElementCollection CreateSegmentSmc(
-                SourceSystemBase sosy,
-                AdminShell.SubmodelElementCollection root,
-                int segmentIndex,
-                int totalSamples,
-                DateTime timeStamp)
-            {
-                // segment ifself
-                SegmentSmc = AddToSMC<AdminShell.SubmodelElementCollection>(
-                    timeStamp, root,
-                    "Segment_" + segmentIndex,
-                    semanticIdKey: PrefTimeSeries10.CD_TimeSeriesSegment);
-
-                // timestamp variables
-
-                var smcVarTS = AddToSMC<AdminShell.SubmodelElementCollection>(
-                    timeStamp, SegmentSmc,
-                    "TSvariable_timeStamp", semanticIdKey: PrefTimeSeries10.CD_TimeSeriesVariable);
-
-                AddToSMC<AdminShell.Property>(timeStamp, smcVarTS,
-                    "RecordId", semanticIdKey: PrefTimeSeries10.CD_RecordId,
-                    smeValue: "timeStamp");
-
-                AddToSMC<AdminShell.Property>(timeStamp, smcVarTS,
-                    "UtcTime", semanticIdKey: PrefTimeSeries10.CD_UtcTime);
-
-                ValueArray = AddToSMC<AdminShell.Blob>(timeStamp, smcVarTS,
-                    "timeStamp", semanticIdKey: PrefTimeSeries10.CD_ValueArray,
-                    smeValue: RenderValueBlob(sosy, totalSamples));
-
-                // the rest of the variables
-
-                foreach (var vr in Variables)
-                    vr.CreateVariableSmc(sosy, SegmentSmc, totalSamples, timeStamp);
-
-                // ok
-                return SegmentSmc;
-            }
-
+      
             /// <summary>
             /// Updates the currently tracked set of SubmodelElements for the segment.
             /// </summary>
@@ -791,385 +709,6 @@ namespace AasxDemonstration
 
                 foreach (var vr in Variables)
                     vr.UpdateVariableSmc(sosy, totalSamples, timeStamp);
-            }
-        }
-
-        public class EnergyModelInstance
-        {
-            //
-            // Overall Submodel instance
-            //
-
-            protected AdminShell.Submodel _submodel;
-
-            //
-            // Managing of the actual value propertes
-            //
-
-            protected List<TrackInstanceDataPoint> _dataPoint = new List<TrackInstanceDataPoint>();
-
-            //
-            // The following entities serve as directs points to the found instance
-            // of the energy model. Taken over from TimeSeries.cs
-            //
-
-            protected AdminShell.SubmodelElementCollection _block, _data;
-
-            protected AdminShell.Property
-                sampleStatus, sampleMode, sampleRate, lowDataIndex, highDataIndex,
-                actualSamples, actualSamplesInCollection,
-                actualCollections;
-
-            protected int
-                maxSamples = 200, maxSamplesInCollection = 20;
-
-            protected TimeSeriesDestFormat destFormat;
-
-            protected SourceSystemBase _sourceSystem = null;
-
-            protected TrackInstanceTimeSeriesSegment _trackSegment = null;
-
-            protected List<AdminShell.SubmodelElementCollection> _existingSegements
-                = new List<AdminShell.SubmodelElementCollection>();
-
-            protected int threadCounter = 0;
-            protected int samplesCollectionsCount = 0;
-            protected List<AdminShell.Property> samplesProperties = null;
-            protected List<string> samplesValues = null;
-            protected string samplesTimeStamp = "";
-            protected int samplesValuesCount = 0;
-            protected int totalSamples = 0;
-
-            //
-            // Initialize
-            //
-
-            protected void ScanSubmodelForIoTDataPoints(AdminShell.Submodel sm)
-            {
-                // access
-                if (sm == null)
-                    return;
-                _dataPoint = new List<TrackInstanceDataPoint>();
-
-                // find all elements with required qualifier
-                sm.RecurseOnSubmodelElements(null, (o, parents, sme) =>
-                {
-                    var q = sme.HasQualifierOfType(PrefEnergyModel10.QualiADXDataPoint);
-                    if (q != null && q.value != null && q.value.Length > 0)
-                        _dataPoint.Add(new TrackInstanceDataPoint()
-                        {
-                            Sme = sme,
-                            SourceId = q.value
-                        });
-                });
-            }
-
-            /// <summary>
-            /// In Andreas' original code, all AAS and SM need to be tagged for time stamping
-            /// </summary>
-            public static void TagAllAasAndSm(
-                AdminShell.AdministrationShellEnv env,
-                DateTime timeStamp)
-            {
-                if (env == null)
-                    return;
-                foreach (var x in env.FindAllSubmodelGroupedByAAS((aas, sm) =>
-                {
-                    // mark aas
-                    aas.TimeStampCreate = timeStamp;
-                    aas.setTimeStamp(timeStamp);
-
-                    // mark sm
-                    sm.TimeStampCreate = timeStamp;
-                    sm.SetAllParents(timeStamp);
-
-                    // need no results
-                    return false;
-                }));
-            }
-
-            public static IEnumerable<EnergyModelInstance> FindAllSmInstances(
-                AdminShell.AdministrationShellEnv env)
-            {
-                List<EnergyModelInstance> instances = new List<EnergyModelInstance>();
-
-                if (env == null)
-                    return instances;
-
-                foreach (var sm in env.FindAllSubmodelBySemanticId(
-                    PrefEnergyModel10.SM_EnergyModel, AdminShellV20.Key.MatchMode.Relaxed))
-                {
-                    var emi = new EnergyModelInstance();
-                    emi.ScanSubmodelForIoTDataPoints(sm);
-                    emi.ScanSubmodelForTimeSeriesParameters(sm);
-                    instances.Add(emi);
-                }
-
-                return instances;
-            }
-
-            protected void ScanSubmodelForTimeSeriesParameters(AdminShell.Submodel sm)
-            {
-                // access
-                if (sm?.submodelElements == null)
-                    return;
-                var mm = AdminShell.Key.MatchMode.Relaxed;
-                int i;
-
-                // track of SM
-                _submodel = sm;
-
-                // find time series models in SM
-                foreach (var smcts in sm.submodelElements.FindAllSemanticIdAs<AdminShell.SubmodelElementCollection>(
-                    PrefTimeSeries10.CD_TimeSeries, mm))
-                {
-                    // access
-                    if (smcts?.value == null)
-                        continue;
-
-                    // basic SMC references
-                    _block = smcts;
-                    _data = smcts;
-
-                    var d2 = smcts.value.FindFirstIdShortAs<AdminShell.SubmodelElementCollection>("data");
-                    if (d2 != null)
-                        _data = d2;
-
-                    // initialize the source system
-
-                    _sourceSystem = SourceSystemBase.FactoryNewSystem(
-                        "" + smcts.value.FindFirstIdShortAs<AdminShell.Property>("sourceType")?.value,
-                        "" + smcts.value.FindFirstIdShortAs<AdminShell.Property>("sourceAddress")?.value,
-                        "" + smcts.value.FindFirstIdShortAs<AdminShell.Property>("user")?.value,
-                        "" + smcts.value.FindFirstIdShortAs<AdminShell.Property>("password")?.value,
-                        "" + smcts.value.FindFirstIdShortAs<AdminShell.Property>("credentials")?.value
-                        );
-
-                    // rest of the necessary properties
-
-                    sampleStatus = smcts.value.FindFirstIdShortAs<AdminShell.Property>("sampleStatus");
-                    sampleMode = smcts.value.FindFirstIdShortAs<AdminShell.Property>("sampleMode");
-                    sampleRate = smcts.value.FindFirstIdShortAs<AdminShell.Property>("sampleRate");
-                    if (int.TryParse(sampleRate?.value, out i))
-                        threadCounter = i;
-
-                    if (int.TryParse(smcts.value.FindFirstIdShortAs<AdminShell.Property>("maxSamples")?.value, out i))
-                        maxSamples = i;
-
-                    if (int.TryParse(smcts.value.FindFirstIdShortAs<AdminShell.Property>("maxSamplesInCollection")?.value, out i))
-                        maxSamplesInCollection = i;
-
-                    actualSamples = smcts.value.FindFirstIdShortAs<AdminShell.Property>("actualSamples");
-                    if (actualSamples != null)
-                        actualSamples.value = "0";
-
-                    actualSamplesInCollection = smcts.value.FindFirstIdShortAs<AdminShell.Property>("actualSamplesInCollection");
-                    if (actualSamplesInCollection != null)
-                        actualSamplesInCollection.value = "0";
-
-                    actualCollections = smcts.value.FindFirstIdShortAs<AdminShell.Property>("actualCollections");
-                    if (actualCollections != null)
-                        actualCollections.value = "0";
-
-                    lowDataIndex = smcts.value.FindFirstIdShortAs<AdminShell.Property>("lowDataIndex");
-                    highDataIndex = smcts.value.FindFirstIdShortAs<AdminShell.Property>("highDataIndex");
-
-                    // challenge is to select SMes, which are NOT from a known semantic id!
-                    var tsvAllowed = new[]
-                    {
-                        PrefTimeSeries10.CD_RecordId,
-                        PrefTimeSeries10.CD_UtcTime,
-                        PrefTimeSeries10.CD_ValueArray
-                    };
-
-                    // find a Segment tagged as Template?
-                    // create the time series tracking information
-
-                    _trackSegment = new TrackInstanceTimeSeriesSegment();
-                    var todel = new List<AdminShell.SubmodelElementCollection>();
-                    var first = true;
-                    foreach (var smcsegt in smcts.value.FindAllSemanticIdAs<AdminShell.SubmodelElementCollection>(
-                        PrefTimeSeries10.CD_TimeSeriesSegment, mm))
-                    {
-                        if (smcsegt == null)
-                            continue;
-
-                        // relevant?
-                        if (true == smcsegt.kind?.IsTemplate && first)
-                        {
-                            first = false;
-
-                            // find all elements with required qualifier FOR A SERIES ELEMENT
-                            smcsegt.value.RecurseOnSubmodelElements(null, null, (o, parents, sme) =>
-                            {
-                                var q = sme.HasQualifierOfType(PrefEnergyModel10.QualiADXHubSeries);
-                                if (q != null && q.value != null && q.value.Length > 0)
-                                {
-                                    // found the correct Qualifer, should indicate a variable in the
-                                    // TEMPLATED time series
-                                    if (!(sme is AdminShell.SubmodelElementCollection smcVar)
-                                        || (true != sme.semanticId?.Matches(PrefTimeSeries10.CD_TimeSeriesVariable, mm)))
-                                        return;
-
-                                    // ok, need to identify record id
-                                    var pRecId = smcVar.value?.FindFirstSemanticIdAs<AdminShell.Property>(PrefTimeSeries10.CD_RecordId, mm);
-                                    var pDataPoint = smcVar.value?.FindFirstAnySemanticId<AdminShell.Property>(tsvAllowed, mm,
-                                        invertAllowed: true);
-
-                                    // proper?
-                                    if (("" + pRecId?.value).Length < 1 || pDataPoint == null)
-                                        return;
-
-                                    // ok, add
-                                    _trackSegment.Variables.Add(new TrackInstanceTimeSeriesVariable()
-                                    {
-                                        SourceId = q.value,
-                                        TemplateRecordId = pRecId?.value,
-                                        TemplateDataPoint = pDataPoint,
-                                        TemplateVariable = smcVar
-                                    });
-                                }
-                            });
-                        }
-
-                        // remove all the stuff for a clean start
-                        todel.Add(smcsegt);
-                    }
-                    foreach (var del in todel)
-                        smcts.value.Remove(del);
-                }
-            }
-
-            public static void StartAllAsOneThread(IEnumerable<EnergyModelInstance> instances)
-            {
-                if (instances == null)
-                    return;
-
-                var t = new Thread(() =>
-                {
-                    var storedInstances = instances.ToArray();
-                    while (true)
-                    {
-                        foreach (var emi in storedInstances)
-                            emi?.CyclicCheck();
-
-                        Thread.Sleep(100);
-                    }
-                });
-                t.Start();
-            }
-
-            private int _testi = 0;
-
-            public void CyclicCheck()
-            {
-                ;
-                CyclicCheckDataPoints();
-                CyclicCheckTimeSeries();
-                ;
-            }
-
-            public void CyclicCheckDataPoints()
-            {
-                // access
-                if (_sourceSystem == null || _dataPoint == null)
-                    return;
-                var timeStamp = DateTime.UtcNow;
-
-                // simply iterate
-                foreach (var dp in _dataPoint)
-                {
-                    // any action required?
-                    if (dp?.Sme == null || !dp.IsTrigger(_sourceSystem))
-                        continue;
-
-                    // adopt new value & set
-                    var val = dp.GetValue(_sourceSystem, dp.SourceId);
-                    UpdateSME(
-                        dp.Sme,
-                        string.Format(CultureInfo.InvariantCulture, "{0}", val),
-                        timeStamp);
-                }
-            }
-
-            public void CyclicCheckTimeSeries()
-            {
-                // access
-                if (_sourceSystem == null || _trackSegment == null)
-                    return;
-                var timeStamp = DateTime.UtcNow;
-
-                // something to be done?
-                if (!_trackSegment.IsTrigger(_sourceSystem))
-                    return;
-
-                // test
-                if (actualSamples != null)
-                {
-                    _testi++;
-                    UpdateSME(actualSamples, "" + _testi, timeStamp);
-                }
-
-                // OK, a new sample shall be added to the segment
-                _trackSegment.TimeStamps.Add(DateTime.UtcNow);
-                foreach (var tsv in _trackSegment.Variables)
-                    tsv.Values.Add(tsv.GetValue(_sourceSystem, tsv.SourceId));
-
-                // now check, if the segement should be rendered intermediate or finally
-                var cnt = _trackSegment.TimeStamps.Count;
-                var doNextColl = (cnt >= maxSamplesInCollection);
-                var doIntermediate = (cnt == 1) || (cnt == 3);
-
-                // render on multiple times
-                if (doIntermediate)
-                {
-                    if (_trackSegment.SegmentSmc == null)
-                    {
-                        Console.WriteLine("Create segement {0}", samplesCollectionsCount);
-
-                        // create new segment
-                        var newSeg = _trackSegment.CreateSegmentSmc(
-                            _sourceSystem, _data, samplesCollectionsCount, totalSamples, timeStamp);
-
-                        samplesCollectionsCount++;
-
-                        // state initial creation as event .. updates need to follow
-                        eventMessage.Add(newSeg, "Add", _submodel, (ulong)timeStamp.Ticks);
-                    }
-                    else
-                    {
-                        // update
-                        _trackSegment.UpdateSegmentSmc(_sourceSystem, totalSamples, timeStamp);
-                    }
-                }
-
-                // final?
-                if (doNextColl)
-                {
-                    // do a final update
-                    _trackSegment.UpdateSegmentSmc(_sourceSystem, totalSamples, timeStamp);
-
-                    // add to already existing segements .. delete an old one
-                    _existingSegements.Add(_trackSegment.SegmentSmc);
-                    if (_existingSegements.Count > 99)
-                    {
-                        // pop
-                        var first = _existingSegements[0];
-                        _existingSegements.RemoveAt(0);
-
-                        // remove
-                        _data.Remove(first);
-                        _data.setTimeStamp(timeStamp);
-                        eventMessage.Add(first, "Remove", _submodel, (ulong)timeStamp.Ticks);
-                    }
-
-                    // commit und clear -> will make a new collection
-                    Console.WriteLine("Clear segment");
-                    totalSamples += _trackSegment.TimeStamps.Count;
-                    _trackSegment.ClearRuntime();
-                }
-
-                Program.SignalNewData(Program.TreeUpdateMode.ValuesOnly);
             }
         }
     }

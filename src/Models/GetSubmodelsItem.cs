@@ -1,16 +1,17 @@
-﻿using AdminShellNS;
+﻿using AdminShell_V30;
+using AdminShellNS;
 
 namespace AasxServerBlazor.Models
 {
     public class GetSubmodelsItem
     {
-        public AdminShell.Identification id = new AdminShell.Identification();
+        public AdminShell.Identifier id = new AdminShell.Identifier();
         public string idShort = "";
         public string kind = "";
 
         public GetSubmodelsItem() { }
 
-        public GetSubmodelsItem(AdminShell.Identification id, string idShort, string kind)
+        public GetSubmodelsItem(AdminShell.Identifier id, string idShort, string kind)
         {
             this.id = id;
             this.idShort = idShort;
@@ -19,7 +20,7 @@ namespace AasxServerBlazor.Models
 
         public GetSubmodelsItem(AdminShell.Identifiable idi, string kind)
         {
-            this.id = idi.identification;
+            this.id = idi.id;
             this.idShort = idi.idShort;
             this.kind = kind;
         }

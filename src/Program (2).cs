@@ -1,5 +1,5 @@
 ﻿using AasxRestServerLibrary;
-using AasxServer;
+using AdminShell_V30;
 using AdminShellNS;
 using Newtonsoft.Json.Linq;
 using System;
@@ -49,53 +49,30 @@ namespace AasxServerBlazor
 
         public static object changeAasxFile = new object();
 
-        private class CommandLineArguments
-
+        public class NewDataAvailableArgs : EventArgs
         {
-            // ReSharper disable UnusedAutoPropertyAccessor.Local
-#pragma warning disable 8618
-            public string Host { get; set; }
-            public string Port { get; set; }
-            public bool Https { get; set; }
-            public string DataPath { get; set; }
-            public bool Rest { get; set; }
-            public bool Opc { get; set; }
-            public bool Mqtt { get; set; }
-            public bool DebugWait { get; set; }
-            public int? OpcClientRate { get; set; }
-            public string[] Connect { get; set; }
-            public string ProxyFile { get; set; }
-            public bool NoSecurity { get; set; }
-            public bool Edit { get; set; }
-            public string Name { get; set; }
-            public string ExternalRest { get; set; }
-#pragma warning restore 8618
-            // ReSharper enable UnusedAutoPropertyAccessor.Local
+            public int signalNewDataMode;
+
+            public NewDataAvailableArgs(int mode = 2)
+            {
+                signalNewDataMode = mode;
+            }
         }
 
-        private static int Run(CommandLineArguments a)
+        // 0 == same tree, only values changed
+        // 1 == same tree, structure may change
+        // 2 == build new tree, keep open nodes
+        // 3 == build new tree, all nodes closed
+        // public static int signalNewDataMode = 2;
+        public static void signalNewData(int mode)
         {
-            if (a.DataPath != null)
-            {
-                Console.WriteLine($"Serving the AASXs from: {a.DataPath}");
-                AasxHttpContextHelper.DataPath = a.DataPath;
-            }
+            // signalNewDataMode = mode;
+            // NewDataAvailable?.Invoke(null, EventArgs.Empty);
+            NewDataAvailable?.Invoke(null, new NewDataAvailableArgs(mode));
+        }
 
-            noSecurity = a.NoSecurity;
-            edit = a.Edit;
-
-            hostPort = a.Host + ":" + a.Port;
-            blazorHostPort = a.Host + ":" + blazorHostPort;
-
-            if (a.ExternalRest != null)
-            {
-                externalRest = a.ExternalRest;
-            }
-            else
-            {
-                externalRest = "http://" + hostPort;
-            }
-
+        private static int Run()
+        {
             // Read root cert from root subdirectory
             Console.WriteLine("Security 1 Startup - Server");
             Console.WriteLine("Security 1.1 Load X509 Root Certificates into X509 Store Root");
@@ -103,11 +80,11 @@ namespace AasxServerBlazor
             X509Store root = new X509Store("Root", StoreLocation.CurrentUser);
             root.Open(OpenFlags.ReadWrite);
 
-            System.IO.DirectoryInfo ParentDirectory = new System.IO.DirectoryInfo(".");
+            DirectoryInfo ParentDirectory = new DirectoryInfo(".");
 
             if (Directory.Exists("./root"))
             {
-                foreach (System.IO.FileInfo f in ParentDirectory.GetFiles("./root/*.cer"))
+                foreach (FileInfo f in ParentDirectory.GetFiles("./root/*.cer"))
                 {
                     X509Certificate2 cert = new X509Certificate2("./root/" + f.Name);
 
@@ -121,53 +98,26 @@ namespace AasxServerBlazor
             string fn = null;
             int envi = 0;
 
-            string[] fileNames = null;
-            if (Directory.Exists(AasxHttpContextHelper.DataPath))
+            string[] fileNames = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.aasx");
+            Console.WriteLine("Found " + fileNames.Length.ToString() + " AAS in directory " + Directory.GetCurrentDirectory());
+            Array.Sort(fileNames);
+
+            while (envi < fileNames.Length)
             {
-                if (AasxHttpContextHelper.DataPath == ".")
+                fn = fileNames[envi];
+
+                Console.WriteLine("Loading {0}...", fn);
+                envFileName.Add(fn);
+                env.Add(new AdminShellPackageEnv(fn, true));
+                if (env[envi] == null)
                 {
-                    AasxHttpContextHelper.DataPath = Directory.GetCurrentDirectory();
+                    Console.Error.WriteLine($"Cannot open {fn}. Aborting..");
+                    return 1;
                 }
 
-                fileNames = Directory.GetFiles(AasxHttpContextHelper.DataPath, "*.aasx");
-                Console.WriteLine("Found " + fileNames.Length.ToString() + " AAS in directory " + AasxHttpContextHelper.DataPath);
-                Array.Sort(fileNames);
-
-                while (envi < fileNames.Length)
-                {
-                    fn = fileNames[envi];
-
-                    Console.WriteLine("Loading {0}...", fn);
-                    envFileName.Add(fn);
-                    env.Add(new AdminShellPackageEnv(fn, true));
-                    if (env[envi] == null)
-                    {
-                        Console.Error.WriteLine($"Cannot open {fn}. Aborting..");
-                        return 1;
-                    }
-
-                    envi++;
-                }
+                envi++;
             }
-
-            AasxHttpContextHelper.securityInit(); // read users and access rights form AASX Security
-            AasxHttpContextHelper.serverCertsInit(); // load certificates of auth servers
-
-            i40LanguageRuntime.initialize();
-
-            // MICHA MICHA
-            AasxTimeSeries.TimeSeries.timeSeriesInit();
-
-            var _energyModelInstances = new List<EnergyModelInstance>();
-            foreach (var penv in Program.env)
-            {
-                if (penv != null)
-                {
-                    EnergyModelInstance.TagAllAasAndSm(penv?.AasEnv, DateTime.UtcNow);
-                    _energyModelInstances.AddRange(EnergyModelInstance.FindAllSmInstances(penv?.AasEnv));
-                }
-            }
-            EnergyModelInstance.StartAllAsOneThread(_energyModelInstances);
+            
 
             RunScript(true);
 
@@ -379,7 +329,7 @@ namespace AasxServerBlazor
                                             if (response != "")
                                             {
                                                 var r12 = sme1 as AdminShell.ReferenceElement;
-                                                var ref12 = env[i].AasEnv.FindReferableByReference(r12.value);
+                                                var ref12 = env[i].AasEnv.FindReferableByReference(r12.GetModelReference());
                                                 if (ref12 is AdminShell.SubmodelElementCollection)
                                                 {
                                                     var c1 = ref12 as AdminShell.SubmodelElementCollection;
@@ -425,9 +375,9 @@ namespace AasxServerBlazor
                                             var r1 = sme1 as AdminShell.ReferenceElement;
                                             var r2 = sme2 as AdminShell.ReferenceElement;
                                             var r3 = sme3 as AdminShell.ReferenceElement;
-                                            var ref1 = env[i].AasEnv.FindReferableByReference(r1.value);
-                                            var ref2 = env[i].AasEnv.FindReferableByReference(r2.value);
-                                            var ref3 = env[i].AasEnv.FindReferableByReference(r3.value);
+                                            var ref1 = env[i].AasEnv.FindReferableByReference(r1.GetModelReference());
+                                            var ref2 = env[i].AasEnv.FindReferableByReference(r2.GetModelReference());
+                                            var ref3 = env[i].AasEnv.FindReferableByReference(r3.GetModelReference());
                                             if (ref1 is AdminShell.Property && ref2 is AdminShell.Submodel && ref3 is AdminShell.Property)
                                             {
                                                 var p1 = ref1 as AdminShell.Property;

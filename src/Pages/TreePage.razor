@@ -2,11 +2,10 @@
 
 @using AasxServerBlazor
 @using AasxServerBlazor.Data
-@using static AdminShellNS.AdminShellV20;
 @using System
 @using System.Net;
 @using System.Drawing;
-@using AasxServer;
+@using static AdminShell_V30.AdminShellV30;
 
 @implements IDisposable
 
@@ -114,25 +113,6 @@
                         <div>
                             <img src=data:image;base64,@detailsImage style="max-width: 100%;" alt="Details Image" />
                         </div>
-                    }
-                }
-                if (SelectedNode != null && (SelectedNode.Tag is AdminShellNS.AdminShellV20.BasicEvent be))
-                {
-                    if (be.observed != null)
-                    {
-                        string okey = be.observed.GetAsExactlyOneKey().ToString();
-                        <span style="color:white;background-color:blue;">Observed</span>
-                        <span>@(" " + okey)</span><br />
-                        var refsme = Program.env[0].AasEnv.FindReferableByReference(be.observed);
-                        if (refsme != null)
-                        {
-                            <span style="color:lightgray;">UPDATE @refsme.TimeStamp.ToString("yy-MM-dd HH:mm:ss.fff")</span><br />
-                            <span style="color:lightgray;">CREATE @refsme.TimeStampCreate.ToString("yy-MM-dd HH:mm:ss.fff")</span><br />
-                        }
-                        else
-                        {
-                            <span>Referenced element does not exist!</span><br />
-                        }
                     }
                 }
             }
@@ -348,10 +328,10 @@
         if (o is AdministrationShell)
         {
             var aas = o as AdministrationShell;
-            var asset = Program.env[item.EnvIndex].AasEnv.FindAsset(aas.assetRef);
+            var asset = Program.env[item.EnvIndex].AasEnv.FindAAS(aas.id);
             if (asset != null)
             {
-                string url = WebUtility.UrlEncode(asset.identification.id);
+                string url = WebUtility.UrlEncode(asset.id);
                 string link = Program.externalRest + "/server/getaasxbyassetid/" + url;
 
                 return link;
@@ -401,10 +381,10 @@
             }
 
             var aas = o as AdministrationShell;
-            var asset = Program.env[item.EnvIndex].AasEnv.FindAsset(aas.assetRef);
+            var asset = Program.env[item.EnvIndex].AasEnv.FindAAS(aas.id);
             if (asset != null)
             {
-                string url = WebUtility.UrlEncode(asset.identification.id);
+                string url = WebUtility.UrlEncode(asset.id);
                 string link = Program.externalRest + "/server/getaasxbyassetid/" + url;
                 return;
             }
@@ -543,10 +523,6 @@
         {
             ret += "Blob";
         }
-        if (o is AdminShellNS.AdminShellV20.Range)
-        {
-            ret += "Range";
-        }
         if (o is MultiLanguageProperty)
         {
             ret += "Lang";
@@ -563,11 +539,7 @@
         {
             ret += "Ent";
         }
-        if (o is AdminShellNS.AdminShellV20.BasicEvent)
-        {
-            ret += "Evt";
-        }
-
+        
         return (ret);
     }
 
@@ -636,14 +608,6 @@
             if (b.kind != null && b.kind.IsTemplate)
                 ret += "<T> ";
             ret += b.idShort;
-        }
-        if (o is AdminShellNS.AdminShellV20.Range)
-        {
-            var r = o as AdminShellNS.AdminShellV20.Range;
-            ret = string.Empty;
-            if (r.kind != null && r.kind.IsTemplate)
-                ret += "<T> ";
-            ret += r.idShort;
         }
         if (o is MultiLanguageProperty)
         {
@@ -714,15 +678,6 @@
                 }
             }
         }
-        if (o is AdminShellNS.AdminShellV20.Range)
-        {
-            var r = o as AdminShellNS.AdminShellV20.Range;
-            ret = " = " + r.min + " .. " + r.max;
-            if (r.qualifiers != null && r.qualifiers.Count > 0)
-            {
-                ret += " @QUALIFIERS";
-            }
-        }
         if (o is MultiLanguageProperty)
         {
             var mlp = o as MultiLanguageProperty;
@@ -761,14 +716,14 @@
             ret = string.Empty;
             var aas = tag as AdministrationShell;
 
-            var asset = Program.env[item.EnvIndex].AasEnv.FindAsset(aas.assetRef);
+            var asset = Program.env[item.EnvIndex].AasEnv.FindAAS(aas.id);
 
             switch (line)
             {
                 case 0:
                     ret = "ID";
                     if (col == 1)
-                        ret = aas.identification + string.Empty;
+                        ret = aas.id + string.Empty;
                     break;
                 case 1:
                     if (asset != null)
@@ -783,7 +738,7 @@
                     {
                         ret = "ASSETID";
                         if (col == 1)
-                            ret = asset.identification + string.Empty;
+                            ret = asset.id + string.Empty;
                     }
                     break;
                 case 3:
@@ -792,7 +747,7 @@
                         ret = "ASSETID URLENCODED";
                         if (col == 1)
                         {
-                            string url = WebUtility.UrlEncode(asset.identification.id);
+                            string url = WebUtility.UrlEncode(asset.id);
                             ret = url;
                         }
                     }
@@ -812,7 +767,7 @@
                 case 0:
                     ret = "ID";
                     if (col == 1)
-                        ret = sm.identification + string.Empty;
+                        ret = sm.id + string.Empty;
                     break;
                 case 1:
                     ret = "Semantic ID";
@@ -998,47 +953,6 @@
             return ret;
         }
 
-        if (tag is AdminShellNS.AdminShellV20.Range)
-        {
-            var r = tag as AdminShellNS.AdminShellV20.Range;
-            ret = r.idShort;
-            switch (line)
-            {
-                case 0:
-                    ret = "Semantic ID";
-                    if (col == 1)
-                    {
-                        ret = "NULL";
-                        var k = r.semanticId?.GetAsExactlyOneKey();
-                        if (k != null)
-                        {
-                            ret = k.ToString();
-                        }
-                    }
-                    break;
-                case 1:
-                    ret = "Min";
-                    if (col == 1)
-                        ret = r.min + string.Empty;
-                    break;
-                case 2:
-                    ret = "Max";
-                    if (col == 1)
-                        ret = r.max + string.Empty;
-                    break;
-                case 3:
-                    ret = getQualifiers(r.qualifiers, col);
-                    break;
-                case 4:
-                    ret = getUnit(item, r, col);
-                    break;
-                default:
-                    ret = string.Empty;
-                    break;
-            }
-            return ret;
-        }
-
         if (tag is Operation)
         {
             var op = tag as Operation;
@@ -1164,14 +1078,6 @@
                     if (col == 1)
                     {
                         ret = "NULL";
-                        if (!(r.value == null || r.value.IsEmpty))
-                        {
-                            var k = r.value.Keys;
-                            if (k != null)
-                            {
-                                ret = k.ToString();
-                            }
-                        }
                     }
                     break;
                 case 2:
@@ -1287,11 +1193,11 @@
     public string getUnit(TreeNodeData item, SubmodelElement se, int col)
     {
         string ret = string.Empty;
-        if (se.semanticId == null || se.semanticId.Keys == null)
+        if (se.semanticId == null || se.semanticId.JsonKeys == null)
         {
             return ret;
         }
-        var cd = Program.env[item.EnvIndex].AasEnv.FindConceptDescription(se.semanticId.Keys);
+        var cd = Program.env[item.EnvIndex].AasEnv.FindConceptDescription(se.semanticId);
         if (cd != null)
         {
             var iec = cd.GetIEC61360();
@@ -1301,8 +1207,8 @@
                 if (col == 1)
                 {
                     ret = iec.unit;
-                    if (iec.unitId != null && iec.unitId.keys != null && iec.unitId.keys.Count > 0)
-                        ret += " (UnitId = " + iec.unitId.keys[0].ToString() + ")";
+                    if (iec.unitId != null && iec.unitId.JsonKeys != null && iec.unitId.JsonKeys.Count > 0)
+                        ret += " (UnitId = " + iec.unitId.JsonKeys[0].ToString() + ")";
                 }
             }
         }
