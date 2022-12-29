@@ -22,7 +22,7 @@ namespace IO.Swagger.V1RC03.Controllers
     /// 
     /// </summary>
     [ApiController]
-    public class AssetAdministrationShellEnvironmentSerializationAPIController : ControllerBase, IAssetAdministrationShellEnvironmentSerializationAPIController
+    public class AssetAdministrationShellEnvironmentSerializationAPIController : ControllerBase
     {
         private readonly ILogger<AssetAdministrationShellEnvironmentSerializationAPIController> _logger;
 

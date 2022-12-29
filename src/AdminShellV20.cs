@@ -4635,20 +4635,6 @@ namespace AasxCompatibilityModels
                 return null;
             }
 
-            // validation
-
-            public override void Validate(AasValidationRecordListV20 results)
-            {
-                // access
-                if (results == null)
-                    return;
-
-                // check
-                base.Validate(results);
-                ModelingKind.Validate(results, kind, this);
-                KeyList.Validate(results, semanticId?.Keys, this);
-            }
-
             public virtual object ToValueOnlySerialization()
             {
                 throw new NotImplementedException();
@@ -5811,20 +5797,6 @@ namespace AasxCompatibilityModels
                 if (this.submodelElements == null)
                     this.submodelElements = new SubmodelElementWrapperCollection();
                 return this.submodelElements.CreateSMEForIdShort<T>(idShort, category, idxTemplate, maxNum, addSme);
-            }
-
-            // validation
-
-            public override void Validate(AasValidationRecordListV20 results)
-            {
-                // access
-                if (results == null)
-                    return;
-
-                // check
-                base.Validate(results);
-                ModelingKind.Validate(results, kind, this);
-                KeyList.Validate(results, semanticId?.Keys, this);
             }
 
             // find
