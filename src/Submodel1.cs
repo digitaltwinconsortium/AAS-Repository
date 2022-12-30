@@ -48,7 +48,7 @@ namespace AasxCompatibilityModels
             public SemanticId semanticId = new SemanticId();
             // from Kindable
             [XmlElement(ElementName = "kind")]
-            [JsonIgnore]
+            
             public Kind kind = new Kind();
             [XmlIgnore]
             [JsonProperty(PropertyName = "kind")]
@@ -73,7 +73,7 @@ namespace AasxCompatibilityModels
             public List<Qualifier> qualifiers = null;
 
             // from this very class     
-            [JsonIgnore]
+            
             public List<SubmodelElementWrapper> submodelElements = null;
             [XmlIgnore]
             [JsonProperty(PropertyName = "submodelElements")]

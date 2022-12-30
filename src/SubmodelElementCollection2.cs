@@ -34,7 +34,7 @@ namespace AasxCompatibilityModels
             public new JsonModelTypeWrapper JsonModelType { get { return new JsonModelTypeWrapper(GetElementName()); } }
 
             // members
-            [JsonIgnore]
+            
             public List<SubmodelElementWrapper> value = new List<SubmodelElementWrapper>();
 
             [XmlIgnore]

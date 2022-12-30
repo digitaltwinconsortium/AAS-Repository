@@ -35,18 +35,18 @@ namespace AasxCompatibilityModels
             public new JsonModelTypeWrapper JsonModelType { get { return new JsonModelTypeWrapper(GetElementName()); } }
 
             // members
-            [JsonIgnore]
+            
             [XmlElement(ElementName = "in")]
             public List<OperationVariable> valueIn = new List<OperationVariable>();
 
-            [JsonIgnore]
+            
             [XmlElement(ElementName = "out")]
             public List<OperationVariable> valueOut = new List<OperationVariable>();
 
             [XmlIgnore]
             // MICHA 190504: enabled JSON operation variables!
             [JsonProperty(PropertyName = "in")]
-            // [JsonIgnore]
+            // 
             public OperationVariable[] JsonValueIn
             {
                 get { return valueIn?.ToArray(); }
@@ -56,7 +56,7 @@ namespace AasxCompatibilityModels
             [XmlIgnore]
             [JsonProperty(PropertyName = "out")]
             // MICHA 190504: enabled JSON operation variables!
-            // [JsonIgnore]
+            // 
             public OperationVariable[] JsonValueOut
             {
                 get { return valueOut?.ToArray(); }

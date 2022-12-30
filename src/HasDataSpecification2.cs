@@ -60,7 +60,7 @@ namespace AdminShell_V30
             // make some explicit and easy to use getter, setters            
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public EmbeddedDataSpecification IEC61360
             {
                 get
@@ -92,7 +92,7 @@ namespace AdminShell_V30
             }
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public DataSpecificationIEC61360 IEC61360Content
             {
                 get

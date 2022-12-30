@@ -32,7 +32,7 @@ namespace AdminShell_V30
             // TODO (MIHO, 2021-12-30): consider a converter for this
             // https://stackoverflow.com/questions/24472404/json-net-how-to-serialize-object-as-value
 
-            [JsonIgnore]
+            
             public Identifier id = new Identifier();
             [XmlIgnore]
             [JsonProperty(PropertyName = "id")]

@@ -40,7 +40,7 @@ namespace AasxCompatibilityModels
 
             // from HasKind
             [XmlElement(ElementName = "kind")]
-            [JsonIgnore]
+            
             public ModelingKind kind = new ModelingKind();
             [XmlIgnore]
             [JsonProperty(PropertyName = "kind")]

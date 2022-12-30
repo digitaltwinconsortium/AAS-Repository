@@ -27,20 +27,20 @@ namespace AdminShell_V30
             // diary (as e.g. deleted AASes need to be listed somewhere)
 
             [XmlIgnore]
-            [JsonIgnore]
-            [SkipForHash]
-            [SkipForReflection]
+            
+            
+            
             private DiaryDataDef _diaryData = new DiaryDataDef();
 
             [XmlIgnore]
-            [JsonIgnore]
-            [SkipForReflection]
+            
+            
             public DiaryDataDef DiaryData { get { return _diaryData; } }
 
             // members
 
             [XmlAttribute(Namespace = System.Xml.Schema.XmlSchema.InstanceNamespace)]
-            [JsonIgnore]
+            
             public string schemaLocation =
                 "http://www.admin-shell.io/aas/3/0 AAS.xsd http://www.admin-shell.io/IEC61360/3/0 IEC61360.xsd";
 

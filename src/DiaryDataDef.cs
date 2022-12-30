@@ -29,11 +29,11 @@ namespace AdminShell_V30
             public enum TimeStampKind { Create, Update }
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             private DateTime[] _timeStamp = new DateTime[2];
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public DateTime[] TimeStamp { get { return _timeStamp; } }
 
             /// <summary>

@@ -40,28 +40,28 @@ namespace AdminShell_V30
             // TODO (Michael Hoffmeister, 2020-08-01): check, if Json has Qualifiers or not
 
             [MetaModelName("Qualifier.type")]
-            [TextSearchable]
-            [CountForHash]
+
+
             public string type = "";
 
             [MetaModelName("Qualifier.valueType")]
-            [TextSearchable]
-            [CountForHash]
+
+
             public string valueType = "";
 
-            [CountForHash]
+
             public GlobalReference valueId = null;
 
             [MetaModelName("Qualifier.value")]
-            [TextSearchable]
-            [CountForHash]
+
+
             public string value = null;
 
             // dead-csharp off
             // Remark: due to publication of v2.0.1, the order of elements has changed!!!
             // from hasSemantics:
             // [XmlElement(ElementName = "semanticId")]
-            // [JsonIgnore]
+            // 
             // public SemanticId semanticId = null;
             // dead-csharp on
 

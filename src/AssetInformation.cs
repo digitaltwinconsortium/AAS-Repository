@@ -26,9 +26,9 @@ namespace AdminShell_V30
         {
             // as for V3RC02, Asset in no Referable anymore
             [XmlIgnore]
-            [JsonIgnore]
-            [SkipForHash] // important to skip, as recursion elsewise will go in cycles!
-            [SkipForReflection] // important to skip, as recursion elsewise will go in cycles!
+            
+             // important to skip, as recursion elsewise will go in cycles!
+             // important to skip, as recursion elsewise will go in cycles!
             public IAasElement parent = null;
 
             // V3RC02: instead of Identification
@@ -42,16 +42,16 @@ namespace AdminShell_V30
 
             // some fake information
             [XmlIgnore]
-            [JsonIgnore]
+            
             public string fakeIdShort => Key.AssetInformation;
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public Description fakeDescription => null;
 
             // from HasKind
             [XmlElement(ElementName = "assetKind")]
-            [JsonIgnore]
+            
             public AssetKind assetKind = new AssetKind();
             [XmlIgnore]
             [JsonProperty(PropertyName = "assetKind")]

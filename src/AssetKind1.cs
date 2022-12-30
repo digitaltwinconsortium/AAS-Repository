@@ -29,19 +29,19 @@ namespace AdminShell_V30
             public static string Instance = "Instance";
 
             [MetaModelName("AssetKind.kind")]
-            [TextSearchable]
+            
             [XmlText]
-            [CountForHash]
+            
             public string kind = "Instance";
 
             // getters / setters
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public bool IsInstance { get { return kind == null || kind.Trim().ToLower() == "instance"; } }
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public bool IsType { get { return kind != null && kind.Trim().ToLower() == "type"; } }
 
             // constructors / creators

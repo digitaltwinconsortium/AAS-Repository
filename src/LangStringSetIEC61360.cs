@@ -26,7 +26,7 @@ namespace AasxCompatibilityModels
             // getters / setters
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public bool IsEmpty { get { return this.Count < 1; } }
 
             // constructors

@@ -32,14 +32,14 @@ namespace AasxCompatibilityModels
             // members
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public KeyList keys = new KeyList();
 
             // getter / setters
 
             [XmlArray("keys")]
             [XmlArrayItem("key")]
-            [JsonIgnore]
+            
             public List<Key> Keys { get { return keys?.Keys; } }
             [XmlIgnore]
             [JsonProperty(PropertyName = "keys")]
@@ -53,13 +53,13 @@ namespace AasxCompatibilityModels
             }
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public bool IsEmpty { get { return keys == null || keys.IsEmpty; } }
             [XmlIgnore]
-            [JsonIgnore]
+            
             public int Count { get { if (keys == null) return 0; return keys.Count; } }
             [XmlIgnore]
-            [JsonIgnore]
+            
             public Key this[int index] { get { return keys.Keys[index]; } }
 
             // constructors / creators

@@ -30,13 +30,13 @@ namespace AdminShell_V30
             // members
 
             [MetaModelName("File.mimeType")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string mimeType = "";
 
             [MetaModelName("File.value")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string value = "";
 
             // constructors

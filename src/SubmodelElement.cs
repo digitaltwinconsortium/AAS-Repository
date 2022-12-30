@@ -40,7 +40,7 @@ namespace AdminShell_V30
 
             // from HasKind
             [XmlElement(ElementName = "kind")]
-            [JsonIgnore]
+            
             public ModelingKind kind = new ModelingKind();
             [XmlIgnore]
             [JsonProperty(PropertyName = "kind")]

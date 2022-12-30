@@ -29,20 +29,20 @@ namespace AasxCompatibilityModels
             // Members
 
             [MetaModelName("Key.type")]
-            [TextSearchable]
+            
             [XmlAttribute]
-            [CountForHash]
+            
             public string type = "";
 
             [XmlAttribute]
-            [CountForHash]
+            
             public bool local = false;
 
             [MetaModelName("Key.idType")]
-            [TextSearchable]
+            
             [XmlAttribute]
-            [JsonIgnore]
-            [CountForHash]
+            
+            
             public string idType = "";
 
             [XmlIgnore]
@@ -55,14 +55,14 @@ namespace AasxCompatibilityModels
             }
 
             [MetaModelName("Key.value")]
-            [TextSearchable]
+            
             [XmlText]
-            [CountForHash]
+            
             public string value = "";
 
             [XmlIgnore]
             [JsonProperty(PropertyName = "index")]
-            [CountForHash]
+            
             public int index = 0;
 
             public Key()

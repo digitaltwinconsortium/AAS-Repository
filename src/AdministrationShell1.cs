@@ -22,7 +22,7 @@ namespace AasxCompatibilityModels
         public class AdministrationShell : Identifiable, IFindAllReferences, IGetReference
         {
             [XmlIgnore]
-            [JsonIgnore]
+            
             public ulong ChangeNumber = 0;
 
             // for JSON only
@@ -41,10 +41,10 @@ namespace AasxCompatibilityModels
             public AssetRef assetRef = new AssetRef();
 
             [JsonProperty(PropertyName = "submodels")]
-            [SkipForSearch]
+            
             public List<SubmodelRef> submodelRefs = new List<SubmodelRef>();
 
-            [JsonIgnore]
+            
             public Views views = null;
             [XmlIgnore]
             [JsonProperty(PropertyName = "views")]

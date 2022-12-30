@@ -35,12 +35,12 @@ namespace AdminShell_V30
 
             // values == SMEs
             [XmlIgnore]
-            [JsonIgnore]
-            [SkipForHash] // do NOT count children!
+            
+            // do NOT count children!
             //private SubmodelElementWrapperCollection _value = null;
             private SubmodelElementWrapperCollection _value = new SubmodelElementWrapperCollection();
 
-            [JsonIgnore]
+            
             public SubmodelElementWrapperCollection value
             {
                 get { return _value; }

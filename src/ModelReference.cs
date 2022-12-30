@@ -26,14 +26,14 @@ namespace AdminShell_V30
             public GlobalReference referredSemanticId = null;
 
             [XmlIgnore] // anyway, as it is private/ protected
-            [JsonIgnore]
+            
             protected KeyList keys = new KeyList();
 
             // Keys getters / setters
 
             [XmlArray("keys")]
             [XmlArrayItem("key")]
-            [JsonIgnore]
+            
             public KeyList Keys { get { return keys; } }
             [XmlIgnore]
             [JsonProperty(PropertyName = "keys")]
@@ -49,24 +49,24 @@ namespace AdminShell_V30
             // other members
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public bool IsEmpty { get { return keys == null || keys.Count < 1; } }
             [XmlIgnore]
-            [JsonIgnore]
+            
             public bool IsValid { get { return keys != null && keys.Count >= 1; } }
             [XmlIgnore]
-            [JsonIgnore]
+            
             public int Count { get { if (keys == null) return 0; return keys.Count; } }
             [XmlIgnore]
-            [JsonIgnore]
+            
             public Key this[int index] { get { return keys[index]; } }
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public Key First { get { return this.Count < 1 ? null : this.keys[0]; } }
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public Key Last { get { return this.Count < 1 ? null : this.keys[this.keys.Count - 1]; } }
 
             // constructors / creators

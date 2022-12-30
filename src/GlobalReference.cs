@@ -26,14 +26,14 @@ namespace AdminShell_V30
             // members
 
             [XmlIgnore] // anyway, as it is private/ protected
-            [JsonIgnore]
+            
             protected ListOfIdentifier value = new ListOfIdentifier();
 
             // Keys getters / setters
 
             [XmlArray("values")]
             [XmlArrayItem("value")]
-            [JsonIgnore]
+            
             public ListOfIdentifier Value { get { return value; } }
             [XmlIgnore]
             [JsonProperty(PropertyName = "values")]
@@ -42,24 +42,24 @@ namespace AdminShell_V30
             // other members
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public bool IsEmpty { get { return value == null || value.Count < 1; } }
             [XmlIgnore]
-            [JsonIgnore]
+            
             public bool IsValid { get { return value != null && value.Count >= 1; } }
             [XmlIgnore]
-            [JsonIgnore]
+            
             public int Count { get { if (value == null) return 0; return value.Count; } }
             [XmlIgnore]
-            [JsonIgnore]
+            
             public Identifier this[int index] { get { return value[index]; } }
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public Identifier First { get { return this.Count < 1 ? null : this.value[0]; } }
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public Identifier Last { get { return this.Count < 1 ? null : this.value[this.value.Count - 1]; } }
 
             // constructors / creators

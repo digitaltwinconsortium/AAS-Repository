@@ -33,20 +33,20 @@ namespace AdminShell_V30
             // Members
 
             [MetaModelName("Key.type")]
-            [TextSearchable]
+            
             [XmlAttribute]
-            [CountForHash]
+            
             public string type = "";
 
             [MetaModelName("Key.value")]
-            [TextSearchable]
+            
             [XmlText]
-            [CountForHash]
+            
             public string value = "";
 
             [XmlIgnore]
             [JsonProperty(PropertyName = "index")]
-            [CountForHash]
+            
             public int index = 0;
 
             public Key()

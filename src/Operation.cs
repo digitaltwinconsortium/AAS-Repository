@@ -29,19 +29,19 @@ namespace AdminShell_V30
             }
 
             // members
-            [JsonIgnore]
+            
             [XmlElement(ElementName = "inputVariable")]
-            [SkipForHash] // do NOT count children!
+             // do NOT count children!
             public List<OperationVariable> inputVariable = new List<OperationVariable>();
 
-            [JsonIgnore]
+            
             [XmlElement(ElementName = "outputVariable")]
-            [SkipForHash] // do NOT count children!
+             // do NOT count children!
             public List<OperationVariable> outputVariable = new List<OperationVariable>();
 
-            [JsonIgnore]
+            
             [XmlElement(ElementName = "inoutputVariable")]
-            [SkipForHash] // do NOT count children!
+             // do NOT count children!
             public List<OperationVariable> inoutputVariable = new List<OperationVariable>();
 
             [XmlIgnore]

@@ -20,7 +20,7 @@ namespace AasxCompatibilityModels
         {
             // members
 
-            [JsonIgnore]
+            
             public DataSpecificationContent dataSpecificationContent = null;
 
             [XmlIgnore]

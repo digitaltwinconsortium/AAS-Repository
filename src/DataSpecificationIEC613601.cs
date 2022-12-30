@@ -31,7 +31,7 @@ namespace AasxCompatibilityModels
         {
             // static member
             [XmlIgnore]
-            [JsonIgnore]
+            
             public static string[] DataTypeNames = {
                 "STRING",
                 "STRING_TRANSLATABLE",

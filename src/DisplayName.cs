@@ -54,7 +54,7 @@ namespace AdminShell_V30
 
             // further
             [XmlIgnore]
-            [JsonIgnore]
+            
             public bool IsValid { get { return langString != null && langString.Count >= 1; } }
 
             // single string representation

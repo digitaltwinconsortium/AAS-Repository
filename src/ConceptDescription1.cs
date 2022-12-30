@@ -43,7 +43,7 @@ namespace AasxCompatibilityModels
             // from HasDataSpecification
             // TODO: in V1.0, shall be a list of embeddedDataSpecification
             [XmlElement(ElementName = "embeddedDataSpecification")]
-            [JsonIgnore]
+            
             public EmbeddedDataSpecification embeddedDataSpecification = new EmbeddedDataSpecification();
             [XmlIgnore]
             [JsonProperty(PropertyName = "embeddedDataSpecifications")]

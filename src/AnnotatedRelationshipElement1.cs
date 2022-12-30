@@ -32,8 +32,8 @@ namespace AasxCompatibilityModels
 
             // from this very class
 
-            [JsonIgnore]
-            [SkipForHash] // do NOT count children!
+            
+             // do NOT count children!
             [XmlArray("annotations")]
             [XmlArrayItem("dataElement")]
             public DataElementWrapperCollection annotations = null;

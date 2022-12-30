@@ -73,7 +73,7 @@ namespace AasxCompatibilityModels
             // make some explicit and easy to use getter, setters            
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public EmbeddedDataSpecification IEC61360
             {
                 get
@@ -105,7 +105,7 @@ namespace AasxCompatibilityModels
             }
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public DataSpecificationIEC61360 IEC61360Content
             {
                 get

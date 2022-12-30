@@ -19,13 +19,13 @@ namespace AasxCompatibilityModels
             // members
 
             [MetaModelName("Administration.version")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string version = "";
 
             [MetaModelName("Administration.revision")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string revision = "";
 
             // constructors

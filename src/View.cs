@@ -37,11 +37,11 @@ namespace AasxCompatibilityModels
             public HasDataSpecification hasDataSpecification = null;
 
             // from this very class
-            [JsonIgnore]
-            [SkipForSearch]
+            
+            
             public ContainedElements containedElements = null;
             [XmlIgnore]
-            [SkipForSearch]
+            
             [JsonProperty(PropertyName = "containedElements")]
             public ContainedElementRef[] JsonContainedElements
             {
@@ -52,10 +52,10 @@ namespace AasxCompatibilityModels
             // getter / setter
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public bool IsEmpty { get { return containedElements == null || containedElements.Count < 1; } }
             [XmlIgnore]
-            [JsonIgnore]
+            
             public int Count { get { if (containedElements == null) return 0; return containedElements.Count; } }
 
             public ContainedElementRef this[int index]

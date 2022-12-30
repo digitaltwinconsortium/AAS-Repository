@@ -34,7 +34,7 @@ namespace AdminShell_V30
             // members
 
             [XmlText]
-            [CountForHash]
+            
             public string value = "";
 
             // implicit operators

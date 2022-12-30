@@ -19,7 +19,7 @@ namespace AdminShell_V30
         {
             // members
 
-            [JsonIgnore]
+            
             public DataSpecificationContent dataSpecificationContent = null;
 
             [XmlIgnore]

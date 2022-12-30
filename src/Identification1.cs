@@ -22,11 +22,11 @@ namespace AasxCompatibilityModels
             // members
 
             [XmlAttribute]
-            [CountForHash]
+            
             public string idType = "";
 
             [XmlText]
-            [CountForHash]
+            
             public string id = "";
 
             // some constants

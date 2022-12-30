@@ -30,9 +30,9 @@ namespace AasxCompatibilityModels
             // members
 
             [MetaModelName("Range.valueType")]
-            [TextSearchable]
-            [JsonIgnore]
-            [CountForHash]
+            
+            
+            
             public string valueType = "";
 
             [XmlIgnore]
@@ -44,13 +44,13 @@ namespace AasxCompatibilityModels
             }
 
             [MetaModelName("Range.min")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string min = "";
 
             [MetaModelName("Range.max")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string max = "";
 
             // constructors

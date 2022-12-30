@@ -28,8 +28,8 @@ namespace AasxCompatibilityModels
             }
 
             // values == SMEs
-            [JsonIgnore]
-            [SkipForHash] // do NOT count children!
+            
+             // do NOT count children!
             public SubmodelElementWrapperCollection value = new SubmodelElementWrapperCollection();
 
             [XmlIgnore]

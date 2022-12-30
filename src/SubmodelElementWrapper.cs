@@ -44,6 +44,21 @@ namespace AdminShell_V30
             [XmlElement(ElementName = "modelReferenceElement", Type = typeof(ModelReferenceElement))]
             public SubmodelElement submodelElement;
 
+            /// <summary>
+            /// Major version of the meta-model
+            /// </summary>
+            [XmlIgnore]
+
+            public static string MetaModelVersionCoarse = "AAS3.0";
+
+            /// <summary>
+            /// Minor version (extension) of the meta-model.
+            /// Should be added to <c>MetaModelVersionCoarse</c>
+            /// </summary>
+            [XmlIgnore]
+
+            public static string MetaModelVersionFine = "RC02";
+
             // element names
             public enum AdequateElementEnum
             {

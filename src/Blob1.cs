@@ -20,13 +20,13 @@ namespace AasxCompatibilityModels
             // members
 
             [MetaModelName("Blob.mimeType")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string mimeType = "";
 
             [MetaModelName("Blob.value")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string value = "";
 
             // constructors

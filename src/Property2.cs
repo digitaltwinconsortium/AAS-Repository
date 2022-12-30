@@ -34,7 +34,7 @@ namespace AasxCompatibilityModels
 
             // members
 
-            [JsonIgnore]
+            
             public string valueType = "";
             [XmlIgnore]
             [JsonProperty(PropertyName = "valueType")]

@@ -40,7 +40,7 @@ namespace AdminShell_V30
             public AssetInformation assetInformation = null;
 
             [JsonProperty(PropertyName = "submodels")]
-            [SkipForSearch]
+
             public List<SubmodelRef> submodelRefs = new List<SubmodelRef>();
 
             // constructors

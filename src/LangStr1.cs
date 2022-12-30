@@ -26,17 +26,17 @@ namespace AasxCompatibilityModels
             // members
 
             [MetaModelName("LangStr.lang")]
-            [TextSearchable]
+            
             [XmlAttribute(Namespace = "http://www.admin-shell.io/2/0")]
             [JsonProperty(PropertyName = "language")]
-            [CountForHash]
+            
             public string lang = "";
 
             [MetaModelName("LangStr.str")]
-            [TextSearchable]
+            
             [XmlText]
             [JsonProperty(PropertyName = "text")]
-            [CountForHash]
+            
             public string str = "";
 
             // constructors

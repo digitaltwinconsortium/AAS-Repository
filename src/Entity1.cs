@@ -33,8 +33,8 @@ namespace AasxCompatibilityModels
 
             // from this very class
 
-            [JsonIgnore]
-            [SkipForHash] // do NOT count children!
+            
+             // do NOT count children!
             public SubmodelElementWrapperCollection statements = new SubmodelElementWrapperCollection();
 
             [XmlIgnore]
@@ -65,7 +65,7 @@ namespace AasxCompatibilityModels
 
             // further members
 
-            [CountForHash]
+            
             public string entityType = "";
 
             [JsonProperty(PropertyName = "asset")]

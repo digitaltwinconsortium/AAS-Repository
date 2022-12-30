@@ -34,8 +34,8 @@ namespace AasxCompatibilityModels
             // members
 
             [MetaModelName("Property.valueType")]
-            [TextSearchable]
-            [JsonIgnore]
+            
+            
             public string valueType = "";
             [XmlIgnore]
             [JsonProperty(PropertyName = "valueType")]
@@ -47,7 +47,7 @@ namespace AasxCompatibilityModels
 
 
             [MetaModelName("Property.value")]
-            [TextSearchable]
+            
             public string value = "";
             public Reference valueId = null;
 

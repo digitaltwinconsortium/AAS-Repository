@@ -24,19 +24,19 @@ namespace AasxCompatibilityModels
             public static string Instance = "Instance";
 
             [MetaModelName("ModelingKind.kind")]
-            [TextSearchable]
+            
             [XmlText]
-            [CountForHash]
+            
             public string kind = Instance;
 
             // getters / setters
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public bool IsInstance { get { return kind == null || kind.Trim().ToLower() == Instance.ToLower(); } }
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public bool IsTemplate { get { return kind != null && kind.Trim().ToLower() == Template.ToLower(); } }
 
             // constructors / creators

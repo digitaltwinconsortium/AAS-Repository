@@ -36,7 +36,7 @@ namespace AasxCompatibilityModels
             public string category = null;
 
             [XmlElement(ElementName = "description")]
-            [JsonIgnore]
+            
             public Description description = null;
             [XmlIgnore]
             [JsonProperty(PropertyName = "descriptions")]
@@ -57,7 +57,7 @@ namespace AasxCompatibilityModels
             }
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public Referable parent = null;
 
             public static string[] ReferableCategoryNames = new string[] { "CONSTANT", "PARAMETER", "VARIABLE" };

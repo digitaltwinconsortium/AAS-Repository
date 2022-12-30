@@ -39,14 +39,14 @@ namespace AasxCompatibilityModels
             [XmlElement(ElementName = "semanticId")]
             // TODO: Qualifiers not working!
             // 190410: test-wise enable them again, everyhing works fine ..
-            // [JsonIgnore]
+            // 
             public SemanticId semanticId = null;
             // this class
-            // [JsonIgnore]
+            // 
             public string qualifierType = null;
-            // [JsonIgnore]
+            // 
             public string qualifierValue = null;
-            // [JsonIgnore]
+            // 
             public Reference qualifierValueId = null;
 
             // constructors

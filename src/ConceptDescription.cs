@@ -36,14 +36,14 @@ namespace AasxCompatibilityModels
 #if __not_anymore
 
         [XmlElement(ElementName = "embeddedDataSpecification")]
-        [JsonIgnore]
+        
         public EmbeddedDataSpecification embeddedDataSpecification = new EmbeddedDataSpecification();
 #else
             // According to Spec V2.0.1, a ConceptDescription might feature alos multiple data specifications
             /* TODO (MIHO, 2020-08-30): align wording of the member ("embeddedDataSpecification") with the 
                 * wording of the other entities ("hasDataSpecification") */
             [XmlElement(ElementName = "embeddedDataSpecification")]
-            [JsonIgnore]
+            
             public HasDataSpecification embeddedDataSpecification = null;
 #endif
 
@@ -186,7 +186,7 @@ namespace AasxCompatibilityModels
             // as experimental approach, forward the IEC getter/sett of hasDataSpec directly
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public EmbeddedDataSpecification IEC61360DataSpec
             {
                 get
@@ -203,7 +203,7 @@ namespace AasxCompatibilityModels
             }
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public DataSpecificationIEC61360 IEC61360Content
             {
                 get

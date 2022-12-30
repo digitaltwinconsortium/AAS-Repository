@@ -33,13 +33,13 @@ namespace AdminShell_V30
             // getters / setters
 
             [XmlIgnore]
-            [JsonIgnore]
+            
             public bool IsEmpty { get { return langString == null || langString.Count < 1; } }
             [XmlIgnore]
-            [JsonIgnore]
+            
             public int Count { get { if (langString == null) return 0; return langString.Count; } }
             [XmlIgnore]
-            [JsonIgnore]
+            
             public LangStr this[int index] { get { return langString[index]; } }
 
             // constructors

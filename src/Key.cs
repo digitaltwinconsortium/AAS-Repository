@@ -35,7 +35,7 @@ namespace AasxCompatibilityModels
             public bool local = false;
 
             [XmlAttribute]
-            [JsonIgnore]
+            
             public string idType = "";
             [XmlIgnore]
             [JsonProperty(PropertyName = "idType")]

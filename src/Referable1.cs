@@ -27,15 +27,15 @@ namespace AasxCompatibilityModels
         public class Referable : IAasElement
         {
             [XmlIgnore]
-            [JsonIgnore]
-            [SkipForHash] // important to skip, as recursion elsewise will go in cycles!
-            [SkipForReflection] // important to skip, as recursion elsewise will go in cycles!
+            
+             // important to skip, as recursion elsewise will go in cycles!
+             // important to skip, as recursion elsewise will go in cycles!
             public DateTime TimeStampCreate;
 
             [XmlIgnore]
-            [JsonIgnore]
-            [SkipForHash] // important to skip, as recursion elsewise will go in cycles!
-            [SkipForReflection] // important to skip, as recursion elsewise will go in cycles!
+            
+             // important to skip, as recursion elsewise will go in cycles!
+             // important to skip, as recursion elsewise will go in cycles!
             public DateTime TimeStamp;
 
             public void setTimeStamp(DateTime timeStamp)
@@ -134,18 +134,18 @@ namespace AasxCompatibilityModels
             // members
 
             [MetaModelName("Referable.IdShort")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string idShort = "";
 
             [MetaModelName("Referable.category")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string category = null;
 
             [XmlElement(ElementName = "description")]
-            [JsonIgnore]
-            [CountForHash]
+            
+            
             public Description description = null;
 
             [XmlIgnore]
@@ -171,9 +171,9 @@ namespace AasxCompatibilityModels
             }
 
             [XmlIgnore]
-            [JsonIgnore]
-            [SkipForHash] // important to skip, as recursion elsewise will go in cycles!
-            [SkipForReflection] // important to skip, as recursion elsewise will go in cycles!
+            
+             // important to skip, as recursion elsewise will go in cycles!
+             // important to skip, as recursion elsewise will go in cycles!
             public Referable parent = null;
 
             public static string CONSTANT = "CONSTANT";

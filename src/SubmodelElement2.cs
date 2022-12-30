@@ -48,7 +48,7 @@ namespace AasxCompatibilityModels
             public SemanticId semanticId = null;
             // from hasKind:
             [XmlElement(ElementName = "kind")]
-            [JsonIgnore]
+            
             public Kind kind = null;
             [XmlIgnore]
             [JsonProperty(PropertyName = "kind")]

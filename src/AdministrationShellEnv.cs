@@ -26,7 +26,7 @@ namespace AasxCompatibilityModels
         public class AdministrationShellEnv : IFindAllReferences
         {
             [XmlAttribute(Namespace = System.Xml.Schema.XmlSchema.InstanceNamespace)]
-            [JsonIgnore]
+            
             public string schemaLocation =
                 "http://www.admin-shell.io/aas/2/0 AAS.xsd http://www.admin-shell.io/IEC61360/2/0 IEC61360.xsd";
 

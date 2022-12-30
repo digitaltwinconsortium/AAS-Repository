@@ -31,14 +31,14 @@ namespace AdminShell_V30
             // diary
 
             [XmlIgnore]
-            [JsonIgnore]
-            [SkipForHash]
-            [SkipForReflection]
+            
+            
+            
             private DiaryDataDef _diaryData = new DiaryDataDef();
 
             [XmlIgnore]
-            [JsonIgnore]
-            [SkipForReflection]
+            
+            
             public DiaryDataDef DiaryData { get { return _diaryData; } }
 
             // from HasExtension
@@ -47,15 +47,15 @@ namespace AdminShell_V30
             #region Timestamp
 
             [XmlIgnore]
-            [JsonIgnore]
-            [SkipForHash] // important to skip, as recursion elsewise will go in cycles!
-            [SkipForReflection] // important to skip, as recursion elsewise will go in cycles!
+            
+             // important to skip, as recursion elsewise will go in cycles!
+             // important to skip, as recursion elsewise will go in cycles!
             public DateTime TimeStampCreate;
 
             [XmlIgnore]
-            [JsonIgnore]
-            [SkipForHash] // important to skip, as recursion elsewise will go in cycles!
-            [SkipForReflection] // important to skip, as recursion elsewise will go in cycles!
+            
+             // important to skip, as recursion elsewise will go in cycles!
+             // important to skip, as recursion elsewise will go in cycles!
             public DateTime TimeStamp;
 
             public void setTimeStamp(DateTime timeStamp)
@@ -156,13 +156,13 @@ namespace AdminShell_V30
             // members
 
             [MetaModelName("Referable.idShort")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string idShort = "";
 
             [XmlElement(ElementName = "displayName")]
-            [JsonIgnore]
-            [CountForHash]
+            
+            
             public DisplayName displayName = null;
 
             [XmlIgnore]
@@ -188,13 +188,13 @@ namespace AdminShell_V30
             }
 
             [MetaModelName("Referable.category")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string category = null;
 
             [XmlElement(ElementName = "description")]
-            [JsonIgnore]
-            [CountForHash]
+            
+            
             public Description description = null;
 
             [XmlIgnore]
@@ -223,9 +223,9 @@ namespace AdminShell_V30
             public string checksum = "";
 
             [XmlIgnore]
-            [JsonIgnore]
-            [SkipForHash] // important to skip, as recursion elsewise will go in cycles!
-            [SkipForReflection] // important to skip, as recursion elsewise will go in cycles!
+            
+             // important to skip, as recursion elsewise will go in cycles!
+             // important to skip, as recursion elsewise will go in cycles!
             public IAasElement parent = null;
 
             public static string CONSTANT = "CONSTANT";

@@ -39,7 +39,7 @@ namespace AasxCompatibilityModels
             public HasDataSpecification hasDataSpecification = null;
             // from HasKind
             [XmlElement(ElementName = "kind")]
-            [JsonIgnore]
+            
             public Kind kind = new Kind();
             [XmlIgnore]
             [JsonProperty(PropertyName = "kind")]

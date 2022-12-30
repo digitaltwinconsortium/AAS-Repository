@@ -33,11 +33,11 @@ namespace AdminShell_V30
 
             // from this very class
             [XmlIgnore]
-            [JsonIgnore]
-            [SkipForHash] // do NOT count children!
+            
+             // do NOT count children!
             private SubmodelElementWrapperCollection _statements = null;
 
-            [JsonIgnore]
+            
             public SubmodelElementWrapperCollection statements
             {
                 get { return _statements; }
@@ -72,7 +72,7 @@ namespace AdminShell_V30
 
             // further members
 
-            [CountForHash]
+            
             public string entityType = "";
 
             [JsonProperty(PropertyName = "asset")]

@@ -40,7 +40,7 @@ namespace AdminShell_V30
 
             // from HasKind
             [XmlElement(ElementName = "kind")]
-            [JsonIgnore]
+            
             public ModelingKind kind = new ModelingKind();
             [XmlIgnore]
             [JsonProperty(PropertyName = "kind")]
@@ -77,10 +77,10 @@ namespace AdminShell_V30
 
             // from this very class
             [XmlIgnore]
-            [JsonIgnore]
+            
             private SubmodelElementWrapperCollection _submodelElements = null;
 
-            [JsonIgnore]
+            
             public SubmodelElementWrapperCollection submodelElements
             {
                 get { return _submodelElements; }
@@ -194,7 +194,7 @@ namespace AdminShell_V30
                 return (s);
             }
 
-            [JsonIgnore]
+            
             [XmlIgnore]
             public SubmodelElementWrapperCollection SmeForWrite
             {

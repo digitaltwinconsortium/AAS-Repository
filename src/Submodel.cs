@@ -36,7 +36,7 @@ namespace AasxCompatibilityModels
 
             // from HasKind
             [XmlElement(ElementName = "kind")]
-            [JsonIgnore]
+            
             public ModelingKind kind = new ModelingKind();
             [XmlIgnore]
             [JsonProperty(PropertyName = "kind")]
@@ -71,7 +71,7 @@ namespace AasxCompatibilityModels
             public HasDataSpecification hasDataSpecification = null;
 
             // from this very class
-            [JsonIgnore]
+            
             public SubmodelElementWrapperCollection submodelElements = null;
 
             [XmlIgnore]
@@ -162,7 +162,7 @@ namespace AasxCompatibilityModels
                 return (s);
             }
 
-            [JsonIgnore]
+            
             [XmlIgnore]
             public SubmodelElementWrapperCollection SmeForWrite
             {

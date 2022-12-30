@@ -30,9 +30,9 @@ namespace AdminShell_V30
             // members
 
             [MetaModelName("Range.valueType")]
-            [TextSearchable]
-            [JsonIgnore]
-            [CountForHash]
+            
+            
+            
             public string valueType = "";
 
             [XmlIgnore]
@@ -44,13 +44,13 @@ namespace AdminShell_V30
             }
 
             [MetaModelName("Range.min")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string min = "";
 
             [MetaModelName("Range.max")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string max = "";
 
             // constructors

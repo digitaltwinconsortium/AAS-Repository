@@ -13,13 +13,13 @@ namespace AdminShell_V30
     {
 
         [MetaModelName("Resource.path")]
-        [TextSearchable]
-        [CountForHash]
+        
+        
         public string path = "";
 
         [MetaModelName("Resource.contentType")]
-        [TextSearchable]
-        [CountForHash]
+        
+        
         public string contentType = "";
 
         //Default Constructor

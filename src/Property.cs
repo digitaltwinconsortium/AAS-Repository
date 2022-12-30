@@ -33,8 +33,8 @@ namespace AdminShell_V30
             // members
 
             [MetaModelName("Property.valueType")]
-            [TextSearchable]
-            [JsonIgnore]
+            
+            
             public string valueType = "";
             [XmlIgnore]
             [JsonProperty(PropertyName = "valueType")]
@@ -46,7 +46,7 @@ namespace AdminShell_V30
 
 
             [MetaModelName("Property.value")]
-            [TextSearchable]
+            
             public string value = "";
             public GlobalReference valueId = null;
 

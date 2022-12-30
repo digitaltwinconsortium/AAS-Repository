@@ -21,7 +21,7 @@ namespace AasxCompatibilityModels
         {
             // static member
             [XmlIgnore]
-            [JsonIgnore]
+            
             public static string[] DataTypeNames = {
                 "STRING",
                 "STRING_TRANSLATABLE",
@@ -49,30 +49,30 @@ namespace AasxCompatibilityModels
             public LangStringSetIEC61360 shortName = null;
 
             [MetaModelName("DataSpecificationIEC61360.unit")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string unit = "";
 
             public UnitId unitId = null;
 
             [MetaModelName("DataSpecificationIEC61360.valueFormat")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string valueFormat = null;
 
             [MetaModelName("DataSpecificationIEC61360.sourceOfDefinition")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string sourceOfDefinition = null;
 
             [MetaModelName("DataSpecificationIEC61360.symbol")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string symbol = null;
 
             [MetaModelName("DataSpecificationIEC61360.dataType")]
-            [TextSearchable]
-            [CountForHash]
+            
+            
             public string dataType = "";
 
             // TODO (MIHO, 2020-08-27): According to spec, cardinality is [0..1][1..n]

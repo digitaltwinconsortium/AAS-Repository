@@ -48,7 +48,7 @@ namespace AasxCompatibilityModels
             [JsonProperty(PropertyName = "submodels")]
             public List<SubmodelRef> submodelRefs = new List<SubmodelRef>();
 
-            [JsonIgnore]
+            
             public Views views = null;
             [XmlIgnore]
             [JsonProperty(PropertyName = "views")]

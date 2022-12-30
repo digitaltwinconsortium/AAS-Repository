@@ -28,16 +28,16 @@ namespace AdminShell_V30
             public SemanticId semanticId = null;
 
             [MetaModelName("IdentifierKeyValuePair.key")]
-            [TextSearchable]
-            [CountForHash]
+
+
             public string key = "";
 
             [MetaModelName("IdentifierKeyValuePair.value")]
-            [TextSearchable]
-            [CountForHash]
+
+
             public string value = null;
 
-            [CountForHash]
+
             public GlobalReference externalSubjectId = null;
 
             // constructors

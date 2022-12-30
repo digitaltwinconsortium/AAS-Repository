@@ -21,7 +21,7 @@ namespace AasxCompatibilityModels
         public class Views
         {
             [XmlElement(ElementName = "view")]
-            [JsonIgnore]
+            
             public List<View> views = new List<View>();
 
             // constructors
