@@ -1,7 +1,7 @@
 
-using AasxRestServerLibrary;
-using AasxServerBlazor;
-using AdminShellNS;
+using AdminShell;
+using AdminShell;
+using AdminShell;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;

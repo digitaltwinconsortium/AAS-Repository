@@ -3,7 +3,7 @@ using Opc.Ua;
 using Opc.Ua.Server;
 using System.Collections.Generic;
 
-namespace AasxServerBlazor.Data
+namespace AdminShell.Data
 {
     public partial class SimpleServer : StandardServer
     {

@@ -15,7 +15,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml;
 
-namespace AdminShellNS
+namespace AdminShell
 {
     public static class AasSchemaValidation
     {
@@ -27,16 +27,16 @@ namespace AdminShellNS
             {
                 return new[]
                 {
-                    "AdminShellNS.Resources.schemaV201.AAS.xsd",
-                    "AdminShellNS.Resources.schemaV201.AAS_ABAC.xsd",
-                    "AdminShellNS.Resources.schemaV201.IEC61360.xsd"
+                    "AdminShell.Resources.schemaV201.AAS.xsd",
+                    "AdminShell.Resources.schemaV201.AAS_ABAC.xsd",
+                    "AdminShell.Resources.schemaV201.IEC61360.xsd"
                 };
             }
             if (fmt == SerializationFormat.JSON)
             {
                 return new[]
                 {
-                    "AdminShellNS.Resources.schemaV201.aas.json"
+                    "AdminShell.Resources.schemaV201.aas.json"
                 };
             }
             return null;

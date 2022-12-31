@@ -11,10 +11,10 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
-using AdminShellNS;
+using AdminShell;
 using Newtonsoft.Json;
 
-//namespace AdminShellNS
+//namespace AdminShell
 namespace AdminShell_V30
 {
     public partial class AdminShellV30

@@ -1,5 +1,5 @@
 ﻿
-namespace AasxServerBlazor.Models
+namespace AdminShell.Models
 {
     public class NodesetViewerNode
     {

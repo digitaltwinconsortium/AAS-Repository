@@ -1,9 +1,9 @@
 ﻿
-using AasxServerBlazor.Interfaces;
-using System;
-
-namespace AasxServerBlazor
+namespace AdminShell
 {
+    using AdminShell.Interfaces;
+    using System;
+
     public class UserService : IUserService
     {
         /// <summary>

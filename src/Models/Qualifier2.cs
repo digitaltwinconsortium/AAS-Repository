@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
-//namespace AdminShellNS
+//namespace AdminShell
 namespace AdminShell_V30
 {
 

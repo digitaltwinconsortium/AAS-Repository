@@ -277,7 +277,7 @@ namespace AasxCompatibilityModels
 
             public Tuple<string, string> ToCaptionInfo()
             {
-                var caption = AdminShellNS.AdminShellUtil.EvalToNonNullString("\"{0}\" ", idShort, "<no idShort!>");
+                var caption = AdminShell.AdminShellUtil.EvalToNonNullString("\"{0}\" ", idShort, "<no idShort!>");
                 if (administration != null)
                     caption += "V" + administration.version + "." + administration.revision;
                 var info = "";

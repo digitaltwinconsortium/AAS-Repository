@@ -9,7 +9,7 @@ This source code may use other Open Source software components (see LICENSE.txt)
 
 using System;
 
-//namespace AdminShellNS
+//namespace AdminShell
 namespace AdminShell_V30
 {
 

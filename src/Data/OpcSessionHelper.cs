@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AasxServerBlazor.Data
+namespace AdminShell.Data
 {
     public class OpcSessionCacheData
     {

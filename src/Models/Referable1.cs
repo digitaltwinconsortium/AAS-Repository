@@ -235,7 +235,7 @@ namespace AasxCompatibilityModels
 
             public string GetFriendlyName()
             {
-                return AdminShellNS.AdminShellUtil.FilterFriendlyName(this.idShort);
+                return AdminShell.AdminShellUtil.FilterFriendlyName(this.idShort);
             }
 
             public void CollectReferencesByParent(List<Key> refs)

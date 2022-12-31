@@ -1,7 +1,7 @@
 ﻿using AdminShell_V30;
-using AdminShellNS;
+using AdminShell;
 
-namespace AasxServerBlazor.Models
+namespace AdminShell.Models
 {
     public class GetSubmodelsItem
     {

@@ -7,12 +7,12 @@ This source code is licensed under the Apache License 2.0 (see LICENSE.txt).
 This source code may use other Open Source software components (see LICENSE.txt).
 */
 
-using AdminShellNS;
+using AdminShell;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
 
-//namespace AdminShellNS
+//namespace AdminShell
 namespace AdminShell_V30
 {
     public partial class AdminShellV30

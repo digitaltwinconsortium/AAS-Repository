@@ -1,29 +1,26 @@
-﻿using AasxServerBlazor;
-using AdminShell_V30;
-using AdminShellNS;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.IO;
-using System.Net;
-using System.Text.RegularExpressions;
-
+﻿
 /* Copyright (c) 2018-2019 Festo AG & Co. KG <https://www.festo.com/net/de_de/Forms/web/contact_international>, author: Michael Hoffmeister
 This software is licensed under the Eclipse Public License 2.0 (EPL-2.0) (see https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.txt).
 Please notice: the API and REST routes implemented in this version of the source code are not specified and standardised by the
 specification Details of the Administration Shell. The hereby stated approach is solely the opinion of its author(s). */
 
-namespace AasxRestServerLibrary
+namespace AdminShell
 {
+    using AdminShell;
+    using Microsoft.AspNetCore.Http;
+    using System;
+    using System.Collections.Generic;
+    using System.Dynamic;
+    using System.IO;
+    using System.Net;
+    using System.Text.RegularExpressions;
+
     public class AasxHttpContextHelper
     {
         public AdminShellPackageEnv[] Packages = null;
 
-        public FindAasReturn FindAAS(string aasid, string queryString = null, string rawUrl = null)
+        private AssetAdministrationShell FindAAS(string aasid, string queryString = null, string rawUrl = null)
         {
-            FindAasReturn findAasReturn = new FindAasReturn();
-
             if (Packages == null)
                 return null;
 
@@ -39,16 +36,14 @@ namespace AasxRestServerLibrary
                     || Packages[i].AasEnv.AdministrationShells.Count < 1)
                     return null;
 
-                findAasReturn.aas = Packages[i].AasEnv.AdministrationShells[0];
-                findAasReturn.iPackage = i;
+                return Packages[i].AasEnv.AdministrationShells[0];
             }
             else
             {
                 // Name
                 if (aasid == "id")
                 {
-                    findAasReturn.aas = Packages[0].AasEnv.AdministrationShells[0];
-                    findAasReturn.iPackage = 0;
+                    return Packages[0].AasEnv.AdministrationShells[0];
                 }
                 else
                 {
@@ -58,16 +53,14 @@ namespace AasxRestServerLibrary
                         {
                             if (Packages[i].AasEnv.AdministrationShells[0].idShort == aasid)
                             {
-                                findAasReturn.aas = Packages[i].AasEnv.AdministrationShells[0];
-                                findAasReturn.iPackage = i;
-                                break;
+                                return Packages[i].AasEnv.AdministrationShells[0];
                             }
                         }
                     }
                 }
-            }
 
-            return findAasReturn;
+                return null;
+            }
         }
 
         public class FindSubmodelElementResult
@@ -139,8 +132,8 @@ namespace AasxRestServerLibrary
             dynamic res = new ExpandoObject();
 
             // access the first AAS
-            var findAasReturn = FindAAS(aasid, context.Request.QueryString.Value, context.Request.Path.Value);
-            if (findAasReturn.aas == null)
+            var aas = FindAAS(aasid, context.Request.QueryString.Value, context.Request.Path.Value);
+            if (aas == null)
             {
                 context.Response.StatusCode = (int) HttpStatusCode.NotFound;//, $"No AAS with id '{aasid}' found.");
                 return null;
@@ -150,7 +143,7 @@ namespace AasxRestServerLibrary
             var asset = this.Packages[findAasReturn.iPackage].AasEnv.FindAAS(findAasReturn.aas.id);
 
             // result
-            res.AAS = findAasReturn.aas;
+            res.AAS = aas;
             res.Asset = asset;
 
             return res;
@@ -194,7 +187,7 @@ namespace AasxRestServerLibrary
                 Program.env[fileIndex].SaveAs(fname);
 
                 // return as FILE
-                return File.OpenRead(fname);
+                return System.IO.File.OpenRead(fname);
             }
         }
     }

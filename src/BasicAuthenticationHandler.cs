@@ -1,7 +1,7 @@
 ﻿
-namespace AasxServerBlazor
+namespace AdminShell
 {
-    using AasxServerBlazor.Interfaces;
+    using AdminShell.Interfaces;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;

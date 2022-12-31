@@ -10,7 +10,7 @@ This source code may use other Open Source software components (see LICENSE.txt)
 using AdminShell_V30;
 using System;
 
-namespace AdminShellNS
+namespace AdminShell
 {
     public class AasValidationRecord
     {

@@ -1,4 +1,4 @@
-﻿using AasxServerBlazor.Models;
+﻿using AdminShell.Models;
 using Newtonsoft.Json;
 using Opc.Ua;
 using Opc.Ua.Client;
@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UACloudLibrary;
 
-namespace AasxServerBlazor.Data
+namespace AdminShell.Data
 {
     public class UANodesetViewer
     {

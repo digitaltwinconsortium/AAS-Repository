@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
-namespace AasxServerBlazor.Data
+namespace AdminShell.Data
 {
     public class SimpleNodeManager : CustomNodeManager2
     {

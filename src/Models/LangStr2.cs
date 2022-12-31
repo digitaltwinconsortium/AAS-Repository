@@ -10,7 +10,7 @@ This source code may use other Open Source software components (see LICENSE.txt)
 using Newtonsoft.Json;
 using System.Xml.Serialization;
 
-//namespace AdminShellNS
+//namespace AdminShell
 namespace AdminShell_V30
 {
 

@@ -11,7 +11,7 @@ using System;
 using System.IO;
 using System.Xml.Schema;
 
-namespace AdminShellNS
+namespace AdminShell
 {
     /// <summary>
     /// validates the XML content against the AASX XML schema.
@@ -20,7 +20,7 @@ namespace AdminShellNS
     /// </summary>
     public class XmlValidator
     {
-        private System.Xml.Schema.XmlSchemaSet xmlSchemaSet;
+        private XmlSchemaSet xmlSchemaSet;
 
         internal XmlValidator(XmlSchemaSet xmlSchemaSet)
         {

@@ -1,5 +1,5 @@
 ﻿
-namespace AasxServerBlazor.Interfaces
+namespace AdminShell.Interfaces
 {
     public interface IUserService
     {

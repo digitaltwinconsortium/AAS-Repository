@@ -7,7 +7,7 @@ This source code is licensed under the Apache License 2.0 (see LICENSE.txt).
 This source code may use other Open Source software components (see LICENSE.txt).
 */
 
-using AdminShellNS;
+using AdminShell;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -249,10 +249,10 @@ namespace AasxCompatibilityModels
 
             public Tuple<string, string> ToCaptionInfo()
             {
-                var caption = AdminShellNS.AdminShellUtil.EvalToNonNullString("\"{0}\" ", idShort, "<no idShort!>");
+                var caption = AdminShell.AdminShellUtil.EvalToNonNullString("\"{0}\" ", idShort, "<no idShort!>");
                 var info = "";
                 if (semanticId != null)
-                    AdminShellNS.AdminShellUtil.EvalToNonEmptyString("\u21e8 {0}", semanticId.ToString(), "");
+                    AdminShell.AdminShellUtil.EvalToNonEmptyString("\u21e8 {0}", semanticId.ToString(), "");
                 return Tuple.Create(caption, info);
             }
 

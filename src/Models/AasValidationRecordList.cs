@@ -9,7 +9,7 @@ This source code may use other Open Source software components (see LICENSE.txt)
 
 using System.Collections.Generic;
 
-namespace AdminShellNS
+namespace AdminShell
 {
     public class AasValidationRecordList : List<AasValidationRecord>
     {

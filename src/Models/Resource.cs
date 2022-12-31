@@ -4,7 +4,7 @@
  */
 
 
-//namespace AdminShellNS
+//namespace AdminShell
 using static AdminShell_V30.AdminShellV30;
 
 namespace AdminShell_V30

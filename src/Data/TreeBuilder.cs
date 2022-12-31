@@ -1,4 +1,4 @@
-﻿using AasxServerBlazor.Models;
+﻿using AdminShell.Models;
 using Aml.Engine.CAEX;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.IO;
 using static AAS_Repository.Pages.TreePage;
 using static AdminShell_V30.AdminShellV30;
 
-namespace AasxServerBlazor.Data
+namespace AdminShell.Data
 {
     public class TreeBuilder
     {

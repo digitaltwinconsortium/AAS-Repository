@@ -1,5 +1,5 @@
 ﻿
-namespace AasxServerBlazor
+namespace AdminShell
 {
     public class TreeStyle
     {

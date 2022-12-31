@@ -1,11 +1,10 @@
-﻿#define UseAasxCompatibilityModels
-
-using AdminShell_V30;
-using System.IO;
-using System.Xml.Serialization;
-
-namespace AdminShellNS
+﻿
+namespace AdminShell
 {
+    using AdminShell_V30;
+    using System.IO;
+    using System.Xml.Serialization;
+
     /// <summary>
     /// Provides (static?) helpers for serializing AAS..
     /// </summary>
@@ -15,7 +14,7 @@ namespace AdminShellNS
         public static string TryReadXmlFirstElementNamespaceURI(Stream s)
         {
             string res = null;
-            // ReSharper disable EmptyGeneralCatchClause
+
             try
             {
                 var xr = System.Xml.XmlReader.Create(s);
@@ -38,11 +37,6 @@ namespace AdminShellNS
                 xr.Close();
             }
             catch { }
-            // ReSharper enable EmptyGeneralCatchClause
-
-            // return to zero pos
-            // new
-            // s.Seek(0, SeekOrigin.Begin);
 
             // give back
             return res;
@@ -64,14 +58,10 @@ namespace AdminShellNS
             // read V1.0?
             if (nsuri != null && nsuri.Trim() == "http://www.admin-shell.io/aas/1/0")
             {
-#if UseAasxCompatibilityModels
                 XmlSerializer serializer = new XmlSerializer(typeof(AasxCompatibilityModels.AdminShellV10.AdministrationShellEnv), "http://www.admin-shell.io/aas/1/0");
                 var v10 = serializer.Deserialize(s) as AasxCompatibilityModels.AdminShellV10.AdministrationShellEnv;
                 res = new AdminShellV30.AdministrationShellEnv(v10);
                 return res;
-#else
-                throw (new Exception("Cannot handle AAS file format http://www.admin-shell.io/aas/1/0 !"));
-#endif
             }
 
             // read V2.0?

@@ -72,8 +72,8 @@ namespace AasxCompatibilityModels
             public new string GetFriendlyName()
             {
                 if (identification != null && identification.id != "")
-                    return AdminShellNS.AdminShellUtil.FilterFriendlyName(this.identification.id);
-                return AdminShellNS.AdminShellUtil.FilterFriendlyName(this.idShort);
+                    return AdminShell.AdminShellUtil.FilterFriendlyName(this.identification.id);
+                return AdminShell.AdminShellUtil.FilterFriendlyName(this.idShort);
             }
 
             public override string ToString()

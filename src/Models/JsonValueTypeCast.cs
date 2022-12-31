@@ -10,7 +10,7 @@ This source code may use other Open Source software components (see LICENSE.txt)
 using Newtonsoft.Json;
 
 
-//namespace AdminShellNS
+//namespace AdminShell
 namespace AdminShell_V30
 {
     public partial class AdminShellV30

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Reflection;
 
-namespace AdminShellNS
+namespace AdminShell
 {
     public partial class AdminShellConverters
     {

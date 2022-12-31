@@ -8,10 +8,10 @@ This source code may use other Open Source software components (see LICENSE.txt)
 */
 
 using System.Xml.Serialization;
-using AdminShellNS;
+using AdminShell;
 using Newtonsoft.Json;
 
-//namespace AdminShellNS
+//namespace AdminShell
 namespace AdminShell_V30
 {
     public partial class AdminShellV30

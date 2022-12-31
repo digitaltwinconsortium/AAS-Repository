@@ -11,7 +11,7 @@
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
-namespace IO.Swagger.Models
+namespace AdminShell
 {
     /// <summary>
     /// Gets or Sets LevelType

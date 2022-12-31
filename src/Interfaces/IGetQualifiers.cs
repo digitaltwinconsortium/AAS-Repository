@@ -8,7 +8,7 @@ This source code may use other Open Source software components (see LICENSE.txt)
 */
 
 
-//namespace AdminShellNS
+//namespace AdminShell
 namespace AdminShell_V30
 {
 

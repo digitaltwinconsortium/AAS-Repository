@@ -1,6 +1,6 @@
 ﻿using AasxCompatibilityModels;
 using AdminShell_V30;
-using AdminShellNS;
+using AdminShell;
 using Kusto.Cloud.Platform.Utils;
 using Kusto.Data;
 using Kusto.Data.Common;

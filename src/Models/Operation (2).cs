@@ -13,7 +13,7 @@ using System.Xml;
 using System.Xml.Serialization;
 
 
-//namespace AdminShellNS
+//namespace AdminShell
 namespace AdminShell_V30
 {
     public partial class AdminShellV30

@@ -3,7 +3,7 @@
 using AdminShell_V30;
 using System;
 
-namespace AdminShellNS
+namespace AdminShell
 {
     /// <summary>
     /// This class lets an outer functionality keep track on the supplementary files, which are in or

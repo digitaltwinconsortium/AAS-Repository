@@ -14,7 +14,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace IO.Swagger.Models
+namespace AdminShell
 {
     /// <summary>
     ///

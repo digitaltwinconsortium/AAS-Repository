@@ -8,7 +8,7 @@ using System.IO;
 using System.IO.Packaging;
 using System.Xml.Serialization;
 
-namespace AdminShellNS
+namespace AdminShell
 {
 
     /// <summary>
