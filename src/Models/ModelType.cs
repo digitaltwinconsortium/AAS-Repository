@@ -6,7 +6,7 @@ namespace AdminShell
     using System.Runtime.Serialization;
 
     [DataContract]
-    public partial class ModelType
+    public class ModelType
     {
         [Required]
         [DataMember(Name="name")]

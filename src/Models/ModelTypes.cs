@@ -89,5 +89,6 @@ namespace AdminShell
         FormulaEnum = 26,
 
         [EnumMember(Value = "Qualifier")]
-        QualifierEnum = 27        }
+        QualifierEnum = 27
+    }
 }

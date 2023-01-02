@@ -8,7 +8,7 @@ namespace AdminShell
     using System.Security.Cryptography.X509Certificates;
 
     [DataContract]
-    public partial class Security
+    public class Security
     {
         [Required]
         [DataMember(Name="accessControlPolicyPoints")]

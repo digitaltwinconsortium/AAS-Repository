@@ -5,7 +5,7 @@ namespace AdminShell
     using System.Runtime.Serialization;
 
     [DataContract]
-    public partial class Message
+    public class Message
     {
         [DataMember(Name="code")]
         public string Code { get; set; }
