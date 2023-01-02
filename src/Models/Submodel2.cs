@@ -14,8 +14,8 @@ using System.Xml.Serialization;
 using AdminShell;
 using Newtonsoft.Json;
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
     public partial class AdminShellV30
     {
@@ -72,7 +72,7 @@ namespace AdminShell_V30
             public QualifierCollection GetQualifiers() => qualifiers;
 
             // from hasDataSpecification:
-            [XmlElement(ElementName = "embeddedDataSpecification")]
+            [XmlElement(ElementName = "EmbeddedDataSpecification")]
             public HasDataSpecification hasDataSpecification = null;
 
             // from this very class
@@ -139,8 +139,8 @@ namespace AdminShell_V30
                 }
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public Submodel(AasxCompatibilityModels.AdminShellV10.Submodel src, bool shallowCopy = false)
+#if !DoNotUseAdminShell
+            public Submodel(AdminShell.AdminShellV10.Submodel src, bool shallowCopy = false)
                 : base(src)
             {
                 if (src.hasDataSpecification != null)
@@ -160,7 +160,7 @@ namespace AdminShell_V30
                 }
             }
 
-            public Submodel(AasxCompatibilityModels.AdminShellV20.Submodel src, bool shallowCopy = false)
+            public Submodel(AdminShell.AdminShellV20.Submodel src, bool shallowCopy = false)
                 : base(src)
             {
                 if (src == null)
@@ -188,8 +188,8 @@ namespace AdminShell_V30
                 {
                     if (s.administration == null)
                         s.administration = new Administration();
-                    s.administration.version = version;
-                    s.administration.revision = revision;
+                    s.administration.Version = version;
+                    s.administration.Revision = revision;
                 }
                 return (s);
             }
@@ -338,7 +338,7 @@ namespace AdminShell_V30
             {
                 var caption = AdminShellUtil.EvalToNonNullString("\"{0}\" ", idShort, "<no idShort!>");
                 if (administration != null)
-                    caption += "V" + administration.version + "." + administration.revision;
+                    caption += "V" + administration.Version + "." + administration.Revision;
                 var info = "";
                 if (id != null)
                     info = $"[{id.value}]";

@@ -9,7 +9,7 @@ This source code may use other Open Source software components (see LICENSE.txt)
 
 using System.Collections.Generic;
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
     #region AdminShell_V2_0
 
@@ -32,8 +32,8 @@ namespace AasxCompatibilityModels
 
             public SemanticId(Reference src) : base(src) { }
 
-#if !DoNotUseAasxCompatibilityModels
-            public SemanticId(AasxCompatibilityModels.AdminShellV10.SemanticId src)
+#if !DoNotUseAdminShell
+            public SemanticId(AdminShell.AdminShellV10.SemanticId src)
                 : base(src)
             {
             }

@@ -11,8 +11,8 @@ using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
 
     #region AdminShell_V3_0
@@ -39,7 +39,7 @@ namespace AdminShell_V30
             // this class
             // TODO (Michael Hoffmeister, 2020-08-01): check, if Json has Qualifiers or not
 
-            [MetaModelName("Qualifier.type")]
+            [MetaModelName("Qualifier.Type")]
 
 
             public string type = "";
@@ -52,7 +52,7 @@ namespace AdminShell_V30
 
             public GlobalReference valueId = null;
 
-            [MetaModelName("Qualifier.value")]
+            [MetaModelName("Qualifier.Value")]
 
 
             public string value = null;
@@ -79,8 +79,8 @@ namespace AdminShell_V30
                     this.valueId = new GlobalReference(src.valueId);
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public Qualifier(AasxCompatibilityModels.AdminShellV10.Qualifier src)
+#if !DoNotUseAdminShell
+            public Qualifier(AdminShell.AdminShellV10.Qualifier src)
             {
                 if (src.semanticId != null)
                     this.semanticId = new SemanticId(src.semanticId);
@@ -90,7 +90,7 @@ namespace AdminShell_V30
                     this.valueId = new GlobalReference(src.qualifierValueId);
             }
 
-            public Qualifier(AasxCompatibilityModels.AdminShellV20.Qualifier src)
+            public Qualifier(AdminShell.AdminShellV20.Qualifier src)
             {
                 if (src.semanticId != null)
                     this.semanticId = new SemanticId(src.semanticId);

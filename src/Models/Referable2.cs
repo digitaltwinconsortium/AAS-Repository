@@ -18,42 +18,29 @@ using System.Reflection;
 using System.Text;
 using System.Xml.Serialization;
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
 
     #region AdminShell_V3_0
 
     public partial class AdminShellV30
     {
-        public class Referable : IValidateEntity, IAasElement, IDiaryData, IGetModelReference, IRecurseOnReferables
+        public class Referable : IValidateEntity, IAasElement, IGetModelReference
         {
-            // diary
-
-            [XmlIgnore]
-            
-            
-            
-            private DiaryDataDef _diaryData = new DiaryDataDef();
-
-            [XmlIgnore]
-            
-            
-            public DiaryDataDef DiaryData { get { return _diaryData; } }
-
             // from HasExtension
             public ListOfExtension extension = null;
 
             #region Timestamp
 
             [XmlIgnore]
-            
+
              // important to skip, as recursion elsewise will go in cycles!
              // important to skip, as recursion elsewise will go in cycles!
             public DateTime TimeStampCreate;
 
             [XmlIgnore]
-            
+
              // important to skip, as recursion elsewise will go in cycles!
              // important to skip, as recursion elsewise will go in cycles!
             public DateTime TimeStamp;
@@ -156,13 +143,13 @@ namespace AdminShell_V30
             // members
 
             [MetaModelName("Referable.idShort")]
-            
-            
+
+
             public string idShort = "";
 
             [XmlElement(ElementName = "displayName")]
-            
-            
+
+
             public DisplayName displayName = null;
 
             [XmlIgnore]
@@ -188,13 +175,13 @@ namespace AdminShell_V30
             }
 
             [MetaModelName("Referable.category")]
-            
-            
+
+
             public string category = null;
 
             [XmlElement(ElementName = "description")]
-            
-            
+
+
             public Description description = null;
 
             [XmlIgnore]
@@ -223,7 +210,7 @@ namespace AdminShell_V30
             public string checksum = "";
 
             [XmlIgnore]
-            
+
              // important to skip, as recursion elsewise will go in cycles!
              // important to skip, as recursion elsewise will go in cycles!
             public IAasElement parent = null;
@@ -253,8 +240,8 @@ namespace AdminShell_V30
                     this.description = new Description(src.description);
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public Referable(AasxCompatibilityModels.AdminShellV10.Referable src)
+#if !DoNotUseAdminShell
+            public Referable(AdminShell.AdminShellV10.Referable src)
             {
                 if (src == null)
                     return;
@@ -267,7 +254,7 @@ namespace AdminShell_V30
                     this.description = new Description(src.description);
             }
 
-            public Referable(AasxCompatibilityModels.AdminShellV20.Referable src)
+            public Referable(AdminShell.AdminShellV20.Referable src)
             {
                 if (src == null)
                     return;
@@ -297,7 +284,7 @@ namespace AdminShell_V30
             {
                 if (description == null)
                     description = new Description();
-                description.langString.Add(new LangStr(lang, str));
+                description.langString.Add(new LangString(lang, str));
             }
 
             public void AddExtension(Extension ext)
@@ -579,7 +566,7 @@ namespace AdminShell_V30
                     || this.description.langString.Count < 1))
                     results.Add(new AasValidationRecord(
                         AasValidationSeverity.SchemaViolation, this,
-                        "Referable: existing description with missing langString",
+                        "Referable: existing description with missing LangString",
                         () =>
                         {
                             this.description = null;

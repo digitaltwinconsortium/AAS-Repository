@@ -9,8 +9,8 @@ This source code may use other Open Source software components (see LICENSE.txt)
 
 using System.Xml.Serialization;
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
     public partial class AdminShellV30
     {
@@ -25,10 +25,10 @@ namespace AdminShell_V30
 
             public SubmodelRef(ModelReference src) : base(src) { }
 
-#if !DoNotUseAasxCompatibilityModels
-            public SubmodelRef(AasxCompatibilityModels.AdminShellV10.SubmodelRef src) : base(src) { }
+#if !DoNotUseAdminShell
+            public SubmodelRef(AdminShell.AdminShellV10.SubmodelRef src) : base(src) { }
 
-            public SubmodelRef(AasxCompatibilityModels.AdminShellV20.SubmodelRef src) : base(src) { }
+            public SubmodelRef(AdminShell.AdminShellV20.SubmodelRef src) : base(src) { }
 #endif
 
             public new static SubmodelRef CreateNew(string type, string value)

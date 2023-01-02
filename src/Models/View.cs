@@ -1,7 +1,6 @@
 
 namespace AdminShell
 {
-    using Newtonsoft.Json;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
     using System.Xml.Serialization;
@@ -28,7 +27,7 @@ namespace AdminShell
 
         [XmlIgnore]
         public bool IsEmpty { get { return ContainedElements.Count == 0; } }
- 
+
         [XmlIgnore]
         public int Count { get { return ContainedElements.Count; } }
 
@@ -61,41 +60,7 @@ namespace AdminShell
             hasDataSpecification.Add(new EmbeddedDataSpecification(r));
         }
 
-        public void AddContainedElement(Key k)
-        {
-            if (containedElements == null)
-                containedElements = new ContainedElements();
-            var r = new ContainedElementRef();
-            r.Keys.Add(k);
-            containedElements.reference.Add(r);
-        }
-
-        public void AddContainedElement(List<Key> keys)
-        {
-            if (containedElements == null)
-                containedElements = new ContainedElements();
-            var r = new ContainedElementRef();
-            foreach (var k in keys)
-                r.Keys.Add(k);
-            containedElements.reference.Add(r);
-        }
-
-        public void AddContainedElement(Reference r)
-        {
-            if (containedElements == null)
-                containedElements = new ContainedElements();
-            containedElements.reference.Add(ContainedElementRef.CreateNew(r));
-        }
-
-        public void AddContainedElement(List<Reference> rlist)
-        {
-            if (containedElements == null)
-                containedElements = new ContainedElements();
-            foreach (var r in rlist)
-                containedElements.reference.Add(ContainedElementRef.CreateNew(r));
-        }
-
-        public override AasElementSelfDescription GetSelfDescription()
+        public AasElementSelfDescription GetSelfDescription()
         {
             return new AasElementSelfDescription("View", "View");
         }

@@ -8,11 +8,11 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using static AdminShell_V30.AdminShellV30;
+using static AdminShell.AdminShellV30;
 using static IO.Swagger.V1RC03.Controllers.AssetAdministrationShellEnvironmentAPIController;
-using Reference = AdminShell_V30.AdminShellV30.Reference;
-using Submodel = AdminShell_V30.AdminShellV30.Submodel;
-using SubmodelElement = AdminShell_V30.AdminShellV30.SubmodelElement;
+using Reference = AdminShell.AdminShellV30.Reference;
+using Submodel = AdminShell.AdminShellV30.Submodel;
+using SubmodelElement = AdminShell.AdminShellV30.SubmodelElement;
 
 namespace IO.Swagger.V1RC03.Services
 {
@@ -130,8 +130,8 @@ namespace IO.Swagger.V1RC03.Services
             var aas = GetAssetAdministrationShellById(aasIdentifier, out int packageIndex);
             if (aas != null && packageIndex != -1)
             {
-                _packages[packageIndex].AasEnv.AdministrationShells.Remove(aas);
-                _packages[packageIndex].AasEnv.AdministrationShells.Add(body);
+                _packages[packageIndex].AasEnv.AssetAdministrationShells.Remove(aas);
+                _packages[packageIndex].AasEnv.AssetAdministrationShells.Add(body);
                 Program.signalNewData(1);
             }
         }
@@ -213,9 +213,9 @@ namespace IO.Swagger.V1RC03.Services
             if (EmptyPackageAvailable(out int emptyPackageIndex))
             {
 
-                _packages[emptyPackageIndex].AasEnv.AdministrationShells.Add(body);
+                _packages[emptyPackageIndex].AasEnv.AssetAdministrationShells.Add(body);
                 Program.signalNewData(2);
-                return _packages[emptyPackageIndex].AasEnv.AdministrationShells[0]; //Considering it is being added to empty package.
+                return _packages[emptyPackageIndex].AasEnv.AssetAdministrationShells[0]; //Considering it is being added to empty package.
             }
             else
             {
@@ -324,10 +324,10 @@ namespace IO.Swagger.V1RC03.Services
             var aas = GetAssetAdministrationShellById(aasIdentifier, out int packageIndex);
             if ((aas != null) && (packageIndex != -1))
             {
-                _packages[packageIndex].AasEnv.AdministrationShells.Remove(aas);
-                if (_packages[packageIndex].AasEnv.AdministrationShells.Count == 0)
+                _packages[packageIndex].AasEnv.AssetAdministrationShells.Remove(aas);
+                if (_packages[packageIndex].AasEnv.AssetAdministrationShells.Count == 0)
                 {
-                    _packages[packageIndex] = null;             //TODO: jtikekar what about submodels?
+                    _packages[packageIndex] = null;             //TODO: jtikekar what about Submodels?
                 }
                 Program.signalNewData(2);
             }
@@ -376,7 +376,7 @@ namespace IO.Swagger.V1RC03.Services
                     var env = package.AasEnv;
                     if (env != null)
                     {
-                        output.AddRange(env.AdministrationShells);
+                        output.AddRange(env.AssetAdministrationShells);
                     }
                 }
             }
@@ -462,7 +462,7 @@ namespace IO.Swagger.V1RC03.Services
                     var env = package.AasEnv;
                     if (env != null)
                     {
-                        var aas = env.AdministrationShells.Where(a => a.id.Equals(aasIdentifier));
+                        var aas = env.AssetAdministrationShells.Where(a => a.id.Equals(aasIdentifier));
                         if (aas.Any())
                         {
                             output = aas.First();
@@ -1042,7 +1042,7 @@ namespace IO.Swagger.V1RC03.Services
                 _packages[packageIndex].AasEnv.Submodels.Remove(submodel);
 
                 //Delete submodel reference from AAS
-                foreach (var aas in _packages[packageIndex].AasEnv.AdministrationShells)
+                foreach (var aas in _packages[packageIndex].AasEnv.AssetAdministrationShells)
                 {
                     DeleteSubmodelReferenceById(aas.id, submodelIdentifier);
                 }
@@ -1140,7 +1140,7 @@ namespace IO.Swagger.V1RC03.Services
                 }
                 else
                 {
-                    throw new Exception($"Parent of type {parent.GetType()} not supported.");
+                    throw new Exception($"Parent of Type {parent.GetType()} not supported.");
                 }
             }
             else
@@ -1187,7 +1187,7 @@ namespace IO.Swagger.V1RC03.Services
                 }
                 else
                 {
-                    throw new Exception($"Parent of type {parent.GetType()} not supported.");
+                    throw new Exception($"Parent of Type {parent.GetType()} not supported.");
                 }
             }
             return null;
@@ -1247,7 +1247,7 @@ namespace IO.Swagger.V1RC03.Services
                 }
                 else
                 {
-                    throw new Exception($"Submodel element {fileElement.idShort} is not of type File.");
+                    throw new Exception($"Submodel element {fileElement.idShort} is not of Type File.");
                 }
             }
 
@@ -1271,7 +1271,7 @@ namespace IO.Swagger.V1RC03.Services
                 }
                 else
                 {
-                    throw new Exception($"Submodel element {fileElement.IdShort} is not of type File.");
+                    throw new Exception($"Submodel element {fileElement.IdShort} is not of Type File.");
                 }
             }
         }
@@ -1297,7 +1297,7 @@ namespace IO.Swagger.V1RC03.Services
                 }
                 else
                 {
-                    throw new Exception($"Submodel element {operationElement.IdShort} is not of type Operation.");
+                    throw new Exception($"Submodel element {operationElement.IdShort} is not of Type Operation.");
                 }
             }
 
@@ -1329,7 +1329,7 @@ namespace IO.Swagger.V1RC03.Services
                 }
                 else
                 {
-                    throw new Exception($"Submodel element {operationElement.IdShort} is not of type Operation.");
+                    throw new Exception($"Submodel element {operationElement.IdShort} is not of Type Operation.");
                 }
             }
 
@@ -1363,7 +1363,7 @@ namespace IO.Swagger.V1RC03.Services
                 }
                 else
                 {
-                    throw new Exception($"Submodel element {operationElement.IdShort} is not of type Operation.");
+                    throw new Exception($"Submodel element {operationElement.IdShort} is not of Type Operation.");
                 }
             }
 

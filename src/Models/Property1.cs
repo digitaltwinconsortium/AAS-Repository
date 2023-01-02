@@ -14,7 +14,7 @@ using System.Globalization;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
     #region AdminShell_V2_0
 
@@ -46,7 +46,7 @@ namespace AasxCompatibilityModels
             }
 
 
-            [MetaModelName("Property.value")]
+            [MetaModelName("Property.Value")]
             
             public string value = "";
             public Reference valueId = null;
@@ -66,8 +66,8 @@ namespace AasxCompatibilityModels
                     valueId = new Reference(p.valueId);
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public Property(AasxCompatibilityModels.AdminShellV10.Property src)
+#if !DoNotUseAdminShell
+            public Property(AdminShell.AdminShellV10.Property src)
                 : base(src)
             {
                 if (src == null)
@@ -127,7 +127,7 @@ namespace AasxCompatibilityModels
                 if (this.value == null || this.value.Trim() == "" || this.valueType == null)
                     return null;
 
-                // type?
+                // Type?
                 var vt = this.valueType.Trim().ToLower();
                 if (!DataElement.ValueTypes_Number.Contains(vt))
                     return null;

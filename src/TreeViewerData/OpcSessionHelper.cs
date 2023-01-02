@@ -1,31 +1,13 @@
-﻿using Opc.Ua;
-using Opc.Ua.Client;
-using System;
-using System.Collections.Concurrent;
-using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
-
+﻿
 namespace AdminShell.Data
 {
-    public class OpcSessionCacheData
-    {
-        public bool Trusted { get; set; }
-
-        public Session OPCSession { get; set; }
-
-        public string CertThumbprint { get; set; }
-
-        public Uri EndpointURL { get; set; }
-
-        public OpcSessionCacheData()
-        {
-            Trusted = false;
-            EndpointURL = new Uri("opc.tcp://localhost:4840");
-            CertThumbprint = string.Empty;
-            OPCSession = null;
-        }
-    }
+    using Opc.Ua;
+    using Opc.Ua.Client;
+    using System;
+    using System.Collections.Concurrent;
+    using System.Diagnostics;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public class OpcSessionHelper
     {

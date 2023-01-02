@@ -9,8 +9,8 @@ This source code may use other Open Source software components (see LICENSE.txt)
 
 using System.Collections.Generic;
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
     public partial class AdminShellV30
     {
@@ -23,9 +23,9 @@ namespace AdminShell_V30
             public SemanticId(SemanticId src) : base(src) { }
             public SemanticId(Reference src) : base(src) { }
 
-#if !DoNotUseAasxCompatibilityModels
-            public SemanticId(AasxCompatibilityModels.AdminShellV10.SemanticId src) : base(src?.Keys) { }
-            public SemanticId(AasxCompatibilityModels.AdminShellV20.SemanticId src) : base(src) { }
+#if !DoNotUseAdminShell
+            public SemanticId(AdminShell.AdminShellV10.SemanticId src) : base(src?.Keys) { }
+            public SemanticId(AdminShell.AdminShellV20.SemanticId src) : base(src) { }
 #endif
 
             public static SemanticId CreateFromKey(Key key)
@@ -33,7 +33,7 @@ namespace AdminShell_V30
                 if (key == null)
                     return null;
                 var res = new SemanticId();
-                res.Value.Add(key?.value);
+                res.Value.Add(key?.Value);
                 return res;
             }
 
@@ -43,7 +43,7 @@ namespace AdminShell_V30
                     return null;
                 var res = new SemanticId();
                 foreach (var k in keys)
-                    res.Value.Add(k?.value);
+                    res.Value.Add(k?.Value);
                 return res;
             }
 

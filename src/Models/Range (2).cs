@@ -12,8 +12,8 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
     public partial class AdminShellV30
     {
@@ -68,10 +68,10 @@ namespace AdminShell_V30
                 this.max = rng.max;
             }
 
-#if !DoNotUseAasxCompatibilityModels
+#if !DoNotUseAdminShell
             // not available in V1.0
 
-            public Range(AasxCompatibilityModels.AdminShellV20.Range src)
+            public Range(AdminShell.AdminShellV20.Range src)
                 : base(src)
             {
                 this.valueType = src.valueType;

@@ -14,8 +14,8 @@ using System.Xml;
 using System.Xml.Serialization;
 
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
     public partial class AdminShellV30
     {
@@ -45,14 +45,14 @@ namespace AdminShell_V30
             public SubmodelElement submodelElement;
 
             /// <summary>
-            /// Major version of the meta-model
+            /// Major Version of the meta-model
             /// </summary>
             [XmlIgnore]
 
             public static string MetaModelVersionCoarse = "AAS3.0";
 
             /// <summary>
-            /// Minor version (extension) of the meta-model.
+            /// Minor Version (extension) of the meta-model.
             /// Should be added to <c>MetaModelVersionCoarse</c>
             /// </summary>
             [XmlIgnore]
@@ -161,70 +161,70 @@ namespace AdminShell_V30
 
             }
 
-#if !DoNotUseAasxCompatibilityModels
+#if !DoNotUseAdminShell
             public SubmodelElementWrapper(
-                AasxCompatibilityModels.AdminShellV10.SubmodelElement src, bool shallowCopy = false)
+                AdminShell.AdminShellV10.SubmodelElement src, bool shallowCopy = false)
             {
-                if (src is AasxCompatibilityModels.AdminShellV10.SubmodelElementCollection)
+                if (src is AdminShell.AdminShellV10.SubmodelElementCollection)
                     this.submodelElement = new SubmodelElementCollection(
-                        src as AasxCompatibilityModels.AdminShellV10.SubmodelElementCollection,
+                        src as AdminShell.AdminShellV10.SubmodelElementCollection,
                         shallowCopy: shallowCopy);
-                if (src is AasxCompatibilityModels.AdminShellV10.Property)
-                    this.submodelElement = new Property(src as AasxCompatibilityModels.AdminShellV10.Property);
-                if (src is AasxCompatibilityModels.AdminShellV10.File)
-                    this.submodelElement = new File(src as AasxCompatibilityModels.AdminShellV10.File);
-                if (src is AasxCompatibilityModels.AdminShellV10.Blob)
-                    this.submodelElement = new Blob(src as AasxCompatibilityModels.AdminShellV10.Blob);
-                if (src is AasxCompatibilityModels.AdminShellV10.ReferenceElement)
+                if (src is AdminShell.AdminShellV10.Property)
+                    this.submodelElement = new Property(src as AdminShell.AdminShellV10.Property);
+                if (src is AdminShell.AdminShellV10.File)
+                    this.submodelElement = new File(src as AdminShell.AdminShellV10.File);
+                if (src is AdminShell.AdminShellV10.Blob)
+                    this.submodelElement = new Blob(src as AdminShell.AdminShellV10.Blob);
+                if (src is AdminShell.AdminShellV10.ReferenceElement)
                     this.submodelElement = new ReferenceElement(
-                        src as AasxCompatibilityModels.AdminShellV10.ReferenceElement);
-                if (src is AasxCompatibilityModels.AdminShellV10.RelationshipElement)
+                        src as AdminShell.AdminShellV10.ReferenceElement);
+                if (src is AdminShell.AdminShellV10.RelationshipElement)
                     this.submodelElement = new RelationshipElement(
-                        src as AasxCompatibilityModels.AdminShellV10.RelationshipElement);
-                if (src is AasxCompatibilityModels.AdminShellV10.Operation)
-                    this.submodelElement = new Operation(src as AasxCompatibilityModels.AdminShellV10.Operation);
+                        src as AdminShell.AdminShellV10.RelationshipElement);
+                if (src is AdminShell.AdminShellV10.Operation)
+                    this.submodelElement = new Operation(src as AdminShell.AdminShellV10.Operation);
             }
 
             public SubmodelElementWrapper(
-                AasxCompatibilityModels.AdminShellV20.SubmodelElement src, bool shallowCopy = false)
+                AdminShell.AdminShellV20.SubmodelElement src, bool shallowCopy = false)
             {
                 /* TODO (MIHO, 2021-08-12): consider using:
                    Activator.CreateInstance(pl.GetType(), new object[] { pl }) */
 
-                if (src is AasxCompatibilityModels.AdminShellV20.SubmodelElementCollection)
+                if (src is AdminShell.AdminShellV20.SubmodelElementCollection)
                     this.submodelElement = new SubmodelElementCollection(
-                        src as AasxCompatibilityModels.AdminShellV20.SubmodelElementCollection,
+                        src as AdminShell.AdminShellV20.SubmodelElementCollection,
                         shallowCopy: shallowCopy);
-                if (src is AasxCompatibilityModels.AdminShellV20.Property)
-                    this.submodelElement = new Property(src as AasxCompatibilityModels.AdminShellV20.Property);
-                if (src is AasxCompatibilityModels.AdminShellV20.MultiLanguageProperty)
+                if (src is AdminShell.AdminShellV20.Property)
+                    this.submodelElement = new Property(src as AdminShell.AdminShellV20.Property);
+                if (src is AdminShell.AdminShellV20.MultiLanguageProperty)
                     this.submodelElement = new MultiLanguageProperty(
-                        src as AasxCompatibilityModels.AdminShellV20.MultiLanguageProperty);
-                if (src is AasxCompatibilityModels.AdminShellV20.Range)
-                    this.submodelElement = new Range(src as AasxCompatibilityModels.AdminShellV20.Range);
-                if (src is AasxCompatibilityModels.AdminShellV20.File)
-                    this.submodelElement = new File(src as AasxCompatibilityModels.AdminShellV20.File);
-                if (src is AasxCompatibilityModels.AdminShellV20.Blob)
-                    this.submodelElement = new Blob(src as AasxCompatibilityModels.AdminShellV20.Blob);
-                if (src is AasxCompatibilityModels.AdminShellV20.RelationshipElement)
+                        src as AdminShell.AdminShellV20.MultiLanguageProperty);
+                if (src is AdminShell.AdminShellV20.Range)
+                    this.submodelElement = new Range(src as AdminShell.AdminShellV20.Range);
+                if (src is AdminShell.AdminShellV20.File)
+                    this.submodelElement = new File(src as AdminShell.AdminShellV20.File);
+                if (src is AdminShell.AdminShellV20.Blob)
+                    this.submodelElement = new Blob(src as AdminShell.AdminShellV20.Blob);
+                if (src is AdminShell.AdminShellV20.RelationshipElement)
                     this.submodelElement = new RelationshipElement(
-                        src as AasxCompatibilityModels.AdminShellV20.RelationshipElement);
-                if (src is AasxCompatibilityModels.AdminShellV20.AnnotatedRelationshipElement)
+                        src as AdminShell.AdminShellV20.RelationshipElement);
+                if (src is AdminShell.AdminShellV20.AnnotatedRelationshipElement)
                     this.submodelElement = new AnnotatedRelationshipElement(
-                        src as AasxCompatibilityModels.AdminShellV20.AnnotatedRelationshipElement);
-                if (src is AasxCompatibilityModels.AdminShellV20.Capability)
-                    this.submodelElement = new Capability(src as AasxCompatibilityModels.AdminShellV20.Capability);
-                if (src is AasxCompatibilityModels.AdminShellV20.Operation)
-                    this.submodelElement = new Operation(src as AasxCompatibilityModels.AdminShellV20.Operation);
-                if (src is AasxCompatibilityModels.AdminShellV20.BasicEvent)
-                    this.submodelElement = new BasicEvent(src as AasxCompatibilityModels.AdminShellV20.BasicEvent);
-                if (src is AasxCompatibilityModels.AdminShellV20.Entity)
-                    this.submodelElement = new Entity(src as AasxCompatibilityModels.AdminShellV20.Entity);
+                        src as AdminShell.AdminShellV20.AnnotatedRelationshipElement);
+                if (src is AdminShell.AdminShellV20.Capability)
+                    this.submodelElement = new Capability(src as AdminShell.AdminShellV20.Capability);
+                if (src is AdminShell.AdminShellV20.Operation)
+                    this.submodelElement = new Operation(src as AdminShell.AdminShellV20.Operation);
+                if (src is AdminShell.AdminShellV20.BasicEvent)
+                    this.submodelElement = new BasicEvent(src as AdminShell.AdminShellV20.BasicEvent);
+                if (src is AdminShell.AdminShellV20.Entity)
+                    this.submodelElement = new Entity(src as AdminShell.AdminShellV20.Entity);
 
                 // a little more special
-                if (src is AasxCompatibilityModels.AdminShellV20.ReferenceElement)
+                if (src is AdminShell.AdminShellV20.ReferenceElement)
                     this.submodelElement = new ModelReferenceElement(
-                        src as AasxCompatibilityModels.AdminShellV20.ReferenceElement);
+                        src as AdminShell.AdminShellV20.ReferenceElement);
             }
 #endif
 
@@ -250,7 +250,7 @@ namespace AdminShell_V30
             }
 
             /// <summary>
-            /// This version uses the element name array and allows using ShortName
+            /// This Version uses the element name array and allows using ShortName
             /// </summary>
             public static AdequateElementEnum GetAdequateEnum2(string adequateName, bool useShortName = false)
             {
@@ -270,7 +270,7 @@ namespace AdminShell_V30
             }
 
             /// <summary>
-            /// Returns, if the element is deprecated in the most current version of the meta model.
+            /// Returns, if the element is deprecated in the most current Version of the meta model.
             /// </summary>
             public static bool GetElementIsDeprecated(AdequateElementEnum ae)
             {
@@ -278,7 +278,7 @@ namespace AdminShell_V30
             }
 
             /// <summary>
-            /// Returns, if the element is deprecated in the most current version of the meta model.
+            /// Returns, if the element is deprecated in the most current Version of the meta model.
             /// </summary>
             public static bool GetElementIsDeprecated(SubmodelElement sme)
             {
@@ -386,7 +386,7 @@ namespace AdminShell_V30
             }
 
             /// <summary>
-            /// Can create SubmodelElements based on a given type information
+            /// Can create SubmodelElements based on a given Type information
             /// </summary>
             /// <param name="t">Type of the SME to be created</param>
             /// <returns>SubmodelElement or null</returns>
@@ -462,7 +462,7 @@ namespace AdminShell_V30
                 // over all wrappers
                 foreach (var smw in wrappers)
                     if (smw.submodelElement != null &&
-                        smw.submodelElement.idShort.Trim().ToLower() == rf[keyIndex].value.Trim().ToLower())
+                        smw.submodelElement.idShort.Trim().ToLower() == rf[keyIndex].Value.Trim().ToLower())
                     {
                         // match on this level. Did we find a leaf element?
                         if ((keyIndex + 1) >= rf.Count)
@@ -492,7 +492,7 @@ namespace AdminShell_V30
                 return null;
             }
 
-            // typecasting wrapper into specific type
+            // typecasting wrapper into specific Type
             public T GetAs<T>() where T : SubmodelElement
             {
                 var x = (this.submodelElement) as T;

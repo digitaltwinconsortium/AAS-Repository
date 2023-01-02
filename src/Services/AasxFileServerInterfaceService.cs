@@ -91,7 +91,7 @@ namespace IO.Swagger.V1RC03.Services
                     var packageDescription = new PackageDescription();
                     packageDescription.PackageId = i.ToString();
                     var aasIdList = new List<string>();
-                    foreach (var aas in _packages[i].AasEnv.AdministrationShells)
+                    foreach (var aas in _packages[i].AasEnv.AssetAdministrationShells)
                     {
                         aasIdList.Add(aas.idShort);
                     }

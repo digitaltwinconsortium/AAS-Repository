@@ -9,7 +9,7 @@ This source code may use other Open Source software components (see LICENSE.txt)
 
 using System.Xml.Serialization;
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
     #region AdminShell_V2_0
 
@@ -26,8 +26,8 @@ namespace AasxCompatibilityModels
 
             public SubmodelRef(Reference src) : base(src) { }
 
-#if !DoNotUseAasxCompatibilityModels
-            public SubmodelRef(AasxCompatibilityModels.AdminShellV10.SubmodelRef src) : base(src) { }
+#if !DoNotUseAdminShell
+            public SubmodelRef(AdminShell.AdminShellV10.SubmodelRef src) : base(src) { }
 #endif
 
             public new static SubmodelRef CreateNew(string type, bool local, string idType, string value)

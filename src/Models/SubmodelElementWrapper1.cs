@@ -13,7 +13,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
     #region AdminShell_V2_0
 
@@ -96,28 +96,28 @@ namespace AasxCompatibilityModels
                     this.submodelElement = new Entity(src as Entity);
             }
 
-#if !DoNotUseAasxCompatibilityModels
+#if !DoNotUseAdminShell
             public SubmodelElementWrapper(
-                AasxCompatibilityModels.AdminShellV10.SubmodelElement src, bool shallowCopy = false)
+                AdminShell.AdminShellV10.SubmodelElement src, bool shallowCopy = false)
             {
-                if (src is AasxCompatibilityModels.AdminShellV10.SubmodelElementCollection)
+                if (src is AdminShell.AdminShellV10.SubmodelElementCollection)
                     this.submodelElement = new SubmodelElementCollection(
-                        src as AasxCompatibilityModels.AdminShellV10.SubmodelElementCollection,
+                        src as AdminShell.AdminShellV10.SubmodelElementCollection,
                         shallowCopy: shallowCopy);
-                if (src is AasxCompatibilityModels.AdminShellV10.Property)
-                    this.submodelElement = new Property(src as AasxCompatibilityModels.AdminShellV10.Property);
-                if (src is AasxCompatibilityModels.AdminShellV10.File)
-                    this.submodelElement = new File(src as AasxCompatibilityModels.AdminShellV10.File);
-                if (src is AasxCompatibilityModels.AdminShellV10.Blob)
-                    this.submodelElement = new Blob(src as AasxCompatibilityModels.AdminShellV10.Blob);
-                if (src is AasxCompatibilityModels.AdminShellV10.ReferenceElement)
+                if (src is AdminShell.AdminShellV10.Property)
+                    this.submodelElement = new Property(src as AdminShell.AdminShellV10.Property);
+                if (src is AdminShell.AdminShellV10.File)
+                    this.submodelElement = new File(src as AdminShell.AdminShellV10.File);
+                if (src is AdminShell.AdminShellV10.Blob)
+                    this.submodelElement = new Blob(src as AdminShell.AdminShellV10.Blob);
+                if (src is AdminShell.AdminShellV10.ReferenceElement)
                     this.submodelElement = new ReferenceElement(
-                        src as AasxCompatibilityModels.AdminShellV10.ReferenceElement);
-                if (src is AasxCompatibilityModels.AdminShellV10.RelationshipElement)
+                        src as AdminShell.AdminShellV10.ReferenceElement);
+                if (src is AdminShell.AdminShellV10.RelationshipElement)
                     this.submodelElement = new RelationshipElement(
-                        src as AasxCompatibilityModels.AdminShellV10.RelationshipElement);
-                if (src is AasxCompatibilityModels.AdminShellV10.Operation)
-                    this.submodelElement = new Operation(src as AasxCompatibilityModels.AdminShellV10.Operation);
+                        src as AdminShell.AdminShellV10.RelationshipElement);
+                if (src is AdminShell.AdminShellV10.Operation)
+                    this.submodelElement = new Operation(src as AdminShell.AdminShellV10.Operation);
             }
 #endif
 
@@ -204,7 +204,7 @@ namespace AasxCompatibilityModels
             }
 
             /// <summary>
-            /// Can create SubmodelElements based on a given type information
+            /// Can create SubmodelElements based on a given Type information
             /// </summary>
             /// <param name="t">Type of the SME to be created</param>
             /// <returns>SubmodelElement or null</returns>
@@ -258,7 +258,7 @@ namespace AasxCompatibilityModels
                 // over all wrappers
                 foreach (var smw in wrappers)
                     if (smw.submodelElement != null &&
-                        smw.submodelElement.idShort.Trim().ToLower() == rf[keyIndex].value.Trim().ToLower())
+                        smw.submodelElement.idShort.Trim().ToLower() == rf[keyIndex].Value.Trim().ToLower())
                     {
                         // match on this level. Did we find a leaf element?
                         if ((keyIndex + 1) >= rf.Count)
@@ -288,7 +288,7 @@ namespace AasxCompatibilityModels
                 return null;
             }
 
-            // typecasting wrapper into specific type
+            // typecasting wrapper into specific Type
             public T GetAs<T>() where T : SubmodelElement
             {
                 var x = (this.submodelElement) as T;

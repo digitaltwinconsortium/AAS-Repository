@@ -13,8 +13,8 @@ using System.Dynamic;
 using System.Xml.Serialization;
 
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
     public partial class AdminShellV30
     {
@@ -53,8 +53,8 @@ namespace AdminShell_V30
                     this.second = new ModelReference(rel.second);
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public RelationshipElement(AasxCompatibilityModels.AdminShellV10.RelationshipElement src)
+#if !DoNotUseAdminShell
+            public RelationshipElement(AdminShell.AdminShellV10.RelationshipElement src)
                 : base(src)
             {
                 if (src == null)
@@ -66,7 +66,7 @@ namespace AdminShell_V30
                     this.second = new ModelReference(src.second);
             }
 
-            public RelationshipElement(AasxCompatibilityModels.AdminShellV20.RelationshipElement src)
+            public RelationshipElement(AdminShell.AdminShellV20.RelationshipElement src)
                 : base(src)
             {
                 if (src == null)
@@ -112,8 +112,8 @@ namespace AdminShell_V30
                 {
                     var valueDict = new Dictionary<string, string>
                     {
-                        { "type", key.type },
-                        { "value", key.value }
+                        { "Type", key.Type },
+                        { "Value", key.Value }
                     };
                     listFirst.Add(valueDict);
                 }
@@ -123,8 +123,8 @@ namespace AdminShell_V30
                 {
                     var valueDict = new Dictionary<string, string>
                     {
-                        { "type", key.type },
-                        { "value", key.value }
+                        { "Type", key.Type },
+                        { "Value", key.Value }
                     };
                     listSecond.Add(valueDict);
                 }

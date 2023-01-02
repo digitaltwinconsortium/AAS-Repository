@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
     #region AdminShell_V2_0
 
@@ -81,8 +81,8 @@ namespace AasxCompatibilityModels
                         keys.Add(new Key(k));
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public Reference(AasxCompatibilityModels.AdminShellV10.Reference src)
+#if !DoNotUseAdminShell
+            public Reference(AdminShell.AdminShellV10.Reference src)
             {
                 if (src != null)
                     foreach (var k in src.Keys)
@@ -97,8 +97,8 @@ namespace AasxCompatibilityModels
                         keys.Add(new Key(k));
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public Reference(AasxCompatibilityModels.AdminShellV10.SemanticId src)
+#if !DoNotUseAdminShell
+            public Reference(AdminShell.AdminShellV10.SemanticId src)
             {
                 if (src != null)
                     foreach (var k in src.Keys)
@@ -164,7 +164,7 @@ namespace AasxCompatibilityModels
                 if (keys == null || keys.Count != 1)
                     return null;
                 var k = keys[0];
-                return new Key(k.type, k.local, k.idType, k.value);
+                return new Key(k.Type, k.local, k.idType, k.Value);
             }
 
             public bool MatchesExactlyOneKey(
@@ -180,7 +180,7 @@ namespace AasxCompatibilityModels
             {
                 if (key == null)
                     return false;
-                return this.MatchesExactlyOneKey(key.type, key.local, key.idType, key.value, matchMode);
+                return this.MatchesExactlyOneKey(key.Type, key.local, key.idType, key.Value, matchMode);
             }
 
             public bool Matches(
@@ -252,7 +252,7 @@ namespace AasxCompatibilityModels
                         if (x == null)
                             continue;
                         if (res != "") res += delim;
-                        res += x.value;
+                        res += x.Value;
                     }
                 return res;
             }

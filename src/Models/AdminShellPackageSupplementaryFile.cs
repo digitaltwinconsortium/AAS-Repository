@@ -1,15 +1,13 @@
-﻿#define UseAasxCompatibilityModels
-
-using AdminShell_V30;
-using System;
-
+﻿
 namespace AdminShell
 {
+    using System;
+
     /// <summary>
     /// This class lets an outer functionality keep track on the supplementary files, which are in or
     /// are pending to be added or deleted to an Package.
     /// </summary>
-    public class AdminShellPackageSupplementaryFile : AdminShell.Referable
+    public class AdminShellPackageSupplementaryFile : Referable
     {
         public delegate byte[] SourceGetByteChunk();
 
@@ -22,13 +20,20 @@ namespace AdminShell
         public string useMimeType = null;
 
         public string sourceLocalPath = null;
+
         public SourceGetByteChunk sourceGetBytesDel = null;
 
         public LocationType location;
+
         public SpecialHandlingType specialHandling;
 
-        public AdminShellPackageSupplementaryFile(Uri uri, string sourceLocalPath = null, LocationType location = LocationType.InPackage,
-            SpecialHandlingType specialHandling = SpecialHandlingType.None, SourceGetByteChunk sourceGetBytesDel = null, string useMimeType = null)
+        public AdminShellPackageSupplementaryFile(
+            Uri uri,
+            string sourceLocalPath = null,
+            LocationType location = LocationType.InPackage,
+            SpecialHandlingType specialHandling = SpecialHandlingType.None,
+            SourceGetByteChunk sourceGetBytesDel = null,
+            string useMimeType = null)
         {
             this.uri = uri;
             this.useMimeType = useMimeType;
@@ -39,11 +44,9 @@ namespace AdminShell
         }
 
         // class derives from Referable in order to provide GetElementName
-        public override string GetElementName()
+        public string GetElementName()
         {
             return "File";
         }
-
     }
-
 }

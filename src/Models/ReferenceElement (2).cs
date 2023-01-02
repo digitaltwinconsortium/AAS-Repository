@@ -11,8 +11,8 @@ using Newtonsoft.Json;
 using System.Xml.Serialization;
 
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
     public partial class AdminShellV30
     {
@@ -45,13 +45,13 @@ namespace AdminShell_V30
             {
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public ReferenceElement(AasxCompatibilityModels.AdminShellV10.ReferenceElement src)
+#if !DoNotUseAdminShell
+            public ReferenceElement(AdminShell.AdminShellV10.ReferenceElement src)
                 : base(src)
             {
             }
 
-            public ReferenceElement(AasxCompatibilityModels.AdminShellV20.ReferenceElement src)
+            public ReferenceElement(AdminShell.AdminShellV20.ReferenceElement src)
                 : base(src)
             {
             }

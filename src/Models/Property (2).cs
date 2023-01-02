@@ -15,8 +15,8 @@ using System.Linq;
 using System.Xml.Serialization;
 
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
     public partial class AdminShellV30
     {
@@ -45,7 +45,7 @@ namespace AdminShell_V30
             }
 
 
-            [MetaModelName("Property.value")]
+            [MetaModelName("Property.Value")]
             
             public string value = "";
             public GlobalReference valueId = null;
@@ -65,8 +65,8 @@ namespace AdminShell_V30
                     valueId = new GlobalReference(p.valueId);
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public Property(AasxCompatibilityModels.AdminShellV10.Property src)
+#if !DoNotUseAdminShell
+            public Property(AdminShell.AdminShellV10.Property src)
                 : base(src)
             {
                 if (src == null)
@@ -78,7 +78,7 @@ namespace AdminShell_V30
                     this.valueId = new GlobalReference(src.valueId);
             }
 
-            public Property(AasxCompatibilityModels.AdminShellV20.Property src)
+            public Property(AdminShell.AdminShellV20.Property src)
                 : base(src)
             {
                 if (src == null)
@@ -146,7 +146,7 @@ namespace AdminShell_V30
                 if (this.value == null || this.value.Trim() == "" || this.valueType == null)
                     return null;
 
-                // type?
+                // Type?
                 var vt = this.valueType.Trim().ToLower();
                 if (!DataElement.ValueTypes_Number.Contains(vt))
                     return null;

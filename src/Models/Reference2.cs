@@ -9,8 +9,8 @@ This source code may use other Open Source software components (see LICENSE.txt)
 
 using System.Xml.Serialization;
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
     public partial class AdminShellV30
     {

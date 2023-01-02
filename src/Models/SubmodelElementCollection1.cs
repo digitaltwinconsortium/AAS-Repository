@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
     #region AdminShell_V2_0
 
@@ -33,7 +33,7 @@ namespace AasxCompatibilityModels
             public SubmodelElementWrapperCollection value = new SubmodelElementWrapperCollection();
 
             [XmlIgnore]
-            [JsonProperty(PropertyName = "value")]
+            [JsonProperty(PropertyName = "Value")]
             public SubmodelElement[] JsonValue
             {
                 get
@@ -97,9 +97,9 @@ namespace AasxCompatibilityModels
                         value.Add(new SubmodelElementWrapper(smw.submodelElement));
             }
 
-#if !DoNotUseAasxCompatibilityModels
+#if !DoNotUseAdminShell
             public SubmodelElementCollection(
-                AasxCompatibilityModels.AdminShellV10.SubmodelElementCollection src, bool shallowCopy = false)
+                AdminShell.AdminShellV10.SubmodelElementCollection src, bool shallowCopy = false)
                 : base(src)
             {
                 if (src == null)

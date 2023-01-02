@@ -8,8 +8,8 @@ This source code may use other Open Source software components (see LICENSE.txt)
 */
 
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
     public partial class AdminShellV30
     {

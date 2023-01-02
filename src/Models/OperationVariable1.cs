@@ -10,7 +10,7 @@ This source code may use other Open Source software components (see LICENSE.txt)
 using Newtonsoft.Json;
 using System.Xml.Serialization;
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
     #region AdminShell_V2_0
 
@@ -21,7 +21,7 @@ namespace AasxCompatibilityModels
             public enum Direction { In, Out, InOut };
 
             // Note: for OperationVariable, the values of the SubmodelElement itself ARE NOT TO BE USED!
-            // only the SME attributes of "value" are counting
+            // only the SME attributes of "Value" are counting
 
             // for JSON only
             [XmlIgnore]
@@ -42,9 +42,9 @@ namespace AasxCompatibilityModels
                 this.value = new SubmodelElementWrapper(src?.value?.submodelElement, shallowCopy);
             }
 
-#if !DoNotUseAasxCompatibilityModels
+#if !DoNotUseAdminShell
             public OperationVariable(
-                AasxCompatibilityModels.AdminShellV10.OperationVariable src, bool shallowCopy = false)
+                AdminShell.AdminShellV10.OperationVariable src, bool shallowCopy = false)
             {
                 this.value = new SubmodelElementWrapper(src.value.submodelElement, shallowCopy);
             }

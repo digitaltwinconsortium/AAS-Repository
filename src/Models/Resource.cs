@@ -4,10 +4,10 @@
  */
 
 
-//namespace AdminShell
-using static AdminShell_V30.AdminShellV30;
 
-namespace AdminShell_V30
+using static AdminShell.AdminShellV30;
+
+namespace AdminShell
 {
     public class Resource
     {

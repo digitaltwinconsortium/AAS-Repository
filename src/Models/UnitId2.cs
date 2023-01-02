@@ -8,8 +8,8 @@ This source code may use other Open Source software components (see LICENSE.txt)
 */
 
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
     public partial class AdminShellV30
     {
@@ -24,9 +24,9 @@ namespace AdminShell_V30
             public UnitId(GlobalReference src) : base(src) { }
             public UnitId(Reference src) : base(src) { }
 
-#if !DoNotUseAasxCompatibilityModels
-            public UnitId(AasxCompatibilityModels.AdminShellV10.UnitId src) : base(src?.Keys) { }
-            public UnitId(AasxCompatibilityModels.AdminShellV20.UnitId src) : base(src?.Keys) { }
+#if !DoNotUseAdminShell
+            public UnitId(AdminShell.AdminShellV10.UnitId src) : base(src?.Keys) { }
+            public UnitId(AdminShell.AdminShellV20.UnitId src) : base(src?.Keys) { }
 #endif
         }
 

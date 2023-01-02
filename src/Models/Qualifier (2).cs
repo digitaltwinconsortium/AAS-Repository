@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
     #region AdminShell_V2_0
 
@@ -32,7 +32,7 @@ namespace AasxCompatibilityModels
             // this class
             // TODO (Michael Hoffmeister, 2020-08-01): check, if Json has Qualifiers or not
 
-            [MetaModelName("Qualifier.type")]
+            [MetaModelName("Qualifier.Type")]
             
             
             public string type = "";
@@ -45,7 +45,7 @@ namespace AasxCompatibilityModels
             
             public Reference valueId = null;
 
-            [MetaModelName("Qualifier.value")]
+            [MetaModelName("Qualifier.Value")]
             
             
             public string value = null;
@@ -72,8 +72,8 @@ namespace AasxCompatibilityModels
                     this.valueId = new Reference(src.valueId);
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public Qualifier(AasxCompatibilityModels.AdminShellV10.Qualifier src)
+#if !DoNotUseAdminShell
+            public Qualifier(AdminShell.AdminShellV10.Qualifier src)
             {
                 if (src.semanticId != null)
                     this.semanticId = new SemanticId(src.semanticId);

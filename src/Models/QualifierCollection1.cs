@@ -9,8 +9,8 @@ This source code may use other Open Source software components (see LICENSE.txt)
 
 using System.Collections.Generic;
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
 
     #region AdminShell_V3_0
@@ -27,9 +27,9 @@ namespace AdminShell_V30
 
             }
 
-#if !DoNotUseAasxCompatibilityModels
+#if !DoNotUseAdminShell
             public QualifierCollection(
-                List<AasxCompatibilityModels.AdminShellV10.Qualifier> src, bool shallowCopy = false)
+                List<AdminShell.AdminShellV10.Qualifier> src, bool shallowCopy = false)
 
             {
                 if (src != null && src.Count != 0)

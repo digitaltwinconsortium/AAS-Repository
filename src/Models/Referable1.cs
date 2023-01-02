@@ -18,7 +18,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
     #region AdminShell_V2_0
 
@@ -201,8 +201,8 @@ namespace AasxCompatibilityModels
                     this.description = new Description(src.description);
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public Referable(AasxCompatibilityModels.AdminShellV10.Referable src)
+#if !DoNotUseAdminShell
+            public Referable(AdminShell.AdminShellV10.Referable src)
             {
                 if (src == null)
                     return;

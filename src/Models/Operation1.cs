@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
     #region AdminShell_V2_0
 
@@ -160,8 +160,8 @@ namespace AasxCompatibilityModels
                     }
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public Operation(AasxCompatibilityModels.AdminShellV10.Operation src)
+#if !DoNotUseAdminShell
+            public Operation(AdminShell.AdminShellV10.Operation src)
                 : base(src)
             {
                 for (int i = 0; i < 2; i++)

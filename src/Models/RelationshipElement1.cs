@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Xml.Serialization;
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
     #region AdminShell_V2_0
 
@@ -49,8 +49,8 @@ namespace AasxCompatibilityModels
                     this.second = new Reference(rel.second);
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public RelationshipElement(AasxCompatibilityModels.AdminShellV10.RelationshipElement src)
+#if !DoNotUseAdminShell
+            public RelationshipElement(AdminShell.AdminShellV10.RelationshipElement src)
                 : base(src)
             {
                 if (src == null)
@@ -94,8 +94,8 @@ namespace AasxCompatibilityModels
                 {
                     var valueDict = new Dictionary<string, string>
                     {
-                        { "type", key.type },
-                        { "value", key.value }
+                        { "Type", key.Type },
+                        { "Value", key.Value }
                     };
                     listFirst.Add(valueDict);
                 }
@@ -105,8 +105,8 @@ namespace AasxCompatibilityModels
                 {
                     var valueDict = new Dictionary<string, string>
                     {
-                        { "type", key.type },
-                        { "value", key.value }
+                        { "Type", key.Type },
+                        { "Value", key.Value }
                     };
                     listSecond.Add(valueDict);
                 }

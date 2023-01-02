@@ -1,13 +1,14 @@
-﻿using AdminShell.Models;
-using Aml.Engine.CAEX;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using static AAS_Repository.Pages.TreePage;
-using static AdminShell_V30.AdminShellV30;
-
+﻿
 namespace AdminShell.Data
 {
+    using AdminShell.Models;
+    using Aml.Engine.CAEX;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using static AAS_Repository.Pages.TreePage;
+    using static AdminShell.AdminShellV30;
+
     public class TreeBuilder
     {
         public List<TreeNodeData> BuildTree()
@@ -20,8 +21,8 @@ namespace AdminShell.Data
                 root.EnvIndex = i;
                 if (Program.env[i] != null)
                 {
-                    root.Text = Program.env[i].AasEnv.AdministrationShells[0].idShort;
-                    root.Tag = Program.env[i].AasEnv.AdministrationShells[0];
+                    root.Text = Program.env[i].AasEnv.AssetAdministrationShells[0].idShort;
+                    root.Tag = Program.env[i].AasEnv.AssetAdministrationShells[0];
                     CreateViewFromAASEnv(root, Program.env[i].AasEnv, i);
                     viewItems.Add(root);
                 }
@@ -30,7 +31,7 @@ namespace AdminShell.Data
             return viewItems;
         }
 
-        private void CreateViewFromAASEnv(TreeNodeData root, AdministrationShellEnv aasEnv, int i)
+        private void CreateViewFromAASEnv(TreeNodeData root, AssetAdministrationShellEnvironment aasEnv, int i)
         {
             List<TreeNodeData> subModelTreeNodeDataList = new List<TreeNodeData>();
             foreach (Submodel subModel in aasEnv.Submodels)

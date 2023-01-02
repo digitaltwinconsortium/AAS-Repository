@@ -1,7 +1,7 @@
 ﻿
 /* Copyright (c) 2018-2019 Festo AG & Co. KG <https://www.festo.com/net/de_de/Forms/web/contact_international>, author: Michael Hoffmeister
 This software is licensed under the Eclipse Public License 2.0 (EPL-2.0) (see https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.txt).
-Please notice: the API and REST routes implemented in this version of the source code are not specified and standardised by the
+Please notice: the API and REST routes implemented in this Version of the source code are not specified and standardised by the
 specification Details of the Administration Shell. The hereby stated approach is solely the opinion of its author(s). */
 
 namespace AdminShell
@@ -32,18 +32,18 @@ namespace AdminShell
                 if (i > Packages.Length)
                     return null;
 
-                if (Packages[i] == null || Packages[i].AasEnv == null || Packages[i].AasEnv.AdministrationShells == null
-                    || Packages[i].AasEnv.AdministrationShells.Count < 1)
+                if (Packages[i] == null || Packages[i].AasEnv == null || Packages[i].AasEnv.AssetAdministrationShells == null
+                    || Packages[i].AasEnv.AssetAdministrationShells.Count < 1)
                     return null;
 
-                return Packages[i].AasEnv.AdministrationShells[0];
+                return Packages[i].AasEnv.AssetAdministrationShells[0];
             }
             else
             {
                 // Name
                 if (aasid == "id")
                 {
-                    return Packages[0].AasEnv.AdministrationShells[0];
+                    return Packages[0].AasEnv.AssetAdministrationShells[0];
                 }
                 else
                 {
@@ -51,9 +51,9 @@ namespace AdminShell
                     {
                         if (Packages[i] != null)
                         {
-                            if (Packages[i].AasEnv.AdministrationShells[0].idShort == aasid)
+                            if (Packages[i].AasEnv.AssetAdministrationShells[0].idShort == aasid)
                             {
-                                return Packages[i].AasEnv.AdministrationShells[0];
+                                return Packages[i].AasEnv.AssetAdministrationShells[0];
                             }
                         }
                     }
@@ -162,7 +162,7 @@ namespace AdminShell
             {
                 if (Program.env[i] != null)
                 {
-                    var aas = Program.env[i].AasEnv.AdministrationShells[0];
+                    var aas = Program.env[i].AasEnv.AssetAdministrationShells[0];
                     string idshort = aas.idShort;
        
                     aaslist.Add(i.ToString() + " : "

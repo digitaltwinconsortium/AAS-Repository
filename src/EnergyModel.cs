@@ -1,5 +1,5 @@
-﻿using AasxCompatibilityModels;
-using AdminShell_V30;
+﻿using AdminShell;
+using AdminShell;
 using AdminShell;
 using Kusto.Cloud.Platform.Utils;
 using Kusto.Data;
@@ -46,7 +46,7 @@ namespace AasxDemonstration
         }
 
         /// <summary>
-        /// Associated class renders a value blob according to the time series spec
+        /// Associated class renders a Value blob according to the time series spec
         /// </summary>
         public interface ITrackRenderValueBlob
         {
@@ -175,7 +175,7 @@ namespace AasxDemonstration
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                     AdminShellV30.Submodel submodel = null;
-                    var path = $"/aas/{aasId}/submodels/{smIdShort}/complete";
+                    var path = $"/aas/{aasId}/Submodels/{smIdShort}/complete";
                     HttpResponseMessage response = client.GetAsync(path).GetAwaiter().GetResult();
                     if (response.IsSuccessStatusCode)
                     {
@@ -200,7 +200,7 @@ namespace AasxDemonstration
                     foreach (var smcPhase in smcEe?.value?.FindAllSemanticIdAs<AdminShell.SubmodelElementCollection>(
                         new AdminShell.Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/electrical-total/1/0"), mm))
                     {
-                        // get value
+                        // get Value
                         var value = smcPhase.value.FindFirstSemanticIdAs<AdminShell.Property>(
                             new AdminShell.Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/co2-equivalent-per-1-min/1/0"), mm)?.value;
 
@@ -419,7 +419,7 @@ namespace AasxDemonstration
             }
 
             /// <summary>
-            /// depending on a trigger, gets the actual value
+            /// depending on a trigger, gets the actual Value
             /// </summary>
             public double GetValue(SourceSystemBase sosy, string sourceID)
             {
@@ -559,7 +559,7 @@ namespace AasxDemonstration
             }
 
             /// <summary>
-            /// depending on a trigger, gets the actual value
+            /// depending on a trigger, gets the actual Value
             /// </summary>
             public double GetValue(SourceSystemBase sosy, string sourceID)
             {
@@ -629,7 +629,7 @@ namespace AasxDemonstration
 
             /// <summary>
             /// Holds the timestamp of the samples currently represented in the different variables.
-            /// This list's length should equal the length of the variable's value lists
+            /// This list's length should equal the length of the variable's Value lists
             /// Note: obviously this means, that this code can only represent time series segments with
             ///       exactly one time axis.
             /// </summary>

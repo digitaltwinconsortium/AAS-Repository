@@ -1,4 +1,4 @@
-﻿#define UseAasxCompatibilityModels
+﻿#define UseAdminShell
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -12,9 +12,9 @@ This source code may use other Open Source software components (see LICENSE.txt)
 */
 
 
-#if UseAasxCompatibilityModels
+#if UseAdminShell
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
 
     #region Utils
@@ -38,14 +38,14 @@ namespace AasxCompatibilityModels
             public List<SubmodelElementWrapper> value = new List<SubmodelElementWrapper>();
 
             [XmlIgnore]
-            [JsonProperty(PropertyName = "value")]
+            [JsonProperty(PropertyName = "Value")]
             /*
             public IEnumerator<SubmodelElement> JsonValue
             {
                 get
                 {
                     /*
-                    if (value == null)
+                    if (Value == null)
                         yield return null;
                     var sme = new Property();
                     sme.idShort = "test";

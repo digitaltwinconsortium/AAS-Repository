@@ -1,4 +1,4 @@
-﻿#define UseAasxCompatibilityModels
+﻿#define UseAdminShell
 
 using System.Xml.Serialization;
 using Newtonsoft.Json;
@@ -11,9 +11,9 @@ This source code may use other Open Source software components (see LICENSE.txt)
 */
 
 
-#if UseAasxCompatibilityModels
+#if UseAdminShell
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
 
     #region Utils
@@ -30,7 +30,7 @@ namespace AasxCompatibilityModels
             public enum Direction { In, Out };
 
             // Note: for OperationVariable, the values of the SubmodelElement itself ARE NOT TO BE USED!
-            // only the SME attributes of "value" are counting
+            // only the SME attributes of "Value" are counting
 
             // for JSON only
             [XmlIgnore]

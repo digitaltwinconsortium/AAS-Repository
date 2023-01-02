@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
     #region AdminShell_V2_0
 
@@ -67,7 +67,7 @@ namespace AasxCompatibilityModels
             public QualifierCollection qualifiers = null;
 
             // from hasDataSpecification:
-            [XmlElement(ElementName = "embeddedDataSpecification")]
+            [XmlElement(ElementName = "EmbeddedDataSpecification")]
             public HasDataSpecification hasDataSpecification = null;
 
             // from this very class
@@ -127,8 +127,8 @@ namespace AasxCompatibilityModels
                 }
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public Submodel(AasxCompatibilityModels.AdminShellV10.Submodel src, bool shallowCopy = false)
+#if !DoNotUseAdminShell
+            public Submodel(AdminShell.AdminShellV10.Submodel src, bool shallowCopy = false)
                 : base(src)
             {
                 if (src.hasDataSpecification != null)
@@ -156,8 +156,8 @@ namespace AasxCompatibilityModels
                 {
                     if (s.administration == null)
                         s.administration = new Administration();
-                    s.administration.version = version;
-                    s.administration.revision = revision;
+                    s.administration.Version = version;
+                    s.administration.Revision = revision;
                 }
                 return (s);
             }
@@ -279,7 +279,7 @@ namespace AasxCompatibilityModels
             {
                 var caption = AdminShell.AdminShellUtil.EvalToNonNullString("\"{0}\" ", idShort, "<no idShort!>");
                 if (administration != null)
-                    caption += "V" + administration.version + "." + administration.revision;
+                    caption += "V" + administration.Version + "." + administration.Revision;
                 var info = "";
                 if (identification != null)
                     info = $"[{identification.idType}, {identification.id}]";

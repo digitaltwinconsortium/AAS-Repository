@@ -13,8 +13,8 @@ using System.Xml;
 using System.Xml.Serialization;
 
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
     public partial class AdminShellV30
     {
@@ -251,8 +251,8 @@ namespace AdminShell_V30
                     }
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public Operation(AasxCompatibilityModels.AdminShellV10.Operation src)
+#if !DoNotUseAdminShell
+            public Operation(AdminShell.AdminShellV10.Operation src)
                 : base(src)
             {
                 for (int i = 0; i < 2; i++)
@@ -265,7 +265,7 @@ namespace AdminShell_V30
                     }
             }
 
-            public Operation(AasxCompatibilityModels.AdminShellV20.Operation src)
+            public Operation(AdminShell.AdminShellV20.Operation src)
                 : base(src)
             {
                 for (int i = 0; i < 2; i++)

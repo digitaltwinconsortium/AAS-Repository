@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
     #region AdminShell_V2_0
 
@@ -45,8 +45,8 @@ namespace AasxCompatibilityModels
                     this.value = new Reference(re.value);
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public ReferenceElement(AasxCompatibilityModels.AdminShellV10.ReferenceElement src)
+#if !DoNotUseAdminShell
+            public ReferenceElement(AdminShell.AdminShellV10.ReferenceElement src)
                 : base(src)
             {
                 if (src == null)
@@ -84,8 +84,8 @@ namespace AasxCompatibilityModels
                 {
                     var valueDict = new Dictionary<string, string>
                     {
-                        { "type", key.type },
-                        { "value", key.value }
+                        { "Type", key.Type },
+                        { "Value", key.Value }
                     };
                     list.Add(valueDict);
                 }

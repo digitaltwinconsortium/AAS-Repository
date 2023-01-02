@@ -13,8 +13,8 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
     public partial class AdminShellV30
     {
@@ -48,7 +48,7 @@ namespace AdminShell_V30
             }
 
             [XmlIgnore]
-            [JsonProperty(PropertyName = "value")]
+            [JsonProperty(PropertyName = "Value")]
             public SubmodelElement[] JsonValue
             {
                 get
@@ -121,9 +121,9 @@ namespace AdminShell_V30
                         value.Add(new SubmodelElementWrapper(smw.submodelElement));
             }
 
-#if !DoNotUseAasxCompatibilityModels
+#if !DoNotUseAdminShell
             public SubmodelElementCollection(
-                AasxCompatibilityModels.AdminShellV10.SubmodelElementCollection src, bool shallowCopy = false)
+                AdminShell.AdminShellV10.SubmodelElementCollection src, bool shallowCopy = false)
                 : base(src)
             {
                 if (src == null)
@@ -138,10 +138,10 @@ namespace AdminShell_V30
             }
 
             public SubmodelElementCollection(
-                AasxCompatibilityModels.AdminShellV20.SubmodelElement src, bool shallowCopy = false)
+                AdminShell.AdminShellV20.SubmodelElement src, bool shallowCopy = false)
                 : base(src)
             {
-                if (!(src is AasxCompatibilityModels.AdminShellV20.SubmodelElementCollection smc))
+                if (!(src is AdminShell.AdminShellV20.SubmodelElementCollection smc))
                     return;
 
                 this.ordered = smc.ordered;

@@ -11,10 +11,6 @@ namespace AdminShell
     [DataContract]
     public class AssetAdministrationShell : Identifiable
     {
-        [XmlIgnore]
-        [DataMember(Name = "modelType")]
-        public JsonModelTypeWrapper JsonModelType { get { return new JsonModelTypeWrapper(GetElementName()); } } 
-
         [DataMember(Name = "hasDataSpecification")]
         public HasDataSpecification HasDataSpecification { get; set; } = new();
 
@@ -34,7 +30,7 @@ namespace AdminShell
         [DataMember(Name="security")]
         public Security Security { get; set; } = new();
 
-        [DataMember(Name="submodels")]
+        [DataMember(Name="Submodels")]
         public List<Reference> Submodels { get; set; } = new();
 
         [DataMember(Name="views")]
@@ -63,7 +59,7 @@ namespace AdminShell
             HasDataSpecification.Add(new EmbeddedDataSpecification(r));
         }
 
-        public override AasElementSelfDescription GetSelfDescription()
+        public AasElementSelfDescription GetSelfDescription()
         {
             return new AasElementSelfDescription("AssetAdministrationShell", "AAS");
         }
@@ -72,7 +68,7 @@ namespace AdminShell
         {
             var caption = AdminShellUtil.EvalToNonNullString("\"{0}\" ", idShort, "\"AAS\"");
             if (administration != null)
-                caption += "V" + administration.version + "." + administration.revision;
+                caption += "V" + administration.Version + "." + administration.Revision;
 
             var info = "";
             if (id != null)
@@ -125,7 +121,7 @@ namespace AdminShell
             if (this.submodelRefs != null)
                 foreach (var r in this.submodelRefs)
                     yield return new LocatedReference(this, r);
-            
+
             if (this.views?.views != null)
                 foreach (var vw in this.views.views)
                     if (vw?.containedElements?.reference != null)
@@ -137,7 +133,5 @@ namespace AdminShell
         {
             return ModelReference.CreateNew(new Key(GetElementName(), "" + id?.value));
         }
-    }
-
     }
 }

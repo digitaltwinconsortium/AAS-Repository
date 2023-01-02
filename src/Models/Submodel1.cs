@@ -1,4 +1,4 @@
-﻿#define UseAasxCompatibilityModels
+﻿#define UseAdminShell
 
 using System;
 using System.Collections.Generic;
@@ -14,9 +14,9 @@ This source code may use other Open Source software components (see LICENSE.txt)
 */
 
 
-#if UseAasxCompatibilityModels
+#if UseAdminShell
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
 
     #region Utils
@@ -148,8 +148,8 @@ namespace AasxCompatibilityModels
                 {
                     if (s.administration == null)
                         s.administration = new Administration();
-                    s.administration.version = version;
-                    s.administration.revision = revision;
+                    s.administration.Version = version;
+                    s.administration.Revision = revision;
                 }
                 return (s);
             }
@@ -200,7 +200,7 @@ namespace AasxCompatibilityModels
             {
                 var caption = AdminShellUtil.EvalToNonNullString("\"{0}\" ", idShort, "<no idShort!>");
                 if (administration != null)
-                    caption += "V" + administration.version + "." + administration.revision;
+                    caption += "V" + administration.Version + "." + administration.Revision;
                 var info = "";
                 if (identification != null)
                     info = $"[{identification.idType}, {identification.id}]";

@@ -1,72 +1,37 @@
-﻿/*
-Copyright (c) 2018-2021 Festo AG & Co. KG <https://www.festo.com/net/de_de/Forms/web/contact_international>
-Author: Michael Hoffmeister
-
-This source code is licensed under the Apache License 2.0 (see LICENSE.txt).
-
-This source code may use other Open Source software components (see LICENSE.txt).
-*/
-
-using Newtonsoft.Json;
-using System.Xml.Serialization;
-
-//namespace AdminShell
-namespace AdminShell_V30
+﻿
+namespace AdminShell
 {
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
 
-    #region AdminShell_V3_0
-
-    public partial class AdminShellV30
+    public class DisplayName
     {
-        //
-        // DisplayName
-        //
+        [XmlElement(ElementName = "LangString")]
+        public List<LangStr> langString = new();
 
-        public class DisplayName
+        public DisplayName() { }
+
+        public DisplayName(Description src)
         {
-
-            // members
-
-            [XmlElement(ElementName = "langString")]
-            public ListOfLangStr langString = new ListOfLangStr();
-
-            // constructors
-
-            public DisplayName() { }
-
-            public DisplayName(Description src)
-            {
-                if (src != null && src.langString != null)
-                    foreach (var ls in src.langString)
-                        langString.Add(new LangStr(ls));
-            }
-
-            public DisplayName(LangStringSet src)
-            {
-                if (src != null && src.langString != null)
-                    foreach (var ls in src.langString)
-                        langString.Add(new LangStr(ls));
-            }
-
-#if !DoNotUseAasxCompatibilityModels
-            // new in V3.0
-#endif
-
-            // further
-            [XmlIgnore]
-            
-            public bool IsValid { get { return langString != null && langString.Count >= 1; } }
-
-            // single string representation
-            public string GetDefaultStr(string defaultLang = null)
-            {
-                return this.langString?.GetDefaultStr(defaultLang);
-            }
-
+            if (src != null && src.langString != null)
+                foreach (var ls in src.langString)
+                    langString.Add(new LangStr(ls));
         }
 
+        public DisplayName(LangStringSet src)
+        {
+            if (src != null && src.LangString != null)
+                foreach (var ls in src.LangString)
+                    langString.Add(new LangStr(ls));
+        }
+
+        [XmlIgnore]
+        public bool IsValid { get { return langString != null && langString.Count >= 1; } }
+
+        // single string representation
+        public string GetDefaultStr(string defaultLang = null)
+        {
+            return langString?.GetDefaultStr(defaultLang);
+        }
     }
-
-    #endregion
 }
-

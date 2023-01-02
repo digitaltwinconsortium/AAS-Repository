@@ -1,4 +1,4 @@
-﻿#define UseAasxCompatibilityModels
+﻿#define UseAdminShell
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -12,9 +12,9 @@ This source code may use other Open Source software components (see LICENSE.txt)
 */
 
 
-#if UseAasxCompatibilityModels
+#if UseAdminShell
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
 
     #region Utils
@@ -103,10 +103,10 @@ namespace AasxCompatibilityModels
             public bool Matches(string type, bool local, string idType, string value)
             {
                 if (this.Count == 1
-                    && this.keys[0].type.ToLower().Trim() == type.ToLower().Trim()
+                    && this.keys[0].Type.ToLower().Trim() == type.ToLower().Trim()
                     && this.keys[0].local == local
                     && this.keys[0].idType.ToLower().Trim() == idType.ToLower().Trim()
-                    && this.keys[0].value.ToLower().Trim() == value.ToLower().Trim())
+                    && this.keys[0].Value.ToLower().Trim() == value.ToLower().Trim())
                     return true;
                 return false;
             }

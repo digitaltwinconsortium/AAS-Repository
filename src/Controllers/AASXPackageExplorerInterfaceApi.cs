@@ -1,19 +1,15 @@
 
-using AdminShell;
-using AdminShell;
-using AdminShell;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Dynamic;
-using System.IO;
-using System.Net;
-using System.Text.RegularExpressions;
-using static AdminShell_V30.AdminShellV30;
-
-namespace IO.Swagger.Controllers
+namespace AdminShell
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.Dynamic;
+    using System.IO;
+    using System.Net;
+    using System.Text.RegularExpressions;
+
     [ApiController]
     public class AASXPackageExplorerInterfaceApiController : ControllerBase
     {
@@ -59,7 +55,7 @@ namespace IO.Swagger.Controllers
         }
 
         [HttpGet]
-        [Route("/aas/{aasId}/submodels/{smIdShort}/complete")]
+        [Route("/aas/{aasId}/Submodels/{smIdShort}/complete")]
         public virtual IActionResult GetSubmodelComplete([FromRoute][Required] int aasId, [FromRoute][Required] string smIdShort)
         {
             // access the AAS
@@ -84,13 +80,13 @@ namespace IO.Swagger.Controllers
 
                 if (_helper.Packages[i] == null
                     || _helper.Packages[i].AasEnv == null
-                    || _helper.Packages[i].AasEnv.AdministrationShells == null
-                    || _helper.Packages[i].AasEnv.AdministrationShells.Count < 1)
+                    || _helper.Packages[i].AasEnv.AssetAdministrationShells == null
+                    || _helper.Packages[i].AasEnv.AssetAdministrationShells.Count < 1)
                 {
                     return new StatusCodeResult((int)HttpStatusCode.NotFound);
                 }
 
-                aas = _helper.Packages[i].AasEnv.AdministrationShells[0];
+                aas = _helper.Packages[i].AasEnv.AssetAdministrationShells[0];
                 iPackage = i;
             }
             else
@@ -98,7 +94,7 @@ namespace IO.Swagger.Controllers
                 // Name
                 if (aasid == "id")
                 {
-                    aas = _helper.Packages[0].AasEnv.AdministrationShells[0];
+                    aas = _helper.Packages[0].AasEnv.AssetAdministrationShells[0];
                     iPackage = 0;
                 }
                 else
@@ -107,9 +103,9 @@ namespace IO.Swagger.Controllers
                     {
                         if (_helper.Packages[i] != null)
                         {
-                            if (_helper.Packages[i].AasEnv.AdministrationShells[0].idShort == aasid)
+                            if (_helper.Packages[i].AasEnv.AssetAdministrationShells[0].idShort == aasid)
                             {
-                                aas = _helper.Packages[i].AasEnv.AdministrationShells[0];
+                                aas = _helper.Packages[i].AasEnv.AssetAdministrationShells[0];
                                 iPackage = i;
                                 break;
                             }

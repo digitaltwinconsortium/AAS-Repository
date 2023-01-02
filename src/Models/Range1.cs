@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
     #region AdminShell_V2_0
 
@@ -68,7 +68,7 @@ namespace AasxCompatibilityModels
                 this.max = rng.max;
             }
 
-#if !DoNotUseAasxCompatibilityModels
+#if !DoNotUseAdminShell
             // not available in V1.0
 #endif
 

@@ -1,10 +1,10 @@
 
-using Opc.Ua;
-using Opc.Ua.Server;
-using System.Collections.Generic;
-
 namespace AdminShell.Data
 {
+    using Opc.Ua;
+    using Opc.Ua.Server;
+    using System.Collections.Generic;
+
     public partial class SimpleServer : StandardServer
     {
         protected override MasterNodeManager CreateMasterNodeManager(IServerInternal server, ApplicationConfiguration configuration)

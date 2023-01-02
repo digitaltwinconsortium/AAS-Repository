@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
     #region AdminShell_V2_0
 
@@ -72,7 +72,7 @@ namespace AasxCompatibilityModels
             public QualifierCollection qualifiers = null;
 
             // from hasDataSpecification:
-            [XmlElement(ElementName = "embeddedDataSpecification")]
+            [XmlElement(ElementName = "EmbeddedDataSpecification")]
             public HasDataSpecification hasDataSpecification = null;
 
             // getter / setter
@@ -102,8 +102,8 @@ namespace AasxCompatibilityModels
                 }
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public SubmodelElement(AasxCompatibilityModels.AdminShellV10.SubmodelElement src)
+#if !DoNotUseAdminShell
+            public SubmodelElement(AdminShell.AdminShellV10.SubmodelElement src)
                 : base(src)
             {
                 if (src.hasDataSpecification != null)

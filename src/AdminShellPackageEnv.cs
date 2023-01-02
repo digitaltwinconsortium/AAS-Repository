@@ -1,6 +1,6 @@
-﻿#define UseAasxCompatibilityModels
+﻿#define UseAdminShell
 
-using AdminShell_V30;
+using AdminShell;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace AdminShell
 
         private string tempFn = null;
 
-        private AdminShell.AdministrationShellEnv aasenv = new AdminShell.AdministrationShellEnv();
+        private AdminShell.AssetAdministrationShellEnvironment aasenv = new AdminShell.AssetAdministrationShellEnvironment();
         private Package openPackage = null;
         private List<AdminShellPackageSupplementaryFile> pendingFilesToAdd = new List<AdminShellPackageSupplementaryFile>();
         private List<AdminShellPackageSupplementaryFile> pendingFilesToDelete = new List<AdminShellPackageSupplementaryFile>();
@@ -30,7 +30,7 @@ namespace AdminShell
         {
         }
 
-        public AdminShellPackageEnv(AdminShell.AdministrationShellEnv env)
+        public AdminShellPackageEnv(AdminShell.AssetAdministrationShellEnvironment env)
         {
             if (env != null)
                 this.aasenv = env;
@@ -57,7 +57,7 @@ namespace AdminShell
             }
         }
 
-        public AdminShell.AdministrationShellEnv AasEnv
+        public AdminShell.AssetAdministrationShellEnvironment AasEnv
         {
             get
             {
@@ -101,7 +101,7 @@ namespace AdminShell
                         // TODO: use aasenv serialzers here!
                         JsonSerializer serializer = new JsonSerializer();
                         serializer.Converters.Add(new AdminShellConverters.JsonAasxConverter("modelType", "name"));
-                        this.aasenv = (AdminShell.AdministrationShellEnv)serializer.Deserialize(file, typeof(AdminShell.AdministrationShellEnv));
+                        this.aasenv = (AdminShell.AssetAdministrationShellEnvironment)serializer.Deserialize(file, typeof(AdminShell.AssetAdministrationShellEnvironment));
                     }
                 }
                 catch (Exception ex)
@@ -182,7 +182,7 @@ namespace AdminShell
                                     {
                                         JsonSerializer serializer = new JsonSerializer();
                                         serializer.Converters.Add(new AdminShellConverters.JsonAasxConverter("modelType", "name"));
-                                        this.aasenv = (AdminShell.AdministrationShellEnv)serializer.Deserialize(file, typeof(AdminShell.AdministrationShellEnv));
+                                        this.aasenv = (AdminShell.AssetAdministrationShellEnvironment)serializer.Deserialize(file, typeof(AdminShell.AssetAdministrationShellEnvironment));
                                         file.Close();
                                     }
                                     s.Close();
@@ -212,9 +212,9 @@ namespace AdminShell
                                     // read V1.0?
                                     if (nsuri != null && nsuri.Trim() == "http://www.admin-shell.io/aas/1/0")
                                     {
-#if UseAasxCompatibilityModels
-                                        XmlSerializer serializer = new XmlSerializer(typeof(AasxCompatibilityModels.AdminShellV10.AdministrationShellEnv), "http://www.admin-shell.io/aas/1/0");
-                                        var v10 = serializer.Deserialize(s) as AasxCompatibilityModels.AdminShellV10.AdministrationShellEnv;
+#if UseAdminShell
+                                        XmlSerializer serializer = new XmlSerializer(typeof(AdminShell.AdminShellV10.AdministrationShellEnv), "http://www.admin-shell.io/aas/1/0");
+                                        var v10 = serializer.Deserialize(s) as AdminShell.AdminShellV10.AdministrationShellEnv;
                                         this.aasenv = new AdminShellV30.AdministrationShellEnv(v10);
 #else
                 throw (new Exception("Cannot handle AAS file format http://www.admin-shell.io/aas/1/0 !"));
@@ -224,8 +224,8 @@ namespace AdminShell
                                     // read V2.0?
                                     if (nsuri != null && nsuri.Trim() == "http://www.admin-shell.io/aas/2/0")
                                     {
-                                        XmlSerializer serializer = new XmlSerializer(typeof(AdminShell.AdministrationShellEnv), "http://www.admin-shell.io/aas/2/0");
-                                        this.aasenv = serializer.Deserialize(s) as AdminShell.AdministrationShellEnv;
+                                        XmlSerializer serializer = new XmlSerializer(typeof(AdminShell.AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/2/0");
+                                        this.aasenv = serializer.Deserialize(s) as AdminShell.AssetAdministrationShellEnvironment;
                                     }
 
 
@@ -265,7 +265,7 @@ namespace AdminShell
                     // TODO: use aasenv serialzers here!
                     JsonSerializer serializer = new JsonSerializer();
                     serializer.Converters.Add(new AdminShellConverters.JsonAasxConverter("modelType", "name"));
-                    this.aasenv = (AdminShell.AdministrationShellEnv)serializer.Deserialize(file, typeof(AdminShell.AdministrationShellEnv));
+                    this.aasenv = (AdminShell.AssetAdministrationShellEnvironment)serializer.Deserialize(file, typeof(AdminShell.AssetAdministrationShellEnvironment));
                 }
             }
             catch (Exception ex)
@@ -289,7 +289,7 @@ namespace AdminShell
                     using (var s = new StreamWriter(this.fn))
                     {
                         // TODO: use aasenv serialzers here!
-                        var serializer = new XmlSerializer(typeof(AdminShell.AdministrationShellEnv));
+                        var serializer = new XmlSerializer(typeof(AdminShell.AssetAdministrationShellEnvironment));
                         var nss = new XmlSerializerNamespaces();
                         nss.Add("xsi", System.Xml.Schema.XmlSchema.InstanceNamespace);
                         nss.Add("aas", "http://www.admin-shell.io/aas/2/0");
@@ -433,8 +433,8 @@ namespace AdminShell
                     {
                         // create, as not existing
                         var frn = "aasenv-with-no-id";
-                        if (this.aasenv.AdministrationShells.Count > 0)
-                            frn = this.aasenv.AdministrationShells[0].GetFriendlyName() ?? frn;
+                        if (this.aasenv.AssetAdministrationShells.Count > 0)
+                            frn = this.aasenv.AssetAdministrationShells[0].GetFriendlyName() ?? frn;
                         var aas_spec_fn = "/aasx/#/#.aas";
                         if (prefFmt == PreferredFormat.Json)
                             aas_spec_fn += ".json";
@@ -467,7 +467,7 @@ namespace AdminShell
                     {
                         using (var s = specPart.GetStream(FileMode.Create))
                         {
-                            var serializer = new XmlSerializer(typeof(AdminShell.AdministrationShellEnv));
+                            var serializer = new XmlSerializer(typeof(AdminShell.AssetAdministrationShellEnvironment));
                             var nss = new XmlSerializerNamespaces();
                             nss.Add("xsi", System.Xml.Schema.XmlSchema.InstanceNamespace);
                             nss.Add("aas", "http://www.admin-shell.io/aas/2/0");
@@ -557,7 +557,7 @@ namespace AdminShell
                                     mimeType = AdminShellPackageEnv.GuessMimeType(psfAdd.sourceLocalPath);
                                 // still null?
                                 if (mimeType == null)
-                                    // see: https://stackoverflow.com/questions/6783921/which-mime-type-to-use-for-a-binary-file-thats-specific-to-my-program
+                                    // see: https://stackoverflow.com/questions/6783921/which-mime-Type-to-use-for-a-binary-file-thats-specific-to-my-program
                                     mimeType = "application/octet-stream";
 
                                 // create new part and link
@@ -649,7 +649,7 @@ namespace AdminShell
                 // raw save
                 using (var s = new StreamWriter(bdfn))
                 {
-                    var serializer = new XmlSerializer(typeof(AdminShell.AdministrationShellEnv));
+                    var serializer = new XmlSerializer(typeof(AdminShell.AssetAdministrationShellEnvironment));
                     var nss = new XmlSerializerNamespaces();
                     nss.Add("xsi", System.Xml.Schema.XmlSchema.InstanceNamespace);
                     nss.Add("aas", "http://www.admin-shell.io/aas/2/0");

@@ -5,7 +5,7 @@
 @using System
 @using System.Net;
 @using System.Drawing;
-@using static AdminShell_V30.AdminShellV30;
+@using static AdminShell.AdminShellV30;
 
 @implements IDisposable
 
@@ -681,7 +681,7 @@
         if (o is MultiLanguageProperty)
         {
             var mlp = o as MultiLanguageProperty;
-            var ls = mlp.value;
+            var ls = mlp.Value;
             ret = " = ";
             for (int i = 0; i < ls.Count; i++)
             {
@@ -1093,7 +1093,7 @@
         if (tag is MultiLanguageProperty)
         {
             var mlp = tag as MultiLanguageProperty;
-            var ls = mlp.value;
+            var ls = mlp.Value;
             for (int i = 0; i < ls.Count; i++)
             {
                 ret += ls.langString[i].lang + " ";

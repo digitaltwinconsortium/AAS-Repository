@@ -10,7 +10,7 @@ This source code may use other Open Source software components (see LICENSE.txt)
 using Newtonsoft.Json;
 using System.Xml.Serialization;
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
     #region AdminShell_V2_0
 
@@ -63,8 +63,8 @@ namespace AasxCompatibilityModels
                         this.keys.Add(new Key(k));
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public UnitId(AasxCompatibilityModels.AdminShellV10.UnitId src)
+#if !DoNotUseAdminShell
+            public UnitId(AdminShell.AdminShellV10.UnitId src)
             {
                 if (src.keys != null)
                     foreach (var k in src.Keys)

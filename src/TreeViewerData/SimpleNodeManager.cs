@@ -1,14 +1,13 @@
 
-using Opc.Ua;
-using Opc.Ua.Export;
-using Opc.Ua.Server;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-
 namespace AdminShell.Data
 {
+    using Opc.Ua;
+    using Opc.Ua.Export;
+    using Opc.Ua.Server;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+
     public class SimpleNodeManager : CustomNodeManager2
     {
         public SimpleNodeManager(IServerInternal server, ApplicationConfiguration configuration)
@@ -74,7 +73,7 @@ namespace AdminShell.Data
 
                 NodeStateCollection predefinedNodes = new NodeStateCollection();
                 nodeSet.Import(SystemContext, predefinedNodes);
-                
+
                 for (int i = 0; i < predefinedNodes.Count; i++)
                 {
                     try

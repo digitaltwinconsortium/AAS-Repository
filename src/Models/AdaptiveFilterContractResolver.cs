@@ -1,14 +1,14 @@
-﻿using AdminShell_V30;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System.Reflection;
-
+﻿
 namespace AdminShell
 {
-    public partial class AdminShellConverters
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
+    using System.Reflection;
+
+    public class AdminShellConverters
     {
         /// <summary>
-        /// This converter / contract resolver for Json.NET adaptively filters different levels of depth
+        /// This converter / contract resolver for Newtonsoft Json adaptively filters different levels of depth
         /// of nested AASX structures.
         /// </summary>
         public class AdaptiveFilterContractResolver : DefaultContractResolver
@@ -25,14 +25,14 @@ namespace AdminShell
             {
                 if (!deep)
                 {
-                    this.SubmodelHasElements = false;
-                    this.SmcHasValue = false;
-                    this.OpHasVariables = false;
+                    SubmodelHasElements = false;
+                    SmcHasValue = false;
+                    OpHasVariables = false;
                 }
                 if (!complete)
                 {
-                    this.AasHasViews = false;
-                    this.BlobHasValue = false;
+                    AasHasViews = false;
+                    BlobHasValue = false;
                 }
 
             }
@@ -41,13 +41,13 @@ namespace AdminShell
             {
                 JsonProperty property = base.CreateProperty(member, memberSerialization);
 
-                if (!BlobHasValue && property.DeclaringType == typeof(AdminShell.Blob) && property.PropertyName == "value")
+                if (!BlobHasValue && property.DeclaringType == typeof(AdminShell.Blob) && property.PropertyName == "Value")
                     property.ShouldSerialize = instance => { return false; };
 
                 if (!SubmodelHasElements && property.DeclaringType == typeof(AdminShell.Submodel) && property.PropertyName == "submodelElements")
                     property.ShouldSerialize = instance => { return false; };
 
-                if (!SmcHasValue && property.DeclaringType == typeof(AdminShell.SubmodelElementCollection) && property.PropertyName == "value")
+                if (!SmcHasValue && property.DeclaringType == typeof(AdminShell.SubmodelElementCollection) && property.PropertyName == "Value")
                     property.ShouldSerialize = instance => { return false; };
 
                 if (!OpHasVariables && property.DeclaringType == typeof(AdminShell.Operation) && (property.PropertyName == "in" || property.PropertyName == "out"))

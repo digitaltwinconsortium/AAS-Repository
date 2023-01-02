@@ -1,4 +1,4 @@
-﻿#define UseAasxCompatibilityModels
+﻿#define UseAdminShell
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -12,9 +12,9 @@ This source code may use other Open Source software components (see LICENSE.txt)
 */
 
 
-#if UseAasxCompatibilityModels
+#if UseAdminShell
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
 
     #region Utils

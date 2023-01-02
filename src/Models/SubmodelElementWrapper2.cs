@@ -1,4 +1,4 @@
-﻿#define UseAasxCompatibilityModels
+﻿#define UseAdminShell
 
 using System.Collections.Generic;
 using System.Xml;
@@ -12,9 +12,9 @@ This source code may use other Open Source software components (see LICENSE.txt)
 */
 
 
-#if UseAasxCompatibilityModels
+#if UseAdminShell
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
 
     #region Utils
@@ -177,7 +177,7 @@ namespace AasxCompatibilityModels
                 // over all wrappers
                 if (wrappers != null)
                     foreach (var smw in wrappers)
-                        if (smw.submodelElement != null && smw.submodelElement.idShort.Trim().ToLower() == rf[keyIndex].value.Trim().ToLower())
+                        if (smw.submodelElement != null && smw.submodelElement.idShort.Trim().ToLower() == rf[keyIndex].Value.Trim().ToLower())
                         {
                             // match on this level. Did we find a leaf element?
                             if ((keyIndex + 1) >= rf.Count)

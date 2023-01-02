@@ -15,8 +15,8 @@ using System.Xml;
 using System.Xml.Serialization;
 
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
     public partial class AdminShellV30
     {
@@ -73,7 +73,7 @@ namespace AdminShell_V30
             public QualifierCollection GetQualifiers() => qualifiers;
 
             // from hasDataSpecification:
-            [XmlElement(ElementName = "embeddedDataSpecification")]
+            [XmlElement(ElementName = "EmbeddedDataSpecification")]
             public HasDataSpecification hasDataSpecification = null;
 
             // getter / setter
@@ -103,8 +103,8 @@ namespace AdminShell_V30
                 }
             }
 
-#if !DoNotUseAasxCompatibilityModels
-            public SubmodelElement(AasxCompatibilityModels.AdminShellV10.SubmodelElement src)
+#if !DoNotUseAdminShell
+            public SubmodelElement(AdminShell.AdminShellV10.SubmodelElement src)
                 : base(src)
             {
                 if (src.hasDataSpecification != null)
@@ -122,7 +122,7 @@ namespace AdminShell_V30
                 }
             }
 
-            public SubmodelElement(AasxCompatibilityModels.AdminShellV20.SubmodelElement src)
+            public SubmodelElement(AdminShell.AdminShellV20.SubmodelElement src)
                 : base(src)
             {
                 if (src == null)

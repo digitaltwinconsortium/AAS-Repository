@@ -11,8 +11,8 @@ using Newtonsoft.Json;
 using System.Xml.Serialization;
 
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
     public partial class AdminShellV30
     {
@@ -25,7 +25,7 @@ namespace AdminShell_V30
             public enum Direction { In, Out, InOut };
 
             // Note: for OperationVariable, the values of the SubmodelElement itself ARE NOT TO BE USED!
-            // only the SME attributes of "value" are counting
+            // only the SME attributes of "Value" are counting
 
             // for JSON only
             [XmlIgnore]
@@ -46,15 +46,15 @@ namespace AdminShell_V30
                 this.value = new SubmodelElementWrapper(src?.value?.submodelElement, shallowCopy);
             }
 
-#if !DoNotUseAasxCompatibilityModels
+#if !DoNotUseAdminShell
             public OperationVariable(
-                AasxCompatibilityModels.AdminShellV10.OperationVariable src, bool shallowCopy = false)
+                AdminShell.AdminShellV10.OperationVariable src, bool shallowCopy = false)
             {
                 this.value = new SubmodelElementWrapper(src.value.submodelElement, shallowCopy);
             }
 
             public OperationVariable(
-                AasxCompatibilityModels.AdminShellV20.OperationVariable src, bool shallowCopy = false)
+                AdminShell.AdminShellV20.OperationVariable src, bool shallowCopy = false)
             {
                 this.value = new SubmodelElementWrapper(src.value.submodelElement, shallowCopy);
             }

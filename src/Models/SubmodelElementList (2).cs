@@ -11,8 +11,8 @@ using Newtonsoft.Json;
 using System.Xml.Serialization;
 
 
-//namespace AdminShell
-namespace AdminShell_V30
+
+namespace AdminShell
 {
     public partial class AdminShellV30
     {
@@ -33,7 +33,7 @@ namespace AdminShell_V30
 
             public SemanticId semanticIdListElement = null;
 
-            // Note MIHO: I was attempted to have the type of SubmodelElementWrapper.AdequateElementEnum,
+            // Note MIHO: I was attempted to have the Type of SubmodelElementWrapper.AdequateElementEnum,
             // however basic approach of this SDK is to have everything as string to be open
             public string typeValueListElement = null;
 
@@ -58,7 +58,7 @@ namespace AdminShell_V30
                 this.valueTypeListElement = sml.valueTypeListElement;
             }
 
-#if !DoNotUseAasxCompatibilityModels
+#if !DoNotUseAdminShell
             // new in V3.0
 #endif
 
@@ -82,14 +82,14 @@ namespace AdminShell_V30
 
                 /// <summary>
                 /// Constraint AASd-108: All first level child elements in a SubmodelElementList shall have the 
-                /// same submodel element type as specified in SubmodelElementList/typeValueListElement.
+                /// same submodel element Type as specified in SubmodelElementList/typeValueListElement.
                 /// </summary>
                 public bool AllChildSmeTypeMatch = true;
 
                 /// <summary>
                 /// Constraint AASd-109: If SubmodelElementList/typeValueListElement equal to Property or Range, 
                 /// SubmodelElementList/valueTypeListElement shall be set and all first level child elements in 
-                /// the SubmodelElementList shall have the the value type as specified in 
+                /// the SubmodelElementList shall have the the Value Type as specified in 
                 /// SubmodelElementList/valueTypeListElement
                 /// </summary>
                 public bool AllChildValueTypeMatch = true;
@@ -102,10 +102,10 @@ namespace AdminShell_V30
                 if (value == null)
                     return res;
 
-                // prepare SME type
+                // prepare SME Type
                 var smeTypeToCheck = SubmodelElementWrapper.GetAdequateEnum2(typeValueListElement);
 
-                // prepare value type
+                // prepare Value Type
                 var valueTypeToCheck = valueTypeListElement?.Trim().ToLower();
 
                 // eval
@@ -128,13 +128,13 @@ namespace AdminShell_V30
                         && !semanticIdListElement.Matches(sme.semanticId))
                         res.AllChildSemIdMatch = false;
 
-                    // type of SME?
+                    // Type of SME?
                     if (smeTypeToCheck != SubmodelElementWrapper.AdequateElementEnum.Unknown
                         && res.AllChildSmeTypeMatch
                         && smesd.ElementEnum != smeTypeToCheck)
                         res.AllChildSmeTypeMatch = false;
 
-                    // value type to check
+                    // Value Type to check
                     // TODO (MIHO, 2022-01-08): GetValueType() worth the effort to implement?
                     if (valueTypeToCheck != null && valueTypeToCheck.Length > 0
                         && res.AllChildValueTypeMatch

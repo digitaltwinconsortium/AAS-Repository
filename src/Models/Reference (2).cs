@@ -1,4 +1,4 @@
-﻿#define UseAasxCompatibilityModels
+﻿#define UseAdminShell
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -12,9 +12,9 @@ This source code may use other Open Source software components (see LICENSE.txt)
 */
 
 
-#if UseAasxCompatibilityModels
+#if UseAdminShell
 
-namespace AasxCompatibilityModels
+namespace AdminShell
 {
 
     #region Utils
@@ -132,14 +132,14 @@ namespace AasxCompatibilityModels
                 if (keys == null || keys.Keys == null || keys.Count != 1)
                     return false;
                 var k = keys.Keys[0];
-                return k.type == type && k.local == local && k.idType == idType && k.value == id;
+                return k.Type == type && k.local == local && k.idType == idType && k.Value == id;
             }
 
             public bool MatchesTo(Identification other)
             {
                 return (this.keys != null && this.keys.Count == 1
                     && this.keys[0].idType.Trim().ToLower() == other.idType.Trim().ToLower()
-                    && this.keys[0].value.Trim().ToLower() == other.id.Trim().ToLower());
+                    && this.keys[0].Value.Trim().ToLower() == other.id.Trim().ToLower());
             }
 
             public bool MatchesTo(Reference other)
@@ -150,10 +150,10 @@ namespace AasxCompatibilityModels
                 var same = true;
                 for (int i = 0; i < this.Count; i++)
                     same = same
-                        && this.keys[i].type.Trim().ToLower() == other.keys[i].type.Trim().ToLower()
+                        && this.keys[i].Type.Trim().ToLower() == other.keys[i].Type.Trim().ToLower()
                         && this.keys[i].local == other.keys[i].local
                         && this.keys[i].idType.Trim().ToLower() == other.keys[i].idType.Trim().ToLower()
-                        && this.keys[i].value.Trim().ToLower() == other.keys[i].value.Trim().ToLower();
+                        && this.keys[i].Value.Trim().ToLower() == other.keys[i].Value.Trim().ToLower();
 
                 return same;
             }
@@ -176,7 +176,7 @@ namespace AasxCompatibilityModels
                         if (x == null)
                             continue;
                         if (res != "") res += delim;
-                        res += x.value;
+                        res += x.Value;
                     }
                 return res;
             }
