@@ -16,11 +16,6 @@ namespace AdminShell
             if (mre.value != null)
                 this.value = new ModelReference(mre.value);
         }
-
-        public AasElementSelfDescription GetSelfDescription()
-        {
-            return new AasElementSelfDescription("ModelReferenceElement", "RefM", SubmodelElementWrapper.AdequateElementEnum.ModelReferenceElement);
-        }
     }
 }
 

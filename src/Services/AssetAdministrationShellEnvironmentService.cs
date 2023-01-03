@@ -1,53 +1,23 @@
-﻿using AdminShell;
-using AdminShell;
-using AdminShell;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using static AdminShell.AdminShellV30;
-using static IO.Swagger.V1RC03.Controllers.AssetAdministrationShellEnvironmentAPIController;
-using Reference = AdminShell.AdminShellV30.Reference;
-using Submodel = AdminShell.AdminShellV30.Submodel;
-using SubmodelElement = AdminShell.AdminShellV30.SubmodelElement;
-
-namespace IO.Swagger.V1RC03.Services
+﻿
+namespace AdminShell
 {
+    using Microsoft.Extensions.Logging;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
+
     public class AssetAdministrationShellEnvironmentService : IAssetAdministrationShellEnvironmentService
     {
         private readonly ILogger<AssetAdministrationShellEnvironmentService> _logger;
         private AdminShellPackageEnv[] _packages;
-        private AasSecurityContext _securityContext;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="logger"></param>
         public AssetAdministrationShellEnvironmentService(ILogger<AssetAdministrationShellEnvironmentService> logger)
         {
             _logger = logger;
             _packages = Program.env.ToArray();
-        }
-
-        public void SecurityCheck(string objPath = "", string aasOrSubmodel = null, object objectAasOrSubmodel = null)
-        {
-            string currentRole = _securityContext.accessRights;
-            string neededRights = _securityContext.neededRights;
-            
-            if (neededRights == "READ")
-            {
-                return;
-            }
-
-            if ((neededRights == "UPDATE" || neededRights == "DELETE") && currentRole == "UPDATE")
-            {
-                return;
-            }
-            
-            throw new Exception("Unauthorized!");
         }
 
         #region AssetAdministrationShell
@@ -66,7 +36,7 @@ namespace IO.Swagger.V1RC03.Services
 
         public void UpdateSubmodelElementByPath(SubmodelElement body, string aasIdentifier, string submodelIdentifier, string idShortPath)
         {
-            if (string.IsNullOrEmpty(body.idShort))
+            if (string.IsNullOrEmpty(body.IdShort))
             {
                 throw new Exception("SubmodelElement");
             }
@@ -83,7 +53,7 @@ namespace IO.Swagger.V1RC03.Services
 
         public void UpdateSubmodel(Submodel body, string aasIdentifier, string submodelIdentifier)
         {
-            if (string.IsNullOrEmpty(body.idShort))
+            if (string.IsNullOrEmpty(body.IdShort))
             {
                 throw new Exception("Submodel");
             }
@@ -110,7 +80,7 @@ namespace IO.Swagger.V1RC03.Services
             }
         }
 
-        public void UpdateAssetInformation(Models.AssetInformation body, string aasIdentifier)
+        public void UpdateAssetInformation(AssetInformation body, string aasIdentifier)
         {
             var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
             if (aas != null)
@@ -442,8 +412,6 @@ namespace IO.Swagger.V1RC03.Services
 
             if (found)
             {
-                SecurityCheck("", "aas", output);
-
                 return output;
             }
             else
@@ -941,11 +909,7 @@ namespace IO.Swagger.V1RC03.Services
                 return null;
 
             output = submodel.SubmodelElements;
-            if (outputModifierContext == null)
-            {
-                SecurityCheck(submodel.IdShort, "submodel", submodel);
-            }
-            else
+            if (outputModifierContext != null)
             {
                 if (!outputModifierContext.Content.Equals("path", StringComparison.OrdinalIgnoreCase))
                 {
@@ -1235,9 +1199,7 @@ namespace IO.Swagger.V1RC03.Services
 
             if (fileElement != null)
             {
-                SecurityCheck(submodel.IdShort + "." + idShortPath);
-
-                if (fileElement is System.IO.File file)
+                if (fileElement is File file)
                 {
                     fileName = file.Value;
 
@@ -1247,7 +1209,7 @@ namespace IO.Swagger.V1RC03.Services
                 }
                 else
                 {
-                    throw new Exception($"Submodel element {fileElement.idShort} is not of Type File.");
+                    throw new Exception($"Submodel element {fileElement.IdShort} is not of Type File.");
                 }
             }
 
@@ -1261,7 +1223,7 @@ namespace IO.Swagger.V1RC03.Services
             var fileElement = GetSubmodelElementByPathSubmodelRepo(submodelIdentifier, idShortPath, out _);
             if (fileElement != null)
             {
-                if (fileElement is System.IO.File file)
+                if (fileElement is File file)
                 {
                     var sourcePath = Path.GetDirectoryName(file.Value);
                     var targetFile = Path.Combine(sourcePath, fileName);
@@ -1314,6 +1276,7 @@ namespace IO.Swagger.V1RC03.Services
                 {
                     CheckOperationVariables(operation, operationRequest);
                     OperationResult operationResult = new OperationResult();
+
                     //Check the qualifier for demo
                     if (operation.FindQualifierOfType("Demo") != null)
                     {
@@ -1358,7 +1321,7 @@ namespace IO.Swagger.V1RC03.Services
                 {
                     CheckOperationVariables(operation, operationRequest);
                     OperationResult operationHandle = new OperationResult();
-                    
+
                     return operationHandle;
                 }
                 else
@@ -1370,13 +1333,7 @@ namespace IO.Swagger.V1RC03.Services
             return null;
         }
 
-
-
-
-
         #endregion
-
-        #region Others
 
         private bool EmptyPackageAvailable(out int emptyPackageIndex)
         {
@@ -1394,22 +1351,5 @@ namespace IO.Swagger.V1RC03.Services
 
             return false;
         }
-
-
-
-
-
-        #endregion
-
-
-
-
-
-
-
-
-
-
-
     }
 }

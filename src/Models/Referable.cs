@@ -6,116 +6,13 @@ namespace AdminShell
     using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Globalization;
     using System.IO;
     using System.Reflection;
     using System.Runtime.Serialization;
-    using System.Text;
     using System.Xml.Serialization;
 
     public class Referable : IAasElement
     {
-        public ListOfExtension extension = null;
-
-        [XmlIgnore]
-        public DateTime TimeStampCreate;
-
-        [XmlIgnore]
-        public DateTime TimeStamp;
-
-        public void setTimeStamp(DateTime timeStamp)
-        {
-            Referable r = this;
-
-            do
-            {
-                r.TimeStamp = timeStamp;
-                if (r != r.parent)
-                {
-                    r = (Referable)r.parent;
-                }
-                else
-                    r = null;
-            }
-            while (r != null);
-        }
-
-        public void SetAllTimeStamps(DateTime timeStamp, DateTime timeStampCreate)
-        {
-            TimeStamp = timeStamp;
-            TimeStampCreate = timeStampCreate;
-
-            // via interface enumaration
-            if (this is IEnumerateChildren)
-            {
-                var childs = (this as IEnumerateChildren).EnumerateChildren();
-                if (childs != null)
-                    foreach (var c in childs)
-                        c.submodelElement.SetAllTimeStamps(timeStamp, timeStampCreate);
-            }
-        }
-
-        public void SetAllTimeStamps(DateTime timeStamp)
-        {
-            TimeStamp = timeStamp;
-            TimeStampCreate = timeStamp;
-
-            // via interface enumaration
-            if (this is IEnumerateChildren)
-            {
-                var childs = (this as IEnumerateChildren).EnumerateChildren();
-                if (childs != null)
-                    foreach (var c in childs)
-                        c.submodelElement.SetAllTimeStamps(timeStamp);
-            }
-        }
-
-        public void SetAllParents(Referable parent, DateTime timeStamp)
-        {
-            if (parent == null)
-                return;
-
-            parent = parent;
-            TimeStamp = timeStamp;
-            TimeStampCreate = timeStamp;
-
-            // via interface enumaration
-            if (this is IEnumerateChildren)
-            {
-                var childs = (this as IEnumerateChildren).EnumerateChildren();
-                if (childs != null)
-                    foreach (var c in childs)
-                        c.submodelElement.SetAllParents(this, timeStamp);
-            }
-        }
-
-        public void SetAllParentsAndTimestamps(Referable parent, DateTime timeStamp, DateTime timeStampCreate)
-        {
-            if (parent == null)
-                return;
-
-            parent = parent;
-            TimeStamp = timeStamp;
-            TimeStampCreate = timeStampCreate;
-
-            // via interface enumaration
-            if (this is IEnumerateChildren)
-            {
-                var childs = (this as IEnumerateChildren).EnumerateChildren();
-                if (childs != null)
-                    foreach (var c in childs)
-                        c.submodelElement.SetAllParentsAndTimestamps(this, timeStamp, timeStampCreate);
-            }
-        }
-
-        public Submodel getParentSubmodel()
-        {
-            Referable parent = this;
-            while (!(parent is Submodel) && parent != null)
-                parent = (Referable)parent.parent;
-            return parent as Submodel;
-        }
-
         [DataMember(Name = "category")]
         [MetaModelName("Referable.category")]
         public string Category { get; set; }
@@ -148,6 +45,31 @@ namespace AdminShell
 
         public static string[] ReferableCategoryNames = new string[] { CONSTANT, Category_PARAMETER, VARIABLE };
 
+        public List<Extension> extension = null;
+
+        [XmlIgnore]
+        public DateTime TimeStampCreate;
+
+        [XmlIgnore]
+        public DateTime TimeStamp;
+
+        public void setTimeStamp(DateTime timeStamp)
+        {
+            Referable r = this;
+
+            do
+            {
+                r.TimeStamp = timeStamp;
+                if (r != r.parent)
+                {
+                    r = (Referable)r.parent;
+                }
+                else
+                    r = null;
+            }
+            while (r != null);
+        }
+
         public Referable() { }
 
         public Referable(string idShort)
@@ -168,74 +90,6 @@ namespace AdminShell
                 Description = new Description(src.Description);
         }
 
-        public void AddDescription(string lang, string str)
-        {
-            if (Description == null)
-                Description = new Description();
-            Description.langString.Add(new LangString(lang, str));
-        }
-
-        public void AddExtension(Extension ext)
-        {
-            if (ext == null)
-                return;
-            if (extension == null)
-                extension = new List<Extension>();
-            extension.Add(ext);
-        }
-
-        public virtual AasElementSelfDescription GetSelfDescription()
-        {
-            return new AasElementSelfDescription("Referable", "Ref");
-        }
-
-        public virtual string GetElementName()
-        {
-            return GetSelfDescription()?.ElementName;
-        }
-
-        public string GetFriendlyName()
-        {
-            return AdminShellUtil.FilterFriendlyName(IdShort);
-        }
-
-        public virtual ModelReference GetModelReference(bool includeParents = true)
-        {
-            var r = new ModelReference(new AdminShell.Key(
-                GetElementName(), "" + IdShort));
-
-            if (this is IGetSemanticId igs)
-                r.referredSemanticId = igs.GetSemanticId();
-
-            return r;
-        }
-
-        public void CollectReferencesByParent(List<Key> refs)
-        {
-            // access
-            if (refs == null)
-                return;
-
-            // check, if this is identifiable
-            if (this is Identifiable)
-            {
-                var idf = this as Identifiable;
-                if (idf != null)
-                {
-                    var k = Key.CreateNew(idf.GetElementName(), idf.id?.value);
-                    refs.Insert(0, k);
-                }
-            }
-            else
-            {
-                var k = Key.CreateNew(GetElementName(), IdShort);
-                refs.Insert(0, k);
-                // recurse upwards!
-                if (parent is Referable prf)
-                    prf.CollectReferencesByParent(refs);
-            }
-        }
-
         public string CollectIdShortByParent()
         {
             // recurse first
@@ -250,27 +104,6 @@ namespace AdminShell
             // together
             return head + myid;
         }
-
-        // string functions
-
-        public string ToIdShortString()
-        {
-            if (IdShort == null || IdShort.Trim().Length < 1)
-                return ("<no idShort!>");
-            return IdShort.Trim();
-        }
-
-        public override string ToString()
-        {
-            return "" + IdShort;
-        }
-
-        public virtual Key ToKey()
-        {
-            return new Key(GetElementName(), IdShort);
-        }
-
-        // hash functionality
 
         public class ObjectFieldInfo
         {
@@ -381,28 +214,7 @@ namespace AdminShell
             return mems.ToArray();
         }
 
-        private static System.Security.Cryptography.SHA256 HashProvider =
-            System.Security.Cryptography.SHA256.Create();
-
-        public string ComputeHashcode()
-        {
-            var dataBytes = ComputeByteArray();
-            var hashBytes = Referable.HashProvider.ComputeHash(dataBytes);
-
-            StringBuilder sb = new StringBuilder();
-            foreach (var hb in hashBytes)
-                sb.Append(hb.ToString("X2"));
-            return sb.ToString();
-        }
-
-        public class ComparerIdShort : IComparer<Referable>
-        {
-            public int Compare(Referable a, Referable b)
-            {
-                return String.Compare(a?.IdShort, b?.IdShort,
-                    CultureInfo.InvariantCulture, CompareOptions.IgnoreCase);
-            }
-        }
+        private static System.Security.Cryptography.SHA256 HashProvider = System.Security.Cryptography.SHA256.Create();
 
         public class ComparerIndexed : IComparer<Referable>
         {
@@ -439,18 +251,6 @@ namespace AdminShell
         {
             if (includeThis)
                 lambda(state, null, this);
-        }
-
-        public Identifiable FindParentFirstIdentifiable()
-        {
-            Referable curr = this;
-            while (curr != null)
-            {
-                if (curr is Identifiable curri)
-                    return curri;
-                curr = curr.parent as Referable;
-            }
-            return null;
         }
     }
 }

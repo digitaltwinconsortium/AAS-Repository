@@ -52,7 +52,7 @@ namespace AdminShell.Data
 
                 // store the file locally
                 string filePath = Path.Combine(Directory.GetCurrentDirectory(), "nodeset2.xml");
-                File.WriteAllText(filePath, addressSpace.Nodeset.NodesetXml);
+                System.IO.File.WriteAllText(filePath, addressSpace.Nodeset.NodesetXml);
                 _nodeSetFilenames.Add(filePath);
 
                 ValidateNamespacesAndModels(true);
@@ -165,7 +165,7 @@ namespace AdminShell.Data
 
                             // store the file on the webserver
                             string filePath = Path.Combine(Directory.GetCurrentDirectory(), addressSpace.Category.Name + ".nodeset2.xml");
-                            File.WriteAllText(filePath, addressSpace.Nodeset.NodesetXml);
+                            System.IO.File.WriteAllText(filePath, addressSpace.Nodeset.NodesetXml);
                             _nodeSetFilenames.Add(filePath);
                         }
                         catch (Exception ex)

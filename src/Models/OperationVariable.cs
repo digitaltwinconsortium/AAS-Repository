@@ -28,15 +28,5 @@ namespace AdminShell
         {
             Value = new SubmodelElementWrapper(elem);
         }
-
-        public AasElementSelfDescription GetSelfDescription()
-        {
-            return new AasElementSelfDescription("OperationVariable", "OprVar");
-        }
-
-        public string GetElementName()
-        {
-            return this.GetSelfDescription()?.ElementName;
-        }
     }
 }

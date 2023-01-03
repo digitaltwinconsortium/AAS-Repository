@@ -62,12 +62,5 @@ namespace AdminShell
         public DataElement() { }
 
         public DataElement(SubmodelElement src) : base(src) { }
-
-        public DataElement(DataElement src) : base(src) { }
-
-        public AasElementSelfDescription GetSelfDescription()
-        {
-            return new AasElementSelfDescription("DataElement", "DE");
-        }
     }
 }

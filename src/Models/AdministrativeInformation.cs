@@ -8,8 +8,8 @@ namespace AdminShell
     {
         public AdministrativeInformation(AdministrativeInformation administration)
         {
-            Revision= administration.Revision;
-            Version= administration.Version;
+            Revision = administration.Revision;
+            Version = administration.Version;
         }
 
         [DataMember(Name="Revision")]

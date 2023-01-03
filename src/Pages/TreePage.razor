@@ -5,7 +5,6 @@
 @using System
 @using System.Net;
 @using System.Drawing;
-@using static AdminShell.AdminShellV30;
 
 @implements IDisposable
 
@@ -200,7 +199,7 @@
         }
         if (!done && i.Tag is SubmodelElementCollection smec)
         {
-            foreach (var smew2 in smec.value)
+            foreach (var smew2 in smec.Value)
             {
                 listIdshort.Add(smew2.submodelElement.idShort);
             }
@@ -539,7 +538,7 @@
         {
             ret += "Ent";
         }
-        
+
         return (ret);
     }
 
@@ -649,9 +648,9 @@
         {
             var sme = o as SubmodelElementCollection;
             // ret = sm.identification.ToString();
-            if (sme.value.Count > 0)
+            if (sme.Value.Count > 0)
             {
-                ret += " #" + sme.value.Count;
+                ret += " #" + sme.Value.Count;
             }
         }
         if (o is SubmodelElement)
@@ -1165,7 +1164,7 @@
         return (ret);
     }
 
-    static string getQualifiers(QualifierCollection q, int col)
+    static string getQualifiers(List<Qualifier> q, int col)
     {
         string ret = string.Empty;
 

@@ -5,7 +5,7 @@ namespace AdminShell
     using System.Runtime.Serialization;
 
     [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum EntityType
+    public enum EntityTypeEnum
     {
         [EnumMember(Value = "CoManagedEntity")]
         CoManagedEntityEnum = 0,

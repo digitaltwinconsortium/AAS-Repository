@@ -2,14 +2,13 @@
 namespace AdminShell
 {
     using Newtonsoft.Json;
-    using System.Collections.Generic;
     using System.Xml.Serialization;
 
     [XmlType(TypeName = "reference")]
     public class Reference : IAasElement
     {
-        [XmlIgnore] // anyway, as it is private
-        private KeyList keys = new KeyList();
+        [XmlIgnore]
+        protected KeyList keys = new KeyList();
 
         [XmlArray("keys")]
         [XmlArrayItem("key")]
@@ -27,19 +26,7 @@ namespace AdminShell
         }
 
         [XmlIgnore]
-        public bool IsEmpty { get { return keys == null || keys.Count < 1; } }
-
-        [XmlIgnore]
         public int Count { get { if (keys == null) return 0; return keys.Count; } }
-
-        [XmlIgnore]
-        public Key this[int index] { get { return keys[index]; } }
-
-        [XmlIgnore]
-        public Key First { get { return Count < 1 ? null : keys[0]; } }
-
-        [XmlIgnore]
-        public Key Last { get { return Count < 1 ? null : keys[keys.Count - 1]; } }
 
         public Reference(){ }
 
@@ -61,56 +48,6 @@ namespace AdminShell
             if (src != null)
                 foreach (var k in src.Keys)
                     keys.Add(new Key(k));
-        }
-
-        public static Reference CreateNew(Key k)
-        {
-            if (k == null)
-                return null;
-            var r = new Reference();
-            r.keys.Add(k);
-            return r;
-        }
-
-        public static Reference CreateNew(List<Key> k)
-        {
-            if (k == null)
-                return null;
-            var r = new Reference();
-            r.keys.AddRange(k);
-            return r;
-        }
-
-        public static Reference CreateNew(string type, bool local, string idType, string value)
-        {
-            if (type == null || idType == null || value == null)
-                return null;
-            var r = new Reference();
-            r.keys.Add(Key.CreateNew(type, local, idType, value));
-            return r;
-        }
-
-        public static Reference CreateIrdiReference(string irdi)
-        {
-            if (irdi == null)
-                return null;
-            var r = new Reference();
-            r.keys.Add(new Key(Key.GlobalReference, false, Identification.IRDI, irdi));
-            return r;
-        }
-
-        public static Reference operator +(Reference a, Key b)
-        {
-            var res = new Reference(a);
-            res.Keys?.Add(b);
-            return res;
-        }
-
-        public static Reference operator +(Reference a, Reference b)
-        {
-            var res = new Reference(a);
-            res.Keys?.AddRange(b?.Keys);
-            return res;
         }
 
         public Key GetAsExactlyOneKey()
@@ -158,7 +95,7 @@ namespace AdminShell
             return false;
         }
 
-        public bool Matches(Identification other)
+        public bool Matches(Identifier other)
         {
             if (other == null)
                 return false;
@@ -195,30 +132,6 @@ namespace AdminShell
         public string ToString(int format = 0, string delimiter = ",")
         {
             return keys?.ToString(format, delimiter);
-        }
-
-        public string ListOfValues(string delim)
-        {
-            string res = "";
-            if (Keys != null)
-                foreach (var x in Keys)
-                {
-                    if (x == null)
-                        continue;
-                    if (res != "") res += delim;
-                    res += x.Value;
-                }
-            return res;
-        }
-
-        public virtual AasElementSelfDescription GetSelfDescription()
-        {
-            return new AasElementSelfDescription("Reference", "Rfc");
-        }
-
-        public virtual string GetElementName()
-        {
-            return GetSelfDescription()?.ElementName;
         }
     }
 }

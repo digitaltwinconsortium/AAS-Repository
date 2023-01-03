@@ -2,17 +2,17 @@
 namespace AdminShell
 {
     using Newtonsoft.Json;
-    using System;
     using System.ComponentModel.DataAnnotations;
     using System.Runtime.Serialization;
+    using System.Text.RegularExpressions;
 
     [DataContract]
     public class Identifiable : Referable
     {
-        // this class is complex, because V3.0 made id a simple string and this must be serialized
+        // V3.0 made id a simple string
 
         [DataMember(Name = "administration")]
-        public AdministrativeInformation Administration { get; set; } = new();
+        public AdministrativeInformation Administration { get; set; }
 
         [Required]
         [DataMember(Name = "identification")]
@@ -20,10 +20,7 @@ namespace AdminShell
 
         public Identifier id = new Identifier();
 
-
-       public Identifiable() : base() { }
-
-        public Identifiable(string idShort) : base(idShort) { }
+        public Identifiable() : base() { }
 
         public Identifiable(Identifiable src)
             : base(src)
@@ -38,48 +35,12 @@ namespace AdminShell
                 Administration = new AdministrativeInformation(src.Administration);
         }
 
-        public void SetIdentification(string id, string idShort = null)
-        {
-            this.id.value = id;
-
-            if (idShort != null)
-                IdShort = idShort;
-        }
-
-        public void SetAdminstration(string version, string revision)
-        {
-            Administration.Version = version;
-            Administration.Revision = revision;
-        }
-
         public string GetFriendlyName()
         {
             if (id != null && id.value != "")
-                return AdminShellUtil.FilterFriendlyName(this.id.value);
-            return AdminShellUtil.FilterFriendlyName(IdShort);
-        }
+                return Regex.Replace(id.value, @"[^a-zA-Z0-9\-_]", "_");
 
-        public override string ToString()
-        {
-            return ("" + id?.ToString() + " " + administration?.ToString()).Trim();
-        }
-
-        public Key ToKey()
-        {
-            return new Key(GetElementName(), "" + id?.value);
-        }
-
-        public ModelReference GetModelReference(bool includeParents = true)
-        {
-            var r = new ModelReference();
-
-            if (this is IGetSemanticId igs)
-                r.referredSemanticId = igs.GetSemanticId();
-
-            r.Keys.Add(
-                Key.CreateNew(this.GetElementName(), this.id.value));
-
-            return r;
+            return Regex.Replace(IdShort, @"[^a-zA-Z0-9\-_]", "_");
         }
     }
 }

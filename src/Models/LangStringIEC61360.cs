@@ -7,7 +7,7 @@ namespace AdminShell
 
     public class LangStringIEC61360
     {
-        [XmlElement(ElementName = "LangString", Namespace = "http://www.admin-shell.io/aas/1/0")]
+        [XmlElement(ElementName = "LangString", Namespace = "http://www.admin-shell.io/aas/3/0")]
         public List<LangString> langString = new List<LangString>();
 
         [XmlIgnore]

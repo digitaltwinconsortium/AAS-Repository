@@ -9,7 +9,6 @@ namespace AdminShell
         [XmlIgnore]
         public KeyList keys = new KeyList();
 
-
         [XmlArray("keys")]
         [XmlArrayItem("key")]
         public List<Key> Keys { get { return keys?.Keys; } }
@@ -30,22 +29,6 @@ namespace AdminShell
             if (src.keys != null)
                 foreach (var k in src.Keys)
                     this.keys.Add(new Key(k));
-        }
-
-        public static UnitId CreateNew(string type, bool local, string idType, string value)
-        {
-            var u = new UnitId();
-            u.keys.Keys.Add(Key.CreateNew(type, local, idType, value));
-            return u;
-        }
-
-        public static UnitId CreateNew(Reference src)
-        {
-            var res = new UnitId();
-            if (src != null && src.Keys != null)
-                foreach (var k in src.Keys)
-                    res.keys.Add(k);
-            return res;
         }
     }
 }

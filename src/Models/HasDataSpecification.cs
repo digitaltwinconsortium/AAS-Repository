@@ -19,14 +19,14 @@ namespace AdminShell
 
         public HasDataSpecification(HasDataSpecification src)
         {
-            foreach (var r in src)
-                this.Add(new EmbeddedDataSpecification(r));
+            foreach (var r in src.EmbeddedDataSpecifications)
+                EmbeddedDataSpecifications.Add(r);
         }
 
         public HasDataSpecification(IEnumerable<EmbeddedDataSpecification> src)
         {
             foreach (var r in src)
-                this.Add(new EmbeddedDataSpecification(r));
+                EmbeddedDataSpecifications.Add(new EmbeddedDataSpecification(r));
         }
 
         [XmlIgnore]
@@ -34,7 +34,7 @@ namespace AdminShell
         {
             get
             {
-                foreach (var eds in this)
+                foreach (var eds in EmbeddedDataSpecifications)
                     if (eds?.dataSpecificationContent?.dataSpecificationIEC61360 != null
                         || eds?.dataSpecification?.Matches(
                             DataSpecificationIEC61360.GetIdentifier(), Key.MatchMode.Identification) == true)
@@ -44,43 +44,19 @@ namespace AdminShell
             set
             {
                 // search existing first?
-                var eds = this.IEC61360;
+                var eds = IEC61360;
                 if (eds != null)
                 {
                     // replace this
                     /* TODO (MIHO, 2020-08-30): this does not prevent the corner case, that we could have
                         * multiple dataSpecificationIEC61360 in this list, which would be an error */
-                    this.Remove(eds);
-                    this.Add(value);
+                    EmbeddedDataSpecifications.Remove(eds);
+                    EmbeddedDataSpecifications.Add(value);
                     return;
                 }
 
                 // no? .. add!
-                this.Add(value);
-            }
-        }
-
-        [XmlIgnore]
-        public DataSpecificationIEC61360 IEC61360Content
-        {
-            get
-            {
-                return this.IEC61360?.dataSpecificationContent?.dataSpecificationIEC61360;
-            }
-            set
-            {
-                // search existing first?
-                var eds = this.IEC61360;
-                if (eds != null)
-                {
-                    // replace this
-                    eds.dataSpecificationContent.dataSpecificationIEC61360 = value;
-                    return;
-                }
-                // no? .. add!
-                var edsnew = new EmbeddedDataSpecification();
-                edsnew.dataSpecificationContent.dataSpecificationIEC61360 = value;
-                this.Add(edsnew);
+                EmbeddedDataSpecifications.Add(value);
             }
         }
     }

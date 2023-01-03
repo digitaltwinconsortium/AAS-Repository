@@ -41,19 +41,19 @@ namespace AdminShell
             {
                 JsonProperty property = base.CreateProperty(member, memberSerialization);
 
-                if (!BlobHasValue && property.DeclaringType == typeof(AdminShell.Blob) && property.PropertyName == "Value")
+                if (!BlobHasValue && property.DeclaringType == typeof(Blob) && property.PropertyName == "Value")
                     property.ShouldSerialize = instance => { return false; };
 
-                if (!SubmodelHasElements && property.DeclaringType == typeof(AdminShell.Submodel) && property.PropertyName == "submodelElements")
+                if (!SubmodelHasElements && property.DeclaringType == typeof(Submodel) && property.PropertyName == "submodelElements")
                     property.ShouldSerialize = instance => { return false; };
 
-                if (!SmcHasValue && property.DeclaringType == typeof(AdminShell.SubmodelElementCollection) && property.PropertyName == "Value")
+                if (!SmcHasValue && property.DeclaringType == typeof(SubmodelElementCollection) && property.PropertyName == "Value")
                     property.ShouldSerialize = instance => { return false; };
 
-                if (!OpHasVariables && property.DeclaringType == typeof(AdminShell.Operation) && (property.PropertyName == "in" || property.PropertyName == "out"))
+                if (!OpHasVariables && property.DeclaringType == typeof(Operation) && (property.PropertyName == "in" || property.PropertyName == "out"))
                     property.ShouldSerialize = instance => { return false; };
 
-                if (!AasHasViews && property.DeclaringType == typeof(AdminShell.AdministrationShell) && property.PropertyName == "views")
+                if (!AasHasViews && property.DeclaringType == typeof(AssetAdministrationShell) && property.PropertyName == "views")
                     property.ShouldSerialize = instance => { return false; };
 
                 return property;

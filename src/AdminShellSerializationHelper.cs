@@ -47,32 +47,32 @@ namespace AdminShell
         /// </summary>
         /// <param name="s">Open for read stream</param>
         /// <returns></returns>
-        public static AdminShell.AssetAdministrationShellEnvironment DeserializeXmlFromStreamWithCompat(Stream s)
+        public static AssetAdministrationShellEnvironment DeserializeXmlFromStreamWithCompat(Stream s)
         {
-            // not sure
-            AdminShell.AssetAdministrationShellEnvironment res = null;
-
             // try get first element
             var nsuri = TryReadXmlFirstElementNamespaceURI(s);
 
-            // read V1.0?
+            // read V1.0
             if (nsuri != null && nsuri.Trim() == "http://www.admin-shell.io/aas/1/0")
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(AdminShell.AdminShellV10.AdministrationShellEnv), "http://www.admin-shell.io/aas/1/0");
-                var v10 = serializer.Deserialize(s) as AdminShell.AdminShellV10.AdministrationShellEnv;
-                res = new AdminShellV30.AdministrationShellEnv(v10);
-                return res;
+                XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/1/0");
+                return serializer.Deserialize(s) as AssetAdministrationShellEnvironment;
             }
 
-            // read V2.0?
+            // read V2.0
             if (nsuri != null && nsuri.Trim() == "http://www.admin-shell.io/aas/2/0")
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(AdminShell.AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/2/0");
-                res = serializer.Deserialize(s) as AdminShell.AssetAdministrationShellEnvironment;
-                return res;
+                XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/2/0");
+                return serializer.Deserialize(s) as AssetAdministrationShellEnvironment;
             }
 
-            // nope!
+            // read V3.0
+            if (nsuri != null && nsuri.Trim() == "http://www.admin-shell.io/aas/3/0")
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/3/0");
+                return serializer.Deserialize(s) as AssetAdministrationShellEnvironment;
+            }
+
             return null;
         }
 

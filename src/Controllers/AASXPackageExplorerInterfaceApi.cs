@@ -59,7 +59,7 @@ namespace AdminShell
         public virtual IActionResult GetSubmodelComplete([FromRoute][Required] int aasId, [FromRoute][Required] string smIdShort)
         {
             // access the AAS
-            AdministrationShell aas = null;
+            AssetAdministrationShell aas = null;
             int iPackage = -1;
             string aasid = aasId.ToString();
 
@@ -103,7 +103,7 @@ namespace AdminShell
                     {
                         if (_helper.Packages[i] != null)
                         {
-                            if (_helper.Packages[i].AasEnv.AssetAdministrationShells[0].idShort == aasid)
+                            if (_helper.Packages[i].AasEnv.AssetAdministrationShells[0].IdShort == aasid)
                             {
                                 aas = _helper.Packages[i].AasEnv.AssetAdministrationShells[0];
                                 iPackage = i;
@@ -120,10 +120,10 @@ namespace AdminShell
             }
 
             // no, iterate & find
-            foreach (var smref in aas.submodelRefs)
+            foreach (var smref in aas.SubmodelRefs)
             {
                 var sm = _helper.Packages[iPackage].AasEnv.FindSubmodel(smref);
-                if (sm != null && sm.idShort != null && sm.idShort.Trim().ToLower() == smIdShort.Trim().ToLower())
+                if (sm != null && sm.IdShort != null && sm.IdShort.Trim().ToLower() == smIdShort.Trim().ToLower())
                 {
                     JsonSerializerSettings settings = new JsonSerializerSettings();
                     settings.ContractResolver = new AdminShellConverters.AdaptiveFilterContractResolver(true, true);

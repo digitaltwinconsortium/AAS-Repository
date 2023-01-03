@@ -17,38 +17,5 @@ namespace AdminShell
                 foreach (var ls in src.LangString)
                     LangString.Add(new LangString(ls));
         }
-
-        public LangStringSet(List<LangString> src)
-        {
-            if (src != null)
-                foreach (var ls in src)
-                    LangString.Add(new LangString(ls));
-        }
-
-        public LangStringSet(string lang, string str)
-        {
-            if (str == null || str.Trim() == "")
-                return;
-
-            LangString.Add(new LangString(lang, str));
-        }
-
-        public LangString Add(LangString ls)
-        {
-            LangString.Add(ls);
-            return ls;
-        }
-
-        public LangString Add(string lang, string str)
-        {
-            var ls = new LangString(lang, str);
-            LangString.Add(ls);
-            return ls;
-        }
-
-        public string GetDefaultStr(string defaultLang = null)
-        {
-            return LangString?.GetDefaultStr(defaultLang);
-        }
     }
 }

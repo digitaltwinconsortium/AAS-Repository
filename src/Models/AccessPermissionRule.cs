@@ -10,7 +10,7 @@ namespace AdminShell
     public class AccessPermissionRule : Referable
     {
         [DataMember(Name="qualifiers")]
-        public List<Constraint> Qualifiers { get; set; }
+        public List<Qualifier> Qualifiers { get; set; }
 
         [DataMember(Name="permissionsPerObject")]
         public List<PermissionsPerObject> PermissionsPerObject { get; set; }

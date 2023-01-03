@@ -68,7 +68,7 @@ namespace AdminShell
                     $"Error accessing embedded resource schema files: {ex.Message}");
             }
 
-            var newRecs = new AasValidationRecordList();
+            var newRecs = new List<AasValidationRecord>();
 
             // set up messages
             xmlSchemaSet.ValidationEventHandler += (object sender, System.Xml.Schema.ValidationEventArgs e) =>
@@ -108,16 +108,16 @@ namespace AdminShell
         /// </summary>
         /// <param name="recs">Validation records</param>
         /// <param name="xmlContent">Content to be validated</param>
-        public static void ValidateXML(AasValidationRecordList recs, Stream xmlContent)
+        public static void ValidateXML(List<AasValidationRecord> recs, Stream xmlContent)
         {
             var validator = NewXmlValidator();
             validator.Validate(recs, xmlContent);
         }
 
-        public static int ValidateJSONAlternative(AasValidationRecordList recs, Stream jsonContent)
+        public static int ValidateJSONAlternative(List<AasValidationRecord> recs, Stream jsonContent)
         {
             // see: https://github.com/RicoSuter/NJsonSchema/wiki/JsonSchemaValidator
-            var newRecs = new AasValidationRecordList();
+            var newRecs = new List<AasValidationRecord>();
 
             // access
             if (recs == null || jsonContent == null)

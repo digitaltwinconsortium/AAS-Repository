@@ -1,14 +1,12 @@
-﻿using AdminShell;
-using AdminShell;
-using AdminShell;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace IO.Swagger.V1RC03.Services
+﻿
+namespace AdminShell
 {
+    using Microsoft.Extensions.Logging;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+
     public class AasxFileServerInterfaceService : IAasxFileServerInterfaceService
     {
         private readonly ILogger<AasxFileServerInterfaceService> _logger;
@@ -93,7 +91,7 @@ namespace IO.Swagger.V1RC03.Services
                     var aasIdList = new List<string>();
                     foreach (var aas in _packages[i].AasEnv.AssetAdministrationShells)
                     {
-                        aasIdList.Add(aas.idShort);
+                        aasIdList.Add(aas.IdShort);
                     }
                     packageDescription.AasIds = aasIdList;
                     output.Add(packageDescription);

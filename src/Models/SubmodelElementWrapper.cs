@@ -137,11 +137,6 @@ namespace AdminShell
 
         }
 
-        public static string GetAdequateName(AdequateElementEnum ae)
-        {
-            return AdequateElementNames[(int)ae];
-        }
-
         // Deprecated. See below.
         public static AdequateElementEnum GetAdequateEnum(string adequateName)
         {
@@ -154,82 +149,6 @@ namespace AdminShell
                     return en;
 
             return AdequateElementEnum.Unknown;
-        }
-
-        // This Version uses the element name array and allows using ShortName
-        public static AdequateElementEnum GetAdequateEnum2(string adequateName, bool useShortName = false)
-        {
-            if (adequateName == null)
-                return AdequateElementEnum.Unknown;
-
-            foreach (var en in (AdequateElementEnum[])Enum.GetValues(typeof(AdequateElementEnum)))
-                if (((int)en < AdequateElementNames.Length
-                        && AdequateElementNames[(int)en].Trim().ToLower() == adequateName.Trim().ToLower())
-                    || (useShortName
-                        && (int)en < AdequateElementShortName.Length
-                        && AdequateElementShortName[(int)en] != null
-                        && AdequateElementShortName[(int)en].Trim().ToLower() == adequateName.Trim().ToLower()))
-                    return en;
-
-            return AdequateElementEnum.Unknown;
-        }
-
-        // Returns, if the element is deprecated in the most current Version of the meta model.
-        public static bool GetElementIsDeprecated(AdequateElementEnum ae)
-        {
-            return AdequateElementDeprecated[(int)ae];
-        }
-
-        // Returns, if the element is deprecated in the most current Version of the meta model.
-        public static bool GetElementIsDeprecated(SubmodelElement sme)
-        {
-            if (sme == null)
-                return false;
-            var sd = sme.GetSelfDescription();
-            if (sd == null)
-                return false;
-            return AdequateElementDeprecated[(int)sd.ElementEnum];
-        }
-
-        // Returns a rather general statement, if the SME is deprecated.
-        public static string EvalDeprecationMessage(SubmodelElement sme)
-        {
-            string res = null;
-            if (AdminShell.SubmodelElementWrapper.GetElementIsDeprecated(sme))
-            {
-                res = "This SubmodelElement is considered deprecated by the AdminShell meta model "
-                        + AdminShell.MetaModelVersionCoarse + AdminShell.MetaModelVersionFine + ". "
-                        + "Please refactor to another adequate SubmodelElement. ";
-
-                if (sme is SubmodelElementCollection)
-                    res += "Please consider to used SubmodelElementList or SubmodelElemenStructure. ";
-                if (sme is ReferenceElement)
-                    res += "For references to elements of an AAS, either local or external, consider " +
-                        "ModelReferenceElement. For references to external information or services, " +
-                        "consider GlobalReferenceElement. ";
-            }
-            return res;
-        }
-
-        public static IEnumerable<AdequateElementEnum> GetAdequateEnums(
-            AdequateElementEnum[] excludeValues = null, AdequateElementEnum[] includeValues = null)
-        {
-            if (includeValues != null)
-            {
-                foreach (var en in includeValues)
-                    yield return en;
-            }
-            else
-            {
-                foreach (var en in (AdequateElementEnum[])Enum.GetValues(typeof(AdequateElementEnum)))
-                {
-                    if (en == AdequateElementEnum.Unknown)
-                        continue;
-                    if (excludeValues != null && excludeValues.Contains(en))
-                        continue;
-                    yield return en;
-                }
-            }
         }
 
         // Introduced for JSON serialization, can create SubModelElements based on a string name
@@ -272,12 +191,6 @@ namespace AdminShell
             return null;
         }
 
-        // Introduced for JSON serialization, can create SubModelElements based on a string name
-        public static SubmodelElement CreateAdequateType(string elementName)
-        {
-            return CreateAdequateType(GetAdequateEnum(elementName));
-        }
-
         // Can create SubmodelElements based on a given Type information
         public static SubmodelElement CreateAdequateType(Type t)
         {
@@ -285,44 +198,6 @@ namespace AdminShell
                 return null;
             var sme = Activator.CreateInstance(t) as SubmodelElement;
             return sme;
-        }
-
-        public string GetElementAbbreviation()
-        {
-            if (submodelElement == null)
-                return ("Null");
-            var dsc = submodelElement.GetSelfDescription();
-            if (dsc?.ElementAbbreviation == null)
-                return ("Null");
-            return dsc.ElementAbbreviation;
-        }
-
-        public static string GetElementNameByAdequateType(SubmodelElement sme)
-        {
-            // access
-            var sd = sme.GetSelfDescription();
-            if (sd == null || sd.ElementEnum == AdequateElementEnum.Unknown)
-                return null;
-            var en = sd.ElementEnum;
-
-            // get the names
-            string res = null;
-            if ((int)en < AdequateElementNames.Length)
-                res = AdequateElementNames[(int)en].Trim();
-            if ((int)en < AdequateElementShortName.Length && AdequateElementShortName[(int)en] != null)
-                res = AdequateElementShortName[(int)en].Trim();
-            return res;
-        }
-
-        public static ListOfSubmodelElement ListOfWrappersToListOfElems(List<SubmodelElementWrapper> wrappers)
-        {
-            var res = new ListOfSubmodelElement();
-            if (wrappers == null)
-                return res;
-            foreach (var w in wrappers)
-                if (w.submodelElement != null)
-                    res.Add(w.submodelElement);
-            return res;
         }
 
         public static SubmodelElementWrapper CreateFor(SubmodelElement sme)
@@ -351,7 +226,7 @@ namespace AdminShell
             // over all wrappers
             foreach (var smw in wrappers)
                 if (smw.submodelElement != null &&
-                    smw.submodelElement.idShort.Trim().ToLower() == rf[keyIndex].Value.Trim().ToLower())
+                    smw.submodelElement.IdShort.Trim().ToLower() == rf[keyIndex].Value.Trim().ToLower())
                 {
                     // match on this level. Did we find a leaf element?
                     if ((keyIndex + 1) >= rf.Count)
@@ -360,7 +235,7 @@ namespace AdminShell
                     // dive into SMC?
                     if (smw.submodelElement is SubmodelElementCollection smc)
                     {
-                        var found = FindReferableByReference(smc.value, rf, keyIndex + 1);
+                        var found = FindReferableByReference(smc.Value, rf, keyIndex + 1);
                         if (found != null)
                             return found;
                     }
@@ -379,13 +254,6 @@ namespace AdminShell
 
             // no?
             return null;
-        }
-
-        // typecasting wrapper into specific Type
-        public T GetAs<T>() where T : SubmodelElement
-        {
-            var x = (this.submodelElement) as T;
-            return x;
         }
     }
 }

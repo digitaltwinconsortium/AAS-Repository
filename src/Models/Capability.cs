@@ -5,13 +5,6 @@ namespace AdminShell
     {
         public Capability() { }
 
-        public Capability(SubmodelElement src)
-            : base(src)
-        { }
-
-        public AasElementSelfDescription GetSelfDescription()
-        {
-            return new AasElementSelfDescription("Capability", "Cap", SubmodelElementWrapper.AdequateElementEnum.Capability);
-        }
+        public Capability(SubmodelElement src) : base(src) { }
     }
 }

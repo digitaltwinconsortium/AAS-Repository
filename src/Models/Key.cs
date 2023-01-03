@@ -13,9 +13,7 @@ namespace AdminShell
     [DataContract]
     public class Key
     {
-        // Constants
-
-        public enum MatchMode { Relaxed, Identification }; // in V3.0RC02: Strict not anymore
+        public enum MatchMode { Strict, Relaxed, Identification };
 
         [Required]
         [XmlAttribute]
@@ -39,28 +37,10 @@ namespace AdminShell
             Value = src.Value;
         }
 
-
         public Key(string type, string value)
         {
-            Type = type;
+            Type = (KeyElements)int.Parse(type);
             Value = value;
-        }
-
-        public static Key CreateNew(string type, string value)
-        {
-            var k = new Key()
-            {
-                Type = type,
-                Value = value
-            };
-            return (k);
-        }
-
-        public static Key GetFromRef(ModelReference r)
-        {
-            if (r == null || r.Count != 1)
-                return null;
-            return r[0];
         }
 
         public Identifier ToId()
@@ -175,7 +155,7 @@ namespace AdminShell
             "SubmodelElementCollection", // not specified, but used by AASX Package Explorer
             "SubmodelElementList",
             "SubmodelElementStruct",
-            "SubmodelRef" // not specified, but used by AASX Package Explorer
+            "SubmodelReference" // not specified, but used by AASX Package Explorer
         };
 
         public static string[] ReferableElements = new string[] {
@@ -238,7 +218,7 @@ namespace AdminShell
         public static string ModelReference = "ModelElementReference";
         public static string FragmentReference = "FragmentReference";
         public static string ConceptDescription = "ConceptDescription";
-        public static string SubmodelRef = "SubmodelRef";
+        public static string SubmodelRef = "SubmodelReference";
         public static string Submodel = "Submodel";
         public static string SubmodelElement = "SubmodelElement";
         public static string AssetInformation = "AssetInformation";
@@ -257,51 +237,24 @@ namespace AdminShell
             return false;
         }
 
-        public bool IsInKeyElements()
-        {
-            return IsInNamedElementsList(KeyElements, Type);
-        }
-
-        public bool IsInReferableElements()
-        {
-            return IsInNamedElementsList(ReferableElements, Type);
-        }
-
         public bool IsInSubmodelElements()
         {
-            return IsInNamedElementsList(SubmodelElementElements, Type);
-        }
-
-        public bool IsIRI()
-        {
-            return Identifier.IsIRI(Value);
-        }
-
-        public bool IsIRDI()
-        {
-            return Identifier.IsIRDI(Value);
+            return IsInNamedElementsList(SubmodelElementElements, Type.ToString());
         }
 
         public bool IsType(string value)
         {
-            if (value == null || Type == "")
+            if (value == null)
                 return false;
 
-            return value.Trim().ToLower().Equals(Type.Trim().ToLower());
-        }
-
-        public bool IsAbsolute()
-        {
-            return IsType(Key.GlobalReference)
-                || IsType(Key.AAS)
-                || IsType(Key.Submodel);
+            return value.Trim().ToLower().Equals(Type.ToString().Trim().ToLower());
         }
 
         public bool Matches(
             string type, string id, MatchMode matchMode = MatchMode.Relaxed)
         {
             if (matchMode == MatchMode.Relaxed)
-                return Type == type && Value == id;
+                return Type.ToString() == type && Value == id;
 
             if (matchMode == MatchMode.Identification)
                 return Value == id;
@@ -320,56 +273,7 @@ namespace AdminShell
         {
             if (key == null)
                 return false;
-            return Matches(key.Type, key.Value, matchMode);
-        }
-
-        public static AasValidationAction Validate(AasValidationRecordList results, Key k, Referable container)
-        {
-            // access
-            if (results == null || container == null)
-                return AasValidationAction.No;
-
-            var res = AasValidationAction.No;
-
-            // check
-            if (k == null)
-            {
-                // violation case
-                results.Add(new AasValidationRecord(
-                    AasValidationSeverity.SpecViolation, container,
-                    "Key: is null",
-                    () =>
-                    {
-                        res = AasValidationAction.ToBeDeleted;
-                    }));
-            }
-            else
-            {
-                // check Type
-                var tf = AdminShellUtil.CheckIfInConstantStringArray(KeyElements, k.Type);
-                if (tf == AdminShellUtil.ConstantFoundEnum.No)
-                    // violation case
-                    results.Add(new AasValidationRecord(
-                        AasValidationSeverity.SchemaViolation, container,
-                        "Key: Type is not in allowed enumeration values",
-                        () =>
-                        {
-                            k.Type = GlobalReference;
-                        }));
-                if (tf == AdminShellUtil.ConstantFoundEnum.AnyCase)
-                    // violation case
-                    results.Add(new AasValidationRecord(
-                        AasValidationSeverity.SchemaViolation, container,
-                        "Key: Type in wrong casing",
-                        () =>
-                        {
-                            k.Type = AdminShellUtil.CorrectCasingForConstantStringArray(
-                                KeyElements, k.Type);
-                        }));
-            }
-
-            // may give result "to be deleted"
-            return res;
+            return Matches(key.Type.ToString(), key.Value, matchMode);
         }
     }
 }

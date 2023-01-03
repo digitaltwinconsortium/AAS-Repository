@@ -1,6 +1,4 @@
 ﻿using AdminShell;
-using AdminShell;
-using AdminShell;
 using Kusto.Cloud.Platform.Utils;
 using Kusto.Data;
 using Kusto.Data.Common;
@@ -174,7 +172,7 @@ namespace AasxDemonstration
                     client.BaseAddress = new Uri(aasServerAddress);
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    AdminShellV30.Submodel submodel = null;
+                    Submodel submodel = null;
                     var path = $"/aas/{aasId}/Submodels/{smIdShort}/complete";
                     HttpResponseMessage response = client.GetAsync(path).GetAwaiter().GetResult();
                     if (response.IsSuccessStatusCode)
@@ -184,25 +182,24 @@ namespace AasxDemonstration
                         using (TextReader reader = new StringReader(json))
                         {
                             JsonSerializer serializer = new JsonSerializer();
-                            serializer.Converters.Add(new AdminShellConverters.JsonAasxConverter("modelType", "name"));
-                            submodel = (AdminShellV30.Submodel)serializer.Deserialize(reader, typeof(AdminShellV30.Submodel));
+                            submodel = (Submodel)serializer.Deserialize(reader, typeof(Submodel));
                         }
                     }
 
                     // retrieve energy Submodel
-                    var mm = AdminShell.Key.MatchMode.Relaxed;
+                    var mm = Key.MatchMode.Relaxed;
 
                     // access electrical energy
-                    var smcEe = submodel?.submodelElements?.FindFirstSemanticIdAs<AdminShell.SubmodelElementCollection>(
-                        new AdminShell.Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/electrical-energy/1/0"));
+                    var smcEe = submodel?.submodelElements?.FindFirstSemanticIdAs<SubmodelElementCollection>(
+                        new Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/electrical-energy/1/0"));
 
                     // access CO2 per 1 minute
-                    foreach (var smcPhase in smcEe?.value?.FindAllSemanticIdAs<AdminShell.SubmodelElementCollection>(
-                        new AdminShell.Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/electrical-total/1/0"), mm))
+                    foreach (var smcPhase in smcEe?.value?.FindAllSemanticIdAs<SubmodelElementCollection>(
+                        new Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/electrical-total/1/0"), mm))
                     {
                         // get Value
-                        var value = smcPhase.value.FindFirstSemanticIdAs<AdminShell.Property>(
-                            new AdminShell.Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/co2-equivalent-per-1-min/1/0"), mm)?.value;
+                        var value = smcPhase.value.FindFirstSemanticIdAs<Property>(
+                            new Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/co2-equivalent-per-1-min/1/0"), mm)?.value;
 
                         if (value != null && float.TryParse(value, out float f))
                         {
@@ -397,7 +394,7 @@ namespace AasxDemonstration
             /// <summary>
             /// Link to an EXISTING SME in the associated Submodel instance
             /// </summary>
-            public AdminShell.SubmodelElement Sme;
+            public SubmodelElement Sme;
 
             /// <summary>
             /// Link to the online source, e.g. Azure Data Explorer
@@ -435,30 +432,30 @@ namespace AasxDemonstration
 
         private static T AddToSMC<T>(
             DateTime timestamp,
-            AdminShell.SubmodelElementCollection parent,
+            SubmodelElementCollection parent,
             string idShort,
-            AdminShell.Key semanticIdKey,
-            string smeValue = null) where T : AdminShell.SubmodelElement
+            Key semanticIdKey,
+            string smeValue = null) where T : SubmodelElement
         {
-            var newElem = AdminShell.SubmodelElementWrapper.CreateAdequateType(typeof(T));
-            newElem.idShort = idShort;
-            newElem.semanticId = new AdminShell.SemanticId(semanticIdKey.ToId());
+            var newElem = SubmodelElementWrapper.CreateAdequateType(typeof(T));
+            newElem.IdShort = idShort;
+            newElem.SemanticId = SemanticId.CreateFromKey(semanticIdKey);
             newElem.setTimeStamp(timestamp);
             newElem.TimeStampCreate = timestamp;
-            if (parent?.value != null)
+            if (parent?.Value != null)
             {
-                parent.value.Add(newElem);
+                parent.Value.Add(newElem);
                 parent.setTimeStamp(timestamp);
             }
-            if (smeValue != null && newElem is AdminShell.Property newP)
-                newP.value = smeValue;
-            if (smeValue != null && newElem is AdminShell.Blob newB)
-                newB.value = smeValue;
+            if (smeValue != null && newElem is Property newP)
+                newP.Value = smeValue;
+            if (smeValue != null && newElem is Blob newB)
+                newB.Value = smeValue;
             return newElem as T;
         }
 
         private static void CopySmeFeatures(
-            AdminShell.SubmodelElement dst, AdminShell.SubmodelElement src,
+            SubmodelElement dst, SubmodelElement src,
             bool copyIdShort = false,
             bool copyDescription = false,
             bool copySemanticId = false,
@@ -470,35 +467,35 @@ namespace AasxDemonstration
 
             // feature wise
             if (copyIdShort)
-                dst.idShort = src.idShort;
+                dst.IdShort = src.IdShort;
 
             if (copyDescription)
-                dst.description = src.description;
+                dst.Description = src.Description;
 
             if (copySemanticId)
-                dst.semanticId = src.semanticId;
+                dst.SemanticId = src.SemanticId;
 
             if (copyQualifers)
             {
-                dst.qualifiers = new AdminShell.QualifierCollection();
-                foreach (var q in src.qualifiers)
-                    dst.qualifiers.Add(q);
+                dst.Qualifiers = new List<Qualifier>();
+                foreach (var q in src.Qualifiers)
+                    dst.Qualifiers.Add(q);
             }
         }
 
         private static void UpdateSME(
-            AdminShell.SubmodelElement sme,
+            SubmodelElement sme,
             string value,
             DateTime timestamp)
         {
             // update
-            if (sme is AdminShell.Property prop)
+            if (sme is Property prop)
             {
-                prop.value = value;
+                prop.Value = value;
             }
-            if (sme is AdminShell.Blob blob)
+            if (sme is Blob blob)
             {
-                blob.value = value;
+                blob.Value = value;
             }
 
             // time stamping
@@ -514,12 +511,12 @@ namespace AasxDemonstration
             /// <summary>
             /// Link to the CURRENTLY MAINTAINED time series variable in the associated time series segment
             /// </summary>
-            public AdminShell.SubmodelElementCollection VariableSmc;
+            public SubmodelElementCollection VariableSmc;
 
             /// <summary>
             /// Link to the CURRENTLY MAINTAINED ValueArray in the associated time series segment
             /// </summary>
-            public AdminShell.Blob ValueArray;
+            public Blob ValueArray;
 
             /// <summary>
             /// Link to the online source, e.g. Azure Data Explorer
@@ -535,13 +532,13 @@ namespace AasxDemonstration
             /// Links to respective SME from the providing time series segment TEMPLATE in the originally
             /// loaded AASX.
             /// </summary>
-            public AdminShell.Property TemplateDataPoint;
+            public Property TemplateDataPoint;
 
             /// <summary>
             /// Links to respective SMC for the variable from the providing time series segment TEMPLATE in the originally
             /// loaded AASX.
             /// </summary>
-            public AdminShell.SubmodelElementCollection TemplateVariable;
+            public SubmodelElementCollection TemplateVariable;
 
             /// <summary>
             /// Maintains the list of values already stored in the variable.
@@ -586,7 +583,7 @@ namespace AasxDemonstration
                     v => String.Format(CultureInfo.InvariantCulture, "[{0}, {1}]", totalSamples++, v)
                 ));
             }
-                  
+
             /// <summary>
             /// Updates the currently tracked set of SubmodelElements for the segment.
             /// </summary>
@@ -615,12 +612,12 @@ namespace AasxDemonstration
             /// <summary>
             /// Link to the CURRENTLY MAINTAINED time series segment in the associated time series
             /// </summary>
-            public AdminShell.SubmodelElementCollection SegmentSmc;
+            public SubmodelElementCollection SegmentSmc;
 
             /// <summary>
             /// Link to the CURRENTLY MAINTAINED ValueArray for the timestamps in the associated time series segment
             /// </summary>
-            public AdminShell.Blob ValueArray;
+            public Blob ValueArray;
 
             /// <summary>
             /// List of variables to always by MAINTAINED in the segment
@@ -686,7 +683,7 @@ namespace AasxDemonstration
                 ));
             }
 
-      
+
             /// <summary>
             /// Updates the currently tracked set of SubmodelElements for the segment.
             /// </summary>

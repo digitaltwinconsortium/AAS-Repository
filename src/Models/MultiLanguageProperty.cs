@@ -6,7 +6,7 @@ namespace AdminShell
     [DataContract]
     public class MultiLanguageProperty : DataElement
     {
-        [DataMember(Name = "value")]
+        [DataMember(Name = "Value")]
         public LangStringSet Value { get; set; } = new();
 
         [DataMember(Name = "valueId")]
@@ -25,12 +25,6 @@ namespace AdminShell
                 ValueId = new GlobalReference(mlp.ValueId);
         }
 
-        public AasElementSelfDescription GetSelfDescription()
-        {
-            return new AasElementSelfDescription("MultiLanguageProperty", "MLP",
-                SubmodelElementWrapper.AdequateElementEnum.MultiLanguageProperty);
-        }
-
         public MultiLanguageProperty Set(LangString ls)
         {
             if (ls == null)
@@ -39,13 +33,8 @@ namespace AdminShell
             if (Value?.LangString == null)
                 Value = new LangStringSet();
 
-            Value.LangString[ls.Text] = ls.Text;
+            Value.LangString[0] = ls;
             return this;
-        }
-
-        public MultiLanguageProperty Set(string lang, string str)
-        {
-            return Set(new LangString(lang, str));
         }
     }
 }

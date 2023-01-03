@@ -17,19 +17,5 @@ namespace AdminShell
         public string sourcePath = null;
         public LocationType location = LocationType.InPackage;
         public SpecialHandlingType specialHandling = SpecialHandlingType.None;
-
-        public PackageSupplementaryFile(Uri uri, string sourcePath = null, LocationType location = LocationType.InPackage, SpecialHandlingType specialHandling = SpecialHandlingType.None)
-        {
-            this.uri = uri;
-            this.sourcePath = sourcePath;
-            this.location = location;
-            this.specialHandling = specialHandling;
-        }
-
-        // class derives from Referable in order to provide GetElementName
-        public override string GetElementName()
-        {
-            return "File";
-        }
     }
 }

@@ -42,11 +42,5 @@ namespace AdminShell
             this.location = location;
             this.specialHandling = specialHandling;
         }
-
-        // class derives from Referable in order to provide GetElementName
-        public string GetElementName()
-        {
-            return "File";
-        }
     }
 }

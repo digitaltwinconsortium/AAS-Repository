@@ -6,64 +6,19 @@ namespace AdminShell
     using System.Collections.Generic;
     using System.Dynamic;
     using System.IO;
-    using System.Net;
     using System.Text.RegularExpressions;
 
     public class AasxHttpContextHelper
     {
         public AdminShellPackageEnv[] Packages = null;
 
-        private AssetAdministrationShell FindAAS(string aasid, string queryString = null, string rawUrl = null)
-        {
-            if (Packages == null)
-                return null;
-
-            if (Regex.IsMatch(aasid, @"^\d+$")) // only number, i.e. index
-            {
-                // Index
-                int i = Convert.ToInt32(aasid);
-
-                if (i > Packages.Length)
-                    return null;
-
-                if (Packages[i] == null || Packages[i].AasEnv == null || Packages[i].AasEnv.AssetAdministrationShells == null
-                    || Packages[i].AasEnv.AssetAdministrationShells.Count < 1)
-                    return null;
-
-                return Packages[i].AasEnv.AssetAdministrationShells[0];
-            }
-            else
-            {
-                // Name
-                if (aasid == "id")
-                {
-                    return Packages[0].AasEnv.AssetAdministrationShells[0];
-                }
-                else
-                {
-                    for (int i = 0; i < Packages.Length; i++)
-                    {
-                        if (Packages[i] != null)
-                        {
-                            if (Packages[i].AasEnv.AssetAdministrationShells[0].idShort == aasid)
-                            {
-                                return Packages[i].AasEnv.AssetAdministrationShells[0];
-                            }
-                        }
-                    }
-                }
-
-                return null;
-            }
-        }
-
         public class FindSubmodelElementResult
         {
-            public AdminShell.Referable elem = null;
-            public AdminShell.SubmodelElementWrapper wrapper = null;
-            public AdminShell.Referable parent = null;
+            public Referable elem = null;
+            public SubmodelElementWrapper wrapper = null;
+            public Referable parent = null;
 
-            public FindSubmodelElementResult(AdminShell.Referable elem = null, AdminShell.SubmodelElementWrapper wrapper = null, AdminShell.Referable parent = null)
+            public FindSubmodelElementResult(Referable elem = null, SubmodelElementWrapper wrapper = null, Referable parent = null)
             {
                 this.elem = elem;
                 this.wrapper = wrapper;
@@ -71,7 +26,7 @@ namespace AdminShell
             }
         }
 
-        public FindSubmodelElementResult FindSubmodelElement(AdminShell.Referable parent, List<AdminShell.SubmodelElementWrapper> wrappers, string[] elemids, int elemNdx = 0)
+        public FindSubmodelElementResult FindSubmodelElement(Referable parent, List<SubmodelElementWrapper> wrappers, string[] elemids, int elemNdx = 0)
         {
             // trivial
             if (wrappers == null || elemids == null || elemNdx >= elemids.Length)
@@ -82,7 +37,7 @@ namespace AdminShell
                 if (smw.submodelElement != null)
                 {
                     // idShort need to match
-                    if (smw.submodelElement.idShort.Trim().ToLower() != elemids[elemNdx].Trim().ToLower())
+                    if (smw.submodelElement.IdShort.Trim().ToLower() != elemids[elemNdx].Trim().ToLower())
                         continue;
 
                     // leaf
@@ -93,22 +48,22 @@ namespace AdminShell
                     else
                     {
                         // recurse into?
-                        var xsmc = smw.submodelElement as AdminShell.SubmodelElementCollection;
+                        var xsmc = smw.submodelElement as SubmodelElementCollection;
                         if (xsmc != null)
                         {
-                            var r = FindSubmodelElement(xsmc, xsmc.value, elemids, elemNdx + 1);
+                            var r = FindSubmodelElement(xsmc, xsmc.Value, elemids, elemNdx + 1);
                             if (r != null)
                                 return r;
                         }
 
-                        var xop = smw.submodelElement as AdminShell.Operation;
+                        var xop = smw.submodelElement as Operation;
                         if (xop != null)
                         {
-                            var w2 = new List<AdminShell.SubmodelElementWrapper>();
+                            var w2 = new List<SubmodelElementWrapper>();
                             for (int i = 0; i < 2; i++)
                                 foreach (var opv in xop[i])
-                                    if (opv.value != null)
-                                        w2.Add(opv.value);
+                                    if (opv.Value != null)
+                                        w2.Add(opv.Value);
 
                             var r = FindSubmodelElement(xop, w2, elemids, elemNdx + 1);
                             if (r != null)
@@ -125,22 +80,51 @@ namespace AdminShell
         {
             dynamic res = new ExpandoObject();
 
-            // access the first AAS
-            var aas = FindAAS(aasid, context.Request.QueryString.Value, context.Request.Path.Value);
-            if (aas == null)
+            if (Packages == null)
+                return null;
+
+            if (Regex.IsMatch(aasid, @"^\d+$")) // only number, i.e. index
             {
-                context.Response.StatusCode = (int) HttpStatusCode.NotFound;//, $"No AAS with id '{aasid}' found.");
+                int i = Convert.ToInt32(aasid);
+
+                if (i > Packages.Length)
+                    return null;
+
+                if (Packages[i] == null || Packages[i].AasEnv == null || Packages[i].AasEnv.AssetAdministrationShells == null
+                    || Packages[i].AasEnv.AssetAdministrationShells.Count < 1)
+                    return null;
+
+                res.AAS = Packages[i].AasEnv.AssetAdministrationShells[0];
+                res.Asset = Packages[i].AasEnv.FindAAS(aasid);
+                return res;
+            }
+            else
+            {
+                // Name
+                if (aasid == "id")
+                {
+                    res.AAS = Packages[0].AasEnv.AssetAdministrationShells[0];
+                    res.Asset = Packages[0].AasEnv.FindAAS(aasid);
+                    return res;
+                }
+                else
+                {
+                    for (int i = 0; i < Packages.Length; i++)
+                    {
+                        if (Packages[i] != null)
+                        {
+                            if (Packages[i].AasEnv.AssetAdministrationShells[0].IdShort == aasid)
+                            {
+                                res.AAS = Packages[i].AasEnv.AssetAdministrationShells[0];
+                                res.Asset = Packages[i].AasEnv.FindAAS(aasid);
+                                return res;
+                            }
+                        }
+                    }
+                }
+
                 return null;
             }
-
-            // try to get the asset as well
-            var asset = this.Packages[findAasReturn.iPackage].AasEnv.FindAAS(findAasReturn.aas.id);
-
-            // result
-            res.AAS = aas;
-            res.Asset = asset;
-
-            return res;
         }
 
         public ExpandoObject EvalGetListAAS(HttpContext context)

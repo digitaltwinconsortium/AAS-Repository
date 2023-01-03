@@ -8,6 +8,7 @@ This source code may use other Open Source software components (see LICENSE.txt)
 */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Schema;
 
@@ -32,7 +33,7 @@ namespace AdminShell
         /// </summary>
         /// <param name="recs">Validation records</param>
         /// <param name="xmlContent">Content to be validated</param>
-        public void Validate(AasValidationRecordList recs, Stream xmlContent)
+        public void Validate(List<AasValidationRecord> recs, Stream xmlContent)
         {
             if (recs == null)
                 throw new ArgumentException($"Unexpected null {nameof(recs)}");

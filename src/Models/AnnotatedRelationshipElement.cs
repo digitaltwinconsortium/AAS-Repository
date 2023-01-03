@@ -14,6 +14,6 @@ namespace AdminShell
         // do NOT count children!
         [XmlArray("annotations")]
         [XmlArrayItem("dataElement")]
-        public BaseSubmodelElementWrapperCollection<DataElement> annotations = new();
+        public SubmodelElementWrapperCollection<DataElement> annotations = new();
     }
 }

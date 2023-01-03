@@ -24,29 +24,5 @@ namespace AdminShell
         [Required]
         [DataMember(Name = "externalSubjectId")]
         public GlobalReference ExternalSubjectId { get; set; }
-
-        public IdentifierKeyValuePair() { }
-
-        public IdentifierKeyValuePair(IdentifierKeyValuePair src)
-        {
-            if (src.SemanticId != null)
-                SemanticId = new SemanticId(src.SemanticId);
-
-            Key = src.Key;
-            Value = src.Value;
-
-            if (src.ExternalSubjectId != null)
-                ExternalSubjectId = new GlobalReference(src.ExternalSubjectId);
-        }
-
-        public AasElementSelfDescription GetSelfDescription()
-        {
-            return new AasElementSelfDescription("IdentifierKeyValuePair", "IKV");
-        }
-
-        public string GetElementName()
-        {
-            return this.GetSelfDescription()?.ElementName;
-        }
     }
 }

@@ -89,8 +89,5 @@ namespace AdminShell
         void UpdateFileByPathSubmodelRepo(string decodedSubmodelId, string idShortPath, string fileName, string contentType, Stream fileContent);
 
         void UpdateFileByPath(string aasIdentifier, string submodelIdentifier, string idShortPath, string fileName, string contentType, Stream stream);
-
-        void SecurityCheck(string objPath = "", string aasOrSubmodel = null, object objectAasOrSubmodel = null);
     }
-
 }
