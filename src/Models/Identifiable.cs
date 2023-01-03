@@ -3,16 +3,13 @@ namespace AdminShell
 {
     using Newtonsoft.Json;
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Globalization;
     using System.Runtime.Serialization;
 
     [DataContract]
     public class Identifiable : Referable
     {
-        // this is complex, because V3.0 made id a simple string and this must be serialized
-
+        // this class is complex, because V3.0 made id a simple string and this must be serialized
 
         [DataMember(Name = "administration")]
         public AdministrativeInformation Administration { get; set; } = new();

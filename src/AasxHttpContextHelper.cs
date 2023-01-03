@@ -1,12 +1,6 @@
 ﻿
-/* Copyright (c) 2018-2019 Festo AG & Co. KG <https://www.festo.com/net/de_de/Forms/web/contact_international>, author: Michael Hoffmeister
-This software is licensed under the Eclipse Public License 2.0 (EPL-2.0) (see https://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.txt).
-Please notice: the API and REST routes implemented in this Version of the source code are not specified and standardised by the
-specification Details of the Administration Shell. The hereby stated approach is solely the opinion of its author(s). */
-
 namespace AdminShell
 {
-    using AdminShell;
     using Microsoft.AspNetCore.Http;
     using System;
     using System.Collections.Generic;
@@ -148,11 +142,11 @@ namespace AdminShell
 
             return res;
         }
-          
+
         public ExpandoObject EvalGetListAAS(HttpContext context)
         {
             dynamic res = new ExpandoObject();
-    
+
             // get the list
             var aaslist = new List<string>();
 
@@ -164,7 +158,7 @@ namespace AdminShell
                 {
                     var aas = Program.env[i].AasEnv.AssetAdministrationShells[0];
                     string idshort = aas.idShort;
-       
+
                     aaslist.Add(i.ToString() + " : "
                         + idshort + " : "
                         + aas.id + " : "

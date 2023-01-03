@@ -1,22 +1,14 @@
-﻿/*
-Copyright (c) 2018-2019 Festo AG & Co. KG <https://www.festo.com/net/de_de/Forms/web/contact_international>
-Author: Michael Hoffmeister
-
-This source code is licensed under the Apache License 2.0 (see LICENSE.txt).
-
-This source code may use other Open Source software components (see LICENSE.txt).
-*/
-
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Xml;
-
+﻿
 namespace AdminShell
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text.RegularExpressions;
+    using System.Xml;
+
     public static class AasSchemaValidation
     {
         public enum SerializationFormat { XML, JSON }
@@ -112,7 +104,7 @@ namespace AdminShell
         /// creates an XML validator and applies it on the given content.
         ///
         /// If you repeatedly need to validate XML against a schema, re-use an instance of
-        /// <see cref="XmlValidator"/> produced with <see cref="NewXmlValidator"/>. 
+        /// <see cref="XmlValidator"/> produced with <see cref="NewXmlValidator"/>.
         /// </summary>
         /// <param name="recs">Validation records</param>
         /// <param name="xmlContent">Content to be validated</param>

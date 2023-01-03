@@ -1,15 +1,12 @@
-﻿#define UseAdminShell
-
-using AdminShell;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Packaging;
-using System.Xml.Serialization;
-
+﻿
 namespace AdminShell
 {
+    using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.IO.Packaging;
+    using System.Xml.Serialization;
 
     /// <summary>
     /// This class encapsulates an AdminShellEnvironment and supplementary files into an AASX Package.
@@ -212,13 +209,9 @@ namespace AdminShell
                                     // read V1.0?
                                     if (nsuri != null && nsuri.Trim() == "http://www.admin-shell.io/aas/1/0")
                                     {
-#if UseAdminShell
                                         XmlSerializer serializer = new XmlSerializer(typeof(AdminShell.AdminShellV10.AdministrationShellEnv), "http://www.admin-shell.io/aas/1/0");
                                         var v10 = serializer.Deserialize(s) as AdminShell.AdminShellV10.AdministrationShellEnv;
                                         this.aasenv = new AdminShellV30.AdministrationShellEnv(v10);
-#else
-                throw (new Exception("Cannot handle AAS file format http://www.admin-shell.io/aas/1/0 !"));
-#endif
                                     }
 
                                     // read V2.0?
@@ -227,8 +220,6 @@ namespace AdminShell
                                         XmlSerializer serializer = new XmlSerializer(typeof(AdminShell.AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/2/0");
                                         this.aasenv = serializer.Deserialize(s) as AdminShell.AssetAdministrationShellEnvironment;
                                     }
-
-
 
                                     this.openPackage = package;
                                     if (this.aasenv == null)
@@ -920,5 +911,4 @@ namespace AdminShell
             return temppath;
         }
     }
-
 }

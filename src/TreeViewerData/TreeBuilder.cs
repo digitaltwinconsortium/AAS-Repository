@@ -127,7 +127,7 @@ namespace AdminShell.Data
                     if ((subModelElementWrapper.submodelElement.idShort == "NODESET2_XML")
                     && Uri.IsWellFormedUriString(subModelElementWrapper.submodelElement.ValueAsText(), UriKind.Absolute))
                     {
-                        CreateViewFromUACloudLibraryNodeset(smeItem, new Uri(subModelElementWrapper.submodelElement.ValueAsText()), i);
+                        CreateViewFromAdminShellNodeset(smeItem, new Uri(subModelElementWrapper.submodelElement.ValueAsText()), i);
                     }
 
                     if (subModelElementWrapper.submodelElement.idShort == "CAEX")
@@ -272,7 +272,7 @@ namespace AdminShell.Data
             }
         }
 
-        private void CreateViewFromUACloudLibraryNodeset(TreeNodeData rootItem, Uri uri, int i)
+        private void CreateViewFromAdminShellNodeset(TreeNodeData rootItem, Uri uri, int i)
         {
             try
             {

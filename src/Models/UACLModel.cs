@@ -1,9 +1,9 @@
 ﻿
-using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace UACloudLibrary
+namespace AdminShell
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
     public enum AddressSpaceLicense
     {
         MIT,

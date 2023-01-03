@@ -14,7 +14,7 @@ namespace AdminShell.Data
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
-    using UACloudLibrary;
+    using AdminShell;
 
     public class UANodesetViewer
     {
@@ -36,7 +36,7 @@ namespace AdminShell.Data
                 _client.DefaultRequestHeaders.Add("Authorization", "basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(clientId + ":" + secret)));
 
                 // get namespaces
-                string address = "https://uacloudlibrary.opcfoundation.org/infomodel/namespaces";
+                string address = "https://AdminShell.opcfoundation.org/infomodel/namespaces";
                 HttpResponseMessage response = _client.Send(new HttpRequestMessage(HttpMethod.Get, address));
                 string[] identifiers = JsonConvert.DeserializeObject<string[]>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
 
