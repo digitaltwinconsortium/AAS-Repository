@@ -1,7 +1,6 @@
 ﻿
 namespace AdminShell
 {
-    using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     [DataContract]
@@ -26,12 +25,12 @@ namespace AdminShell
             if (!(src is Property p))
                 return;
 
-            this.valueType = p.valueType;
+            ValueType = p.ValueType;
 
-            this.value = p.value;
+            Value = p.Value;
 
-            if (p.valueId != null)
-                valueId = new GlobalReference(p.valueId);
+            if (p.ValueId != null)
+                ValueId = new GlobalReference(p.ValueId);
         }
     }
 }
