@@ -10,25 +10,6 @@ namespace AdminShell
     [XmlRoot(Namespace = "http://www.admin-shell.io/IEC61360/3/0")]
     public class DataSpecificationIEC61360 : ValueObject
     {
-        [XmlIgnore]
-        public static string[] DataTypeNames = {
-            "STRING",
-            "STRING_TRANSLATABLE",
-            "REAL_MEASURE",
-            "REAL_COUNT",
-            "REAL_CURRENCY",
-            "INTEGER_MEASURE",
-            "INTEGER_COUNT",
-            "INTEGER_CURRENCY",
-            "BOOLEAN",
-            "URL",
-            "RATIONAL",
-            "RATIONAL_MEASURE",
-            "TIME",
-            "TIMESTAMP",
-            "DATE"
-        };
-
         [DataMember(Name = "dataType")]
         public string DataType { get; set; }
 
@@ -92,14 +73,22 @@ namespace AdminShell
         {
             if (src.preferredName != null)
                 preferredName = new LangStringSetIEC61360(src.preferredName);
+
             shortName = src.shortName;
+
             unit = src.unit;
+
             if (src.unitId != null)
                 unitId = new UnitId(src.unitId);
+
             valueFormat = src.valueFormat;
+
             sourceOfDefinition = src.sourceOfDefinition;
+
             symbol = src.symbol;
+
             dataType = src.dataType;
+
             if (src.definition != null)
                 definition = new LangStringSetIEC61360(src.definition);
         }

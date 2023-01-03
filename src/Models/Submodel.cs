@@ -36,12 +36,12 @@ namespace AdminShell
         public HasDataSpecification hasDataSpecification = null;
 
         [XmlIgnore]
-        private SubmodelElementWrapperCollection<SubmodelElement> _submodelElements = null;
+        private List<SubmodelElementWrapper> _submodelElements = null;
 
-        public SubmodelElementWrapperCollection<SubmodelElement> submodelElements
+        public List<SubmodelElementWrapper> submodelElements
         {
             get { return _submodelElements; }
-            set { _submodelElements = value; _submodelElements.Parent = this; }
+            set { _submodelElements = value; }
         }
 
         public static void SetParentsForSME(Referable parent, SubmodelElement se)

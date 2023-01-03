@@ -7,7 +7,7 @@ namespace AdminShell
     public class SubmodelElementStruct : SubmodelElementCollection
     {
         [DataMember(Name = "Value")]
-        public SubmodelElement Value { get; set; }
+        public new SubmodelElement Value { get; set; }
 
         public SubmodelElementStruct() { }
 

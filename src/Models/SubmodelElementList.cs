@@ -14,7 +14,7 @@ namespace AdminShell
         public ModelType SubmodelElementTypeValues { get; set; }
 
         [DataMember(Name = "Value")]
-        public List<SubmodelElement> Value { get; set; }
+        public new List<SubmodelElement> Value { get; set; }
 
         [DataMember(Name = "valueTypeValues")]
         public ValueTypeEnum ValueTypeValues { get; set; }

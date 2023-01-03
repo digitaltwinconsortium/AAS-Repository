@@ -114,8 +114,8 @@ namespace AdminShell
 
             public ObjectFieldInfo(object o, FieldInfo fi)
             {
-                o = o;
-                fi = fi;
+                this.o = o;
+                this.fi = fi;
             }
         }
 

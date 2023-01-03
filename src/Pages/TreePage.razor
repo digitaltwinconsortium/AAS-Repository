@@ -571,19 +571,24 @@
 
         object o = item.Tag;
 
-        if (o is AdministrationShell)
+        if (o is AssetAdministrationShell)
         {
-            var aas = o as AdministrationShell;
-            ret = aas.idShort;
+            var aas = o as AssetAdministrationShell;
+            ret = aas.IdShort;
         }
+
         if (o is Submodel)
         {
             var sm = o as Submodel;
+
             ret = string.Empty;
-            if (sm.kind != null && sm.kind.IsTemplate)
+
+            if (sm.kind.IsTemplate)
                 ret += "<T> ";
-            ret += sm.idShort;
+
+                ret += sm.idShort;
         }
+
         if (o is SubmodelElement)
         {
             var sme = o as SubmodelElement;
@@ -592,6 +597,7 @@
                 ret += "<T> ";
             ret += sme.idShort;
         }
+
         if (o is File)
         {
             var f = o as File;
