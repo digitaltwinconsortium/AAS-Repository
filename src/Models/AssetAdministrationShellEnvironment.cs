@@ -3,7 +3,6 @@ namespace AdminShell
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Runtime.Serialization;
     using System.Xml;
     using System.Xml.Serialization;
@@ -49,9 +48,11 @@ namespace AdminShell
         {
             if (idShort == null)
                 return null;
+
             foreach (var aas in AssetAdministrationShells)
                 if (aas.IdShort != null && aas.IdShort.Trim().ToLower() == idShort.Trim().ToLower())
                     return aas;
+
             return null;
         }
 
@@ -59,9 +60,11 @@ namespace AdminShell
         {
             if (id == null)
                 return null;
+
             foreach (var sm in Submodels)
                 if (sm.id != null && sm.id.IsEqual(id))
                     return sm;
+
             return null;
         }
 
@@ -70,17 +73,21 @@ namespace AdminShell
             // trivial
             if (smref == null)
                 return null;
+
             // can only refs with 1 key
             if (smref.Count != 1)
                 return null;
+
             // and we're picky
             var key = smref.Keys[0];
-            if (key.Type.ToLower().Trim() != "submodel")
+            if (key.Type.ToString().ToLower().Trim() != "submodel")
                 return null;
+
             // brute force
             foreach (var sm in Submodels)
                 if (sm.id.value.ToLower().Trim() == key.Value.ToLower().Trim())
                     return sm;
+
             // uups
             return null;
         }
@@ -124,7 +131,7 @@ namespace AdminShell
                 return null;
             // and we're picky
             var key = keys[0];
-            if (key.Type.ToLower().Trim() != "conceptdescription")
+            if (key.Type.ToString().ToLower().Trim() != "conceptdescription")
                 return null;
             // brute force
             foreach (var cd in ConceptDescriptions)

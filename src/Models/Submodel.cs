@@ -30,6 +30,7 @@ namespace AdminShell
 
         [XmlElement(ElementName = "semanticId")]
         public SemanticId semanticId = new SemanticId();
+
         public SemanticId GetSemanticId() { return semanticId; }
 
         [XmlElement(ElementName = "EmbeddedDataSpecification")]

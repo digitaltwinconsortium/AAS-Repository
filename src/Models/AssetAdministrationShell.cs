@@ -29,7 +29,7 @@ namespace AdminShell
         public Security Security { get; set; } = new();
 
         [DataMember(Name="Submodels")]
-        public List<Reference> Submodels { get; set; } = new();
+        public List<SubmodelReference> Submodels { get; set; } = new();
 
         [DataMember(Name="views")]
         public List<View> Views { get; set; } = new();

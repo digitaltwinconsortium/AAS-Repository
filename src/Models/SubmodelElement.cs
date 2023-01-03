@@ -3,6 +3,7 @@ namespace AdminShell
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Runtime.Serialization;
 
     [DataContract]
@@ -33,7 +34,7 @@ namespace AdminShell
             if (src == null)
                 return;
 
-            if (src.hasDataSpecification != null)
+            if (src.HasDataSpecification != null)
                 hasDataSpecification = new HasDataSpecification(src.hasDataSpecification);
 
             if (src.semanticId != null)
@@ -42,13 +43,13 @@ namespace AdminShell
             if (src.kind != null)
                 kind = new ModelingKind(src.kind);
 
-            if (src.qualifiers != null)
+            if (src.Qualifiers != null)
             {
-                if (qualifiers == null)
-                    qualifiers = new QualifierCollection();
+                if (Qualifiers == null)
+                    Qualifiers = new List<Qualifier>();
 
-                foreach (var q in src.qualifiers)
-                    qualifiers.Add(new Qualifier(q));
+                foreach (var q in src.Qualifiers)
+                    Qualifiers.Add(new Qualifier(q));
             }
         }
 

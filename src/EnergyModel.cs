@@ -190,15 +190,15 @@ namespace AasxDemonstration
                     var mm = Key.MatchMode.Relaxed;
 
                     // access electrical energy
-                    var smcEe = submodel?.submodelElements?.FindFirstSemanticIdAs<SubmodelElementCollection>(
+                    var smcEe = FindFirstSemanticIdAs<SubmodelElementCollection>(submodel?.submodelElements,
                         new Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/electrical-energy/1/0"));
 
                     // access CO2 per 1 minute
-                    foreach (var smcPhase in smcEe?.value?.FindAllSemanticIdAs<SubmodelElementCollection>(
+                    foreach (var smcPhase in FindAllSemanticIdAs<SubmodelElementCollection>(smcEe?.Value,
                         new Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/electrical-total/1/0"), mm))
                     {
                         // get Value
-                        var value = smcPhase.value.FindFirstSemanticIdAs<Property>(
+                        var value = FindFirstSemanticIdAs<Property>(smcPhase.Value,
                             new Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/co2-equivalent-per-1-min/1/0"), mm)?.value;
 
                         if (value != null && float.TryParse(value, out float f))
@@ -218,7 +218,41 @@ namespace AasxDemonstration
                     return 0.0f;
                 }
             }
+                 
+            static public IEnumerable<T> FindAllSemanticIdAs<T>(List<SubmodelElement> smewc,
+                Identifier semId, Key.MatchMode matchMode = Key.MatchMode.Relaxed)
+                where T : SubmodelElement
+            {
+                foreach (var smw in this)
+                    if (smw.submodelElement != null && smw.submodelElement is T
+                        && smw.submodelElement.semanticId != null)
+                        if (smw.submodelElement.semanticId.MatchesExactlyOneId(semId, matchMode))
+                            yield return smw.submodelElement as T;
+            }
 
+            public IEnumerable<T> FindAllSemanticIdAs<T>(GlobalReference semId,
+                Key.MatchMode matchMode = Key.MatchMode.Relaxed)
+                where T : SubmodelElement
+            {
+                foreach (var smw in this)
+                    if (smw.submodelElement != null && smw.submodelElement is T
+                        && smw.submodelElement.semanticId != null)
+                        if (smw.submodelElement.semanticId.Matches(semId, matchMode))
+                            yield return smw.submodelElement as T;
+            }
+
+            static public T FindFirstSemanticIdAs<T>(List<SubmodelElementWrapper> smewc, Identifier semId, Key.MatchMode matchMode = Key.MatchMode.Relaxed)
+                where T : SubmodelElement
+            {
+                return FindAllSemanticIdAs<T>(smewc, semId, matchMode)?.FirstOrDefault<T>();
+            }
+
+            static public T FindFirstSemanticIdAs<T>(List<SubmodelElement> smec, Identifier semId, Key.MatchMode matchMode = Key.MatchMode.Relaxed)
+                   where T : SubmodelElement
+            {
+                return FindAllSemanticIdAs<T>(smec, semId, matchMode)?.FirstOrDefault<T>();
+            }
+             
             private static async void RunQuerys(object state)
             {
                 // read the row from our OPC UA telemetry table

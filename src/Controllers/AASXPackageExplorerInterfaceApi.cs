@@ -3,7 +3,7 @@ namespace AdminShell
 {
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
-    using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Dynamic;
     using System.IO;
@@ -13,26 +13,48 @@ namespace AdminShell
     [ApiController]
     public class AASXPackageExplorerInterfaceApiController : ControllerBase
     {
-        private AasxHttpContextHelper _helper = new AasxHttpContextHelper();
-
-        public AASXPackageExplorerInterfaceApiController()
-        {
-            _helper.Packages = Program.env.ToArray();
-        }
+        private AdminShellPackageEnv[] Packages = Program.env.ToArray();
 
         [HttpGet]
         [Route("/server/listaas")]
         public virtual IActionResult ListAAS()
         {
-            ExpandoObject result = _helper.EvalGetListAAS(HttpContext);
-            return new JsonResult(result) { StatusCode = (int)HttpStatusCode.OK };
+            dynamic res = new ExpandoObject();
+
+            var aaslist = new List<string>();
+
+            int aascount = Program.env.Count;
+
+            for (int i = 0; i < aascount; i++)
+            {
+                if (Program.env[i] != null)
+                {
+                    var aas = Program.env[i].AasEnv.AssetAdministrationShells[0];
+                    string idshort = aas.IdShort;
+
+                    aaslist.Add(i.ToString() + " : "
+                        + idshort + " : "
+                        + aas.id + " : "
+                        + Program.envFileName[i]);
+                }
+            }
+
+            res.aaslist = aaslist;
+
+            return new JsonResult(res) { StatusCode = (int)HttpStatusCode.OK };
         }
 
         [HttpGet]
         [Route("/server/getaasx/{id}")]
         public virtual IActionResult GetAASX([FromRoute][Required] int id)
         {
-            Stream fileStream = _helper.EvalGetAASX(HttpContext, id);
+            string fname = "./temp/" + Path.GetFileName(Program.envFileName[id]);
+            lock (Program.changeAasxFile)
+            {
+                Program.env[id].SaveAs(fname);
+            }
+            
+            Stream fileStream = System.IO.File.OpenRead(fname);
             if (fileStream != null)
             {
                 return new FileStreamResult(fileStream, "application/octet-stream");
@@ -47,11 +69,50 @@ namespace AdminShell
         [Route("/aas/{id}/core")]
         public virtual IActionResult GetAASInfo([FromRoute][Required] int id)
         {
-            ExpandoObject result = _helper.EvalGetAasAndAsset(HttpContext, id.ToString());
+            dynamic res = new ExpandoObject();
+
+            if (Packages == null)
+                return new StatusCodeResult((int)HttpStatusCode.NotFound);
+
+            if (Regex.IsMatch(id.ToString(), @"^\d+$")) // only number, i.e. index
+            {
+                if (id > Packages.Length)
+                    return new StatusCodeResult((int)HttpStatusCode.NotFound);
+
+                if (Packages[id] == null || Packages[id].AasEnv == null || Packages[id].AasEnv.AssetAdministrationShells == null
+                    || Packages[id].AasEnv.AssetAdministrationShells.Count < 1)
+                    return new StatusCodeResult((int)HttpStatusCode.NotFound);
+
+                res.AAS = Packages[id].AasEnv.AssetAdministrationShells[0];
+                res.Asset = Packages[id].AasEnv.FindAAS(id.ToString());
+            }
+            else
+            {
+                // Name
+                if (id.ToString() == "id")
+                {
+                    res.AAS = Packages[0].AasEnv.AssetAdministrationShells[0];
+                    res.Asset = Packages[0].AasEnv.FindAAS(id.ToString());
+                }
+                else
+                {
+                    for (int i = 0; i < Packages.Length; i++)
+                    {
+                        if (Packages[i] != null)
+                        {
+                            if (Packages[i].AasEnv.AssetAdministrationShells[0].IdShort == id.ToString())
+                            {
+                                res.AAS = Packages[i].AasEnv.AssetAdministrationShells[0];
+                                res.Asset = Packages[i].AasEnv.FindAAS(id.ToString());
+                            }
+                        }
+                    }
+                }
+            }
 
             JsonSerializerSettings settings = new JsonSerializerSettings();
             settings.ContractResolver = new AdminShellConverters.AdaptiveFilterContractResolver(false, false);
-            return new JsonResult(result, settings) { StatusCode = (int)HttpStatusCode.OK };
+            return new JsonResult(res, settings) { StatusCode = (int)HttpStatusCode.OK };
         }
 
         [HttpGet]
@@ -63,49 +124,46 @@ namespace AdminShell
             int iPackage = -1;
             string aasid = aasId.ToString();
 
-            if (_helper.Packages == null)
+            if (Packages == null)
             {
                 return new StatusCodeResult((int)HttpStatusCode.NotFound);
             }
 
             if (Regex.IsMatch(aasid, @"^\d+$")) // only number, i.e. index
             {
-                // Index
-                int i = Convert.ToInt32(aasid);
-
-                if (i > _helper.Packages.Length)
+                if (aasId > Packages.Length)
                 {
                     return new StatusCodeResult((int)HttpStatusCode.NotFound);
                 }
 
-                if (_helper.Packages[i] == null
-                    || _helper.Packages[i].AasEnv == null
-                    || _helper.Packages[i].AasEnv.AssetAdministrationShells == null
-                    || _helper.Packages[i].AasEnv.AssetAdministrationShells.Count < 1)
+                if (Packages[aasId] == null
+                    || Packages[aasId].AasEnv == null
+                    || Packages[aasId].AasEnv.AssetAdministrationShells == null
+                    || Packages[aasId].AasEnv.AssetAdministrationShells.Count < 1)
                 {
                     return new StatusCodeResult((int)HttpStatusCode.NotFound);
                 }
 
-                aas = _helper.Packages[i].AasEnv.AssetAdministrationShells[0];
-                iPackage = i;
+                aas = Packages[aasId].AasEnv.AssetAdministrationShells[0];
+                iPackage = aasId;
             }
             else
             {
                 // Name
                 if (aasid == "id")
                 {
-                    aas = _helper.Packages[0].AasEnv.AssetAdministrationShells[0];
+                    aas = Packages[0].AasEnv.AssetAdministrationShells[0];
                     iPackage = 0;
                 }
                 else
                 {
-                    for (int i = 0; i < _helper.Packages.Length; i++)
+                    for (int i = 0; i < Packages.Length; i++)
                     {
-                        if (_helper.Packages[i] != null)
+                        if (Packages[i] != null)
                         {
-                            if (_helper.Packages[i].AasEnv.AssetAdministrationShells[0].IdShort == aasid)
+                            if (Packages[i].AasEnv.AssetAdministrationShells[0].IdShort == aasid)
                             {
-                                aas = _helper.Packages[i].AasEnv.AssetAdministrationShells[0];
+                                aas = Packages[i].AasEnv.AssetAdministrationShells[0];
                                 iPackage = i;
                                 break;
                             }
@@ -120,9 +178,9 @@ namespace AdminShell
             }
 
             // no, iterate & find
-            foreach (var smref in aas.SubmodelRefs)
+            foreach (var smref in aas.Submodels)
             {
-                var sm = _helper.Packages[iPackage].AasEnv.FindSubmodel(smref);
+                var sm = Packages[iPackage].AasEnv.FindSubmodel(smref);
                 if (sm != null && sm.IdShort != null && sm.IdShort.Trim().ToLower() == smIdShort.Trim().ToLower())
                 {
                     JsonSerializerSettings settings = new JsonSerializerSettings();
