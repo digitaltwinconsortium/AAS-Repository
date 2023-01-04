@@ -526,59 +526,6 @@ namespace AdminShell
             throw (new Exception(string.Format($"Not able to handle {fn}.")));
         }
 
-        private int BackupIndex = 0;
-
-        public void BackupInDir(string backupDir, int maxFiles)
-        {
-            // access
-            if (backupDir == null || maxFiles < 1)
-                return;
-
-            // we do it not caring on any errors
-            // ReSharper disable EmptyGeneralCatchClause
-            try
-            {
-                // get index in form
-                if (BackupIndex == 0)
-                {
-                    // do not always start at 0!!
-                    var rnd = new Random();
-                    BackupIndex = rnd.Next(maxFiles);
-                }
-                var ndx = BackupIndex % maxFiles;
-                BackupIndex += 1;
-
-                // build a filename
-                var bdfn = Path.Combine(backupDir, $"backup{ndx:000}.xml");
-
-                // raw save
-                using (var s = new StreamWriter(bdfn))
-                {
-                    var serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment));
-                    var nss = new XmlSerializerNamespaces();
-                    nss.Add("xsi", System.Xml.Schema.XmlSchema.InstanceNamespace);
-                    nss.Add("aas", "http://www.admin-shell.io/aas/2/0");
-                    nss.Add("IEC61360", "http://www.admin-shell.io/IEC61360/2/0");
-                    serializer.Serialize(s, _aasenv, nss);
-                }
-            }
-            catch { }
-            // ReSharper enable EmptyGeneralCatchClause
-        }
-
-        public bool IsLocalFile(string uriString)
-        {
-            // access
-            if (_openPackage == null)
-                throw (new Exception(string.Format($"AASX Package {_fn} not opened. Aborting!")));
-            if (uriString == null || uriString == "" || !uriString.StartsWith("/"))
-                return false;
-
-            // check
-            var isLocal = _openPackage.PartExists(new Uri(uriString, UriKind.RelativeOrAbsolute));
-            return isLocal;
-        }
-
         public Stream GetLocalStreamFromPackage(string uriString)
         {
             // access
@@ -590,23 +537,6 @@ namespace AdminShell
             if (part == null)
                 throw (new Exception(string.Format($"Cannot access URI {uriString} in {_fn} not opened. Aborting!")));
             return part.GetStream(FileMode.Open);
-        }
-
-        public long GetStreamSizeFromPackage(string uriString)
-        {
-            long res = 0;
-            try
-            {
-                if (_openPackage == null)
-                    return 0;
-                var part = _openPackage.GetPart(new Uri(uriString, UriKind.RelativeOrAbsolute));
-                using (var s = part.GetStream(FileMode.Open))
-                {
-                    res = s.Length;
-                }
-            }
-            catch { return 0; }
-            return res;
         }
 
         public Stream GetLocalThumbnailStream(ref Uri thumbUri)
@@ -636,91 +566,6 @@ namespace AdminShell
             return GetLocalThumbnailStream(ref dummy);
         }
 
-        public List<AdminShellPackageSupplementaryFile> GetListOfSupplementaryFiles()
-        {
-            // new result
-            var result = new List<AdminShellPackageSupplementaryFile>();
-
-            // access
-            if (_openPackage != null)
-            {
-
-                // get the thumbnail(s) from the package
-                var xs = _openPackage.GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
-                foreach (var x in xs)
-                    if (x.SourceUri.ToString() == "/")
-                    {
-                        result.Add(new AdminShellPackageSupplementaryFile(
-                            x.TargetUri,
-                            location: AdminShellPackageSupplementaryFile.LocationType.InPackage,
-                            specialHandling: AdminShellPackageSupplementaryFile.SpecialHandlingType.EmbedAsThumbnail));
-                    }
-
-                // get the origin from the package
-                PackagePart originPart = null;
-                xs = _openPackage.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aasx-origin");
-                foreach (var x in xs)
-                    if (x.SourceUri.ToString() == "/")
-                    {
-                        originPart = _openPackage.GetPart(x.TargetUri);
-                        break;
-                    }
-
-                if (originPart != null)
-                {
-                    // get the specs from the origin
-                    PackagePart specPart = null;
-                    xs = originPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-spec");
-                    foreach (var x in xs)
-                    {
-                        specPart = _openPackage.GetPart(x.TargetUri);
-                        break;
-                    }
-
-                    if (specPart != null)
-                    {
-                        // get the supplementaries from the package, derived from spec
-                        xs = specPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-suppl");
-                        foreach (var x in xs)
-                        {
-                            result.Add(new AdminShellPackageSupplementaryFile(x.TargetUri, location: AdminShellPackageSupplementaryFile.LocationType.InPackage));
-                        }
-                    }
-                }
-            }
-
-            // add or modify the files to delete
-            foreach (var psfDel in _pendingFilesToDelete)
-            {
-                // already in
-                var found = result.Find(x => { return x.uri == psfDel.uri; });
-                if (found != null)
-                    found.location = AdminShellPackageSupplementaryFile.LocationType.DeletePending;
-                else
-                {
-                    psfDel.location = AdminShellPackageSupplementaryFile.LocationType.DeletePending;
-                    result.Add(psfDel);
-                }
-            }
-
-            // add the files to store as well
-            foreach (var psfAdd in _pendingFilesToAdd)
-            {
-                // already in (should not happen ?!)
-                var found = result.Find(x => { return x.uri == psfAdd.uri; });
-                if (found != null)
-                    found.location = AdminShellPackageSupplementaryFile.LocationType.AddPending;
-                else
-                {
-                    psfAdd.location = AdminShellPackageSupplementaryFile.LocationType.AddPending;
-                    result.Add(psfAdd);
-                }
-            }
-
-            // done
-            return result;
-        }
-
         public static string GuessMimeType(string fn)
         {
             var file_ext = System.IO.Path.GetExtension(fn).ToLower().Trim();
@@ -739,51 +584,6 @@ namespace AdminShell
             return content_type;
         }
 
-        public void AddSupplementaryFileToStore(string sourcePath, string targetDir, string targetFn, bool embedAsThumb,
-            AdminShellPackageSupplementaryFile.SourceGetByteChunk sourceGetBytesDel = null, string useMimeType = null)
-        {
-            // beautify parameters
-            if ((sourcePath == null && sourceGetBytesDel == null) || targetDir == null || targetFn == null)
-                return;
-
-            // build target path
-            targetDir = targetDir.Trim();
-            if (!targetDir.EndsWith("/"))
-                targetDir += "/";
-            targetDir = targetDir.Replace(@"\", "/");
-            targetFn = targetFn.Trim();
-            if (sourcePath == "" || targetDir == "" || targetFn == "")
-                throw (new Exception("Trying add supplementary file with empty name or path!"));
-
-            var targetPath = "" + targetDir.Trim() + targetFn.Trim();
-
-            // base funciton
-            AddSupplementaryFileToStore(sourcePath, targetPath, embedAsThumb, sourceGetBytesDel, useMimeType);
-        }
-
-        public void AddSupplementaryFileToStore(string sourcePath, string targetPath, bool embedAsThumb,
-            AdminShellPackageSupplementaryFile.SourceGetByteChunk sourceGetBytesDel = null, string useMimeType = null)
-        {
-            // beautify parameters
-            if ((sourcePath == null && sourceGetBytesDel == null) || targetPath == null)
-                return;
-
-            sourcePath = sourcePath?.Trim();
-            targetPath = targetPath.Trim();
-
-            // add record
-            _pendingFilesToAdd.Add(
-                new AdminShellPackageSupplementaryFile(
-                    new Uri(targetPath, UriKind.RelativeOrAbsolute),
-                    sourcePath,
-                    location: AdminShellPackageSupplementaryFile.LocationType.AddPending,
-                    specialHandling: (embedAsThumb ? AdminShellPackageSupplementaryFile.SpecialHandlingType.EmbedAsThumbnail : AdminShellPackageSupplementaryFile.SpecialHandlingType.None),
-                    sourceGetBytesDel: sourceGetBytesDel,
-                    useMimeType: useMimeType)
-                );
-
-        }
-
         public void ReplaceSupplementaryFileInPackageAsync(string sourceUri, string targetFile, string targetContentType, Stream fileContent)
         {
             // access
@@ -800,25 +600,6 @@ namespace AdminShell
             }
         }
 
-        public void DeleteSupplementaryFile(AdminShellPackageSupplementaryFile psf)
-        {
-            if (psf == null)
-                throw (new Exception("No supplementary file given!"));
-
-            if (psf.location == AdminShellPackageSupplementaryFile.LocationType.AddPending)
-            {
-                // is still pending in add list -> remove
-                _pendingFilesToAdd.RemoveAll((x) => { return x.uri == psf.uri; });
-            }
-
-            if (psf.location == AdminShellPackageSupplementaryFile.LocationType.InPackage)
-            {
-                // add to pending delete list
-                _pendingFilesToDelete.Add(psf);
-            }
-        }
-
-
         public void Close()
         {
             if (_openPackage != null)
@@ -826,19 +607,6 @@ namespace AdminShell
             _openPackage = null;
             _fn = "";
             _aasenv = null;
-        }
-
-        public string MakePackageFileAvailableAsTempFile(string packageUri)
-        {
-            // get input stream
-            var input = GetLocalStreamFromPackage(packageUri);
-            // copy to temp file
-            string tempext = Path.GetExtension(packageUri);
-            string temppath = Path.GetTempFileName().Replace(".tmp", tempext);
-            var temp = System.IO.File.OpenWrite(temppath);
-            input.CopyTo(temp);
-            temp.Close();
-            return temppath;
         }
     }
 }
