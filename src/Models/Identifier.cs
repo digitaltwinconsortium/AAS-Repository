@@ -1,6 +1,7 @@
 ﻿
 namespace AdminShell
 {
+    using System.Runtime.Serialization;
     using System.Xml;
     using System.Xml.Serialization;
 
@@ -9,15 +10,17 @@ namespace AdminShell
     /// As string is sealed, this class cannot derive dirctly from string,
     /// so an implicit conversion is tested
 
+    [DataContract]
     public class Identifier
     {
-        [XmlText]
+        [DataMember(Name ="value")]
         public string Value = string.Empty;
 
         [XmlAttribute]
+        [DataMember(Name = "idType")]
         public string IdType = string.Empty;
 
-        [XmlText]
+        [DataMember(Name = "id")]
         public string Id = string.Empty;
 
         public static implicit operator string(Identifier d)

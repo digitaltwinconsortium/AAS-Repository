@@ -6,6 +6,8 @@ namespace AdminShell
     [DataContract]
     public partial class AdministrativeInformation
     {
+        public AdministrativeInformation() { }
+
         public AdministrativeInformation(AdministrativeInformation administration)
         {
             Revision = administration.Revision;

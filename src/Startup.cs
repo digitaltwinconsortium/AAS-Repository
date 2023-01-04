@@ -31,6 +31,10 @@ namespace AdminShell
 
             services.AddScoped<IUserService, UserService>();
 
+            services.AddScoped<IAasxFileServerInterfaceService, AasxFileServerInterfaceService>();
+
+            services.AddScoped<IAssetAdministrationShellEnvironmentService, AssetAdministrationShellEnvironmentService>();
+
             services.AddAuthentication("BasicAuthentication")
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 

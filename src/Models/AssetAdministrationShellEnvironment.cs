@@ -1,15 +1,12 @@
 ﻿
 namespace AdminShell
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Runtime.Serialization;
-    using System.Xml;
     using System.Xml.Serialization;
 
-    [XmlRoot(ElementName = "_aasenv", Namespace = "http://www.admin-shell.io/aas/3/0")]
     [DataContract]
+    [XmlRoot(ElementName = "aasenv")]
     public class AssetAdministrationShellEnvironment
     {
         [DataMember(Name = "assetAdministrationShells")]
@@ -26,14 +23,6 @@ namespace AdminShell
         [XmlArray("Submodels")]
         [XmlArrayItem("submodel")]
         public List<Submodel> Submodels { get; set; } = new();
-
-        [XmlAttribute(Namespace = System.Xml.Schema.XmlSchema.InstanceNamespace)]
-        public string schemaLocation = "http://www.admin-shell.io/aas/3/0 AAS.xsd http://www.admin-shell.io/IEC61360/3/0 IEC61360.xsd";
-
-        [DataMember(Name = "assets")]
-        [XmlArray("Assets")]
-        [XmlArrayItem("asset")]
-        private List<AssetInformation> Assets = new();
 
         public AssetAdministrationShell FindAAS(Identifier id)
         {

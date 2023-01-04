@@ -80,7 +80,7 @@ namespace AdminShell
                 if (indirectLoadSave)
                     try
                     {
-                        _tempFn = System.IO.Path.GetTempFileName().Replace(".tmp", ".aasx");
+                        _tempFn = Path.GetTempFileName().Replace(".tmp", ".aasx");
                         System.IO.File.Copy(fn, _tempFn);
                         fnToLoad = _tempFn;
 
@@ -93,110 +93,86 @@ namespace AdminShell
 
                 string nsuri = "";
 
-                // for (int loop = 0; loop < 2; loop++)
-                for (int loop = 1; loop < 2; loop++)
+                // load package AASX
+                try
                 {
-                    // load package AASX
-                    try
-                    {
-                        Package package = null;
-                        switch (loop)
-                        {
-                            case 0:
-                                package = Package.Open(fnToLoad, FileMode.Open);
-                                break;
-                            case 1:
-                                package = Package.Open(fnToLoad, FileMode.Open, FileAccess.Read, FileShare.Read);
-                                break;
-                        }
+                    Package package = Package.Open(fnToLoad, FileMode.Open, FileAccess.Read, FileShare.Read);
 
-                        // get the origin from the package
-                        PackagePart originPart = null;
-                        var xs = package.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aasx-origin");
-                        foreach (var x in xs)
-                            if (x.SourceUri.ToString() == "/")
-                            {
-                                originPart = package.GetPart(x.TargetUri);
-                                break;
-                            }
-                        if (originPart == null)
-                            throw (new Exception("Unable to find AASX origin. Aborting!"));
-
-                        // get the specs from the package
-                        PackagePart specPart = null;
-                        xs = originPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-spec");
-                        foreach (var x in xs)
+                    // get the origin from the package
+                    PackagePart originPart = null;
+                    var xs = package.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aasx-origin");
+                    foreach (var x in xs)
+                        if (x.SourceUri.ToString() == "/")
                         {
-                            specPart = package.GetPart(x.TargetUri);
+                            originPart = package.GetPart(x.TargetUri);
                             break;
                         }
-                        if (specPart == null)
-                            throw (new Exception("Unable to find AASX spec(s). Aborting!"));
+                    if (originPart == null)
+                        throw (new Exception("Unable to find AASX origin. Aborting!"));
 
-                        // open spec part to read
-                        try
+                    // get the specs from the package
+                    PackagePart specPart = null;
+                    xs = originPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-spec");
+                    foreach (var x in xs)
+                    {
+                        specPart = package.GetPart(x.TargetUri);
+                        break;
+                    }
+                    if (specPart == null)
+                        throw (new Exception("Unable to find AASX spec(s). Aborting!"));
+
+                    // open spec part to read
+                    try
+                    {
+                        var s = specPart.GetStream(FileMode.Open);
+
                         {
-                            var s = specPart.GetStream(FileMode.Open);
+                            // new
+                            nsuri = AdminShellSerializationHelper.TryReadXmlFirstElementNamespaceURI(s);
 
+                            s.Close();
+                            s = specPart.GetStream(FileMode.Open, FileAccess.Read);
+
+                            // read V1.0
+                            if (nsuri != null && nsuri.Trim() == "http://www.admin-shell.io/aas/1/0")
                             {
-                                // own catch loop to be more specific
-
-                                if (loop == 0)
-                                {
-                                    nsuri = AdminShellSerializationHelper.TryReadXmlFirstElementNamespaceURI(s);
-                                    s.Close();
-                                    package.Close();
-                                    continue;
-                                }
-
-                                // new
-                                nsuri = AdminShellSerializationHelper.TryReadXmlFirstElementNamespaceURI(s);
-
-                                s.Close();
-                                s = specPart.GetStream(FileMode.Open, FileAccess.Read);
-
-                                // read V1.0
-                                if (nsuri != null && nsuri.Trim() == "http://www.admin-shell.io/aas/1/0")
-                                {
-                                    XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/1/0");
-                                    _aasenv = serializer.Deserialize(s) as AssetAdministrationShellEnvironment;
-                                }
-
-                                // read V2.0
-                                if (nsuri != null && nsuri.Trim() == "http://www.admin-shell.io/aas/2/0")
-                                {
-                                    XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/2/0");
-                                    _aasenv = serializer.Deserialize(s) as AssetAdministrationShellEnvironment;
-                                }
-
-                                // read V3.0
-                                if (nsuri != null && nsuri.Trim() == "http://www.admin-shell.io/aas/3/0")
-                                {
-                                    XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/3/0");
-                                    _aasenv = serializer.Deserialize(s) as AssetAdministrationShellEnvironment;
-                                }
-
-                                _openPackage = package;
-
-                                if (_aasenv == null)
-                                    throw new Exception("Type error for XML file!");
-
-                                s.Close();
+                                XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/1/0");
+                                _aasenv = serializer.Deserialize(s) as AssetAdministrationShellEnvironment;
                             }
 
+                            // read V2.0
+                            if (nsuri != null && nsuri.Trim() == "http://www.admin-shell.io/aas/2/0")
+                            {
+                                XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/2/0");
+                                _aasenv = serializer.Deserialize(s) as AssetAdministrationShellEnvironment;
+                            }
+
+                            // read V3.0
+                            if (nsuri != null && nsuri.Trim() == "http://www.admin-shell.io/aas/3/0")
+                            {
+                                XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/3/0");
+                                _aasenv = serializer.Deserialize(s) as AssetAdministrationShellEnvironment;
+                            }
+
+                            _openPackage = package;
+
+                            if (_aasenv == null)
+                                throw new Exception("Type error for XML file!");
+
+                            s.Close();
                         }
-                        catch (Exception ex)
-                        {
-                            throw (new Exception(string.Format("While reading AAS {0} spec at {1} gave: {2}", fn, Program.ShortLocation(ex), ex.Message)));
-                        }
-                        // Package must not close to read e.g. thumbnails
-                        //// package.Close();
+
                     }
                     catch (Exception ex)
                     {
-                        throw (new Exception(string.Format("While reading AASX {0} at {1} gave: {2}", fn, Program.ShortLocation(ex), ex.Message)));
+                        throw new Exception(string.Format("While reading AAS {0} spec at {1} gave: {2}", fn, Program.ShortLocation(ex), ex.Message));
                     }
                 }
+                catch (Exception ex)
+                {
+                    throw (new Exception(string.Format("While reading AASX {0} at {1} gave: {2}", fn, Program.ShortLocation(ex), ex.Message)));
+                }
+
                 return true;
             }
 
@@ -217,7 +193,7 @@ namespace AdminShell
                 {
                     using (var s = new StreamWriter(fn))
                     {
-                        // TODO: use _aasenv serialzers here!
+                        // TODO: use aasenv serialzers here!
                         var serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment));
                         var nss = new XmlSerializerNamespaces();
                         nss.Add("xsi", System.Xml.Schema.XmlSchema.InstanceNamespace);
@@ -339,11 +315,11 @@ namespace AdminShell
                     // check, if we have to change the spec part
                     if (specPart != null && specRel != null)
                     {
-                        var name = System.IO.Path.GetFileNameWithoutExtension(specPart.Uri.ToString()).ToLower().Trim();
-                        var ext = System.IO.Path.GetExtension(specPart.Uri.ToString()).ToLower().Trim();
+                        var name = Path.GetFileNameWithoutExtension(specPart.Uri.ToString()).ToLower().Trim();
+                        var ext = Path.GetExtension(specPart.Uri.ToString()).ToLower().Trim();
                         if ((ext == ".json" && prefFmt == PreferredFormat.Xml)
                              || (ext == ".xml" && prefFmt == PreferredFormat.Json)
-                             || (name.StartsWith("_aasenv-with-no-Id")))
+                             || (name.StartsWith("aasenv-with-no-Id")))
                         {
                             // try kill specpart
                             // ReSharper disable EmptyGeneralCatchClause
@@ -361,7 +337,7 @@ namespace AdminShell
                     if (specPart == null)
                     {
                         // create, as not existing
-                        var frn = "_aasenv-with-no-Id";
+                        var frn = "aasenv-with-no-Id";
                         if (_aasenv.AssetAdministrationShells.Count > 0)
                             frn = _aasenv.AssetAdministrationShells[0].GetFriendlyName() ?? frn;
                         var aas_spec_fn = "/aasx/#/#.aas";
