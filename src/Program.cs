@@ -90,54 +90,5 @@ namespace AdminShell
 
             isLoading = false;
         }
-
-        public static string ShortLocation(Exception ex)
-        {
-            if (ex == null || ex.StackTrace == null)
-                return "";
-
-            string[] lines = ex.StackTrace.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-
-            if (lines.Length < 1)
-                return "";
-
-            // search for " in "
-            // as the most actual stacktrace might be a built-in function, this might not work and therefore
-            // go down in the stack
-            int currLine = 0;
-            while (true)
-            {
-                // nothing found at all
-                if (currLine >= lines.Length)
-                    return "";
-
-                // access current line
-                /* TODO (MIHO, 2020-11-12): replace with Regex for multi language. Ideally have Exception messages
-                   always as English. */
-                var p = lines[currLine].IndexOf(" in ", StringComparison.Ordinal);
-
-                if (p < 0)
-                    p = lines[currLine].IndexOf(" bei ", StringComparison.Ordinal);
-
-                if (p < 0)
-                {
-                    // advance to next oldest line
-                    currLine++;
-                    continue;
-                }
-
-                // search last "\" or "/", to get only filename portion and position
-                p = lines[currLine].LastIndexOfAny(new[] { '\\', '/' });
-                if (p < 0)
-                {
-                    // advance to next oldest line
-                    currLine++;
-                    continue;
-                }
-
-                // return this
-                return lines[currLine].Substring(p);
-            }
-        }
     }
 }
