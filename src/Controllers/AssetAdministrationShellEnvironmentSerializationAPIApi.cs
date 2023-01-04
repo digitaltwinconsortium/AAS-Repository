@@ -8,16 +8,20 @@ namespace AdminShell
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Dynamic;
+    using System.Linq;
     using System.Text;
 
     [ApiController]
     public class AssetAdministrationShellEnvironmentSerializationAPIController : ControllerBase
     {
         private readonly ILogger<AssetAdministrationShellEnvironmentSerializationAPIController> _logger;
+        private readonly IAssetAdministrationShellEnvironmentService _aasEnvService;
 
-        public AssetAdministrationShellEnvironmentSerializationAPIController(ILogger<AssetAdministrationShellEnvironmentSerializationAPIController> logger)
+        public AssetAdministrationShellEnvironmentSerializationAPIController(ILogger<AssetAdministrationShellEnvironmentSerializationAPIController> logger, IAssetAdministrationShellEnvironmentService aasEnvSerive)
         {
             _logger = logger;
+            _aasEnvService = aasEnvSerive;
         }
 
         /// <summary>
@@ -36,6 +40,8 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GenerateSerializationByIds([FromQuery][Required()] List<string> aasIds, [FromQuery][Required()] List<string> submodelIds, [FromQuery][Required()] bool? includeConceptDescriptions)
         {
+            dynamic outputEnv = new ExpandoObject();
+
             var decodedAasIds = new List<string>();
             foreach (var aasId in aasIds)
             {
@@ -48,9 +54,30 @@ namespace AdminShell
                 decodedSubmodelIds.Add(Encoding.UTF8.GetString(Convert.FromBase64String(submodelId)));
             }
 
-            var output = _serializationService.GenerateSerializationByIds(decodedAasIds, decodedSubmodelIds, (bool)includeConceptDescriptions);
+            outputEnv.AssetAdministrationShells = new List<AssetAdministrationShell>();
+            outputEnv.Submodels = new List<Submodel>();
 
-            return new ObjectResult(output);
+            var aasList = _aasEnvService.GetAllAssetAdministrationShells();
+            foreach (var aasId in decodedAasIds)
+            {
+                var foundAas = aasList.Where(a => a.Id.Equals(aasId));
+                if (foundAas.Any())
+                {
+                    outputEnv.AssetAdministrationShells.Add(foundAas.First());
+                }
+            }
+
+            var submodelList = _aasEnvService.GetAllSubmodels();
+            foreach (var submodelId in decodedSubmodelIds)
+            {
+                var foundSubmodel = submodelList.Where(s => s.Id.Equals(submodelId));
+                if (foundSubmodel.Any())
+                {
+                    outputEnv.Submodels.Add(foundSubmodel.First());
+                }
+            }
+
+            return new ObjectResult(outputEnv);
         }
     }
 }

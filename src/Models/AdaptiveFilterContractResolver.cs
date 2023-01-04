@@ -44,7 +44,7 @@ namespace AdminShell
                 if (!BlobHasValue && property.DeclaringType == typeof(Blob) && property.PropertyName == "Value")
                     property.ShouldSerialize = instance => { return false; };
 
-                if (!SubmodelHasElements && property.DeclaringType == typeof(Submodel) && property.PropertyName == "submodelElements")
+                if (!SubmodelHasElements && property.DeclaringType == typeof(Submodel) && property.PropertyName == "SubmodelElements")
                     property.ShouldSerialize = instance => { return false; };
 
                 if (!SmcHasValue && property.DeclaringType == typeof(SubmodelElementCollection) && property.PropertyName == "Value")

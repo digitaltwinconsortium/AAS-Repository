@@ -11,7 +11,7 @@ namespace AdminShell
 
         [XmlArray("keys")]
         [XmlArrayItem("key")]
-        public List<Key> Keys { get { return keys?.Keys; } }
+        public List<Key> Keys { get { return keys; } }
 
         [XmlIgnore]
         public bool IsEmpty { get { return keys == null || keys.IsEmpty; } }
@@ -20,7 +20,7 @@ namespace AdminShell
         public int Count { get { if (keys == null) return 0; return keys.Count; } }
 
         [XmlIgnore]
-        public Key this[int index] { get { return keys.Keys[index]; } }
+        public Key this[int index] { get { return keys[index]; } }
 
         public UnitId() { }
 
@@ -28,7 +28,7 @@ namespace AdminShell
         {
             if (src.keys != null)
                 foreach (var k in src.Keys)
-                    this.keys.Add(new Key(k));
+                    keys.Add(new Key(k));
         }
     }
 }

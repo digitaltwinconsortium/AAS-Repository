@@ -25,8 +25,8 @@ namespace AdminShell
 
         public HasDataSpecification(IEnumerable<EmbeddedDataSpecification> src)
         {
-            foreach (var r in src)
-                EmbeddedDataSpecifications.Add(new EmbeddedDataSpecification(r));
+            foreach (EmbeddedDataSpecification eds in src)
+                EmbeddedDataSpecifications.Add(new EmbeddedDataSpecification(eds));
         }
 
         [XmlIgnore]
@@ -34,11 +34,11 @@ namespace AdminShell
         {
             get
             {
-                foreach (var eds in EmbeddedDataSpecifications)
-                    if (eds?.dataSpecificationContent?.dataSpecificationIEC61360 != null
-                        || eds?.dataSpecification?.Matches(
-                            DataSpecificationIEC61360.GetIdentifier(), Key.MatchMode.Identification) == true)
+                foreach (EmbeddedDataSpecification eds in EmbeddedDataSpecifications)
+                    if ((eds.DataSpecificationContent?.dataSpecificationIEC61360 != null)
+                      || eds.DataSpecification?.Matches(DataSpecificationIEC61360.GetIdentifier()) == true)
                         return eds;
+
                 return null;
             }
             set

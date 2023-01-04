@@ -76,7 +76,7 @@ namespace AdminShell
             }
             else
             {
-                throw new Exception($"SubmodelReference with id {submodelIdentifier} not found in AAS with id {aas.Identification}");
+                throw new Exception($"SubmodelReference with Id {submodelIdentifier} not found in AAS with Id {aas.Identification}");
             }
         }
 
@@ -115,7 +115,7 @@ namespace AdminShell
                 var found = aas.Submodels.Any(s => s.Matches(body));
                 if (found)
                 {
-                    throw new Exception($"Requested submodel reference already exists in AAS with id {aasIdentifier}");
+                    throw new Exception($"Requested submodel reference already exists in AAS with Id {aasIdentifier}");
                 }
                 else
                 {
@@ -177,7 +177,7 @@ namespace AdminShell
             var found = IsAssetAdministrationShellPresent(body.Identification, out _, out _);
             if (found)
             {
-                throw new Exception($"AssetAdministrationShell with id {body.Identification} already exists.");
+                throw new Exception($"AssetAdministrationShell with Id {body.Identification} already exists.");
             }
 
             if (EmptyPackageAvailable(out int emptyPackageIndex))
@@ -264,7 +264,7 @@ namespace AdminShell
                 }
                 else
                 {
-                    throw new Exception($"SubmodelReference with id {submodelIdentifier} not found in AAS with id {aasIdentifier}");
+                    throw new Exception($"SubmodelReference with Id {submodelIdentifier} not found in AAS with Id {aasIdentifier}");
                 }
             }
 
@@ -284,7 +284,7 @@ namespace AdminShell
                 }
                 else
                 {
-                    throw new Exception($"SubmodelReference with id {submodelIdentifier} not found in AAS with id {aasIdentifier}");
+                    throw new Exception($"SubmodelReference with Id {submodelIdentifier} not found in AAS with Id {aasIdentifier}");
                 }
             }
         }
@@ -416,7 +416,7 @@ namespace AdminShell
             }
             else
             {
-                throw new Exception($"AssetAdministrationShell with id {aasIdentifier} not found.");
+                throw new Exception($"AssetAdministrationShell with Id {aasIdentifier} not found.");
             }
         }
 
@@ -430,7 +430,7 @@ namespace AdminShell
                     var env = package.AasEnv;
                     if (env != null)
                     {
-                        var aas = env.AssetAdministrationShells.Where(a => a.id.Equals(aasIdentifier));
+                        var aas = env.AssetAdministrationShells.Where(a => a.Id.Equals(aasIdentifier));
                         if (aas.Any())
                         {
                             output = aas.First();
@@ -476,7 +476,7 @@ namespace AdminShell
             var found = IsConceptDescriptionPresent(body.Id, out _, out _);
             if (found)
             {
-                throw new Exception($"ConceptDescription with id {body.Id} already exists.");
+                throw new Exception($"ConceptDescription with Id {body.Id} already exists.");
             }
 
             if (EmptyPackageAvailable(out int emptyPackageIndex))
@@ -515,7 +515,7 @@ namespace AdminShell
             }
             else
             {
-                throw new Exception($"ConceptDescription with id {cdIdentifier} not found.");
+                throw new Exception($"ConceptDescription with Id {cdIdentifier} not found.");
             }
         }
 
@@ -530,7 +530,7 @@ namespace AdminShell
                     var env = package.AasEnv;
                     if (env != null)
                     {
-                        var conceptDescriptions = env.ConceptDescriptions.Where(c => c.id.Equals(cdIdentifier));
+                        var conceptDescriptions = env.ConceptDescriptions.Where(c => c.Id.Equals(cdIdentifier));
                         if (conceptDescriptions.Any())
                         {
                             output = conceptDescriptions.First();
@@ -752,9 +752,9 @@ namespace AdminShell
                 }
                 else if (smeParent != null && smeParent is AnnotatedRelationshipElement annotatedRelationshipElement)
                 {
-                    annotatedRelationshipElement.Annotations ??= new List<IDataElement>();
+                    annotatedRelationshipElement.Annotations ??= new List<DataElement>();
 
-                    annotatedRelationshipElement.Annotations.Add((IDataElement)body);
+                    annotatedRelationshipElement.Annotations.Add((DataElement)body);
                     body.Parent = annotatedRelationshipElement;
                 }
 
@@ -807,7 +807,7 @@ namespace AdminShell
             var found = IsSubmodelPresent(body.Id, out _, out _);
             if (found)
             {
-                throw new Exception($"Submodel with id {body.Id} already exists.");
+                throw new Exception($"Submodel with Id {body.Id} already exists.");
             }
 
             if (EmptyPackageAvailable(out int emptyPackageIndex))
@@ -834,7 +834,7 @@ namespace AdminShell
             }
             else
             {
-                throw new Exception($"Submodel with id {submodelIdentifier} not found.");
+                throw new Exception($"Submodel with Id {submodelIdentifier} not found.");
             }
         }
 
@@ -849,7 +849,7 @@ namespace AdminShell
                     var env = package.AasEnv;
                     if (env != null)
                     {
-                        var submodels = env.Submodels.Where(a => a.id.Equals(submodelIdentifier));
+                        var submodels = env.Submodels.Where(a => a.Id.Equals(submodelIdentifier));
                         if (submodels.Any())
                         {
                             output = submodels.First();
@@ -863,83 +863,13 @@ namespace AdminShell
             return false;
         }
 
-        private List<SubmodelElement> filterSubmodelElements(Submodel submodel, List<SubmodelElement> output, DateTime diff = new DateTime())
-        {
-            List<SubmodelElement> filtered = new List<SubmodelElement>();
-            if (output != null)
-            {
-                foreach (var o in output)
-                {
-                    if (o.TimeStampTree >= diff)
-                    {
-                        if (SecurityCheckTestOnly(submodel.IdShort + "." + o.IdShort, "submodel", submodel))
-                            filtered.Add(o);
-                        // if further iteration into is needed
-                        /*
-                        if (o is SubmodelElementCollection sc)
-                        {
-                            if (o.TimeStamp >= diff)
-                                filtered.Add(o);
-                            filtered.AddRange(filterSubmodelElements(submodel, sc.Value, diff));
-                        }
-                        else
-                        if (o is SubmodelElementList sl)
-                        {
-                            if (o.TimeStamp >= diff)
-                                filtered.Add(o);
-                            filtered.AddRange(filterSubmodelElements(submodel, sl.Value, diff));
-                        }
-                        else
-                            if (o.TimeStamp >= diff)
-                                filtered.Add(o);
-                        */
-                    }
-                }
-            }
-
-            return filtered;
-        }
         public object GetAllSubmodelElementsFromSubmodel(string submodelIdentifier = null)
         {
-            object output = null;
-            //Find Submodel
             var submodel = GetSubmodelById(submodelIdentifier, out _);
-
             if (submodel == null)
                 return null;
 
-            output = submodel.SubmodelElements;
-            if (outputModifierContext != null)
-            {
-                if (!outputModifierContext.Content.Equals("path", StringComparison.OrdinalIgnoreCase))
-                {
-                    output = filterSubmodelElements(submodel, submodel.SubmodelElements, outputModifierContext.Diff);
-                }
-                else
-                {
-                    //Need to handle this here it self, to append idShort of Submodel to every SME in the list.
-                    //level = core, then indirect children should be avoided.
-                    //Hence, setting IncludeChildren = false here itself.
-                    if (outputModifierContext.Level.Equals("core", StringComparison.OrdinalIgnoreCase))
-                    {
-                        outputModifierContext.IncludeChildren = false;
-                    }
-                    foreach (var submodelElement in submodel.SubmodelElements)
-                    {
-                        if (submodelElement.TimeStamp >= outputModifierContext.Diff || submodelElement.TimeStampTree >= outputModifierContext.Diff)
-                        {
-                            outputModifierContext.ParentPath = submodel.IdShort;
-                            outputModifierContext.submodel = submodel;
-                            outputModifierContext.aasEnvService = this;
-                            PathSerializer.ToIdShortPath(submodelElement, outputModifierContext);
-                        }
-                    }
-
-                    return outputModifierContext.IdShortPaths;
-                }
-            }
-
-            return output;
+            return submodel.SubmodelElements;
         }
 
         public List<Submodel> GetAllSubmodels(Reference reqSemanticId = null, string idShort = null)
@@ -956,8 +886,7 @@ namespace AdminShell
                     {
                         foreach (var s in env.Submodels)
                         {
-                            if (SecurityCheckTestOnly(s.idShort, "", s))
-                                output.Add(s);
+                            output.Add(s);
                         }
                     }
                 }
@@ -1008,7 +937,7 @@ namespace AdminShell
                 //Delete submodel reference from AAS
                 foreach (var aas in _packages[packageIndex].AasEnv.AssetAdministrationShells)
                 {
-                    DeleteSubmodelReferenceById(aas.id, submodelIdentifier);
+                    DeleteSubmodelReferenceById(aas.Id, submodelIdentifier);
                 }
 
                 Program.signalNewData(1);  //TODO jtikekar : may be not needed
@@ -1041,8 +970,6 @@ namespace AdminShell
 
             if (submodel != null)
             {
-                SecurityCheck(submodel.IdShort + "." + idShortPath, "", submodel);
-
                 output = GetSubmodelElementByPath(submodel, idShortPath, out object parent);
                 smeParent = parent;
                 if (output != null)
@@ -1277,17 +1204,6 @@ namespace AdminShell
                     CheckOperationVariables(operation, operationRequest);
                     OperationResult operationResult = new OperationResult();
 
-                    //Check the qualifier for demo
-                    if (operation.FindQualifierOfType("Demo") != null)
-                    {
-                        operationResult.OutputArguments = new List<OperationVariable>();
-                        operationResult.OutputArguments.Add(new OperationVariable(new Property(DataTypeDefXsd.String, idShort: "DemoOutputArgument")));
-                        operationResult.ExecutionState = ExecutionState.CompletedEnum;
-                        Result result = new Result();
-                        result.Success = true;
-                        operationResult.ExecutionResult = result;
-                        operationResult.RequestId = operationRequest.RequestId;
-                    }
                     return operationResult;
                 }
                 else

@@ -57,29 +57,29 @@ namespace AdminShell.Data
         private void CreateViewFromSubModel(TreeNodeData rootItem, Submodel subModel, int i)
         {
             List<TreeNodeData> subModelElementTreeNodeDataList = new List<TreeNodeData>();
-            foreach (SubmodelElementWrapper subModelElementWrapper in subModel.submodelElements)
+            foreach (SubmodelElement subModelElement in subModel.SubmodelElements)
             {
                 TreeNodeData subModelElementTreeNodeData = new TreeNodeData();
                 subModelElementTreeNodeData.EnvIndex = i;
-                subModelElementTreeNodeData.Text = subModelElementWrapper.submodelElement.IdShort;
-                subModelElementTreeNodeData.Tag = subModelElementWrapper.submodelElement;
+                subModelElementTreeNodeData.Text = subModelElement.IdShort;
+                subModelElementTreeNodeData.Tag = subModelElement;
                 subModelElementTreeNodeDataList.Add(subModelElementTreeNodeData);
 
-                if (subModelElementWrapper.submodelElement is SubmodelElementCollection)
+                if (subModelElement is SubmodelElementCollection)
                 {
-                    SubmodelElementCollection submodelElementCollection = subModelElementWrapper.submodelElement as SubmodelElementCollection;
+                    SubmodelElementCollection submodelElementCollection = subModelElement as SubmodelElementCollection;
                     CreateViewFromSubModelElementCollection(subModelElementTreeNodeData, submodelElementCollection, i);
                 }
 
-                if (subModelElementWrapper.submodelElement is Operation)
+                if (subModelElement is Operation)
                 {
-                    Operation operation = subModelElementWrapper.submodelElement as Operation;
+                    Operation operation = subModelElement as Operation;
                     CreateViewFromOperation(subModelElementTreeNodeData, operation, i);
                 }
 
-                if (subModelElementWrapper.submodelElement is Entity)
+                if (subModelElement is Entity)
                 {
-                    Entity entity = subModelElementWrapper.submodelElement as Entity;
+                    Entity entity = subModelElement as Entity;
                     CreateViewFromEntity(subModelElementTreeNodeData, entity, i);
                 }
             }
@@ -95,44 +95,44 @@ namespace AdminShell.Data
         private void CreateViewFromSubModelElementCollection(TreeNodeData rootItem, SubmodelElementCollection subModelElementCollection, int i)
         {
             List<TreeNodeData> treeNodeDataList = new List<TreeNodeData>();
-            foreach (SubmodelElementWrapper subModelElementWrapper in subModelElementCollection.Value)
+            foreach (SubmodelElement subModelElement in subModelElementCollection.Value)
             {
-                if (subModelElementWrapper != null && subModelElementWrapper.submodelElement != null)
+                if (subModelElement != null && subModelElement != null)
                 {
                     TreeNodeData smeItem = new TreeNodeData();
                     smeItem.EnvIndex = i;
-                    smeItem.Text = subModelElementWrapper.submodelElement.IdShort;
-                    smeItem.Tag = subModelElementWrapper.submodelElement;
+                    smeItem.Text = subModelElement.IdShort;
+                    smeItem.Tag = subModelElement;
                     treeNodeDataList.Add(smeItem);
 
-                    if (subModelElementWrapper.submodelElement is SubmodelElementCollection)
+                    if (subModelElement is SubmodelElementCollection)
                     {
-                        SubmodelElementCollection smecNext = subModelElementWrapper.submodelElement as SubmodelElementCollection;
+                        SubmodelElementCollection smecNext = subModelElement as SubmodelElementCollection;
                         CreateViewFromSubModelElementCollection(smeItem, smecNext, i);
                     }
 
-                    if (subModelElementWrapper.submodelElement is Operation)
+                    if (subModelElement is Operation)
                     {
-                        Operation operation = subModelElementWrapper.submodelElement as Operation;
+                        Operation operation = subModelElement as Operation;
                         CreateViewFromOperation(smeItem, operation, i);
                     }
 
-                    if (subModelElementWrapper.submodelElement is Entity)
+                    if (subModelElement is Entity)
                     {
-                        Entity entity = subModelElementWrapper.submodelElement as Entity;
+                        Entity entity = subModelElement as Entity;
                         CreateViewFromEntity(smeItem, entity, i);
                     }
 
-                    if ((subModelElementWrapper.submodelElement.IdShort == "NODESET2_XML")
-                    && Uri.IsWellFormedUriString(subModelElementWrapper.submodelElement.ValueAsText(), UriKind.Absolute))
+                    if ((subModelElement.IdShort == "NODESET2_XML")
+                    && Uri.IsWellFormedUriString(subModelElement.ValueAsText(), UriKind.Absolute))
                     {
-                        CreateViewFromAdminShellNodeset(smeItem, new Uri(subModelElementWrapper.submodelElement.ValueAsText()), i);
+                        CreateViewFromAdminShellNodeset(smeItem, new Uri(subModelElement.ValueAsText()), i);
                     }
 
-                    if (subModelElementWrapper.submodelElement.IdShort == "CAEX")
+                    if (subModelElement.IdShort == "CAEX")
 
                     {
-                        CreateViewFromAMLCAEXFile(smeItem, subModelElementWrapper.submodelElement.ValueAsText(), i);
+                        CreateViewFromAMLCAEXFile(smeItem, subModelElement.ValueAsText(), i);
                     }
                 }
             }
@@ -331,33 +331,33 @@ namespace AdminShell.Data
         private void CreateViewFromOperation(TreeNodeData rootItem, Operation operation, int i)
         {
             List<TreeNodeData> treeNodeDataList = new List<TreeNodeData>();
-            foreach (OperationVariable v in operation.InputVariable)
+            foreach (OperationVariable v in operation.InputVariables)
             {
                 TreeNodeData smeItem = new TreeNodeData();
                 smeItem.EnvIndex = i;
-                smeItem.Text = v.Value.submodelElement.IdShort;
+                smeItem.Text = v.Value.SubmodelElement.IdShort;
                 smeItem.Type = "In";
-                smeItem.Tag = v.Value.submodelElement;
+                smeItem.Tag = v.Value.SubmodelElement;
                 treeNodeDataList.Add(smeItem);
             }
 
-            foreach (OperationVariable v in operation.OutputVariable)
+            foreach (OperationVariable v in operation.OutputVariables)
             {
                 TreeNodeData smeItem = new TreeNodeData();
                 smeItem.EnvIndex = i;
-                smeItem.Text = v.Value.submodelElement.IdShort;
+                smeItem.Text = v.Value.SubmodelElement.IdShort;
                 smeItem.Type = "Out";
-                smeItem.Tag = v.Value.submodelElement;
+                smeItem.Tag = v.Value.SubmodelElement;
                 treeNodeDataList.Add(smeItem);
             }
 
-            foreach (OperationVariable v in operation.InoutputVariable)
+            foreach (OperationVariable v in operation.InoutputVariables)
             {
                 TreeNodeData smeItem = new TreeNodeData();
                 smeItem.EnvIndex = i;
-                smeItem.Text = v.Value.submodelElement.IdShort;
+                smeItem.Text = v.Value.SubmodelElement.IdShort;
                 smeItem.Type = "InOut";
-                smeItem.Tag = v.Value.submodelElement;
+                smeItem.Tag = v.Value.SubmodelElement;
                 treeNodeDataList.Add(smeItem);
             }
 
@@ -372,15 +372,15 @@ namespace AdminShell.Data
         private void CreateViewFromEntity(TreeNodeData rootItem, Entity entity, int i)
         {
             List<TreeNodeData> treeNodeDataList = new List<TreeNodeData>();
-            foreach (SubmodelElementWrapper statement in entity.Statements)
+            foreach (SubmodelElement statement in entity.Statements)
             {
-                if (statement != null && statement.submodelElement != null)
+                if (statement != null && statement != null)
                 {
                     TreeNodeData smeItem = new TreeNodeData();
                     smeItem.EnvIndex = i;
-                    smeItem.Text = statement.submodelElement.IdShort;
+                    smeItem.Text = statement.IdShort;
                     smeItem.Type = "In";
-                    smeItem.Tag = statement.submodelElement;
+                    smeItem.Tag = statement;
                     treeNodeDataList.Add(smeItem);
                 }
             }

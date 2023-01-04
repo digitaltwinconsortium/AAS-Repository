@@ -34,7 +34,7 @@ namespace AdminShell
 
                     aaslist.Add(i.ToString() + " : "
                         + idshort + " : "
-                        + aas.id + " : "
+                        + aas.Id + " : "
                         + Program.envFileName[i]);
                 }
             }
@@ -45,7 +45,7 @@ namespace AdminShell
         }
 
         [HttpGet]
-        [Route("/server/getaasx/{id}")]
+        [Route("/server/getaasx/{Id}")]
         public virtual IActionResult GetAASX([FromRoute][Required] int id)
         {
             string fname = "./temp/" + Path.GetFileName(Program.envFileName[id]);
@@ -53,7 +53,7 @@ namespace AdminShell
             {
                 Program.env[id].SaveAs(fname);
             }
-            
+
             Stream fileStream = System.IO.File.OpenRead(fname);
             if (fileStream != null)
             {
@@ -66,7 +66,7 @@ namespace AdminShell
         }
 
         [HttpGet]
-        [Route("/aas/{id}/core")]
+        [Route("/aas/{Id}/core")]
         public virtual IActionResult GetAASInfo([FromRoute][Required] int id)
         {
             dynamic res = new ExpandoObject();
@@ -89,7 +89,7 @@ namespace AdminShell
             else
             {
                 // Name
-                if (id.ToString() == "id")
+                if (id.ToString() == "Id")
                 {
                     res.AAS = Packages[0].AasEnv.AssetAdministrationShells[0];
                     res.Asset = Packages[0].AasEnv.FindAAS(id.ToString());
@@ -150,7 +150,7 @@ namespace AdminShell
             else
             {
                 // Name
-                if (aasid == "id")
+                if (aasid == "Id")
                 {
                     aas = Packages[0].AasEnv.AssetAdministrationShells[0];
                     iPackage = 0;

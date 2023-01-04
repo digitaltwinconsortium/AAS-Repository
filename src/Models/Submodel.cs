@@ -22,7 +22,7 @@ namespace AdminShell
         [DataMember(Name = "kind")]
         public ModelingKind Kind { get; set; }
 
-        [DataMember(Name = "submodelElements")]
+        [DataMember(Name = "SubmodelElements")]
         public List<SubmodelElement> SubmodelElements { get; set; }
 
         [XmlElement(ElementName = "kind")]
@@ -30,54 +30,38 @@ namespace AdminShell
 
         [XmlElement(ElementName = "semanticId")]
         public SemanticId semanticId = new SemanticId();
-
         public SemanticId GetSemanticId() { return semanticId; }
 
         [XmlElement(ElementName = "EmbeddedDataSpecification")]
         public HasDataSpecification hasDataSpecification = null;
 
-        [XmlIgnore]
-        private List<SubmodelElementWrapper> _submodelElements = null;
-
-        public List<SubmodelElementWrapper> submodelElements
+        public static IEnumerable<SubmodelElement> EnumerateSMEChildren(SubmodelElement sme)
         {
-            get { return _submodelElements; }
-            set { _submodelElements = value; }
+            if (sme != null)
+                if (sme is SubmodelElementCollection)
+                    if (((SubmodelElementCollection)sme).Value != null)
+                        foreach (SubmodelElement smeChild in ((SubmodelElementCollection)sme).Value)
+                            yield return smeChild;
         }
 
-        public static void SetParentsForSME(Referable parent, SubmodelElement se)
+        public static void SetParentsForSMEs(Referable parent, SubmodelElement sme)
         {
-            if (se == null)
+            if (sme == null)
                 return;
 
-            se.parent = parent;
+            sme.Parent = parent;
 
-            var childs = se.EnumerateChildren();
-            if (childs != null)
-                foreach (var c in childs)
-                    SetParentsForSME(se, c.submodelElement);
+            var children = EnumerateSMEChildren(sme);
+            if (children != null)
+                foreach (SubmodelElement smeChild in children)
+                    SetParentsForSMEs(sme, smeChild);
         }
 
         public void SetAllParents()
         {
-            if (this.submodelElements != null)
-                foreach (var sme in this.submodelElements)
-                    SetParentsForSME(this, sme.submodelElement);
-        }
-
-        private static void SetParentsForSME(Referable parent, SubmodelElement se, DateTime timeStamp)
-        {
-            if (se == null)
-                return;
-
-            se.parent = parent;
-            se.TimeStamp = timeStamp;
-            se.TimeStampCreate = timeStamp;
-
-            var childs = se.EnumerateChildren();
-            if (childs != null)
-                foreach (var c in childs)
-                    SetParentsForSME(se, c.submodelElement, timeStamp);
+            if (SubmodelElements != null)
+                foreach (SubmodelElement sme in SubmodelElements)
+                    SetParentsForSMEs(this, sme);
         }
     }
 }

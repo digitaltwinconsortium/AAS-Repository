@@ -10,6 +10,9 @@ namespace AdminShell
         [DataMember(Name = "embeddedDataSpecifications")]
         public List<EmbeddedDataSpecification> EmbeddedDataSpecifications { get; set; }
 
+        [DataMember(Name = "dataSpecifications")]
+        public List<Reference> DataSpecifications { get; set; }
+
         [DataMember(Name = "isCaseOf")]
         public List<Reference> IsCaseOf { get; set; }
 

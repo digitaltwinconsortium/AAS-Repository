@@ -7,36 +7,36 @@ namespace AdminShell
     [DataContract]
     public class Operation : SubmodelElement
     {
-        [DataMember(Name = "inoutputVariable")]
-        public List<OperationVariable> InoutputVariable { get; set; } = new();
+        [DataMember(Name = "inoutputVariables")]
+        public List<OperationVariable> InoutputVariables { get; set; } = new();
 
-        [DataMember(Name = "inputVariable")]
-        public List<OperationVariable> InputVariable { get; set; } = new();
+        [DataMember(Name = "inputVariables")]
+        public List<OperationVariable> InputVariables { get; set; } = new();
 
-        [DataMember(Name = "outputVariable")]
-        public List<OperationVariable> OutputVariable { get; set; } = new();
+        [DataMember(Name = "outputVariables")]
+        public List<OperationVariable> OutputVariables { get; set; } = new();
 
         public List<OperationVariable> this[OperationVariable.Direction dir]
         {
             get
             {
                 if (dir == OperationVariable.Direction.In)
-                    return InputVariable;
+                    return InputVariables;
                 else
                 if (dir == OperationVariable.Direction.Out)
-                    return OutputVariable;
+                    return OutputVariables;
                 else
-                    return InoutputVariable;
+                    return InoutputVariables;
             }
             set
             {
                 if (dir == OperationVariable.Direction.In)
-                    InputVariable = value;
+                    InputVariables = value;
                 else
                 if (dir == OperationVariable.Direction.Out)
-                    OutputVariable = value;
+                    OutputVariables = value;
                 else
-                    InoutputVariable = value;
+                    InoutputVariables = value;
             }
         }
 
@@ -45,22 +45,22 @@ namespace AdminShell
             get
             {
                 if (dir == 0)
-                    return InputVariable;
+                    return InputVariables;
                 else
                 if (dir == 1)
-                    return OutputVariable;
+                    return OutputVariables;
                 else
-                    return InoutputVariable;
+                    return InoutputVariables;
             }
             set
             {
                 if (dir == 0)
-                    InputVariable = value;
+                    InputVariables = value;
                 else
                 if (dir == 1)
-                    OutputVariable = value;
+                    OutputVariables = value;
                 else
-                    InoutputVariable = value;
+                    InoutputVariables = value;
             }
         }
 

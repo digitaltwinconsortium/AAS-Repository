@@ -9,7 +9,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -28,30 +27,6 @@ namespace AasxDemonstration
     public class EnergyModel
     {
         /// <summary>
-        /// Associated class can release trigger events
-        /// </summary>
-        public interface ITrackHasTrigger
-        {
-            bool IsTrigger(SourceSystemBase sosy);
-        }
-
-        /// <summary>
-        /// Associated class provides a data vlue
-        /// </summary>
-        public interface ITrackHasValue
-        {
-            double GetValue(SourceSystemBase sosy, string sourceID);
-        }
-
-        /// <summary>
-        /// Associated class renders a Value blob according to the time series spec
-        /// </summary>
-        public interface ITrackRenderValueBlob
-        {
-            string RenderValueBlob(SourceSystemBase sosy, int totalSamples);
-        }
-
-        /// <summary>
         /// Base class for the source system and its context. Can be used to transport
         /// context and global status data w.r.t to the online connect to a source system
         /// </summary>
@@ -63,28 +38,14 @@ namespace AasxDemonstration
                 string user, string password,
                 string credentials)
             {
-                // init
                 sourceType = ("" + sourceType).Trim().ToLower();
 
-                // debug?
-                if (sourceType == "debug")
-                    return new SourceSystemDebug();
-
-                // debug?
                 if (sourceType == "azuredataexplorer")
                     return new SourceSystemAzureDataExplorer(sourceAddress, user, password, credentials);
 
                 // no, default
                 return new SourceSystemBase();
             }
-        }
-
-        /// <summary>
-        /// Implements a source system, which provides random values to random times
-        /// </summary>
-        public class SourceSystemDebug : SourceSystemBase
-        {
-            public Random Rnd = new Random();
         }
 
         /// <summary>
@@ -186,21 +147,14 @@ namespace AasxDemonstration
                         }
                     }
 
-                    // retrieve energy Submodel
-                    var mm = Key.MatchMode.Relaxed;
-
                     // access electrical energy
-                    var smcEe = FindFirstSemanticIdAs<SubmodelElementCollection>(submodel?.submodelElements,
-                        new Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/electrical-energy/1/0"));
+                    SubmodelElement smcEe = FindAllSMEs(submodel?.SubmodelElements, new Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/electrical-energy/1/0")).FirstOrDefault();
 
                     // access CO2 per 1 minute
-                    foreach (var smcPhase in FindAllSemanticIdAs<SubmodelElementCollection>(smcEe?.Value,
-                        new Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/electrical-total/1/0"), mm))
+                    foreach (SubmodelElement smcPhase in FindAllSMEs(smcEe, new Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/electrical-total/1/0")))
                     {
                         // get Value
-                        var value = FindFirstSemanticIdAs<Property>(smcPhase.Value,
-                            new Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/co2-equivalent-per-1-min/1/0"), mm)?.value;
-
+                        string value = ((Property)FindAllSMEs(smcPhase, new Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/co2-equivalent-per-1-min/1/0")).FirstOrDefault()).Value;
                         if (value != null && float.TryParse(value, out float f))
                         {
                             return f;
@@ -218,41 +172,24 @@ namespace AasxDemonstration
                     return 0.0f;
                 }
             }
-                 
-            static public IEnumerable<T> FindAllSemanticIdAs<T>(List<SubmodelElement> smewc,
-                Identifier semId, Key.MatchMode matchMode = Key.MatchMode.Relaxed)
-                where T : SubmodelElement
+
+            private static IEnumerable<SubmodelElement> FindAllSMEs(SubmodelElement smeInput, Identifier semId)
             {
-                foreach (var smw in this)
-                    if (smw.submodelElement != null && smw.submodelElement is T
-                        && smw.submodelElement.semanticId != null)
-                        if (smw.submodelElement.semanticId.MatchesExactlyOneId(semId, matchMode))
-                            yield return smw.submodelElement as T;
+                if (smeInput is SubmodelElementCollection)
+                    foreach (SubmodelElement sme in ((SubmodelElementCollection) smeInput).Value)
+                        if (sme.SemanticId != null)
+                            if (sme.SemanticId.Matches(semId))
+                                yield return sme;
             }
 
-            public IEnumerable<T> FindAllSemanticIdAs<T>(GlobalReference semId,
-                Key.MatchMode matchMode = Key.MatchMode.Relaxed)
-                where T : SubmodelElement
+            private static IEnumerable<SubmodelElement> FindAllSMEs(List<SubmodelElement> smec, Identifier semId)
             {
-                foreach (var smw in this)
-                    if (smw.submodelElement != null && smw.submodelElement is T
-                        && smw.submodelElement.semanticId != null)
-                        if (smw.submodelElement.semanticId.Matches(semId, matchMode))
-                            yield return smw.submodelElement as T;
+                foreach (SubmodelElement sme in smec)
+                    if (sme.SemanticId != null)
+                        if (sme.SemanticId.Matches(semId))
+                            yield return sme;
             }
 
-            static public T FindFirstSemanticIdAs<T>(List<SubmodelElementWrapper> smewc, Identifier semId, Key.MatchMode matchMode = Key.MatchMode.Relaxed)
-                where T : SubmodelElement
-            {
-                return FindAllSemanticIdAs<T>(smewc, semId, matchMode)?.FirstOrDefault<T>();
-            }
-
-            static public T FindFirstSemanticIdAs<T>(List<SubmodelElement> smec, Identifier semId, Key.MatchMode matchMode = Key.MatchMode.Relaxed)
-                   where T : SubmodelElement
-            {
-                return FindAllSemanticIdAs<T>(smec, semId, matchMode)?.FirstOrDefault<T>();
-            }
-             
             private static async void RunQuerys(object state)
             {
                 // read the row from our OPC UA telemetry table
@@ -417,329 +354,6 @@ namespace AasxDemonstration
                     _queryProvider.Dispose();
                     _queryProvider = null;
                 }
-            }
-        }
-
-        /// <summary>
-        /// Tracking of a single data point, which is may be online connected to simulation or Azure ..
-        /// </summary>
-        public class TrackInstanceDataPoint : ITrackHasTrigger, ITrackHasValue
-        {
-            /// <summary>
-            /// Link to an EXISTING SME in the associated Submodel instance
-            /// </summary>
-            public SubmodelElement Sme;
-
-            /// <summary>
-            /// Link to the online source, e.g. Azure Data Explorer
-            /// </summary>
-            public string SourceId;
-
-            /// <summary>
-            /// Evaluates, if the trigger condition is met, where new data exists
-            /// </summary>
-            public bool IsTrigger(SourceSystemBase sosy)
-            {
-                if (sosy is SourceSystemDebug dbg)
-                    return dbg.Rnd.Next(0, 9) >= 8;
-
-                if (sosy is SourceSystemAzureDataExplorer azure)
-                    return true;
-
-                return false;
-            }
-
-            /// <summary>
-            /// depending on a trigger, gets the actual Value
-            /// </summary>
-            public double GetValue(SourceSystemBase sosy, string sourceID)
-            {
-                if (sosy is SourceSystemDebug dbg)
-                    return dbg.Rnd.NextDouble() * 99.9;
-
-                if (sosy is SourceSystemAzureDataExplorer azure)
-                    return azure.GetValue(sourceID);
-
-                return 0.0;
-            }
-        }
-
-        private static T AddToSMC<T>(
-            DateTime timestamp,
-            SubmodelElementCollection parent,
-            string idShort,
-            Key semanticIdKey,
-            string smeValue = null) where T : SubmodelElement
-        {
-            var newElem = SubmodelElementWrapper.CreateAdequateType(typeof(T));
-            newElem.IdShort = idShort;
-            newElem.SemanticId = SemanticId.CreateFromKey(semanticIdKey);
-            newElem.setTimeStamp(timestamp);
-            newElem.TimeStampCreate = timestamp;
-            if (parent?.Value != null)
-            {
-                parent.Value.Add(newElem);
-                parent.setTimeStamp(timestamp);
-            }
-            if (smeValue != null && newElem is Property newP)
-                newP.Value = smeValue;
-            if (smeValue != null && newElem is Blob newB)
-                newB.Value = smeValue;
-            return newElem as T;
-        }
-
-        private static void CopySmeFeatures(
-            SubmodelElement dst, SubmodelElement src,
-            bool copyIdShort = false,
-            bool copyDescription = false,
-            bool copySemanticId = false,
-            bool copyQualifers = false)
-        {
-            // access
-            if (dst == null || src == null)
-                return;
-
-            // feature wise
-            if (copyIdShort)
-                dst.IdShort = src.IdShort;
-
-            if (copyDescription)
-                dst.Description = src.Description;
-
-            if (copySemanticId)
-                dst.SemanticId = src.SemanticId;
-
-            if (copyQualifers)
-            {
-                dst.Qualifiers = new List<Qualifier>();
-                foreach (var q in src.Qualifiers)
-                    dst.Qualifiers.Add(q);
-            }
-        }
-
-        private static void UpdateSME(
-            SubmodelElement sme,
-            string value,
-            DateTime timestamp)
-        {
-            // update
-            if (sme is Property prop)
-            {
-                prop.Value = value;
-            }
-            if (sme is Blob blob)
-            {
-                blob.Value = value;
-            }
-
-            // time stamping
-            sme.setTimeStamp(timestamp);
-        }
-
-        /// <summary>
-        /// Tracking of a single time series variable; in accordance to a time axis (trigger)
-        /// multiple values will aggregated
-        /// </summary>
-        public class TrackInstanceTimeSeriesVariable : ITrackHasValue, ITrackRenderValueBlob
-        {
-            /// <summary>
-            /// Link to the CURRENTLY MAINTAINED time series variable in the associated time series segment
-            /// </summary>
-            public SubmodelElementCollection VariableSmc;
-
-            /// <summary>
-            /// Link to the CURRENTLY MAINTAINED ValueArray in the associated time series segment
-            /// </summary>
-            public Blob ValueArray;
-
-            /// <summary>
-            /// Link to the online source, e.g. Azure Data Explorer
-            /// </summary>
-            public string SourceId;
-
-            /// <summary>
-            /// Record ID given by the template
-            /// </summary>
-            public string TemplateRecordId;
-
-            /// <summary>
-            /// Links to respective SME from the providing time series segment TEMPLATE in the originally
-            /// loaded AASX.
-            /// </summary>
-            public Property TemplateDataPoint;
-
-            /// <summary>
-            /// Links to respective SMC for the variable from the providing time series segment TEMPLATE in the originally
-            /// loaded AASX.
-            /// </summary>
-            public SubmodelElementCollection TemplateVariable;
-
-            /// <summary>
-            /// Maintains the list of values already stored in the variable.
-            /// Is used to always be able to render a current state of the ValueArray
-            /// </summary>
-            public List<double> Values = new List<double>();
-
-            /// <summary>
-            /// Reset the values, clear the runtime associations
-            /// </summary>
-            public void ClearRuntime()
-            {
-                VariableSmc = null;
-                Values.Clear();
-            }
-
-            /// <summary>
-            /// depending on a trigger, gets the actual Value
-            /// </summary>
-            public double GetValue(SourceSystemBase sosy, string sourceID)
-            {
-                if (sosy is SourceSystemDebug dbg)
-                    return dbg.Rnd.NextDouble() * 99.9;
-
-                if (sosy is SourceSystemAzureDataExplorer azure)
-                    return azure.GetValue(sourceID);
-
-                return 0.0;
-            }
-
-            /// <summary>
-            /// Renders list of time stamps according to time series spec
-            /// </summary>
-            public string RenderValueBlob(SourceSystemBase sosy, int totalSamples)
-            {
-                // access
-                if (Values == null)
-                    return "";
-
-                // build
-                return string.Join(", ", Values.Select(
-                    v => String.Format(CultureInfo.InvariantCulture, "[{0}, {1}]", totalSamples++, v)
-                ));
-            }
-
-            /// <summary>
-            /// Updates the currently tracked set of SubmodelElements for the segment.
-            /// </summary>
-            public void UpdateVariableSmc(
-                SourceSystemBase sosy,
-                int totalSamples,
-                DateTime timeStamp)
-            {
-                // access
-                if (ValueArray == null)
-                    return;
-
-                // render
-                UpdateSME(
-                    ValueArray,
-                    RenderValueBlob(sosy, totalSamples),
-                    timeStamp);
-            }
-        }
-
-        /// <summary>
-        /// Tracking of a time series segement; if values of the time series
-        /// </summary>
-        public class TrackInstanceTimeSeriesSegment : ITrackHasTrigger, ITrackRenderValueBlob
-        {
-            /// <summary>
-            /// Link to the CURRENTLY MAINTAINED time series segment in the associated time series
-            /// </summary>
-            public SubmodelElementCollection SegmentSmc;
-
-            /// <summary>
-            /// Link to the CURRENTLY MAINTAINED ValueArray for the timestamps in the associated time series segment
-            /// </summary>
-            public Blob ValueArray;
-
-            /// <summary>
-            /// List of variables to always by MAINTAINED in the segment
-            /// </summary>
-            public List<TrackInstanceTimeSeriesVariable> Variables = new List<TrackInstanceTimeSeriesVariable>();
-
-            /// <summary>
-            /// Holds the timestamp of the samples currently represented in the different variables.
-            /// This list's length should equal the length of the variable's Value lists
-            /// Note: obviously this means, that this code can only represent time series segments with
-            ///       exactly one time axis.
-            /// </summary>
-            public List<DateTime> TimeStamps = new List<DateTime>();
-
-            private DateTime _lastUpdate = DateTime.UtcNow;
-
-            /// <summary>
-            /// Evaluates, if the trigger condition is met, where new data exists
-            /// </summary>
-            public bool IsTrigger(SourceSystemBase sosy)
-            {
-                if (sosy is SourceSystemDebug dbg)
-                    return dbg.Rnd.Next(0, 9) >= 8;
-
-                if (sosy is SourceSystemAzureDataExplorer azure)
-                {
-                    if (DateTime.UtcNow > _lastUpdate.AddSeconds(10))
-                    {
-                        //set this every 10 seconds
-                        _lastUpdate = DateTime.UtcNow;
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-
-            /// <summary>
-            /// Reset the values, clear the runtime associations
-            /// </summary>
-            public void ClearRuntime()
-            {
-                SegmentSmc = null;
-                TimeStamps.Clear();
-                foreach (var vr in Variables)
-                    vr.ClearRuntime();
-            }
-
-            /// <summary>
-            /// Renders list of time stamps according to time series spec
-            /// </summary>
-            public string RenderValueBlob(SourceSystemBase sosy, int totalSamples)
-            {
-                // access
-                if (TimeStamps == null)
-                    return "";
-
-                // build
-                return string.Join(", ", TimeStamps.Select(
-                    dt => String.Format(
-                        CultureInfo.InvariantCulture, "[{0}, {1}]",
-                        totalSamples++, dt.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss.fffZ"))
-                ));
-            }
-
-
-            /// <summary>
-            /// Updates the currently tracked set of SubmodelElements for the segment.
-            /// </summary>
-            public void UpdateSegmentSmc(
-                SourceSystemBase sosy,
-                int totalSamples,
-                DateTime timeStamp)
-            {
-                // access
-                if (ValueArray == null)
-                    return;
-
-                // render
-                UpdateSME(
-                    ValueArray,
-                    RenderValueBlob(sosy, totalSamples),
-                    timeStamp);
-
-                // the rest of the variables
-
-                foreach (var vr in Variables)
-                    vr.UpdateVariableSmc(sosy, totalSamples, timeStamp);
             }
         }
     }

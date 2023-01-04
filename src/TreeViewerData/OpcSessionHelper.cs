@@ -138,7 +138,7 @@ namespace AdminShell.Data
 
                 if (enforceTrust)
                 {
-                    // enforce trust in the certificate validator by setting the trusted session id
+                    // enforce trust in the certificate validator by setting the trusted session Id
                     _trustedSessionId = sessionID;
                 }
 

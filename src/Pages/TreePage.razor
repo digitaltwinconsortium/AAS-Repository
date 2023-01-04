@@ -75,9 +75,9 @@
                         CurrentValue = string.Empty;
                     }
                 }
-                if (SelectedNode != null && (SelectedNode.Tag is AdministrationShell || SelectedNode.Tag is File))
+                if (SelectedNode != null && (SelectedNode.Tag is AssetAdministrationShell || SelectedNode.Tag is File))
                 {
-                    if (SelectedNode.Tag is AdministrationShell)
+                    if (SelectedNode.Tag is AssetAdministrationShell)
                     {
                         <button style="color:white;background-color:blue" @onclick="runCreateQRCodeImage">QRCODE</button><br />
                         string qrcodeLink = getQRCodeLink(SelectedNode);
@@ -191,9 +191,9 @@
         bool done = false;
         if (!done && i.Tag is Submodel sm)
         {
-            foreach (var smew1 in sm.submodelElements)
+            foreach (var smew1 in sm.SubmodelElements)
             {
-                listIdshort.Add(smew1.submodelElement.idShort);
+                listIdshort.Add(smew1.SubmodelElement.idShort);
             }
             done = true;
         }
@@ -330,7 +330,7 @@
             var asset = Program.env[item.EnvIndex].AasEnv.FindAAS(aas.id);
             if (asset != null)
             {
-                string url = WebUtility.UrlEncode(asset.id);
+                string url = WebUtility.UrlEncode(asset.Id);
                 string link = Program.externalRest + "/server/getaasxbyassetid/" + url;
 
                 return link;
@@ -383,7 +383,7 @@
             var asset = Program.env[item.EnvIndex].AasEnv.FindAAS(aas.id);
             if (asset != null)
             {
-                string url = WebUtility.UrlEncode(asset.id);
+                string url = WebUtility.UrlEncode(asset.Id);
                 string link = Program.externalRest + "/server/getaasxbyassetid/" + url;
                 return;
             }
@@ -743,7 +743,7 @@
                     {
                         ret = "ASSETID";
                         if (col == 1)
-                            ret = asset.id + string.Empty;
+                            ret = asset.Id + string.Empty;
                     }
                     break;
                 case 3:
@@ -752,7 +752,7 @@
                         ret = "ASSETID URLENCODED";
                         if (col == 1)
                         {
-                            string url = WebUtility.UrlEncode(asset.id);
+                            string url = WebUtility.UrlEncode(asset.Id);
                             ret = url;
                         }
                     }
@@ -772,7 +772,7 @@
                 case 0:
                     ret = "ID";
                     if (col == 1)
-                        ret = sm.id + string.Empty;
+                        ret = sm.Id + string.Empty;
                     break;
                 case 1:
                     ret = "Semantic ID";

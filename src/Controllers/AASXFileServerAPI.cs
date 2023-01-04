@@ -85,7 +85,7 @@ namespace AdminShell
         /// <summary>
         /// Returns a list of available AASX packages at the server
         /// </summary>
-        /// <param name="aasId">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasId">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="200">Requested package list</response>
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]

@@ -9,16 +9,20 @@ namespace AdminShell
     [DataContract]
     public class Identifiable : Referable
     {
-        // V3.0 made id a simple string
+        // V3.0 made Id a simple string
 
         [DataMember(Name = "administration")]
         public AdministrativeInformation Administration { get; set; }
 
         [Required]
         [DataMember(Name = "identification")]
-        public string Identification { get; set; }
+        public string Identification
+        {
+            get { return Id.Value; }
+            set { Id = new Identifier(value); }
+        }
 
-        public Identifier id = new Identifier();
+        public Identifier Id { get; set; } = new();
 
         public Identifiable() : base() { }
 
@@ -28,8 +32,8 @@ namespace AdminShell
             if (src == null)
                 return;
 
-            if (src.id != null)
-                id = new Identifier(src.id);
+            if (src.Id != null)
+                Id = new Identifier(src.Id);
 
             if (src.Administration != null)
                 Administration = new AdministrativeInformation(src.Administration);
@@ -37,8 +41,8 @@ namespace AdminShell
 
         public string GetFriendlyName()
         {
-            if (id != null && id.value != "")
-                return Regex.Replace(id.value, @"[^a-zA-Z0-9\-_]", "_");
+            if (Id != null && Id.Value != "")
+                return Regex.Replace(Id.Value, @"[^a-zA-Z0-9\-_]", "_");
 
             return Regex.Replace(IdShort, @"[^a-zA-Z0-9\-_]", "_");
         }

@@ -6,16 +6,16 @@ namespace AdminShell
 
     public class Description
     {
-        [XmlElement(ElementName = "LangString")]
-        public List<LangString> langString = new();
+        [XmlElement(ElementName = "langString")]
+        public List<LangString> LangString { get; set; } = new();
 
         public Description() { }
 
         public Description(Description src)
         {
-            if (src != null && src.langString != null)
-                foreach (var ls in src.langString)
-                    langString.Add(new LangString(ls));
+            if (src != null && src.LangString != null)
+                foreach (var ls in src.LangString)
+                    LangString.Add(new LangString(ls));
         }
     }
 }

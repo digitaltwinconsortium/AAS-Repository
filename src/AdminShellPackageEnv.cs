@@ -344,7 +344,7 @@ namespace AdminShell
                         var ext = System.IO.Path.GetExtension(specPart.Uri.ToString()).ToLower().Trim();
                         if ((ext == ".json" && prefFmt == PreferredFormat.Xml)
                              || (ext == ".xml" && prefFmt == PreferredFormat.Json)
-                             || (name.StartsWith("aasenv-with-no-id")))
+                             || (name.StartsWith("aasenv-with-no-Id")))
                         {
                             // try kill specpart
                             // ReSharper disable EmptyGeneralCatchClause
@@ -362,7 +362,7 @@ namespace AdminShell
                     if (specPart == null)
                     {
                         // create, as not existing
-                        var frn = "aasenv-with-no-id";
+                        var frn = "aasenv-with-no-Id";
                         if (this.aasenv.AssetAdministrationShells.Count > 0)
                             frn = this.aasenv.AssetAdministrationShells[0].GetFriendlyName() ?? frn;
                         var aas_spec_fn = "/aasx/#/#.aas";

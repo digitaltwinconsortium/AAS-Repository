@@ -18,26 +18,13 @@ namespace AdminShell
 
         public EmbeddedDataSpecification() { }
 
-        public EmbeddedDataSpecification(
-            Reference dataSpecification,
-            DataSpecificationContent dataSpecificationContent)
-        {
-            DataSpecification = dataSpecification;
-            DataSpecificationContent = dataSpecificationContent;
-        }
-
         public EmbeddedDataSpecification(EmbeddedDataSpecification src)
         {
             if (src.DataSpecification != null)
                 DataSpecification = new Reference(src.DataSpecification);
+
             if (src.DataSpecificationContent != null)
                 DataSpecificationContent = new DataSpecificationContent(src.DataSpecificationContent);
-        }
-
-        public EmbeddedDataSpecification(GlobalReference src)
-        {
-            if (src != null)
-                DataSpecification = new Reference(src);
         }
     }
 }

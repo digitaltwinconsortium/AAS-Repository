@@ -31,7 +31,7 @@ namespace AdminShell
         /// <summary>
         /// Deletes an Asset Administration Shell
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="204">Asset Administration Shell deleted successfully</response>
         /// <response code="404">Not Found</response>
         /// <response code="0">Default error handling for unmentioned status codes</response>
@@ -53,7 +53,7 @@ namespace AdminShell
         /// <summary>
         /// Deletes a Concept Description
         /// </summary>
-        /// <param name="cdIdentifier">The Concept Description’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="cdIdentifier">The Concept Description’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="204">Concept Description deleted successfully</response>
         /// <response code="404">Not Found</response>
         /// <response code="0">Default error handling for unmentioned status codes</response>
@@ -75,7 +75,7 @@ namespace AdminShell
         /// <summary>
         /// Deletes a Submodel
         /// </summary>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="204">Submodel deleted successfully</response>
         /// <response code="404">Not Found</response>
         /// <response code="0">Default error handling for unmentioned status codes</response>
@@ -97,8 +97,8 @@ namespace AdminShell
         /// <summary>
         /// Deletes a submodel element at a specified path within the submodel elements hierarchy
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <response code="204">Submodel element deleted successfully</response>
         /// <response code="404">Not Found</response>
@@ -122,7 +122,7 @@ namespace AdminShell
         /// <summary>
         /// Deletes a submodel element at a specified path within the submodel elements hierarchy
         /// </summary>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <response code="204">Submodel element deleted successfully</response>
         /// <response code="404">Not Found</response>
@@ -145,8 +145,8 @@ namespace AdminShell
         /// <summary>
         /// Deletes the submodel reference from the Asset Administration Shell
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="204">Submodel reference deleted successfully</response>
         /// <response code="404">Not Found</response>
         /// <response code="0">Default error handling for unmentioned status codes</response>
@@ -182,8 +182,6 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllAssetAdministrationShells([FromQuery] List<string> assetIds, [FromQuery] string idShort)
         {
-            _aasEnvService.SecurityCheck();
-
             var output = _aasEnvService.GetAllAssetAdministrationShells(assetIds, idShort);
 
             return new ObjectResult(output);
@@ -205,8 +203,6 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllConceptDescriptions([FromQuery] string idShort, [FromQuery] string isCaseOf, [FromQuery] string dataSpecificationRef)
         {
-            _aasEnvService.SecurityCheck();
-
             Reference reqIsCaseOf = JsonConvert.DeserializeObject<Reference>(isCaseOf);
             Reference reqDataSpecificationRef = JsonConvert.DeserializeObject<Reference>(dataSpecificationRef);
 
@@ -217,8 +213,8 @@ namespace AdminShell
         /// <summary>
         /// Returns all submodel elements including their hierarchy
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <param name="content">Determines the request or response kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
@@ -246,7 +242,7 @@ namespace AdminShell
         /// <summary>
         /// Returns all submodel elements including their hierarchy
         /// </summary>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <param name="content">Determines the request or response kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
@@ -273,7 +269,7 @@ namespace AdminShell
         /// <summary>
         /// Returns all submodel references
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="200">Requested submodel references</response>
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
@@ -294,7 +290,7 @@ namespace AdminShell
         /// <summary>
         /// Returns all Submodels
         /// </summary>
-        /// <param name="semanticId">The Value of the semantic id reference (BASE64-URL-encoded)</param>
+        /// <param name="semanticId">The Value of the semantic Id reference (BASE64-URL-encoded)</param>
         /// <param name="idShort">The Submodel’s idShort</param>
         /// <response code="200">Requested Submodels</response>
         /// <response code="0">Default error handling for unmentioned status codes</response>
@@ -316,7 +312,7 @@ namespace AdminShell
         /// <summary>
         /// Returns a specific Asset Administration Shell
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="200">Requested Asset Administration Shell</response>
         /// <response code="404">Not Found</response>
         /// <response code="0">Default error handling for unmentioned status codes</response>
@@ -339,7 +335,7 @@ namespace AdminShell
         /// <summary>
         /// Returns the Asset Information
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="200">Requested Asset Information</response>
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
@@ -360,7 +356,7 @@ namespace AdminShell
         /// <summary>
         /// Returns a specific Concept Description
         /// </summary>
-        /// <param name="cdIdentifier">The Concept Description’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="cdIdentifier">The Concept Description’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="200">Requested Concept Description</response>
         /// <response code="404">Not Found</response>
         /// <response code="0">Default error handling for unmentioned status codes</response>
@@ -373,8 +369,6 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetConceptDescriptionById([FromRoute][Required] string cdIdentifier)
         {
-            _aasEnvService.SecurityCheck();
-
             var decodedCdId = Encoding.UTF8.GetString(Convert.FromBase64String(cdIdentifier));
 
             var output = _aasEnvService.GetConceptDescriptionById(decodedCdId, out _);
@@ -385,8 +379,8 @@ namespace AdminShell
         /// <summary>
         /// Downloads file content from a specific submodel element from the Submodel at a specified path
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <response code="200">Requested file</response>
         /// <response code="404">Not Found</response>
@@ -422,7 +416,7 @@ namespace AdminShell
         /// <summary>
         /// Downloads file content from a specific submodel element from the Submodel at a specified path
         /// </summary>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <response code="200">Requested file</response>
         /// <response code="404">Not Found</response>
@@ -457,10 +451,10 @@ namespace AdminShell
         /// <summary>
         /// Returns the Operation result of an asynchronous invoked Operation
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated), in this case an operation</param>
-        /// <param name="handleId">The returned handle id of an operation’s asynchronous invocation used to request the current state of the operation’s execution (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="handleId">The returned handle Id of an operation’s asynchronous invocation used to request the current state of the operation’s execution (UTF8-BASE64-URL-encoded)</param>
         /// <param name="content"></param>
         /// <response code="200">Operation result object</response>
         /// <response code="404">Not Found</response>
@@ -486,9 +480,9 @@ namespace AdminShell
         /// <summary>
         /// Returns the Operation result of an asynchronous invoked Operation
         /// </summary>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated), in this case an operation</param>
-        /// <param name="handleId">The returned handle id of an operation’s asynchronous invocation used to request the current state of the operation’s execution (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="handleId">The returned handle Id of an operation’s asynchronous invocation used to request the current state of the operation’s execution (UTF8-BASE64-URL-encoded)</param>
         /// <param name="content"></param>
         /// <response code="200">Operation result object</response>
         /// <response code="404">Not Found</response>
@@ -513,8 +507,8 @@ namespace AdminShell
         /// <summary>
         /// Returns the Submodel
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <param name="content">Determines the request or response kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
@@ -533,15 +527,13 @@ namespace AdminShell
 
             var output = _aasEnvService.GetSubmodel(decodedAasId, decodedSubmodelId);
 
-            _aasEnvService.SecurityCheck(output.IdShort, "submodel", output);
-
             return new ObjectResult(output);
         }
 
         /// <summary>
         /// Returns a specific Submodel
         /// </summary>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="200">Requested Submodel</response>
         /// <response code="404">Not Found</response>
         /// <response code="0">Default error handling for unmentioned status codes</response>
@@ -558,16 +550,14 @@ namespace AdminShell
 
             var output = _aasEnvService.GetSubmodelById(decodedSubmodelId, out _);
 
-            _aasEnvService.SecurityCheck(output.IdShort, "submodel", output);
-
             return new ObjectResult(output);
         }
 
         /// <summary>
         /// Returns a specific submodel element from the Submodel at a specified path
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <param name="content">Determines the request or response kind of the resource</param>
@@ -596,7 +586,7 @@ namespace AdminShell
         /// <summary>
         /// Returns a specific submodel element from the Submodel at a specified path
         /// </summary>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <param name="content">Determines the request or response kind of the resource</param>
@@ -624,8 +614,8 @@ namespace AdminShell
         /// Synchronously or asynchronously invokes an Operation at a specified path
         /// </summary>
         /// <param name="body">Operation request object</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated), in this case an operation</param>
         /// <param name="_async">Determines whether an operation invocation is performed asynchronously or synchronously</param>
         /// <param name="content">Determines the request or response kind of the resource</param>
@@ -655,7 +645,7 @@ namespace AdminShell
         /// Synchronously or asynchronously invokes an Operation at a specified path
         /// </summary>
         /// <param name="body">Operation request object</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated), in this case an operation</param>
         /// <param name="_async">Determines whether an operation invocation is performed asynchronously or synchronously</param>
         /// <param name="content">Determines the request or response kind of the resource</param>
@@ -756,8 +746,8 @@ namespace AdminShell
         /// Creates a new submodel element
         /// </summary>
         /// <param name="body">Requested submodel element</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <param name="content">Determines the request or response kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
@@ -786,8 +776,8 @@ namespace AdminShell
         /// Creates a new submodel element at a specified path within submodel elements hierarchy
         /// </summary>
         /// <param name="body">Requested submodel element</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <param name="content">Determines the request or response kind of the resource</param>
@@ -819,7 +809,7 @@ namespace AdminShell
         /// Creates a new submodel element at a specified path within submodel elements hierarchy
         /// </summary>
         /// <param name="body">Requested submodel element</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <param name="content">Determines the request or response kind of the resource</param>
@@ -851,7 +841,7 @@ namespace AdminShell
         /// Creates a new submodel element
         /// </summary>
         /// <param name="body">Requested submodel element</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <param name="content">Determines the request or response kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
@@ -879,7 +869,7 @@ namespace AdminShell
         /// Creates a submodel reference at the Asset Administration Shell
         /// </summary>
         /// <param name="body">Reference to the Submodel</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="201">Submodel reference created successfully</response>
         /// <response code="400">Bad Request</response>
         /// <response code="0">Default error handling for unmentioned status codes</response>
@@ -903,7 +893,7 @@ namespace AdminShell
         /// Updates an existing Asset Administration Shell
         /// </summary>
         /// <param name="body">Asset Administration Shell object</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="204">Asset Administration Shell updated successfully</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">Not Found</response>
@@ -928,7 +918,7 @@ namespace AdminShell
         /// Updates the Asset Information
         /// </summary>
         /// <param name="body">Asset Information object</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="204">Asset Information updated successfully</response>
         /// <response code="400">Bad Request</response>
         /// <response code="0">Default error handling for unmentioned status codes</response>
@@ -951,7 +941,7 @@ namespace AdminShell
         /// Updates an existing Concept Description
         /// </summary>
         /// <param name="body">Concept Description object</param>
-        /// <param name="cdIdentifier">The Concept Description’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="cdIdentifier">The Concept Description’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="204">Concept Description updated successfully</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">Not Found</response>
@@ -978,8 +968,8 @@ namespace AdminShell
         /// Updates the Submodel
         /// </summary>
         /// <param name="body">Submodel object</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <param name="content">Determines the request or response kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
@@ -1007,7 +997,7 @@ namespace AdminShell
         /// Updates an existing Submodel
         /// </summary>
         /// <param name="body">Submodel object</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="204">Submodel updated successfully</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">Not Found</response>
@@ -1032,8 +1022,8 @@ namespace AdminShell
         /// Updates an existing submodel element at a specified path within submodel elements hierarchy
         /// </summary>
         /// <param name="body">Requested submodel element</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <param name="content">Determines the request or response kind of the resource</param>
@@ -1063,7 +1053,7 @@ namespace AdminShell
         /// Updates an existing submodel element at a specified path within submodel elements hierarchy
         /// </summary>
         /// <param name="body">Requested submodel element</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <param name="content">Determines the request or response kind of the resource</param>
@@ -1091,8 +1081,8 @@ namespace AdminShell
         /// <summary>
         /// Uploads file content to an existing submodel element at a specified path within submodel elements hierarchy
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="file">File to upload</param>
         /// <response code="204">Submodel element updated successfully</response>
@@ -1125,7 +1115,7 @@ namespace AdminShell
         /// <summary>
         /// Uploads file content to an existing submodel element at a specified path within submodel elements hierarchy
         /// </summary>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="file">File to upload</param>
         /// <response code="204">Submodel element updated successfully</response>
