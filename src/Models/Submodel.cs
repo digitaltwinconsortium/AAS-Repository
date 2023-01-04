@@ -26,10 +26,10 @@ namespace AdminShell
         public List<SubmodelElement> SubmodelElements { get; set; }
 
         [XmlElement(ElementName = "kind")]
-        public ModelingKind kind = new ModelingKind();
+        public ModelingKind kind = new();
 
         [XmlElement(ElementName = "semanticId")]
-        public SemanticId semanticId = new SemanticId();
+        public SemanticId semanticId = new();
         public SemanticId GetSemanticId() { return semanticId; }
 
         [XmlElement(ElementName = "EmbeddedDataSpecification")]
@@ -38,9 +38,9 @@ namespace AdminShell
         public static IEnumerable<SubmodelElement> EnumerateSMEChildren(SubmodelElement sme)
         {
             if (sme != null)
-                if (sme is SubmodelElementCollection)
-                    if (((SubmodelElementCollection)sme).Value != null)
-                        foreach (SubmodelElement smeChild in ((SubmodelElementCollection)sme).Value)
+                if (sme is SubmodelElementCollection collection)
+                    if (collection.Value != null)
+                        foreach (SubmodelElement smeChild in collection.Value)
                             yield return smeChild;
         }
 
