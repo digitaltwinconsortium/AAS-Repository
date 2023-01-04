@@ -1,7 +1,6 @@
 ﻿
 namespace AdminShell
 {
-    using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
     using System.Xml;
@@ -22,18 +21,11 @@ namespace AdminShell
         [DataMember(Name = "kind")]
         public ModelingKind Kind { get; set; }
 
-        [DataMember(Name = "SubmodelElements")]
+        [DataMember(Name = "submodelElements")]
         public List<SubmodelElement> SubmodelElements { get; set; }
 
-        [XmlElement(ElementName = "kind")]
-        public ModelingKind kind = new();
-
-        [XmlElement(ElementName = "semanticId")]
-        public SemanticId semanticId = new();
-        public SemanticId GetSemanticId() { return semanticId; }
-
-        [XmlElement(ElementName = "EmbeddedDataSpecification")]
-        public HasDataSpecification hasDataSpecification = null;
+        [DataMember(Name = "hasDataSpecification")]
+        public HasDataSpecification HasDataSpecification { get; set; }
 
         public static IEnumerable<SubmodelElement> EnumerateSMEChildren(SubmodelElement sme)
         {

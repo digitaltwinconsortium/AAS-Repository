@@ -175,8 +175,8 @@ namespace AasxDemonstration
 
             private static IEnumerable<SubmodelElement> FindAllSMEs(SubmodelElement smeInput, Identifier semId)
             {
-                if (smeInput is SubmodelElementCollection)
-                    foreach (SubmodelElement sme in ((SubmodelElementCollection) smeInput).Value)
+                if (smeInput is SubmodelElementCollection collection)
+                    foreach (SubmodelElement sme in collection.Value)
                         if (sme.SemanticId != null)
                             if (sme.SemanticId.Matches(semId))
                                 yield return sme;

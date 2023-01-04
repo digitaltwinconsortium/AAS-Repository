@@ -7,7 +7,6 @@ namespace AdminShell
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using System.Threading.Tasks;
 
     public class AssetAdministrationShellEnvironmentService : IAssetAdministrationShellEnvironmentService
     {
@@ -119,8 +118,7 @@ namespace AdminShell
                 }
                 else
                 {
-                    aas.Submodels ??= new List<Reference>();
-                    aas.Submodels.Add(body);
+                    aas.Submodels.Add((SubmodelReference)body);
                     return body;
                 }
             }
@@ -324,7 +322,13 @@ namespace AdminShell
 
             if (aas != null)
             {
-                return aas.Submodels;
+                List<Reference> references = new();
+                foreach(SubmodelReference smr in aas.Submodels)
+                {
+                    references.Add(smr);
+                }
+
+                return references;
             }
 
             return null;
@@ -369,7 +373,7 @@ namespace AdminShell
                     var aasList = new List<AssetAdministrationShell>();
                     foreach (var assetId in assetIds)
                     {
-                        aasList.AddRange(output.Where(a => a.AssetInformation.SpecificAssetIds.Contains(assetId)).ToList());
+                        aasList.AddRange(output.Where(a => a.AssetInformation.SpecificAssetIds.Contains(new IdentifierKeyValuePair() { Key = assetId })).ToList());
                     }
 
                     if (aasList.Any())
@@ -982,6 +986,35 @@ namespace AdminShell
             return false;
         }
 
+        private SubmodelElement FindSubmodelElementByIdShort(Submodel sm, string idShort)
+        {
+                foreach (SubmodelElement sme in sm.SubmodelElements)
+                    if (sme.SemanticId != null)
+                        if (sme.SemanticId.Matches(new Identifier(idShort)))
+                            return sme;
+
+            return null;
+        }
+
+        private SubmodelElement FindSubmodelElementByIdShort(SubmodelElementCollection smec, string idShort)
+        {
+            foreach (SubmodelElement sme in smec.Value)
+                if (sme.SemanticId != null)
+                    if (sme.SemanticId.Matches(new Identifier(idShort)))
+                        return sme;
+
+            return null;
+        }
+
+        private SubmodelElement FindSubmodelElementByIdShort(SubmodelElement sme, string idShort)
+        {
+            if (sme.SemanticId != null)
+                if (sme.SemanticId.Matches(new Identifier(idShort)))
+                    return sme;
+
+            return null;
+        }
+
         //TODO:jtikekar refactor
         private SubmodelElement GetSubmodelElementByPath(object parent, string idShortPath, out object outParent)
         {
@@ -991,7 +1024,7 @@ namespace AdminShell
                 string[] idShorts = idShortPath.Split('.', 2);
                 if (parent is Submodel submodel)
                 {
-                    var submodelElement = submodel.FindSubmodelElementByIdShort(idShorts[0]);
+                    var submodelElement = FindSubmodelElementByIdShort(submodel, idShorts[0]);
                     if (submodelElement != null)
                     {
                         return GetSubmodelElementByPath(submodelElement, idShorts[1], out outParent);
@@ -999,7 +1032,7 @@ namespace AdminShell
                 }
                 else if (parent is SubmodelElementCollection collection)
                 {
-                    var submodelElement = collection.FindFirstIdShortAs<SubmodelElement>(idShorts[0]);
+                    var submodelElement = FindSubmodelElementByIdShort(collection, idShorts[0]);
                     if (submodelElement != null)
                     {
                         return GetSubmodelElementByPath(submodelElement, idShorts[1], out outParent);
@@ -1007,7 +1040,7 @@ namespace AdminShell
                 }
                 else if (parent is SubmodelElementList list)
                 {
-                    var submodelElement = list.FindFirstIdShortAs<SubmodelElement>(idShorts[0]);
+                    var submodelElement = FindSubmodelElementByIdShort(list, idShorts[0]);
                     if (submodelElement != null)
                     {
                         return GetSubmodelElementByPath(submodelElement, idShorts[1], out outParent);
@@ -1015,7 +1048,7 @@ namespace AdminShell
                 }
                 else if (parent is Entity entity)
                 {
-                    var submodelElement = entity.FindFirstIdShortAs<SubmodelElement>(idShortPath);
+                    var submodelElement = FindSubmodelElementByIdShort(entity, idShortPath);
                     if (submodelElement != null)
                     {
                         return GetSubmodelElementByPath(submodelElement, idShorts[1], out outParent);
@@ -1023,7 +1056,7 @@ namespace AdminShell
                 }
                 else if (parent is AnnotatedRelationshipElement annotatedRelationshipElement)
                 {
-                    var submodelElement = annotatedRelationshipElement.FindFirstIdShortAs<SubmodelElement>(idShortPath);
+                    var submodelElement = FindSubmodelElementByIdShort(annotatedRelationshipElement, idShortPath);
                     if (submodelElement != null)
                     {
                         return GetSubmodelElementByPath(submodelElement, idShorts[1], out outParent);
@@ -1038,7 +1071,7 @@ namespace AdminShell
             {
                 if (parent is Submodel submodel)
                 {
-                    var submodelElement = submodel.FindSubmodelElementByIdShort(idShortPath);
+                    var submodelElement = FindSubmodelElementByIdShort(submodel, idShortPath);
                     if (submodelElement != null)
                     {
                         return submodelElement;
@@ -1046,7 +1079,7 @@ namespace AdminShell
                 }
                 else if (parent is SubmodelElementCollection collection)
                 {
-                    var submodelElement = collection.FindFirstIdShortAs<SubmodelElement>(idShortPath);
+                    var submodelElement = FindSubmodelElementByIdShort(collection, idShortPath);
                     if (submodelElement != null)
                     {
                         return submodelElement;
@@ -1054,7 +1087,7 @@ namespace AdminShell
                 }
                 else if (parent is SubmodelElementList list)
                 {
-                    var submodelElement = list.FindFirstIdShortAs<SubmodelElement>(idShortPath);
+                    var submodelElement = FindSubmodelElementByIdShort(list, idShortPath);
                     if (submodelElement != null)
                     {
                         return submodelElement;
@@ -1062,7 +1095,7 @@ namespace AdminShell
                 }
                 else if (parent is Entity entity)
                 {
-                    var submodelElement = entity.FindFirstIdShortAs<SubmodelElement>(idShortPath);
+                    var submodelElement = FindSubmodelElementByIdShort(entity, idShortPath);
                     if (submodelElement != null)
                     {
                         return submodelElement;
@@ -1070,7 +1103,7 @@ namespace AdminShell
                 }
                 else if (parent is AnnotatedRelationshipElement annotatedRelationshipElement)
                 {
-                    var submodelElement = annotatedRelationshipElement.FindFirstIdShortAs<SubmodelElement>(idShortPath);
+                    var submodelElement = FindSubmodelElementByIdShort(annotatedRelationshipElement, idShortPath);
                     if (submodelElement != null)
                     {
                         return submodelElement;
@@ -1081,6 +1114,7 @@ namespace AdminShell
                     throw new Exception($"Parent of Type {parent.GetType()} not supported.");
                 }
             }
+
             return null;
         }
 
@@ -1099,7 +1133,7 @@ namespace AdminShell
                 }
                 else if (smeParent is AnnotatedRelationshipElement annotatedRelationshipElement)
                 {
-                    annotatedRelationshipElement.Annotations.Remove((IDataElement)submodelElement);
+                    annotatedRelationshipElement.Annotations.Remove((DataElement)submodelElement);
                 }
                 else if (smeParent is Entity entity)
                 {
@@ -1129,10 +1163,7 @@ namespace AdminShell
                 if (fileElement is File file)
                 {
                     fileName = file.Value;
-
-                    Stream stream = _packages[packageIndex].GetLocalStreamFromPackage(fileName);
-                    byteArray = stream.ToByteArray();
-                    fileSize = byteArray.Length;
+                    fileSize = _packages[packageIndex].GetLocalStreamFromPackage(fileName).Length;
                 }
                 else
                 {
@@ -1154,7 +1185,7 @@ namespace AdminShell
                 {
                     var sourcePath = Path.GetDirectoryName(file.Value);
                     var targetFile = Path.Combine(sourcePath, fileName);
-                    Task task = _packages[packageIndex].ReplaceSupplementaryFileInPackageAsync(file.Value, targetFile, contentType, fileContent);
+                    _packages[packageIndex].ReplaceSupplementaryFileInPackageAsync(file.Value, targetFile, contentType, fileContent);
                     file.Value = FormatFileName(targetFile);
                     Program.signalNewData(2);
                 }

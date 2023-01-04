@@ -15,7 +15,7 @@ namespace AdminShell
         [XmlElement(ElementName = "billOfMaterialRef")]
         public SubmodelReference billOfMaterialRef = null;
 
-        [XmlElement(ElementName = "kind")]
+        [XmlElement(ElementName = "Kind")]
         public AssetKind kind = new AssetKind();
     }
 }

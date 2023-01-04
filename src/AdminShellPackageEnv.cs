@@ -14,14 +14,13 @@ namespace AdminShell
     /// </summary>
     public class AdminShellPackageEnv
     {
-        private string fn = "New Package";
+        private string _fn = "New Package";
+        private string _tempFn = null;
 
-        private string tempFn = null;
-
-        private AssetAdministrationShellEnvironment aasenv = new AssetAdministrationShellEnvironment();
-        private Package openPackage = null;
-        private List<AdminShellPackageSupplementaryFile> pendingFilesToAdd = new List<AdminShellPackageSupplementaryFile>();
-        private List<AdminShellPackageSupplementaryFile> pendingFilesToDelete = new List<AdminShellPackageSupplementaryFile>();
+        private AssetAdministrationShellEnvironment _aasenv = new AssetAdministrationShellEnvironment();
+        private Package _openPackage = null;
+        private List<AdminShellPackageSupplementaryFile> _pendingFilesToAdd = new List<AdminShellPackageSupplementaryFile>();
+        private List<AdminShellPackageSupplementaryFile> _pendingFilesToDelete = new List<AdminShellPackageSupplementaryFile>();
 
         public AdminShellPackageEnv()
         {
@@ -36,7 +35,7 @@ namespace AdminShell
         {
             get
             {
-                return fn;
+                return _fn;
             }
         }
 
@@ -44,16 +43,16 @@ namespace AdminShell
         {
             get
             {
-                return aasenv;
+                return _aasenv;
             }
         }
 
         public bool Load(string fn, bool indirectLoadSave = false)
         {
-            this.fn = fn;
-            if (this.openPackage != null)
-                this.openPackage.Close();
-            this.openPackage = null;
+            _fn = fn;
+            if (_openPackage != null)
+                _openPackage.Close();
+            _openPackage = null;
 
             if (fn.ToLower().EndsWith(".xml"))
             {
@@ -61,9 +60,9 @@ namespace AdminShell
                 try
                 {
                     var reader = new StreamReader(fn);
-                    // TODO: use aasenv serialzers here!
-                    this.aasenv = AdminShellSerializationHelper.DeserializeXmlFromStreamWithCompat(reader.BaseStream);
-                    if (this.aasenv == null)
+                    // TODO: use _aasenv serialzers here!
+                    _aasenv = AdminShellSerializationHelper.DeserializeXmlFromStreamWithCompat(reader.BaseStream);
+                    if (_aasenv == null)
                         throw (new Exception("Type error for XML file!"));
                     reader.Close();
                 }
@@ -77,13 +76,13 @@ namespace AdminShell
             if (fn.ToLower().EndsWith(".aasx"))
             {
                 var fnToLoad = fn;
-                this.tempFn = null;
+                _tempFn = null;
                 if (indirectLoadSave)
                     try
                     {
-                        this.tempFn = System.IO.Path.GetTempFileName().Replace(".tmp", ".aasx");
-                        System.IO.File.Copy(fn, this.tempFn);
-                        fnToLoad = this.tempFn;
+                        _tempFn = System.IO.Path.GetTempFileName().Replace(".tmp", ".aasx");
+                        System.IO.File.Copy(fn, _tempFn);
+                        fnToLoad = _tempFn;
 
 
                     }
@@ -160,26 +159,26 @@ namespace AdminShell
                                 if (nsuri != null && nsuri.Trim() == "http://www.admin-shell.io/aas/1/0")
                                 {
                                     XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/1/0");
-                                    this.aasenv = serializer.Deserialize(s) as AssetAdministrationShellEnvironment;
+                                    _aasenv = serializer.Deserialize(s) as AssetAdministrationShellEnvironment;
                                 }
 
                                 // read V2.0
                                 if (nsuri != null && nsuri.Trim() == "http://www.admin-shell.io/aas/2/0")
                                 {
                                     XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/2/0");
-                                    this.aasenv = serializer.Deserialize(s) as AssetAdministrationShellEnvironment;
+                                    _aasenv = serializer.Deserialize(s) as AssetAdministrationShellEnvironment;
                                 }
 
                                 // read V3.0
                                 if (nsuri != null && nsuri.Trim() == "http://www.admin-shell.io/aas/3/0")
                                 {
                                     XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/3/0");
-                                    this.aasenv = serializer.Deserialize(s) as AssetAdministrationShellEnvironment;
+                                    _aasenv = serializer.Deserialize(s) as AssetAdministrationShellEnvironment;
                                 }
 
-                                this.openPackage = package;
+                                _openPackage = package;
 
-                                if (this.aasenv == null)
+                                if (_aasenv == null)
                                     throw new Exception("Type error for XML file!");
 
                                 s.Close();
@@ -213,18 +212,18 @@ namespace AdminShell
             if (fn.ToLower().EndsWith(".xml"))
             {
                 // save only XML
-                this.fn = fn;
+                _fn = fn;
                 try
                 {
-                    using (var s = new StreamWriter(this.fn))
+                    using (var s = new StreamWriter(fn))
                     {
-                        // TODO: use aasenv serialzers here!
+                        // TODO: use _aasenv serialzers here!
                         var serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment));
                         var nss = new XmlSerializerNamespaces();
                         nss.Add("xsi", System.Xml.Schema.XmlSchema.InstanceNamespace);
                         nss.Add("aas", "http://www.admin-shell.io/aas/2/0");
                         nss.Add("IEC61360", "http://www.admin-shell.io/IEC61360/2/0");
-                        serializer.Serialize(s, this.aasenv, nss);
+                        serializer.Serialize(s, _aasenv, nss);
                     }
                 }
                 catch (Exception ex)
@@ -238,12 +237,12 @@ namespace AdminShell
             {
                 // save only JSON
                 // this funcitonality is a initial test
-                this.fn = fn;
+                _fn = fn;
                 try
                 {
                     using (var sw = new StreamWriter(fn))
                     {
-                        // TODO: use aasenv serialzers here!
+                        // TODO: use _aasenv serialzers here!
 
                         sw.AutoFlush = true;
 
@@ -255,7 +254,7 @@ namespace AdminShell
                         };
                         using (JsonWriter writer = new JsonTextWriter(sw))
                         {
-                            serializer.Serialize(writer, this.aasenv);
+                            serializer.Serialize(writer, _aasenv);
                         }
                     }
                 }
@@ -273,24 +272,24 @@ namespace AdminShell
                 {
                     // we want existing contents to be preserved, but no possiblity to change file name
                     // therefore: copy file to new name, re-open!
-                    // fn could be changed, therefore close "old" package first
-                    if (this.openPackage != null)
+                    // _fn could be changed, therefore close "old" package first
+                    if (_openPackage != null)
                     {
                         // ReSharper disable EmptyGeneralCatchClause
                         try
                         {
-                            this.openPackage.Close();
+                            _openPackage.Close();
                             if (!writeFreshly)
                             {
-                                if (this.tempFn != null)
-                                    System.IO.File.Copy(this.tempFn, fn);
+                                if (_tempFn != null)
+                                    System.IO.File.Copy(_tempFn, fn);
                                 else
-                                    System.IO.File.Copy(this.fn, fn);
+                                    System.IO.File.Copy(fn, fn);
                             }
                         }
                         catch { }
                         // ReSharper enable EmptyGeneralCatchClause
-                        this.openPackage = null;
+                        _openPackage = null;
                     }
 
                     // approach is to utilize the existing package, if possible. If not, create from scratch
@@ -301,9 +300,9 @@ namespace AdminShell
                     }
                     else
                     {
-                        package = Package.Open((this.tempFn != null) ? this.tempFn : fn, (writeFreshly) ? FileMode.Create : FileMode.OpenOrCreate);
+                        package = Package.Open((_tempFn != null) ? _tempFn : fn, (writeFreshly) ? FileMode.Create : FileMode.OpenOrCreate);
                     }
-                    this.fn = fn;
+                    _fn = fn;
 
                     // get the origin from the package
                     PackagePart originPart = null;
@@ -344,7 +343,7 @@ namespace AdminShell
                         var ext = System.IO.Path.GetExtension(specPart.Uri.ToString()).ToLower().Trim();
                         if ((ext == ".json" && prefFmt == PreferredFormat.Xml)
                              || (ext == ".xml" && prefFmt == PreferredFormat.Json)
-                             || (name.StartsWith("aasenv-with-no-Id")))
+                             || (name.StartsWith("_aasenv-with-no-Id")))
                         {
                             // try kill specpart
                             // ReSharper disable EmptyGeneralCatchClause
@@ -362,9 +361,9 @@ namespace AdminShell
                     if (specPart == null)
                     {
                         // create, as not existing
-                        var frn = "aasenv-with-no-Id";
-                        if (this.aasenv.AssetAdministrationShells.Count > 0)
-                            frn = this.aasenv.AssetAdministrationShells[0].GetFriendlyName() ?? frn;
+                        var frn = "_aasenv-with-no-Id";
+                        if (_aasenv.AssetAdministrationShells.Count > 0)
+                            frn = _aasenv.AssetAdministrationShells[0].GetFriendlyName() ?? frn;
                         var aas_spec_fn = "/aasx/#/#.aas";
                         if (prefFmt == PreferredFormat.Json)
                             aas_spec_fn += ".json";
@@ -388,7 +387,7 @@ namespace AdminShell
                             {
                                 using (JsonWriter writer = new JsonTextWriter(sw))
                                 {
-                                    serializer.Serialize(writer, this.aasenv);
+                                    serializer.Serialize(writer, _aasenv);
                                 }
                             }
                         }
@@ -402,12 +401,12 @@ namespace AdminShell
                             nss.Add("xsi", System.Xml.Schema.XmlSchema.InstanceNamespace);
                             nss.Add("aas", "http://www.admin-shell.io/aas/2/0");
                             nss.Add("IEC61360", "http://www.admin-shell.io/IEC61360/2/0");
-                            serializer.Serialize(s, this.aasenv, nss);
+                            serializer.Serialize(s, _aasenv, nss);
                         }
                     }
 
                     // there might be pending files to be deleted (first delete, then add, in case of identical files in both categories)
-                    foreach (var psfDel in pendingFilesToDelete)
+                    foreach (var psfDel in _pendingFilesToDelete)
                     {
                         // try find an existing part for that file ..
                         var found = false;
@@ -441,10 +440,10 @@ namespace AdminShell
                     }
 
                     // after this, there are no more pending for delete files
-                    pendingFilesToDelete.Clear();
+                    _pendingFilesToDelete.Clear();
 
                     // write pending supplementary files
-                    foreach (var psfAdd in pendingFilesToAdd)
+                    foreach (var psfAdd in _pendingFilesToAdd)
                     {
                         // make sure ..
                         if ((psfAdd.sourceLocalPath == null && psfAdd.sourceGetBytesDel == null) || psfAdd.location != AdminShellPackageSupplementaryFile.LocationType.AddPending)
@@ -520,20 +519,20 @@ namespace AdminShell
                     }
 
                     // after this, there are no more pending for add files
-                    pendingFilesToAdd.Clear();
+                    _pendingFilesToAdd.Clear();
 
                     // flush and close
                     package.Flush();
-                    this.openPackage = null;
+                    _openPackage = null;
                     package.Close();
 
-                    // if in temp fn, close the package, copy to original fn, re-open the package
-                    if (this.tempFn != null)
+                    // if in temp _fn, close the package, copy to original _fn, re-open the package
+                    if (_tempFn != null)
                         try
                         {
                             package.Close();
-                            System.IO.File.Copy(this.tempFn, this.fn, overwrite: true);
-                            this.openPackage = Package.Open(this.tempFn, FileMode.Open, FileAccess.Read, FileShare.Read);
+                            System.IO.File.Copy(_tempFn, fn, overwrite: true);
+                            _openPackage = Package.Open(_tempFn, FileMode.Open, FileAccess.Read, FileShare.Read);
                         }
                         catch (Exception ex)
                         {
@@ -584,7 +583,7 @@ namespace AdminShell
                     nss.Add("xsi", System.Xml.Schema.XmlSchema.InstanceNamespace);
                     nss.Add("aas", "http://www.admin-shell.io/aas/2/0");
                     nss.Add("IEC61360", "http://www.admin-shell.io/IEC61360/2/0");
-                    serializer.Serialize(s, this.aasenv, nss);
+                    serializer.Serialize(s, _aasenv, nss);
                 }
             }
             catch { }
@@ -594,26 +593,26 @@ namespace AdminShell
         public bool IsLocalFile(string uriString)
         {
             // access
-            if (this.openPackage == null)
-                throw (new Exception(string.Format($"AASX Package {this.fn} not opened. Aborting!")));
+            if (_openPackage == null)
+                throw (new Exception(string.Format($"AASX Package {_fn} not opened. Aborting!")));
             if (uriString == null || uriString == "" || !uriString.StartsWith("/"))
                 return false;
 
             // check
-            var isLocal = this.openPackage.PartExists(new Uri(uriString, UriKind.RelativeOrAbsolute));
+            var isLocal = _openPackage.PartExists(new Uri(uriString, UriKind.RelativeOrAbsolute));
             return isLocal;
         }
 
         public Stream GetLocalStreamFromPackage(string uriString)
         {
             // access
-            if (this.openPackage == null)
-                throw (new Exception(string.Format($"AASX Package {this.fn} not opened. Aborting!")));
+            if (_openPackage == null)
+                throw (new Exception(string.Format($"AASX Package {_fn} not opened. Aborting!")));
 
             // gte part
-            var part = this.openPackage.GetPart(new Uri(uriString, UriKind.RelativeOrAbsolute));
+            var part = _openPackage.GetPart(new Uri(uriString, UriKind.RelativeOrAbsolute));
             if (part == null)
-                throw (new Exception(string.Format($"Cannot access URI {uriString} in {this.fn} not opened. Aborting!")));
+                throw (new Exception(string.Format($"Cannot access URI {uriString} in {_fn} not opened. Aborting!")));
             return part.GetStream(FileMode.Open);
         }
 
@@ -622,9 +621,9 @@ namespace AdminShell
             long res = 0;
             try
             {
-                if (this.openPackage == null)
+                if (_openPackage == null)
                     return 0;
-                var part = this.openPackage.GetPart(new Uri(uriString, UriKind.RelativeOrAbsolute));
+                var part = _openPackage.GetPart(new Uri(uriString, UriKind.RelativeOrAbsolute));
                 using (var s = part.GetStream(FileMode.Open))
                 {
                     res = s.Length;
@@ -637,15 +636,15 @@ namespace AdminShell
         public Stream GetLocalThumbnailStream(ref Uri thumbUri)
         {
             // access
-            if (this.openPackage == null)
-                throw (new Exception(string.Format($"AASX Package {this.fn} not opened. Aborting!")));
+            if (_openPackage == null)
+                throw (new Exception(string.Format($"AASX Package {_fn} not opened. Aborting!")));
             // get the thumbnail over the relationship
             PackagePart thumbPart = null;
-            var xs = this.openPackage.GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
+            var xs = _openPackage.GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
             foreach (var x in xs)
                 if (x.SourceUri.ToString() == "/")
                 {
-                    thumbPart = this.openPackage.GetPart(x.TargetUri);
+                    thumbPart = _openPackage.GetPart(x.TargetUri);
                     thumbUri = x.TargetUri;
                     break;
                 }
@@ -667,11 +666,11 @@ namespace AdminShell
             var result = new List<AdminShellPackageSupplementaryFile>();
 
             // access
-            if (this.openPackage != null)
+            if (_openPackage != null)
             {
 
                 // get the thumbnail(s) from the package
-                var xs = this.openPackage.GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
+                var xs = _openPackage.GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
                 foreach (var x in xs)
                     if (x.SourceUri.ToString() == "/")
                     {
@@ -683,11 +682,11 @@ namespace AdminShell
 
                 // get the origin from the package
                 PackagePart originPart = null;
-                xs = this.openPackage.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aasx-origin");
+                xs = _openPackage.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aasx-origin");
                 foreach (var x in xs)
                     if (x.SourceUri.ToString() == "/")
                     {
-                        originPart = this.openPackage.GetPart(x.TargetUri);
+                        originPart = _openPackage.GetPart(x.TargetUri);
                         break;
                     }
 
@@ -698,7 +697,7 @@ namespace AdminShell
                     xs = originPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-spec");
                     foreach (var x in xs)
                     {
-                        specPart = this.openPackage.GetPart(x.TargetUri);
+                        specPart = _openPackage.GetPart(x.TargetUri);
                         break;
                     }
 
@@ -715,7 +714,7 @@ namespace AdminShell
             }
 
             // add or modify the files to delete
-            foreach (var psfDel in pendingFilesToDelete)
+            foreach (var psfDel in _pendingFilesToDelete)
             {
                 // already in
                 var found = result.Find(x => { return x.uri == psfDel.uri; });
@@ -729,7 +728,7 @@ namespace AdminShell
             }
 
             // add the files to store as well
-            foreach (var psfAdd in pendingFilesToAdd)
+            foreach (var psfAdd in _pendingFilesToAdd)
             {
                 // already in (should not happen ?!)
                 var found = result.Find(x => { return x.uri == psfAdd.uri; });
@@ -797,7 +796,7 @@ namespace AdminShell
             targetPath = targetPath.Trim();
 
             // add record
-            pendingFilesToAdd.Add(
+            _pendingFilesToAdd.Add(
                 new AdminShellPackageSupplementaryFile(
                     new Uri(targetPath, UriKind.RelativeOrAbsolute),
                     sourcePath,
@@ -809,6 +808,22 @@ namespace AdminShell
 
         }
 
+        public void ReplaceSupplementaryFileInPackageAsync(string sourceUri, string targetFile, string targetContentType, Stream fileContent)
+        {
+            // access
+            if (_openPackage == null)
+                throw new Exception(string.Format($"AASX Package not opened. Aborting!"));
+
+            _openPackage.DeletePart(new Uri(sourceUri, UriKind.RelativeOrAbsolute));
+            var targetUri = PackUriHelper.CreatePartUri(new Uri(targetFile, UriKind.RelativeOrAbsolute));
+            PackagePart packagePart = _openPackage.CreatePart(targetUri, targetContentType);
+            fileContent.Position = 0;
+            using (Stream dest = packagePart.GetStream())
+            {
+                fileContent.CopyTo(dest);
+            }
+        }
+
         public void DeleteSupplementaryFile(AdminShellPackageSupplementaryFile psf)
         {
             if (psf == null)
@@ -817,30 +832,30 @@ namespace AdminShell
             if (psf.location == AdminShellPackageSupplementaryFile.LocationType.AddPending)
             {
                 // is still pending in add list -> remove
-                pendingFilesToAdd.RemoveAll((x) => { return x.uri == psf.uri; });
+                _pendingFilesToAdd.RemoveAll((x) => { return x.uri == psf.uri; });
             }
 
             if (psf.location == AdminShellPackageSupplementaryFile.LocationType.InPackage)
             {
                 // add to pending delete list
-                pendingFilesToDelete.Add(psf);
+                _pendingFilesToDelete.Add(psf);
             }
         }
 
 
         public void Close()
         {
-            if (this.openPackage != null)
-                this.openPackage.Close();
-            this.openPackage = null;
-            this.fn = "";
-            this.aasenv = null;
+            if (_openPackage != null)
+                _openPackage.Close();
+            _openPackage = null;
+            _fn = "";
+            _aasenv = null;
         }
 
         public string MakePackageFileAvailableAsTempFile(string packageUri)
         {
             // get input stream
-            var input = this.GetLocalStreamFromPackage(packageUri);
+            var input = GetLocalStreamFromPackage(packageUri);
             // copy to temp file
             string tempext = Path.GetExtension(packageUri);
             string temppath = Path.GetTempFileName().Replace(".tmp", tempext);

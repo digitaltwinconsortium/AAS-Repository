@@ -13,7 +13,7 @@ namespace AdminShell
         [DataMember(Name = "entityType")]
         public EntityTypeEnum EntityType { get; set; }
 
-        [DataMember(Name = "globalAssetId")]
+        [DataMember(Name = "GlobalAssetId")]
         public Reference GlobalAssetId { get; set; }
 
         [DataMember(Name = "specificAssetIds")]

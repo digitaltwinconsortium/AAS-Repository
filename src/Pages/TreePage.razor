@@ -60,7 +60,7 @@
                 {
                     <a href="@link" target="_blank">@link</a><br>
                 }
-                if (SelectedNode != null && SelectedNode.Tag is Property && Program.edit)
+                if (SelectedNode != null && SelectedNode.Tag is Property)
                 {
                     <input @bind="CurrentValue" /> <span style="color:white;background-color:blue;">@CurrentValue</span><br>
                     @code { private string CurrentValue { get; set; } }
@@ -68,7 +68,7 @@
                     {
                         if (SelectedNode.Tag is Property)
                         {
-                            (SelectedNode.Tag as Property).value = CurrentValue;
+                            (SelectedNode.Tag as Property).Value = CurrentValue;
                             (SelectedNode.Tag as Property).setTimeStamp(DateTime.UtcNow);
                             this.StateHasChanged();
                         }
@@ -77,34 +77,6 @@
                 }
                 if (SelectedNode != null && (SelectedNode.Tag is AssetAdministrationShell || SelectedNode.Tag is File))
                 {
-                    if (SelectedNode.Tag is AssetAdministrationShell)
-                    {
-                        <button style="color:white;background-color:blue" @onclick="runCreateQRCodeImage">QRCODE</button><br />
-                        string qrcodeLink = getQRCodeLink(SelectedNode);
-                        if (Program.generatedQrCodes.ContainsKey(SelectedNode))
-                        {
-                            string qrcodeImage = getQRCodeImage(SelectedNode);
-                            if (qrcodeImage != string.Empty)
-                            {
-                                <a href="@qrcodeLink" target="_blank">
-                                    <div>
-                                        <img src=data:image;base64,@qrcodeImage style="max-width: 40%;" alt="Qrcode Image" />
-                                    </div>
-                                </a>
-                            }
-                        }
-                        else
-                        {
-                            <a href="@qrcodeLink" target="_blank">@qrcodeLink</a><br>
-                        }
-                        @code {
-                            private void runCreateQRCodeImage()
-                            {
-                                createQRCodeImage(SelectedNode);
-                            }
-                        }
-                    }
-
                     string detailsImage = createDetailsImage(SelectedNode);
                     if (detailsImage != string.Empty)
                     {
@@ -193,7 +165,7 @@
         {
             foreach (var smew1 in sm.SubmodelElements)
             {
-                listIdshort.Add(smew1.SubmodelElement.idShort);
+                listIdshort.Add(smew1.IdShort);
             }
             done = true;
         }
@@ -201,13 +173,13 @@
         {
             foreach (var smew2 in smec.Value)
             {
-                listIdshort.Add(smew2.submodelElement.idShort);
+                listIdshort.Add(smew2.IdShort);
             }
             done = true;
         }
         if (!done && i.Tag is SubmodelElement sme)
         {
-            listIdshort.Add(sme.idShort);
+            listIdshort.Add(sme.IdShort);
             done = true;
         }
         // check if child name exists in data children idshorts, if not delete
@@ -259,9 +231,9 @@
 
         object o = item.Tag;
 
-        if (o is AdministrationShell)
+        if (o is AssetAdministrationShell)
         {
-            var aas = o as AdministrationShell;
+            var aas = o as AssetAdministrationShell;
             lock (Program.changeAasxFile)
             {
                 System.IO.Stream s = null;
@@ -285,16 +257,16 @@
         {
             var f = o as File;
             // Test for /aasx/
-            string[] split = f.value.Split(new Char[] { '/' });
+            string[] split = f.Value.Split(new Char[] { '/' });
             if (split[1].ToLower() == "aasx")
             {
-                split = f.value.Split(new Char[] { '.' });
+                split = f.Value.Split(new Char[] { '.' });
                 switch(split.Last().ToLower())
                 {
                     case "jpg":
                     case "bmp":
                     case "png":
-                        var s = Program.env[item.EnvIndex].GetLocalStreamFromPackage(f.value);
+                        var s = Program.env[item.EnvIndex].GetLocalStreamFromPackage(f.Value);
                         if (s != null)
                         {
                             using (var m = new System.IO.MemoryStream())
@@ -309,87 +281,6 @@
         }
 
         return string.Empty;
-    }
-
-    string getQRCodeLink(TreeNodeData item)
-    {
-        if (item == null)
-        {
-            return string.Empty;
-        }
-
-        string hostPort = Program.hostPort;
-
-        string[] split = Program.hostPort.Split(':');
-
-        object o = item.Tag;
-
-        if (o is AdministrationShell)
-        {
-            var aas = o as AdministrationShell;
-            var asset = Program.env[item.EnvIndex].AasEnv.FindAAS(aas.id);
-            if (asset != null)
-            {
-                string url = WebUtility.UrlEncode(asset.Id);
-                string link = Program.externalRest + "/server/getaasxbyassetid/" + url;
-
-                return link;
-            }
-        }
-
-        return string.Empty;
-    }
-
-    string getQRCodeImage(TreeNodeData item)
-    {
-        if (item == null)
-        {
-            return string.Empty;
-        }
-
-        object o = item.Tag;
-
-        if (o is AdministrationShell)
-        {
-            string image = Program.generatedQrCodes[item];
-
-            if (image != null)
-                return image;
-        }
-
-        return string.Empty;
-    }
-
-    void createQRCodeImage(TreeNodeData item)
-    {
-        if (item == null)
-        {
-            return;
-        }
-
-        string hostPort = Program.hostPort;
-
-        object o = item.Tag;
-
-        if (o is AdministrationShell)
-        {
-            if (Program.generatedQrCodes.ContainsKey(item))
-            {
-                Program.generatedQrCodes.Remove(item);
-                return;
-            }
-
-            var aas = o as AdministrationShell;
-            var asset = Program.env[item.EnvIndex].AasEnv.FindAAS(aas.id);
-            if (asset != null)
-            {
-                string url = WebUtility.UrlEncode(asset.Id);
-                string link = Program.externalRest + "/server/getaasxbyassetid/" + url;
-                return;
-            }
-        }
-
-        return;
     }
 
     bool hasDownloadFile(TreeNodeData item)
@@ -407,7 +298,7 @@
             var f = o as File;
 
             // Test for /aasx/
-            string[] split = f.value.Split(new Char[] { '/' });
+            string[] split = f.Value.Split(new Char[] { '/' });
             if (split[1].ToLower() == "aasx")
             {
                 return true;
@@ -426,19 +317,10 @@
             return string.Empty;
         }
 
-        string hostPort = Program.hostPort;
-
-        string[] split = Program.hostPort.Split(':');
-        if (split[0].ToLower() == "admin-shell-io.com")
-        {
-            hostPort = split[0] + ":" + (Convert.ToInt32(split[1]) + 1);
-        }
-
         object o = item.Tag;
-
-        if (o is AdministrationShell)
+        if (o is AssetAdministrationShell)
         {
-            return Program.externalRest + "/server/getaasx/" + Convert.ToString(SelectedNode.EnvIndex);
+            return "/server/getaasx/" + Convert.ToString(SelectedNode.EnvIndex);
         }
 
         if (o is File || o is Property)
@@ -447,14 +329,15 @@
 
             if (o is File)
             {
-                value = (o as File).value;
-            }
-            if (o is Property)
-            {
-                value = (o as Property).value;
+                value = (o as File).Value;
             }
 
-            split = value.Split(new Char[] { ':' });
+            if (o is Property)
+            {
+                value = (o as Property).Value;
+            }
+
+            string[] split = value.Split(new Char[] { ':' });
             if (split[0].ToLower() == "http" || split[0].ToLower() == "https")
             {
                 external = true;
@@ -467,7 +350,7 @@
             {
                 if (split[1].ToLower() == "aasx")
                 {
-                    return Program.externalRest + "/server/getfile/" + item.EnvIndex.ToString() + value;
+                    return "/server/getfile/" + item.EnvIndex.ToString() + value;
                 }
             }
         }
@@ -491,7 +374,7 @@
 
         object o = item.Tag;
 
-        if (o is AdministrationShell)
+        if (o is AssetAdministrationShell)
         {
             ret += "AAS";
         }
@@ -583,44 +466,44 @@
 
             ret = string.Empty;
 
-            if (sm.kind.IsTemplate)
+            if (sm.Kind == ModelingKind.TemplateEnum)
                 ret += "<T> ";
 
-                ret += sm.idShort;
+                ret += sm.IdShort;
         }
 
         if (o is SubmodelElement)
         {
             var sme = o as SubmodelElement;
             ret = string.Empty;
-            if (sme.kind != null && sme.kind.IsTemplate)
+            if (sme.Kind == ModelingKind.TemplateEnum)
                 ret += "<T> ";
-            ret += sme.idShort;
+            ret += sme.IdShort;
         }
 
         if (o is File)
         {
             var f = o as File;
             ret = string.Empty;
-            if (f.kind != null && f.kind.IsTemplate)
+            if (f.Kind == ModelingKind.TemplateEnum)
                 ret += "<T> ";
-            ret += f.idShort;
+            ret += f.IdShort;
         }
         if (o is Blob)
         {
             var b = o as Blob;
             ret = string.Empty;
-            if (b.kind != null && b.kind.IsTemplate)
+            if (b.Kind == ModelingKind.TemplateEnum)
                 ret += "<T> ";
-            ret += b.idShort;
+            ret += b.IdShort;
         }
         if (o is MultiLanguageProperty)
         {
             var mlp = o as MultiLanguageProperty;
             ret = string.Empty;
-            if (mlp.kind != null && mlp.kind.IsTemplate)
+            if (mlp.Kind == ModelingKind.TemplateEnum)
                 ret += "<T> ";
-            ret += mlp.idShort;
+            ret += mlp.IdShort;
         }
         return (ret);
     }
@@ -636,16 +519,14 @@
 
         object o = item.Tag;
 
-        if (o is AdministrationShell)
+        if (o is AssetAdministrationShell)
         {
-            var aas = o as AdministrationShell;
-            // ret = aas.identification.ToString();
+            var aas = o as AssetAdministrationShell;
         }
         if (o is Submodel)
         {
             var sm = o as Submodel;
-            // ret = sm.identification.ToString();
-            if (sm.qualifiers != null && sm.qualifiers.Count > 0)
+            if (sm.Qualifiers != null && sm.Qualifiers.Count > 0)
             {
                 ret += " @QUALIFIERS";
             }
@@ -653,7 +534,6 @@
         if (o is SubmodelElementCollection)
         {
             var sme = o as SubmodelElementCollection;
-            // ret = sm.identification.ToString();
             if (sme.Value.Count > 0)
             {
                 ret += " #" + sme.Value.Count;
@@ -664,11 +544,11 @@
             if (o is Property)
             {
                 var prop = o as Property;
-                if (prop.value != string.Empty)
+                if (prop.Value != string.Empty)
                 {
-                    ret = " = " + prop.value;
+                    ret = " = " + prop.Value;
                 }
-                if (prop.qualifiers != null && prop.qualifiers.Count > 0)
+                if (prop.Qualifiers != null && prop.Qualifiers.Count > 0)
                 {
                     ret += " @QUALIFIERS";
                 }
@@ -676,8 +556,8 @@
             if (o is File)
             {
                 var f = o as File;
-                ret = " = " + f.value;
-                if (f.qualifiers != null && f.qualifiers.Count > 0)
+                ret = " = " + f.Value;
+                if (f.Qualifiers != null && f.Qualifiers.Count > 0)
                 {
                     ret += " @QUALIFIERS";
                 }
@@ -688,11 +568,11 @@
             var mlp = o as MultiLanguageProperty;
             var ls = mlp.Value;
             ret = " = ";
-            for (int i = 0; i < ls.Count; i++)
+            for (int i = 0; i < ls.LangString.Count; i++)
             {
-                ret += ls.langString[i].lang + " ";
+                ret += ls.LangString[i].Language + " ";
             }
-            if (mlp.qualifiers != null && mlp.qualifiers.Count > 0)
+            if (mlp.Qualifiers != null && mlp.Qualifiers.Count > 0)
             {
                 ret += " @QUALIFIERS";
             }
@@ -716,26 +596,26 @@
             return string.Empty;
         }
 
-        if (tag is AdministrationShell)
+        if (tag is AssetAdministrationShell)
         {
             ret = string.Empty;
-            var aas = tag as AdministrationShell;
+            var aas = tag as AssetAdministrationShell;
 
-            var asset = Program.env[item.EnvIndex].AasEnv.FindAAS(aas.id);
+            var asset = Program.env[item.EnvIndex].AasEnv.FindAAS(aas.Id);
 
             switch (line)
             {
                 case 0:
                     ret = "ID";
                     if (col == 1)
-                        ret = aas.id + string.Empty;
+                        ret = aas.Id + string.Empty;
                     break;
                 case 1:
                     if (asset != null)
                     {
                         ret = "ASSET";
                         if (col == 1)
-                            ret = asset.idShort;
+                            ret = asset.IdShort;
                     }
                     break;
                 case 2:
@@ -779,7 +659,7 @@
                     if (col == 1)
                     {
                         ret = "NULL";
-                        var k = sm.semanticId?.GetAsExactlyOneKey();
+                        var k = sm.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
                             ret = k.ToString();
@@ -787,7 +667,7 @@
                     }
                     break;
                 case 2:
-                    ret = getQualifiers(sm.qualifiers, col);
+                    ret = getQualifiers(sm.Qualifiers, col);
                     break;
                 default:
                     ret = string.Empty;
@@ -799,7 +679,7 @@
         if (tag is Property)
         {
             var prop = tag as Property;
-            ret += ", " + prop.value;
+            ret += ", " + prop.Value;
             switch (line)
             {
                 case 0:
@@ -807,7 +687,7 @@
                     if (col == 1)
                     {
                         ret = "NULL";
-                        var k = prop.semanticId?.GetAsExactlyOneKey();
+                        var k = prop.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
                             ret = k.ToString();
@@ -817,15 +697,15 @@
                 case 1:
                     ret = "Value Type";
                     if (col == 1)
-                        ret = prop.valueType + string.Empty;
+                        ret = prop.ValueType + string.Empty;
                     break;
                 case 2:
                     ret = "Value";
                     if (col == 1)
-                        ret = prop.value + string.Empty;
+                        ret = prop.Value + string.Empty;
                     break;
                 case 3:
-                    ret = getQualifiers(prop.qualifiers, col);
+                    ret = getQualifiers(prop.Qualifiers, col);
                     break;
                 case 4:
                     ret = getUnit(item, prop, col);
@@ -840,7 +720,7 @@
         if (tag is Entity)
         {
             var e = tag as Entity;
-            ret += ", " + e.entityType;
+            ret += ", " + e.EntityType;
             switch (line)
             {
                 case 0:
@@ -848,7 +728,7 @@
                     if (col == 1)
                     {
                         ret = "NULL";
-                        var k = e.semanticId?.GetAsExactlyOneKey();
+                        var k = e.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
                             ret = k.ToString();
@@ -858,11 +738,11 @@
                 case 1:
                     ret = "Entity Type";
                     if (col == 1)
-                        ret = e.entityType + string.Empty;
+                        ret = e.EntityType + string.Empty;
                     break;
                 case 2:
                     ret = string.Empty;
-                    if (e.GetEntityType() == Entity.EntityTypeEnum.SelfManagedEntity)
+                    if (e.EntityType == EntityTypeEnum.SelfManagedEntityEnum)
                     {
                         if (e.assetRef != null)
                         {
@@ -879,7 +759,7 @@
                     }
                     break;
                 case 3:
-                    ret = getQualifiers(e.qualifiers, col);
+                    ret = getQualifiers(e.Qualifiers, col);
                     break;
                 default:
                     ret = string.Empty;
@@ -891,7 +771,7 @@
         if (tag is File)
         {
             var f = tag as File;
-            ret += ", " + f.value;
+            ret += ", " + f.Value;
             switch (line)
             {
                 case 0:
@@ -899,7 +779,7 @@
                     if (col == 1)
                     {
                         ret = "NULL";
-                        var k = f.semanticId?.GetAsExactlyOneKey();
+                        var k = f.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
                             ret = k.ToString();
@@ -909,10 +789,10 @@
                 case 1:
                     ret = "Value";
                     if (col == 1)
-                        ret = f.value;
+                        ret = f.Value;
                     break;
                 case 2:
-                    ret = getQualifiers(f.qualifiers, col);
+                    ret = getQualifiers(f.Qualifiers, col);
                     break;
                 default:
                     ret = string.Empty;
@@ -931,7 +811,7 @@
                     if (col == 1)
                     {
                         ret = "NULL";
-                        var k = b.semanticId?.GetAsExactlyOneKey();
+                        var k = b.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
                             ret = k.ToString();
@@ -941,15 +821,15 @@
                 case 1:
                     ret = "MimeType";
                     if (col == 1)
-                        ret = b.mimeType;
+                        ret = b.MimeType;
                     break;
                 case 2:
                     ret = "Value";
                     if (col == 1)
-                        ret = b.value;
+                        ret = b.Value;
                     break;
                 case 3:
-                    ret = getQualifiers(b.qualifiers, col);
+                    ret = getQualifiers(b.Qualifiers, col);
                     break;
                 default:
                     ret = string.Empty;
@@ -961,7 +841,7 @@
         if (tag is Operation)
         {
             var op = tag as Operation;
-            ret = op.idShort;
+            ret = op.IdShort;
             switch (line)
             {
                 case 0:
@@ -969,7 +849,7 @@
                     if (col == 1)
                     {
                         ret = "NULL";
-                        var k = op.semanticId?.GetAsExactlyOneKey();
+                        var k = op.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
                             ret = k.ToString();
@@ -981,9 +861,9 @@
                     if (col == 1)
                     {
                         ret = "0";
-                        if (op.inputVariable != null)
+                        if (op.InputVariables != null)
                         {
-                            ret = op.inputVariable.Count + string.Empty;
+                            ret = op.InputVariables.Count + string.Empty;
                         }
                     }
                     break;
@@ -992,14 +872,14 @@
                     if (col == 1)
                     {
                         ret = "0";
-                        if (op.outputVariable != null)
+                        if (op.OutputVariables != null)
                         {
-                            ret = op.outputVariable.Count + string.Empty;
+                            ret = op.OutputVariables.Count + string.Empty;
                         }
                     }
                     break;
                 case 3:
-                    ret = getQualifiers(op.qualifiers, col);
+                    ret = getQualifiers(op.Qualifiers, col);
                     break;
                 default:
                     ret = string.Empty;
@@ -1011,7 +891,7 @@
         if (tag is RelationshipElement)
         {
             var r = tag as RelationshipElement;
-            ret = r.idShort;
+            ret = r.IdShort;
             switch (line)
             {
                 case 0:
@@ -1019,7 +899,7 @@
                     if (col == 1)
                     {
                         ret = "NULL";
-                        var k = r.semanticId?.GetAsExactlyOneKey();
+                        var k = r.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
                             ret = k.ToString();
@@ -1031,7 +911,7 @@
                     if (col == 1)
                     {
                         ret = "NULL";
-                        var k = r.first;
+                        var k = r.First;
                         if (k != null)
                         {
                             ret = k.Keys.ToString();
@@ -1043,7 +923,7 @@
                     if (col == 1)
                     {
                         ret = "NULL";
-                        var k = r.second;
+                        var k = r.Second;
                         if (k != null)
                         {
                             ret = k.Keys.ToString();
@@ -1051,7 +931,7 @@
                     }
                     break;
                 case 3:
-                    ret = getQualifiers(r.qualifiers, col);
+                    ret = getQualifiers(r.Qualifiers, col);
                     break;
                 default:
                     ret = string.Empty;
@@ -1063,7 +943,7 @@
         if (tag is ReferenceElement)
         {
             var r = tag as ReferenceElement;
-            ret = r.idShort;
+            ret = r.IdShort;
             switch (line)
             {
                 case 0:
@@ -1071,7 +951,7 @@
                     if (col == 1)
                     {
                         ret = "NULL";
-                        var k = r.semanticId?.GetAsExactlyOneKey();
+                        var k = r.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
                             ret = k.ToString();
@@ -1086,7 +966,7 @@
                     }
                     break;
                 case 2:
-                    ret = getQualifiers(r.qualifiers, col);
+                    ret = getQualifiers(r.Qualifiers, col);
                     break;
                 default:
                     ret = string.Empty;
@@ -1099,9 +979,9 @@
         {
             var mlp = tag as MultiLanguageProperty;
             var ls = mlp.Value;
-            for (int i = 0; i < ls.Count; i++)
+            for (int i = 0; i < ls.LangString.Count; i++)
             {
-                ret += ls.langString[i].lang + " ";
+                ret += ls.LangString[i].Language + " ";
             }
             switch (line)
             {
@@ -1110,7 +990,7 @@
                     if (col == 1)
                     {
                         ret = "NULL";
-                        var k = mlp.semanticId?.GetAsExactlyOneKey();
+                        var k = mlp.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
                             ret = k.ToString();
@@ -1122,15 +1002,15 @@
                 case 3:
                 case 4:
                     ret = string.Empty;
-                    if (ls.Count > line - 1)
+                    if (ls.LangString.Count > line - 1)
                     {
-                        ret = ls.langString[line - 1].lang;
+                        ret = ls.LangString[line - 1].Language;
                         if (col == 1)
-                            ret = ls.langString[line - 1].str + string.Empty;
+                            ret = ls.LangString[line - 1].Text + string.Empty;
                     }
                     break;
                 case 5:
-                    ret = getQualifiers(mlp.qualifiers, col);
+                    ret = getQualifiers(mlp.Qualifiers, col);
                     break;
                 default:
                     ret = string.Empty;
@@ -1142,7 +1022,7 @@
         if (tag is SubmodelElement)
         {
             var sme = tag as SubmodelElement;
-            ret = sme.idShort + ", " + sme.semanticId;
+            ret = sme.IdShort + ", " + sme.SemanticId;
             switch (line)
             {
                 case 0:
@@ -1150,7 +1030,7 @@
                     if (col == 1)
                     {
                         ret = "NULL";
-                        var k = sme.semanticId?.GetAsExactlyOneKey();
+                        var k = sme.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
                             ret = k.ToString();
@@ -1158,7 +1038,7 @@
                     }
                     break;
                 case 1:
-                    ret = getQualifiers(sme.qualifiers, col);
+                    ret = getQualifiers(sme.Qualifiers, col);
                     break;
                 default:
                     ret = string.Empty;
@@ -1184,10 +1064,10 @@
                 {
                     if (i != 0)
                         ret += ", ";
-                    ret += q[i].type + " ";
-                    if (q[i].value != string.Empty)
+                    ret += q[i].Type + " ";
+                    if (q[i].Value != string.Empty)
                     {
-                        ret += "= " + q[i].value;
+                        ret += "= " + q[i].Value;
                     }
                 }
             }
@@ -1198,25 +1078,27 @@
     public string getUnit(TreeNodeData item, SubmodelElement se, int col)
     {
         string ret = string.Empty;
-        if (se.semanticId == null || se.semanticId.JsonKeys == null)
+        if (se.SemanticId == null)
         {
             return ret;
         }
-        var cd = Program.env[item.EnvIndex].AasEnv.FindConceptDescription(se.semanticId);
+
+        var cd = Program.env[item.EnvIndex].AasEnv.FindConceptDescription(se.SemanticId.Keys);
         if (cd != null)
         {
-            var iec = cd.GetIEC61360();
+            var iec = cd.IEC61360Content;
             if (iec != null)
             {
                 ret = "Unit";
                 if (col == 1)
                 {
                     ret = iec.unit;
-                    if (iec.unitId != null && iec.unitId.JsonKeys != null && iec.unitId.JsonKeys.Count > 0)
-                        ret += " (UnitId = " + iec.unitId.JsonKeys[0].ToString() + ")";
+                    if (iec.unitId != null && iec.unitId.Keys != null && iec.unitId.Keys.Count > 0)
+                        ret += " (UnitId = " + iec.unitId.Keys[0].ToString() + ")";
                 }
             }
         }
+
         return ret;
     }
 }

@@ -23,7 +23,7 @@ namespace AdminShell
         public AssetInformation AssetInformation { get; set; } = new();
 
         [DataMember(Name = "asset")]
-        public AssetRef Asset { get; set; } = new();
+        public AssetReference Asset { get; set; } = new();
 
         [DataMember(Name="security")]
         public Security Security { get; set; } = new();

@@ -216,7 +216,7 @@ namespace AdminShell
         /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
-        /// <param name="content">Determines the request or response kind of the resource</param>
+        /// <param name="content">Determines the request or response Kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
         /// <param name="diff">Filters response, only elements changed after DateTime</param>
         /// <response code="200">List of found submodel elements</response>
@@ -244,7 +244,7 @@ namespace AdminShell
         /// </summary>
         /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
-        /// <param name="content">Determines the request or response kind of the resource</param>
+        /// <param name="content">Determines the request or response Kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
         /// <param name="diff">Filters response, only elements changed after DateTime</param>
         /// <response code="200">List of found submodel elements</response>
@@ -510,7 +510,7 @@ namespace AdminShell
         /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
-        /// <param name="content">Determines the request or response kind of the resource</param>
+        /// <param name="content">Determines the request or response Kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
         /// <response code="200">Requested Submodel</response>
         /// <response code="0">Default error handling for unmentioned status codes</response>
@@ -560,7 +560,7 @@ namespace AdminShell
         /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
-        /// <param name="content">Determines the request or response kind of the resource</param>
+        /// <param name="content">Determines the request or response Kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
         /// <response code="200">Requested submodel element</response>
         /// <response code="404">Not Found</response>
@@ -589,7 +589,7 @@ namespace AdminShell
         /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
-        /// <param name="content">Determines the request or response kind of the resource</param>
+        /// <param name="content">Determines the request or response Kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
         /// <response code="200">Requested submodel element</response>
         /// <response code="404">Not Found</response>
@@ -618,7 +618,7 @@ namespace AdminShell
         /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated), in this case an operation</param>
         /// <param name="_async">Determines whether an operation invocation is performed asynchronously or synchronously</param>
-        /// <param name="content">Determines the request or response kind of the resource</param>
+        /// <param name="content">Determines the request or response Kind of the resource</param>
         /// <response code="200">Operation result object</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">Not Found</response>
@@ -648,7 +648,7 @@ namespace AdminShell
         /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated), in this case an operation</param>
         /// <param name="_async">Determines whether an operation invocation is performed asynchronously or synchronously</param>
-        /// <param name="content">Determines the request or response kind of the resource</param>
+        /// <param name="content">Determines the request or response Kind of the resource</param>
         /// <response code="200">Operation result object</response>
         /// <response code="400">Bad Request</response>
         /// <response code="404">Not Found</response>
@@ -749,7 +749,7 @@ namespace AdminShell
         /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
-        /// <param name="content">Determines the request or response kind of the resource</param>
+        /// <param name="content">Determines the request or response Kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
         /// <response code="201">Submodel element created successfully</response>
         /// <response code="400">Bad Request</response>
@@ -780,7 +780,7 @@ namespace AdminShell
         /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
-        /// <param name="content">Determines the request or response kind of the resource</param>
+        /// <param name="content">Determines the request or response Kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
         /// <response code="201">Submodel element created successfully</response>
         /// <response code="400">Bad Request</response>
@@ -812,7 +812,7 @@ namespace AdminShell
         /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
-        /// <param name="content">Determines the request or response kind of the resource</param>
+        /// <param name="content">Determines the request or response Kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
         /// <response code="201">Submodel element created successfully</response>
         /// <response code="400">Bad Request</response>
@@ -843,7 +843,7 @@ namespace AdminShell
         /// <param name="body">Requested submodel element</param>
         /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
-        /// <param name="content">Determines the request or response kind of the resource</param>
+        /// <param name="content">Determines the request or response Kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
         /// <response code="201">Submodel element created successfully</response>
         /// <response code="400">Bad Request</response>
@@ -971,7 +971,7 @@ namespace AdminShell
         /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
-        /// <param name="content">Determines the request or response kind of the resource</param>
+        /// <param name="content">Determines the request or response Kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
         /// <response code="204">Submodel updated successfully</response>
         /// <response code="400">Bad Request</response>
@@ -1026,7 +1026,7 @@ namespace AdminShell
         /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
-        /// <param name="content">Determines the request or response kind of the resource</param>
+        /// <param name="content">Determines the request or response Kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
         /// <response code="204">Submodel element updated successfully</response>
         /// <response code="400">Bad Request</response>
@@ -1056,7 +1056,7 @@ namespace AdminShell
         /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
-        /// <param name="content">Determines the request or response kind of the resource</param>
+        /// <param name="content">Determines the request or response Kind of the resource</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
         /// <response code="204">Submodel element updated successfully</response>
         /// <response code="400">Bad Request</response>

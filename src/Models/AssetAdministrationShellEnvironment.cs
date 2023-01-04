@@ -8,7 +8,7 @@ namespace AdminShell
     using System.Xml;
     using System.Xml.Serialization;
 
-    [XmlRoot(ElementName = "aasenv", Namespace = "http://www.admin-shell.io/aas/3/0")]
+    [XmlRoot(ElementName = "_aasenv", Namespace = "http://www.admin-shell.io/aas/3/0")]
     [DataContract]
     public class AssetAdministrationShellEnvironment
     {

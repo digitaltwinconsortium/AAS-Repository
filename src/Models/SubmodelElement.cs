@@ -22,7 +22,7 @@ namespace AdminShell
         [DataMember(Name = "qualifiers")]
         public List<Qualifier> Qualifiers { get; set; }
 
-        [DataMember(Name = "kind")]
+        [DataMember(Name = "Kind")]
         public ModelingKind Kind { get; set; } = new();
 
         public SubmodelElement()

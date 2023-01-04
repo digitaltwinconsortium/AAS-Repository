@@ -2,25 +2,25 @@
 namespace AdminShell
 {
     using System.Collections.Generic;
-    using System.Xml;
+    using System.Runtime.Serialization;
     using System.Xml.Serialization;
 
+    [DataContract]
     public class AssetInformation : IAasElement
     {
-        // as for V3RC02, Asset in no Referable anymore
         [XmlIgnore]
-        public IAasElement parent = null;
+        public IAasElement Parent { get; set; }
 
-        // V3RC02: instead of Identification
-        public GlobalReference globalAssetId;
+        [DataMember(Name = "globalAssetId")]
+        public GlobalReference GlobalAssetId { get; set; }
 
-        // new in V3RC02
-        public List<IdentifierKeyValuePair> specificAssetId = null;
+        [DataMember(Name = "specificAssetIds")]
+        public List<IdentifierKeyValuePair> SpecificAssetIds { get; set; }
 
-        // new in V3RC02
-        public Resource defaultThumbnail = null;
+        [DataMember(Name = "defaultThumbnail")]
+        public Resource DefaultThumbnail { get; set; }
 
-        [XmlElement(ElementName = "assetKind")]
-        public AssetKind assetKind = new AssetKind();
+        [DataMember(Name = "assetKind")]
+        public AssetKind AssetKind { get; set; } = new();
     }
 }

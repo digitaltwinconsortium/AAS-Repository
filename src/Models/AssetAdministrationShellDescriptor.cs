@@ -15,7 +15,7 @@ namespace AdminShell
         [DataMember(Name="description")]
         public List<LangString> Description { get; set; }
 
-        [DataMember(Name="globalAssetId")]
+        [DataMember(Name="GlobalAssetId")]
         public Reference GlobalAssetId { get; set; }
 
         [DataMember(Name="idShort")]
