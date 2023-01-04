@@ -1,30 +1,30 @@
-﻿using AdminShell;
-using Kusto.Cloud.Platform.Utils;
-using Kusto.Data;
-using Kusto.Data.Common;
-using Kusto.Data.Net.Client;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading;
-
-namespace AasxDemonstration
+﻿
+namespace AdminShell
 {
+    using Kusto.Cloud.Platform.Utils;
+    using Kusto.Data;
+    using Kusto.Data.Common;
+    using Kusto.Data.Net.Client;
+    using Newtonsoft.Json;
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Text;
+    using System.Threading;
+
     /// <summary>
     /// This class holds information and provides functions to "automate" the energy model
     /// used by the CESMII / LNI4.0 demonstrator.
     /// It consists of Properties, which shall be synchronized with Azure Data Explorer. It
     /// includes a time series (according the SM template spec) as well.
     /// </summary>
-    public class EnergyModel
+    public class ADXEnergyDataSource
     {
         /// <summary>
         /// Base class for the source system and its context. Can be used to transport

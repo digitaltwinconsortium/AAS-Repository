@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace AasxDemonstration
+﻿
+namespace AdminShell
 {
+    using System;
+
     public class CarbonIntensityQueryResult
     {
         public CarbonData[] data { get; set; }
