@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace AdminShell
 {
@@ -11,15 +12,19 @@ namespace AdminShell
     {
         [Required]
         [DataMember(Name="name")]
+        [XmlElement(ElementName = "name")]
         public string Name { get; set; } = string.Empty;
 
         [DataMember(Name="refersTo")]
+        [XmlElement(ElementName = "refersTo")]
         public List<ModelReference> RefersTo { get; set; } = new();
 
-        [DataMember(Name = "Value")]
+        [DataMember(Name = "value")]
+        [XmlElement(ElementName = "value")]
         public string Value { get; set; } = string.Empty;
 
         [DataMember(Name = "valueType")]
-        public ValueTypeEnum ValueType { get; set; } = ValueTypeEnum.StringEnum;
+        [XmlElement(ElementName = "valueType")]
+        public ValueTypeEnum ValueType { get; set; } = ValueTypeEnum.String;
     }
 }

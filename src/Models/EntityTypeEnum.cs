@@ -4,16 +4,17 @@ namespace AdminShell
     using Newtonsoft.Json;
     using System.Runtime.Serialization;
 
+    [DataContract]
     [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum EntityTypeEnum
     {
         [EnumMember(Value = "CoManagedEntity")]
-        CoManagedEntityEnum = 0,
+        CoManagedEntity = 0,
 
         [EnumMember(Value = "SelfManagedEntity")]
-        SelfManagedEntityEnum = 1,
+        SelfManagedEntity = 1,
 
         [EnumMember(Value = "Undefined")]
-        UndefinedEnum = 3
+        Undefined = 3
     }
 }

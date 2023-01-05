@@ -466,7 +466,7 @@
 
             ret = string.Empty;
 
-            if (sm.Kind == ModelingKind.TemplateEnum)
+            if (sm.Kind == ModelingKind.Template)
                 ret += "<T> ";
 
                 ret += sm.IdShort;
@@ -476,7 +476,7 @@
         {
             var sme = o as SubmodelElement;
             ret = string.Empty;
-            if (sme.Kind == ModelingKind.TemplateEnum)
+            if (sme.Kind == ModelingKind.Template)
                 ret += "<T> ";
             ret += sme.IdShort;
         }
@@ -485,7 +485,7 @@
         {
             var f = o as File;
             ret = string.Empty;
-            if (f.Kind == ModelingKind.TemplateEnum)
+            if (f.Kind == ModelingKind.Template)
                 ret += "<T> ";
             ret += f.IdShort;
         }
@@ -493,7 +493,7 @@
         {
             var b = o as Blob;
             ret = string.Empty;
-            if (b.Kind == ModelingKind.TemplateEnum)
+            if (b.Kind == ModelingKind.Template)
                 ret += "<T> ";
             ret += b.IdShort;
         }
@@ -501,7 +501,7 @@
         {
             var mlp = o as MultiLanguageProperty;
             ret = string.Empty;
-            if (mlp.Kind == ModelingKind.TemplateEnum)
+            if (mlp.Kind == ModelingKind.Template)
                 ret += "<T> ";
             ret += mlp.IdShort;
         }
@@ -568,9 +568,9 @@
             var mlp = o as MultiLanguageProperty;
             var ls = mlp.Value;
             ret = " = ";
-            for (int i = 0; i < ls.LangString.Count; i++)
+            for (int i = 0; i < ls.Count; i++)
             {
-                ret += ls.LangString[i].Language + " ";
+                ret += ls[i].Language + " ";
             }
             if (mlp.Qualifiers != null && mlp.Qualifiers.Count > 0)
             {
@@ -742,14 +742,14 @@
                     break;
                 case 2:
                     ret = string.Empty;
-                    if (e.EntityType == EntityTypeEnum.SelfManagedEntityEnum)
+                    if (e.EntityType == EntityTypeEnum.SelfManagedEntity)
                     {
-                        if (e.assetRef != null)
+                        if (e.AssetRef != null)
                         {
                             ret = "Asset";
                             if (col == 1)
                             {
-                                var k = e.assetRef.Keys;
+                                var k = e.AssetRef.Keys;
                                 if (k != null)
                                 {
                                     ret = k.ToString();
@@ -979,9 +979,9 @@
         {
             var mlp = tag as MultiLanguageProperty;
             var ls = mlp.Value;
-            for (int i = 0; i < ls.LangString.Count; i++)
+            for (int i = 0; i < ls.Count; i++)
             {
-                ret += ls.LangString[i].Language + " ";
+                ret += ls[i].Language + " ";
             }
             switch (line)
             {
@@ -1002,11 +1002,11 @@
                 case 3:
                 case 4:
                     ret = string.Empty;
-                    if (ls.LangString.Count > line - 1)
+                    if (ls.Count > line - 1)
                     {
-                        ret = ls.LangString[line - 1].Language;
+                        ret = ls[line - 1].Language;
                         if (col == 1)
-                            ret = ls.LangString[line - 1].Text + string.Empty;
+                            ret = ls[line - 1].Text + string.Empty;
                     }
                     break;
                 case 5:
@@ -1092,9 +1092,9 @@
                 ret = "Unit";
                 if (col == 1)
                 {
-                    ret = iec.unit;
-                    if (iec.unitId != null && iec.unitId.Keys != null && iec.unitId.Keys.Count > 0)
-                        ret += " (UnitId = " + iec.unitId.Keys[0].ToString() + ")";
+                    ret = iec.Unit;
+                    if (iec.UnitId != null && iec.UnitId.Keys != null && iec.UnitId.Keys.Count > 0)
+                        ret += " (UnitId = " + iec.UnitId.Keys[0].ToString() + ")";
                 }
             }
         }

@@ -6,7 +6,6 @@ namespace AdminShell
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Text.RegularExpressions;
     using System.Xml;
 
     public static class AasSchemaValidation
@@ -98,112 +97,6 @@ namespace AdminShell
             }
 
             return new XmlValidator(xmlSchemaSet);
-        }
-
-        /// <summary>
-        /// creates an XML validator and applies it on the given content.
-        ///
-        /// If you repeatedly need to validate XML against a schema, re-use an instance of
-        /// <see cref="XmlValidator"/> produced with <see cref="NewXmlValidator"/>.
-        /// </summary>
-        /// <param name="recs">Validation records</param>
-        /// <param name="xmlContent">Content to be validated</param>
-        public static void ValidateXML(List<AasValidationRecord> recs, Stream xmlContent)
-        {
-            var validator = NewXmlValidator();
-            validator.Validate(recs, xmlContent);
-        }
-
-        public static int ValidateJSONAlternative(List<AasValidationRecord> recs, Stream jsonContent)
-        {
-            // see: https://github.com/RicoSuter/NJsonSchema/wiki/JsonSchemaValidator
-            var newRecs = new List<AasValidationRecord>();
-
-            // access
-            if (recs == null || jsonContent == null)
-                return -1;
-
-            // Load the schema files
-            // right now: exactly ONE schema file
-            var files = GetSchemaResources(SerializationFormat.JSON);
-            if (files == null || files.Length != 1)
-                return -1;
-
-            NJsonSchema.JsonSchema schema = null;
-
-            try
-            {
-                Assembly myAssembly = Assembly.GetExecutingAssembly();
-                foreach (var schemaFn in files)
-                {
-                    using (Stream schemaStream = myAssembly.GetManifestResourceStream(schemaFn))
-                    {
-                        using (var streamReader = new StreamReader(schemaStream))
-                        {
-                            var allTxt = streamReader.ReadToEnd();
-                            schema = NJsonSchema.JsonSchema.FromJsonAsync(allTxt).GetAwaiter().GetResult();
-                            break;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new FileNotFoundException("ValidateJSON: Error loading schema: " +
-                    ex.Message);
-            }
-
-            if (schema == null)
-            {
-                throw new FileNotFoundException("ValidateJSON: Schema not found properly.");
-            }
-
-            // create validator
-            var validator = new NJsonSchema.Validation.JsonSchemaValidator();
-
-            // load the JSON content
-            string jsonTxt = null;
-            try
-            {
-                using (var streamReader = new StreamReader(jsonContent))
-                {
-                    jsonTxt = streamReader.ReadToEnd();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException("ValidateJSON: Error loading JSON content: " +
-                    ex.Message);
-            }
-
-            if (jsonTxt == null || jsonTxt == "")
-                throw new InvalidOperationException("ValidateJSON: Error loading JSON content gave null.");
-
-            // validate
-            ICollection<NJsonSchema.Validation.ValidationError> errors;
-            try
-            {
-                errors = validator.Validate(jsonTxt, schema);
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException("ValidateJSON: Error when validating: " +
-                    ex.Message);
-            }
-
-            // re-format messages
-            if (errors != null)
-                foreach (var ve in errors)
-                {
-                    var msg = ("" + ve.ToString());
-                    msg = Regex.Replace(msg, @"\s+", " ");
-                    newRecs.Add(new AasValidationRecord(AasValidationSeverity.Serialization, null,
-                        $"JSON: {ve.LineNumber,5},{ve.LinePosition:3}: {msg}"));
-                }
-
-            // result
-            recs.AddRange(newRecs);
-            return newRecs.Count;
         }
     }
 }

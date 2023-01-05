@@ -6,7 +6,7 @@ namespace AdminShell
     public class SemanticId : Reference
     {
         [XmlIgnore]
-        public new int Count { get { if (keys == null) return 0; return keys.Count; } }
+        public new int Count { get { if (Keys == null) return 0; return Keys.Count; } }
 
        public SemanticId(){  }
 
@@ -14,7 +14,7 @@ namespace AdminShell
         {
             if (src != null)
                 foreach (var k in src.Keys)
-                    keys.Add(k);
+                    Keys.Add(k);
         }
 
         public static SemanticId CreateFromKey(Key key)

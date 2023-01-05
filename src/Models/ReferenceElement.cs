@@ -2,11 +2,13 @@
 namespace AdminShell
 {
     using System.Runtime.Serialization;
+    using System.Xml.Serialization;
 
     [DataContract]
     public class ReferenceElement : DataElement
     {
-        [DataMember(Name = "Value")]
+        [DataMember(Name = "value")]
+        [XmlElement(ElementName = "value")]
         public Reference Value { get; set; } = new();
 
         public ReferenceElement() { }

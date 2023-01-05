@@ -9,33 +9,36 @@ namespace AdminShell
     [DataContract]
     public class Qualifier : IAasElement
     {
-        [DataMember(Name = "Value")]
-        [MetaModelName("Qualifier.Value")]
+        [DataMember(Name = "value")]
+        [XmlElement(ElementName = "value")]
+        [MetaModelName("Qualifier.value")]
         public string Value { get; set; }
 
         [DataMember(Name = "valueId")]
+        [XmlElement(ElementName = "valueId")]
         public GlobalReference ValueId { get; set; }
 
         [DataMember(Name = "valueType")]
+        [XmlElement(ElementName = "valueType")]
         [MetaModelName("Qualifier.valueType")]
         public ValueTypeEnum ValueType { get; set; }
 
         [Required]
         [DataMember(Name = "type")]
+        [XmlElement(ElementName = "type")]
         [MetaModelName("Qualifier.type")]
         public string Type { get; set; }
 
+        [DataMember(Name = "semanticId")]
         [XmlElement(ElementName = "semanticId")]
-        public SemanticId semanticId = null;
-
-        public SemanticId GetSemanticId() { return semanticId; }
+        public SemanticId SemanticId = null;
 
         public Qualifier() { }
 
         public Qualifier(Qualifier src)
         {
-            if (src.semanticId != null)
-                semanticId = new SemanticId(src.semanticId);
+            if (src.SemanticId != null)
+                SemanticId = new SemanticId(src.SemanticId);
 
             this.Type = src.Type;
 

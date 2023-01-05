@@ -2,33 +2,24 @@
 namespace AdminShell
 {
     using System.Collections.Generic;
+    using System.Runtime.Serialization;
     using System.Xml.Serialization;
 
+    [DataContract]
     public class UnitId
     {
-        [XmlIgnore]
-        public KeyList keys = new KeyList();
-
+        [DataMember(Name = "keys")]
         [XmlArray("keys")]
         [XmlArrayItem("key")]
-        public List<Key> Keys { get { return keys; } }
-
-        [XmlIgnore]
-        public bool IsEmpty { get { return keys == null || keys.IsEmpty; } }
-
-        [XmlIgnore]
-        public int Count { get { if (keys == null) return 0; return keys.Count; } }
-
-        [XmlIgnore]
-        public Key this[int index] { get { return keys[index]; } }
+        public List<Key> Keys { get; set; } = new();
 
         public UnitId() { }
 
         public UnitId(UnitId src)
         {
-            if (src.keys != null)
+            if (src.Keys != null)
                 foreach (var k in src.Keys)
-                    keys.Add(new Key(k));
+                    Keys.Add(new Key(k));
         }
     }
 }

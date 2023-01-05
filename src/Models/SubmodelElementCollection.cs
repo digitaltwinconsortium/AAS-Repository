@@ -2,20 +2,26 @@
 namespace AdminShell
 {
     using System.Collections.Generic;
+    using System.Runtime.Serialization;
     using System.Xml.Serialization;
 
     /// <summary>
     /// In V2.0, this was the most important SME to hold multiple child SMEs.
     /// Ib V3.0, this is deprecated. Use SubmodelElementList, SubmodelElementStruct instead.
     /// </summary>
+    [DataContract]
     public class SubmodelElementCollection : SubmodelElement
     {
         // values == SMEs
-        [XmlIgnore]
+        [DataMember(Name ="value")]
+        [XmlElement(ElementName = "value")]
         public List<SubmodelElement> Value { get; set; } = new();
 
-        public bool ordered = false;
-        public bool allowDuplicates = false;
+        [XmlIgnore]
+        public bool Ordered = false;
+
+        [XmlIgnore]
+        public bool AllowDuplicates = false;
 
         public SubmodelElementCollection() { }
 
@@ -25,8 +31,8 @@ namespace AdminShell
             if (!(src is SubmodelElementCollection smc))
                 return;
 
-            ordered = smc.ordered;
-            allowDuplicates = smc.allowDuplicates;
+            Ordered = smc.Ordered;
+            AllowDuplicates = smc.AllowDuplicates;
 
             if (!shallowCopy)
                 foreach (var sme in smc.Value)

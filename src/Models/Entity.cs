@@ -5,25 +5,31 @@ namespace AdminShell
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Runtime.Serialization;
+    using System.Xml.Serialization;
 
     [DataContract]
     public class Entity : SubmodelElement
     {
         [Required]
         [DataMember(Name = "entityType")]
+        [XmlElement(ElementName = "entityType")]
         public EntityTypeEnum EntityType { get; set; }
 
-        [DataMember(Name = "GlobalAssetId")]
+        [DataMember(Name = "globalAssetId")]
+        [XmlElement(ElementName = "globalAssetId")]
         public Reference GlobalAssetId { get; set; }
 
         [DataMember(Name = "specificAssetIds")]
+        [XmlElement(ElementName = "specificAssetIds")]
         public List<IdentifierKeyValuePair> SpecificAssetIds { get; set; }
 
         [DataMember(Name = "statements")]
+        [XmlElement(ElementName = "statements")]
         public List<SubmodelElement> Statements { get; set; }
 
-        [JsonProperty(PropertyName = "asset")]
-        public ModelReference assetRef = null;
+        [DataMember(Name = "asset")]
+        [XmlElement(ElementName = "asset")]
+        public ModelReference AssetRef = null;
 
         public Entity() { }
 
@@ -39,9 +45,11 @@ namespace AdminShell
                 foreach (var smw in ent.Statements)
                     Statements.Add(smw);
             }
+
             EntityType = ent.EntityType;
-            if (ent.assetRef != null)
-                assetRef = new ModelReference(ent.assetRef);
+
+            if (ent.AssetRef != null)
+                AssetRef = new ModelReference(ent.AssetRef);
         }
     }
 }

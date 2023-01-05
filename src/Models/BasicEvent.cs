@@ -4,11 +4,14 @@ namespace AdminShell
     using Newtonsoft.Json;
     using System.ComponentModel.DataAnnotations;
     using System.Runtime.Serialization;
+    using System.Xml.Serialization;
 
+    [DataContract]
     public class BasicEvent : SubmodelElement
     {
         [Required]
-        [DataMember(Name = "Observed")]
+        [DataMember(Name = "observed")]
+        [XmlElement(ElementName = "observed")]
         public Reference Observed { get; set; } = new();
 
         public BasicEvent() { }

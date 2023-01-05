@@ -4,25 +4,26 @@ namespace AdminShell
     using Newtonsoft.Json;
     using System.Runtime.Serialization;
 
+    [DataContract]
     [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum ExecutionStateEnum
     {
         [EnumMember(Value = "Initiated")]
-        InitiatedEnum = 0,
+        Initiated = 0,
 
         [EnumMember(Value = "Running")]
-        RunningEnum = 1,
+        Running = 1,
 
         [EnumMember(Value = "Completed")]
-        CompletedEnum = 2,
+        Completed = 2,
 
         [EnumMember(Value = "Canceled")]
-        CanceledEnum = 3,
+        Canceled = 3,
 
         [EnumMember(Value = "Failed")]
-        FailedEnum = 4,
+        Failed = 4,
 
         [EnumMember(Value = "Timeout")]
-        TimeoutEnum = 5
+        Timeout = 5
     }
 }

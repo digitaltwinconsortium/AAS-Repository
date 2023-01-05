@@ -1,14 +1,15 @@
 ﻿
 namespace AdminShell
 {
-    using System;
-    using System.Collections.Generic;
+    using System.Runtime.Serialization;
     using System.Xml;
     using System.Xml.Serialization;
 
+    [DataContract]
     [XmlType(TypeName = "SubmodelElement")]
     public class SubmodelElementWrapper
     {
+        [DataMember]
         [XmlElement(ElementName = "property", Type = typeof(Property))]
         [XmlElement(ElementName = "multiLanguageProperty", Type = typeof(MultiLanguageProperty))]
         [XmlElement(ElementName = "range", Type = typeof(Range))]

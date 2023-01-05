@@ -1,31 +1,39 @@
 ﻿
 namespace AdminShell
 {
-    using System.Collections.Generic;
     using System.Runtime.Serialization;
+    using System.Xml.Serialization;
 
     [DataContract]
     public class SubmodelElementList : SubmodelElementCollection
     {
         [DataMember(Name = "semanticIdValues")]
+        [XmlElement(ElementName = "semanticIdValues")]
         public Reference SemanticIdValues { get; set; }
 
         [DataMember(Name = "submodelElementTypeValues")]
+        [XmlElement(ElementName = "submodelElementTypeValues")]
         public ModelType SubmodelElementTypeValues { get; set; }
 
-        [DataMember(Name = "Value")]
-        public new List<SubmodelElement> Value { get; set; }
-
         [DataMember(Name = "valueTypeValues")]
+        [XmlElement(ElementName = "valueTypeValues")]
         public ValueTypeEnum ValueTypeValues { get; set; }
 
-        public bool orderRelevant = false;
+        [DataMember(Name = "orderRelevant")]
+        [XmlElement(ElementName = "orderRelevant")]
+        public bool OrderRelevant = false;
 
-        public SemanticId semanticIdListElement = null;
+        [DataMember(Name = "semanticIdListElement")]
+        [XmlElement(ElementName = "semanticIdListElement")]
+        public SemanticId SemanticIdListElement { get; set; }
 
-        public string typeValueListElement = null;
+        [DataMember(Name = "typeValueListElement")]
+        [XmlElement(ElementName = "typeValueListElement")]
+        public string TypeValueListElement { get; set; }
 
-        public string valueTypeListElement = null;
+        [DataMember(Name = "valueTypeListElement")]
+        [XmlElement(ElementName = "valueTypeListElement")]
+        public string ValueTypeListElement { get; set; }
 
         public SubmodelElementList() { }
 
@@ -35,13 +43,13 @@ namespace AdminShell
             if (!(src is SubmodelElementList sml))
                 return;
 
-            orderRelevant = sml.orderRelevant;
+            OrderRelevant = sml.OrderRelevant;
 
-            if (sml.semanticIdListElement != null)
-                semanticIdListElement = new SemanticId(sml.semanticIdListElement);
+            if (sml.SemanticIdListElement != null)
+                SemanticIdListElement = new SemanticId(sml.SemanticIdListElement);
 
-            typeValueListElement = sml.typeValueListElement;
-            valueTypeListElement = sml.valueTypeListElement;
+            TypeValueListElement = sml.TypeValueListElement;
+            ValueTypeListElement = sml.ValueTypeListElement;
         }
     }
 }

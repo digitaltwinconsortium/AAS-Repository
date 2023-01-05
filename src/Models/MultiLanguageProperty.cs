@@ -1,15 +1,19 @@
 ﻿
 namespace AdminShell
 {
+    using System.Collections.Generic;
     using System.Runtime.Serialization;
+    using System.Xml.Serialization;
 
     [DataContract]
     public class MultiLanguageProperty : DataElement
     {
-        [DataMember(Name = "Value")]
-        public LangStringSet Value { get; set; } = new();
+        [DataMember(Name = "value")]
+        [XmlElement(ElementName = "value")]
+        public List<LangString> Value { get; set; } = new();
 
         [DataMember(Name = "valueId")]
+        [XmlElement(ElementName = "valueId")]
         public GlobalReference ValueId { get; set; }
 
         public MultiLanguageProperty() { }
@@ -20,21 +24,9 @@ namespace AdminShell
             if (!(src is MultiLanguageProperty mlp))
                 return;
 
-            Value = new LangStringSet(mlp.Value);
+            Value = new List<LangString>(mlp.Value);
             if (mlp.ValueId != null)
                 ValueId = new GlobalReference(mlp.ValueId);
-        }
-
-        public MultiLanguageProperty Set(LangString ls)
-        {
-            if (ls == null)
-                return this;
-
-            if (Value?.LangString == null)
-                Value = new LangStringSet();
-
-            Value.LangString[0] = ls;
-            return this;
         }
     }
 }

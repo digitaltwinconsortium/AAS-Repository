@@ -14,15 +14,20 @@ namespace AdminShell
         [XmlArrayItem("assetAdministrationShell")]
         public List<AssetAdministrationShell> AssetAdministrationShells { get; set; } = new();
 
-        [DataMember(Name = "ConceptDescriptions")]
-        [XmlArray("ConceptDescriptions")]
-        [XmlArrayItem("conceptDescription")]
-        public List<ConceptDescription> ConceptDescriptions { get; set; } = new();
+        [DataMember(Name = "assets")]
+        [XmlArray("assets")]
+        [XmlArrayItem("asset")]
+        public List<Asset> Assets { get; set; } = new();
 
-        [DataMember(Name = "Submodels")]
-        [XmlArray("Submodels")]
+        [DataMember(Name = "submodels")]
+        [XmlArray("submodels")]
         [XmlArrayItem("submodel")]
         public List<Submodel> Submodels { get; set; } = new();
+
+        [DataMember(Name = "conceptDescriptions")]
+        [XmlArray("conceptDescriptions")]
+        [XmlArrayItem("conceptDescription")]
+        public List<ConceptDescription> ConceptDescriptions { get; set; } = new();
 
         public AssetAdministrationShell FindAAS(Identifier id)
         {
@@ -41,16 +46,6 @@ namespace AdminShell
             foreach (var aas in AssetAdministrationShells)
                 if (aas.IdShort != null && aas.IdShort.Trim().ToLower() == idShort.Trim().ToLower())
                     return aas;
-            return null;
-        }
-
-        public Submodel FindSubmodel(Identifier id)
-        {
-            if (id == null)
-                return null;
-            foreach (var sm in Submodels)
-                if (sm.Id != null && sm.Id.IsEqual(id))
-                    return sm;
             return null;
         }
 
@@ -101,38 +96,6 @@ namespace AdminShell
 
             // uups
             return null;
-        }
-
-        public ConceptDescription FindConceptDescription(List<Identifier> loi)
-        {
-            // trivial
-            if (loi == null)
-                return null;
-
-            // can only refs with 1 key
-            if (loi.Count != 1)
-                return null;
-
-            // and we're picky
-            var id = loi[0];
-
-            // brute force
-            foreach (var cd in ConceptDescriptions)
-                if (cd.Id.Value.ToLower().Trim() == id.Value.ToLower().Trim())
-                    return cd;
-
-            // uups
-            return null;
-        }
-
-        public ConceptDescription FindConceptDescription(Key key)
-        {
-            if (key == null)
-                return null;
-
-            var l = new List<Key> { key };
-
-            return FindConceptDescription(l);
         }
     }
 }

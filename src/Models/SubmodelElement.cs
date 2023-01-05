@@ -1,28 +1,33 @@
 ﻿
 namespace AdminShell
 {
-    using Jose;
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
+    using System.Xml.Serialization;
 
     [DataContract]
     public class SubmodelElement : Referable
     {
-        // constants
-        public static Type[] PROP_MLP = new Type[] {
-        typeof(MultiLanguageProperty), typeof(Property) };
+        public static Type[] PROP_MLP = new Type[]
+        {
+            typeof(MultiLanguageProperty), typeof(Property)
+        };
 
         [DataMember(Name = "hasDataSpecification")]
+        [XmlElement(ElementName = "hasDataSpecification")]
         public HasDataSpecification HasDataSpecification { get; set; }
 
         [DataMember(Name = "semanticId")]
+        [XmlElement(ElementName = "semanticId")]
         public Reference SemanticId { get; set; } = new();
 
         [DataMember(Name = "qualifiers")]
+        [XmlElement(ElementName = "qualifiers")]
         public List<Qualifier> Qualifiers { get; set; }
 
-        [DataMember(Name = "Kind")]
+        [DataMember(Name = "kind")]
+        [XmlElement(ElementName = "kind")]
         public ModelingKind Kind { get; set; } = new();
 
         public SubmodelElement()

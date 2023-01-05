@@ -10,21 +10,27 @@ namespace AdminShell
     public class Submodel : Identifiable
     {
         [DataMember(Name = "embeddedDataSpecifications")]
+        [XmlElement(ElementName = "embeddedDataSpecifications")]
         public List<EmbeddedDataSpecification> EmbeddedDataSpecifications { get; set; }
 
         [DataMember(Name = "qualifiers")]
+        [XmlElement(ElementName = "qualifiers")]
         public List<Qualifier> Qualifiers { get; set; }
 
         [DataMember(Name = "semanticId")]
+        [XmlElement(ElementName = "semanticId")]
         public Reference SemanticId { get; set; }
 
         [DataMember(Name = "kind")]
+        [XmlElement(ElementName = "kind")]
         public ModelingKind Kind { get; set; }
 
         [DataMember(Name = "submodelElements")]
+        [XmlElement(ElementName = "submodelElements")]
         public List<SubmodelElement> SubmodelElements { get; set; }
 
-        [DataMember(Name = "hasDataSpecification")]
+        [DataMember(Name = "HasDataSpecification")]
+        [XmlElement(ElementName = "HasDataSpecification")]
         public HasDataSpecification HasDataSpecification { get; set; }
 
         public static IEnumerable<SubmodelElement> EnumerateSMEChildren(SubmodelElement sme)

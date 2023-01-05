@@ -2,6 +2,7 @@
 namespace AdminShell
 {
     using System.Runtime.Serialization;
+    using System.Xml.Serialization;
 
     [DataContract]
     public partial class AdministrativeInformation
@@ -14,10 +15,12 @@ namespace AdminShell
             Version = administration.Version;
         }
 
-        [DataMember(Name="Revision")]
+        [DataMember(Name="revision")]
+        [XmlElement(ElementName= "revision")]
         public string Revision { get; set; }
 
-        [DataMember(Name="Version")]
+        [DataMember(Name="version")]
+        [XmlElement(ElementName = "version")]
         public string Version { get; set; }
     }
 }

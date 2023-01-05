@@ -21,8 +21,8 @@ namespace AdminShell
 
         [Required]
         [XmlText]
-        [DataMember(Name = "Value")]
-        [MetaModelName("Key.Value")]
+        [DataMember(Name = "value")]
+        [MetaModelName("Key.value")]
         public string Value { get; set; }
 
         public Key()

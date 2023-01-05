@@ -2,39 +2,33 @@
 namespace AdminShell
 {
     using System.Collections.Generic;
+    using System.Runtime.Serialization;
     using System.Xml;
     using System.Xml.Serialization;
 
+    [DataContract]
     public class LangStringIEC61360
     {
-        [XmlElement(ElementName = "LangString", Namespace = "http://www.admin-shell.io/aas/3/0")]
-        public List<LangString> langString = new List<LangString>();
+        [DataMember(Name = "langString")]
+        [XmlElement(ElementName = "langString")]
+        public List<LangString> LangString = new List<LangString>();
 
         [XmlIgnore]
-        public bool IsEmpty { get { return langString == null || langString.Count < 1; } }
+        public bool IsEmpty { get { return LangString == null || LangString.Count < 1; } }
 
         [XmlIgnore]
-        public int Count { get { if (langString == null) return 0; return langString.Count; } }
+        public int Count { get { if (LangString == null) return 0; return LangString.Count; } }
 
         [XmlIgnore]
-        public LangString this[int index] { get { return langString[index]; } }
+        public LangString this[int index] { get { return LangString[index]; } }
 
         public LangStringIEC61360() { }
 
         public LangStringIEC61360(LangStringIEC61360 src)
         {
-            if (src.langString != null)
-                foreach (var ls in src.langString)
-                    this.langString.Add(new LangString(ls));
-        }
-
-        public static LangStringIEC61360 CreateFrom(List<LangString> src)
-        {
-            var res = new LangStringIEC61360();
-            if (src != null)
-                foreach (var ls in src)
-                    res.langString.Add(new LangString(ls));
-            return res;
+            if (src.LangString != null)
+                foreach (var ls in src.LangString)
+                    this.LangString.Add(new LangString(ls));
         }
     }
 }

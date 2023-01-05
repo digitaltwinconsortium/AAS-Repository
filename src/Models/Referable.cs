@@ -8,40 +8,54 @@ namespace AdminShell
     using System.Runtime.Serialization;
     using System.Xml.Serialization;
 
+    [DataContract]
     public class Referable : IAasElement
     {
         [DataMember(Name = "category")]
+        [XmlElement(ElementName = "category")]
         [MetaModelName("Referable.category")]
         public string Category { get; set; }
 
         [DataMember(Name = "description")]
+        [XmlElement(ElementName = "description")]
         public Description Description { get; set; }
 
         [DataMember(Name = "displayName")]
+        [XmlElement(ElementName = "displayName")]
         public string DisplayName { get; set; }
 
         [Required]
-        [MetaModelName("Referable.idShort")]
         [DataMember(Name = "idShort")]
+        [XmlElement(ElementName = "idShort")]
+        [MetaModelName("Referable.idShort")]
         public string IdShort { get; set; }
 
         [Required]
         [DataMember(Name = "modelType")]
+        [XmlElement(ElementName = "modelType")]
         public ModelType ModelType { get; set; }
 
         [DataMember(Name = "checksum")]
+        [XmlElement(ElementName = "checksum")]
         [MetaModelName("Referable.checksum")]
         public string Checksum { get; set; } = string.Empty;
 
         [XmlIgnore]
         public IAasElement Parent { get; set; }
 
+        [XmlIgnore]
         public static string CONSTANT = "CONSTANT";
+
+        [XmlIgnore]
         public static string Category_PARAMETER = "PARAMETER";
+
+        [XmlIgnore]
         public static string VARIABLE = "VARIABLE";
 
+        [XmlIgnore]
         public static string[] ReferableCategoryNames = new string[] { CONSTANT, Category_PARAMETER, VARIABLE };
 
+        [XmlIgnore]
         public List<Extension> extension = null;
 
         [XmlIgnore]

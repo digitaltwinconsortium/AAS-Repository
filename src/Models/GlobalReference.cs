@@ -12,8 +12,8 @@ namespace AdminShell
     {
         [Required]
         [XmlArray("values")]
-        [XmlArrayItem("Value")]
-        [DataMember(Name = "Value")]
+        [XmlArrayItem("value")]
+        [DataMember(Name = "value")]
         public List<Identifier> Value { get; set; } = new();
 
         public GlobalReference() : base() { }

@@ -23,7 +23,7 @@ namespace AdminShell
         [Required]
         [DataMember(Name = "text")]
         [XmlText]
-        [MetaModelName("LangString.Text")]
+        [MetaModelName("LangString.text")]
         public string Text { get; set; }
 
         public LangString() { }

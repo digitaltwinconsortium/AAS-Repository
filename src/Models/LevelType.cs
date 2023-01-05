@@ -4,19 +4,20 @@ namespace AdminShell
     using Newtonsoft.Json;
     using System.Runtime.Serialization;
 
+    [DataContract]
     [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum LevelType
     {
         [EnumMember(Value = "Min")]
-        MinEnum = 0,
+        Min = 0,
 
         [EnumMember(Value = "Max")]
-        MaxEnum = 1,
+        Max = 1,
 
         [EnumMember(Value = "Nom")]
-        NomEnum = 2,
+        Nom = 2,
 
         [EnumMember(Value = "Typ")]
-        TypEnum = 3
+        Typ = 3
     }
 }

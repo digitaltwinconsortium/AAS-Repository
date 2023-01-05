@@ -1,10 +1,9 @@
 ﻿
 namespace AdminShell
 {
-    using Newtonsoft.Json;
-    using System.ComponentModel.DataAnnotations;
     using System.Runtime.Serialization;
     using System.Text.RegularExpressions;
+    using System.Xml.Serialization;
 
     [DataContract]
     public class Identifiable : Referable
@@ -12,10 +11,11 @@ namespace AdminShell
         // V3.0 made Id a simple string
 
         [DataMember(Name = "administration")]
+        [XmlElement(ElementName = "administration")]
         public AdministrativeInformation Administration { get; set; }
 
-        [Required]
         [DataMember(Name = "identification")]
+        [XmlElement(ElementName = "identification")]
         public string Identification
         {
             get { return Id.Value; }

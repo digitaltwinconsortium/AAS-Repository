@@ -5,15 +5,19 @@ namespace AdminShell
     using System.Runtime.Serialization;
     using System.Xml.Serialization;
 
+    [DataContract]
     public class ConceptDescription : Identifiable
     {
         [DataMember(Name = "embeddedDataSpecifications")]
+        [XmlElement(ElementName = "embeddedDataSpecifications")]
         public List<EmbeddedDataSpecification> EmbeddedDataSpecifications { get; set; }
 
         [DataMember(Name = "dataSpecifications")]
+        [XmlElement(ElementName = "dataSpecifications")]
         public List<Reference> DataSpecifications { get; set; }
 
         [DataMember(Name = "isCaseOf")]
+        [XmlElement(ElementName = "isCaseOf")]
         public List<Reference> IsCaseOf { get; set; }
 
         [XmlIgnore]
@@ -42,7 +46,7 @@ namespace AdminShell
         {
             get
             {
-                return EmbeddedDataSpecifications?[0].DataSpecificationContent.dataSpecificationIEC61360;
+                return EmbeddedDataSpecifications?[0].DataSpecificationContent.DataSpecificationIEC61360;
             }
             set
             {
@@ -51,12 +55,12 @@ namespace AdminShell
                 if (eds != null)
                 {
                     // replace this
-                    eds.DataSpecificationContent.dataSpecificationIEC61360 = value;
+                    eds.DataSpecificationContent.DataSpecificationIEC61360 = value;
                     return;
                 }
                 // no? .. add!
                 var edsnew = new EmbeddedDataSpecification();
-                edsnew.DataSpecificationContent.dataSpecificationIEC61360 = value;
+                edsnew.DataSpecificationContent.DataSpecificationIEC61360 = value;
                 EmbeddedDataSpecifications.Add(edsnew);
             }
         }

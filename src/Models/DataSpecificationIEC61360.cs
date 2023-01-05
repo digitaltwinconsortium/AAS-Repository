@@ -11,86 +11,79 @@ namespace AdminShell
     public class DataSpecificationIEC61360 : ValueObject
     {
         [DataMember(Name = "dataType")]
+        [XmlElement(ElementName = "dataType")]
+        [MetaModelName("DataSpecificationIEC61360.dataType")]
         public string DataType { get; set; }
 
         [DataMember(Name = "definition")]
-        public List<LangString> Definition { get; set; }
+        [XmlElement(ElementName = "definition")]
+        public List<LangStringIEC61360> Definition { get; set; }
 
         [DataMember(Name = "levelType")]
+        [XmlElement(ElementName = "levelType")]
         public List<LevelType> LevelType { get; set; }
 
         [Required]
         [DataMember(Name = "preferredName")]
-        public List<LangString> PreferredName { get; set; }
+        [XmlElement(ElementName = "preferredName")]
+        public List<LangStringIEC61360> PreferredName { get; set; }
 
         [DataMember(Name = "shortName")]
+        [XmlElement(ElementName = "shortName")]
         public List<LangString> ShortName { get; set; }
 
         [DataMember(Name = "sourceOfDefinition")]
+        [XmlElement(ElementName = "sourceOfDefinition")]
+        [MetaModelName("DataSpecificationIEC61360.sourceOfDefinition")]
         public string SourceOfDefinition { get; set; }
 
         [DataMember(Name = "symbol")]
+        [XmlElement(ElementName = "symbol")]
+        [MetaModelName("DataSpecificationIEC61360.symbol")]
         public string Symbol { get; set; }
 
         [DataMember(Name = "unit")]
+        [XmlElement(ElementName = "unit")]
+        [MetaModelName("DataSpecificationIEC61360.unit")]
         public string Unit { get; set; }
 
         [DataMember(Name = "unitId")]
-        public Reference UnitId { get; set; }
+        [XmlElement(ElementName = "unitId")]
+        public UnitId UnitId { get; set; }
 
         [DataMember(Name = "valueFormat")]
+        [XmlElement(ElementName = "valueFormat")]
+        [MetaModelName("DataSpecificationIEC61360.valueFormat")]
         public string ValueFormat { get; set; }
 
         [DataMember(Name = "valueList")]
+        [XmlElement(ElementName = "valueList")]
         public ValueList ValueList { get; set; }
-
-        public LangStringSetIEC61360 preferredName = new LangStringSetIEC61360();
-
-        public LangStringSetIEC61360 shortName = null;
-
-        [MetaModelName("DataSpecificationIEC61360.unit")]
-        public string unit = "";
-
-        public UnitId unitId = null;
-
-        [MetaModelName("DataSpecificationIEC61360.valueFormat")]
-        public string valueFormat = null;
-
-        [MetaModelName("DataSpecificationIEC61360.sourceOfDefinition")]
-        public string sourceOfDefinition = null;
-
-        [MetaModelName("DataSpecificationIEC61360.symbol")]
-        public string symbol = null;
-
-        [MetaModelName("DataSpecificationIEC61360.dataType")]
-        public string dataType = "";
-
-        public LangStringSetIEC61360 definition = null;
 
         public DataSpecificationIEC61360() { }
 
         public DataSpecificationIEC61360(DataSpecificationIEC61360 src)
         {
-            if (src.preferredName != null)
-                preferredName = new LangStringSetIEC61360(src.preferredName);
+            if (src.PreferredName != null)
+                PreferredName = new List<LangStringIEC61360>(src.PreferredName);
 
-            shortName = src.shortName;
+            ShortName = src.ShortName;
 
-            unit = src.unit;
+            Unit = src.Unit;
 
-            if (src.unitId != null)
-                unitId = new UnitId(src.unitId);
+            if (src.UnitId != null)
+                UnitId = new UnitId(src.UnitId);
 
-            valueFormat = src.valueFormat;
+            ValueFormat = src.ValueFormat;
 
-            sourceOfDefinition = src.sourceOfDefinition;
+            SourceOfDefinition = src.SourceOfDefinition;
 
-            symbol = src.symbol;
+            Symbol = src.Symbol;
 
-            dataType = src.dataType;
+            DataType = src.DataType;
 
-            if (src.definition != null)
-                definition = new LangStringSetIEC61360(src.definition);
+            if (src.Definition != null)
+                Definition = new List<LangStringIEC61360>(src.Definition);
         }
 
         public static Identifier GetIdentifier()

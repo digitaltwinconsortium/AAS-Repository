@@ -4,13 +4,14 @@ namespace AdminShell
     using Newtonsoft.Json;
     using System.Runtime.Serialization;
 
+    [DataContract]
     [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum ModelingKind
     {
         [EnumMember(Value = "Template")]
-        TemplateEnum = 0,
+        Template = 0,
 
         [EnumMember(Value = "Instance")]
-        InstanceEnum = 1
+        Instance = 1
     }
 }

@@ -4,139 +4,140 @@ namespace AdminShell
     using Newtonsoft.Json;
     using System.Runtime.Serialization;
 
+    [DataContract]
     [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum ValueTypeEnum
+    public enum  ValueTypeEnum
     {
         [EnumMember(Value = "anyUri")]
-        AnyUriEnum = 0,
+        AnyUri = 0,
 
         [EnumMember(Value = "base64Binary")]
-        Base64BinaryEnum = 1,
+        Base64Binary = 1,
 
         [EnumMember(Value = "boolean")]
-        BooleanEnum = 2,
+        Boolean = 2,
 
         [EnumMember(Value = "date")]
-        DateEnum = 3,
+        Date = 3,
 
         [EnumMember(Value = "dateTime")]
-        DateTimeEnum = 4,
+        DateTime = 4,
 
         [EnumMember(Value = "dateTimeStamp")]
-        DateTimeStampEnum = 5,
+        DateTimeStamp = 5,
 
         [EnumMember(Value = "decimal")]
-        DecimalEnum = 6,
+        Decimal = 6,
 
         [EnumMember(Value = "integer")]
-        IntegerEnum = 7,
+        Integer = 7,
 
         [EnumMember(Value = "long")]
-        LongEnum = 8,
+        Long = 8,
 
         [EnumMember(Value = "int")]
-        IntEnum = 9,
+        Int = 9,
 
         [EnumMember(Value = "short")]
-        ShortEnum = 10,
+        Short = 10,
 
         [EnumMember(Value = "byte")]
-        ByteEnum = 11,
+        Byte = 11,
 
         [EnumMember(Value = "nonNegativeInteger")]
-        NonNegativeIntegerEnum = 12,
+        NonNegativeInteger = 12,
 
         [EnumMember(Value = "positiveInteger")]
-        PositiveIntegerEnum = 13,
+        PositiveInteger = 13,
 
         [EnumMember(Value = "unsignedLong")]
-        UnsignedLongEnum = 14,
+        UnsignedLong = 14,
 
         [EnumMember(Value = "unsignedInt")]
-        UnsignedIntEnum = 15,
+        UnsignedInt = 15,
 
         [EnumMember(Value = "unsignedShort")]
-        UnsignedShortEnum = 16,
+        UnsignedShort = 16,
 
         [EnumMember(Value = "unsignedByte")]
-        UnsignedByteEnum = 17,
+        UnsignedByte = 17,
 
         [EnumMember(Value = "nonPositiveInteger")]
-        NonPositiveIntegerEnum = 18,
+        NonPositiveInteger = 18,
 
         [EnumMember(Value = "negativeInteger")]
-        NegativeIntegerEnum = 19,
+        NegativeInteger = 19,
 
         [EnumMember(Value = "double")]
-        DoubleEnum = 20,
+        Double = 20,
 
         [EnumMember(Value = "duration")]
-        DurationEnum = 21,
+        Duration = 21,
 
         [EnumMember(Value = "dayTimeDuration")]
-        DayTimeDurationEnum = 22,
+        DayTimeDuration = 22,
 
         [EnumMember(Value = "yearMonthDuration")]
-        YearMonthDurationEnum = 23,
+        YearMonthDuration = 23,
 
         [EnumMember(Value = "float")]
-        FloatEnum = 24,
+        Float = 24,
 
         [EnumMember(Value = "gDay")]
-        GDayEnum = 25,
+        GDay = 25,
 
         [EnumMember(Value = "gMonth")]
-        GMonthEnum = 26,
+        GMonth = 26,
 
         [EnumMember(Value = "gMonthDay")]
-        GMonthDayEnum = 27,
+        GMonthDay = 27,
 
         [EnumMember(Value = "gYear")]
-        GYearEnum = 28,
+        GYear = 28,
 
         [EnumMember(Value = "gYearMonth")]
-        GYearMonthEnum = 29,
+        GYearMonth = 29,
 
         [EnumMember(Value = "hexBinary")]
-        HexBinaryEnum = 30,
+        HexBinary = 30,
 
         [EnumMember(Value = "NOTATION")]
-        NOTATIONEnum = 31,
+        NOTATION = 31,
 
         [EnumMember(Value = "QName")]
-        QNameEnum = 32,
+        QName = 32,
 
         [EnumMember(Value = "string")]
-        StringEnum = 33,
+        String = 33,
 
         [EnumMember(Value = "normalizedString")]
-        NormalizedStringEnum = 34,
+        NormalizedString = 34,
 
         [EnumMember(Value = "token")]
-        TokenEnum = 35,
+        Token = 35,
 
         [EnumMember(Value = "language")]
-        LanguageEnum = 36,
+        Language = 36,
 
         [EnumMember(Value = "Name")]
-        NameEnum = 37,
+        Name = 37,
 
         [EnumMember(Value = "NCName")]
-        NCNameEnum = 38,
+        NCName = 38,
 
         [EnumMember(Value = "ENTITY")]
-        ENTITYEnum = 39,
+        ENTITY = 39,
 
         [EnumMember(Value = "ID")]
-        IDEnum = 40,
+        ID = 40,
 
         [EnumMember(Value = "IDREF")]
-        IDREFEnum = 41,
+        IDREF = 41,
 
         [EnumMember(Value = "NMTOKEN")]
-        NMTOKENEnum = 42,
+        NMTOKEN = 42,
 
         [EnumMember(Value = "time")]
-        TimeEnum = 43
+        Time = 43
     }
 }

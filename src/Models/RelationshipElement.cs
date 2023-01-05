@@ -2,19 +2,21 @@
 namespace AdminShell
 {
     using Newtonsoft.Json;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Dynamic;
     using System.Runtime.Serialization;
+    using System.Xml.Serialization;
 
+    [DataContract]
     public class RelationshipElement : DataElement
     {
         [Required]
         [DataMember(Name = "first")]
+        [XmlElement(ElementName = "first")]
         public ModelReference First { get; set; } = new();
 
         [Required]
         [DataMember(Name = "second")]
+        [XmlElement(ElementName = "second")]
         public ModelReference Second { get; set; } = new();
 
         public RelationshipElement() { }

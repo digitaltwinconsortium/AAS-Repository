@@ -1,21 +1,25 @@
 ﻿
 namespace AdminShell
 {
-    using System.Xml;
+    using System.Runtime.Serialization;
     using System.Xml.Serialization;
 
+    [DataContract]
     public class Asset : Identifiable
     {
+        [DataMember(Name = "hasDataSpecification")]
         [XmlElement(ElementName = "hasDataSpecification")]
-        public HasDataSpecification hasDataSpecification = null;
+        public HasDataSpecification HasDataSpecification = null;
 
+        [DataMember(Name = "assetIdentificationModelRef")]
         [XmlElement(ElementName = "assetIdentificationModelRef")]
-        public SubmodelReference assetIdentificationModelRef = null;
+        public SubmodelReference AssetIdentificationModelRef = null;
 
+        [DataMember(Name = "billOfMaterialRef")]
         [XmlElement(ElementName = "billOfMaterialRef")]
-        public SubmodelReference billOfMaterialRef = null;
+        public SubmodelReference BillOfMaterialRef = null;
 
-        [XmlElement(ElementName = "Kind")]
+        [DataMember(Name = "kind")]
         public AssetKind kind = new AssetKind();
     }
 }

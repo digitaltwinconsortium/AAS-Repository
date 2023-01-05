@@ -9,10 +9,10 @@ namespace AdminShell
     // In 2.0.1, theoretically each entity with HasDataSpecification could also contain an EmbeddedDataSpecification.
 
     [DataContract]
-    [XmlType(TypeName = "hasDataSpecification")]
     public class HasDataSpecification
     {
         [DataMember(Name = "embeddedDataSpecifications")]
+        [XmlElement(ElementName = "embeddedDataSpecifications")]
         public List<EmbeddedDataSpecification> EmbeddedDataSpecifications { get; set; } = new();
 
         public HasDataSpecification() { }
@@ -35,7 +35,7 @@ namespace AdminShell
             get
             {
                 foreach (EmbeddedDataSpecification eds in EmbeddedDataSpecifications)
-                    if ((eds.DataSpecificationContent?.dataSpecificationIEC61360 != null)
+                    if ((eds.DataSpecificationContent?.DataSpecificationIEC61360 != null)
                       || eds.DataSpecification?.Matches(DataSpecificationIEC61360.GetIdentifier()) == true)
                         return eds;
 
@@ -49,7 +49,7 @@ namespace AdminShell
                 {
                     // replace this
                     /* TODO (MIHO, 2020-08-30): this does not prevent the corner case, that we could have
-                        * multiple dataSpecificationIEC61360 in this list, which would be an error */
+                        * multiple DataSpecificationIEC61360 in this list, which would be an error */
                     EmbeddedDataSpecifications.Remove(eds);
                     EmbeddedDataSpecifications.Add(value);
                     return;

@@ -1,20 +1,21 @@
 ﻿
 namespace AdminShell
 {
+    using System.Collections.Generic;
+    using System.Runtime.Serialization;
     using System.Xml.Serialization;
 
+    [DataContract]
     [XmlType(TypeName = "reference")]
     public class Reference : IAasElement
     {
-        [XmlIgnore]
-        protected KeyList keys = new KeyList();
-
+        [DataMember(Name = "keys")]
         [XmlArray("keys")]
         [XmlArrayItem("key")]
-        public KeyList Keys { get { return keys; } }
+        public List<Key> Keys { get; set; } = new();
 
         [XmlIgnore]
-        public int Count { get { if (keys == null) return 0; return keys.Count; } }
+        public int Count { get { return Keys.Count; } }
 
         public Reference(){ }
 
@@ -22,15 +23,15 @@ namespace AdminShell
         {
             if (src != null)
                 foreach (var k in src.Keys)
-                    keys.Add(new Key(k));
+                    Keys.Add(new Key(k));
         }
 
         public Key GetAsExactlyOneKey()
         {
-            if (keys == null || keys.Count != 1)
+            if (Keys == null || Keys.Count != 1)
                 return null;
 
-            var k = keys[0];
+            var k = Keys[0];
 
             return new Key(k.Type.ToString(), k.Value);
         }
@@ -42,7 +43,7 @@ namespace AdminShell
 
             if (Count == 1)
             {
-                var k = keys[0];
+                var k = Keys[0];
                 return k.Matches(other.IdType, other.Id, Key.MatchMode.Identification);
             }
             return false;
@@ -50,19 +51,14 @@ namespace AdminShell
 
         public bool Matches(Reference other, Key.MatchMode matchMode = Key.MatchMode.Strict)
         {
-            if (keys == null || other == null || other.keys == null || other.Count != Count)
+            if (Keys == null || other == null || other.Keys == null || other.Count != Count)
                 return false;
 
             var same = true;
             for (int i = 0; i < Count; i++)
-                same = same && keys[i].Matches(other.keys[i], matchMode);
+                same = same && Keys[i].Matches(other.Keys[i], matchMode);
 
             return same;
-        }
-
-        public string ToString(int format = 0, string delimiter = ",")
-        {
-            return keys?.ToString(format, delimiter);
         }
     }
 }

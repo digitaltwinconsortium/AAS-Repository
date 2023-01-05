@@ -3,42 +3,22 @@ namespace AdminShell
 {
     using System.Collections.Generic;
     using System.Runtime.Serialization;
+    using System.Xml.Serialization;
 
     [DataContract]
     public class Operation : SubmodelElement
     {
         [DataMember(Name = "inoutputVariables")]
+        [XmlElement(ElementName = "inoutputVariables")]
         public List<OperationVariable> InoutputVariables { get; set; } = new();
 
         [DataMember(Name = "inputVariables")]
+        [XmlElement(ElementName = "inputVariables")]
         public List<OperationVariable> InputVariables { get; set; } = new();
 
         [DataMember(Name = "outputVariables")]
+        [XmlElement(ElementName = "outputVariables")]
         public List<OperationVariable> OutputVariables { get; set; } = new();
-
-        public List<OperationVariable> this[OperationVariable.Direction dir]
-        {
-            get
-            {
-                if (dir == OperationVariable.Direction.In)
-                    return InputVariables;
-                else
-                if (dir == OperationVariable.Direction.Out)
-                    return OutputVariables;
-                else
-                    return InoutputVariables;
-            }
-            set
-            {
-                if (dir == OperationVariable.Direction.In)
-                    InputVariables = value;
-                else
-                if (dir == OperationVariable.Direction.Out)
-                    OutputVariables = value;
-                else
-                    InoutputVariables = value;
-            }
-        }
 
         public List<OperationVariable> this[int dir]
         {
@@ -62,17 +42,6 @@ namespace AdminShell
                 else
                     InoutputVariables = value;
             }
-        }
-
-        public static List<SubmodelElementWrapper> GetWrappers(List<OperationVariable> ovl)
-        {
-            var res = new List<SubmodelElementWrapper>();
-
-            foreach (var ov in ovl)
-                if (ov.Value != null)
-                    res.Add(ov.Value);
-
-            return res;
         }
 
         public Operation() { }

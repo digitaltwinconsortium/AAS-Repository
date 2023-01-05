@@ -4,82 +4,83 @@ namespace AdminShell
     using Newtonsoft.Json;
     using System.Runtime.Serialization;
 
+    [DataContract]
     [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum KeyElements
     {
         [EnumMember(Value = "Asset")]
-        AssetEnum = 0,
+        Asset = 0,
 
         [EnumMember(Value = "AssetAdministrationShell")]
-        AssetAdministrationShellEnum = 1,
+        AssetAdministrationShell = 1,
 
         [EnumMember(Value = "ConceptDescription")]
-        ConceptDescriptionEnum = 2,
+        ConceptDescription = 2,
 
         [EnumMember(Value = "Submodel")]
-        SubmodelEnum = 3,
+        Submodel = 3,
 
         [EnumMember(Value = "AccessPermissionRule")]
-        AccessPermissionRuleEnum = 4,
+        AccessPermissionRule = 4,
 
         [EnumMember(Value = "AnnotatedRelationshipElement")]
-        AnnotatedRelationshipElementEnum = 5,
+        AnnotatedRelationshipElement = 5,
 
         [EnumMember(Value = "BasicEvent")]
-        BasicEventEnum = 6,
+        BasicEvent = 6,
 
         [EnumMember(Value = "Blob")]
-        BlobEnum = 7,
+        Blob = 7,
 
         [EnumMember(Value = "Capability")]
-        CapabilityEnum = 8,
+        Capability = 8,
 
         [EnumMember(Value = "DataElement")]
-        DataElementEnum = 9,
+        DataElement = 9,
 
         [EnumMember(Value = "File")]
-        FileEnum = 10,
+        File = 10,
 
         [EnumMember(Value = "Entity")]
-        EntityEnum = 11,
+        Entity = 11,
 
         [EnumMember(Value = "Event")]
-        EventEnum = 12,
+        Event = 12,
 
         [EnumMember(Value = "MultiLanguageProperty")]
-        MultiLanguagePropertyEnum = 13,
+        MultiLanguageProperty = 13,
 
         [EnumMember(Value = "Operation")]
-        OperationEnum = 14,
+        Operation = 14,
 
         [EnumMember(Value = "Property")]
-        PropertyEnum = 15,
+        Property = 15,
 
         [EnumMember(Value = "Range")]
-        RangeEnum = 16,
+        Range = 16,
 
         [EnumMember(Value = "ReferenceElement")]
-        ReferenceElementEnum = 17,
+        ReferenceElement = 17,
 
         [EnumMember(Value = "RelationshipElement")]
-        RelationshipElementEnum = 18,
+        RelationshipElement = 18,
 
         [EnumMember(Value = "SubmodelElement")]
-        SubmodelElementEnum = 19,
+        SubmodelElement = 19,
 
         [EnumMember(Value = "SubmodelElementList")]
-        SubmodelElementListEnum = 20,
+        SubmodelElementList = 20,
 
         [EnumMember(Value = "SubmodelElementStruct")]
-        SubmodelElementStructEnum = 21,
+        SubmodelElementStruct = 21,
 
         [EnumMember(Value = "View")]
-        ViewEnum = 22,
+        View = 22,
 
         [EnumMember(Value = "GlobalReference")]
-        GlobalReferenceEnum = 23,
+        GlobalReference = 23,
 
         [EnumMember(Value = "FragmentReference")]
-        FragmentReferenceEnum = 24
+        FragmentReference = 24
     }
 }

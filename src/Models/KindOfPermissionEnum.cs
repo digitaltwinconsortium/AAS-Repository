@@ -4,19 +4,20 @@ namespace AdminShell
     using Newtonsoft.Json;
     using System.Runtime.Serialization;
 
+    [DataContract]
     [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum KindOfPermissionEnum
     {
         [EnumMember(Value = "Allow")]
-        AllowEnum = 0,
+        Allow = 0,
 
         [EnumMember(Value = "Deny")]
-        DenyEnum = 1,
+        Deny = 1,
 
         [EnumMember(Value = "NotApplicable")]
-        NotApplicableEnum = 2,
+        NotApplicable = 2,
 
         [EnumMember(Value = "Undefined")]
-        UndefinedEnum = 3
+        Undefined = 3
     }
 }

@@ -2,11 +2,14 @@
 namespace AdminShell
 {
     using System.Collections.Generic;
+    using System.Runtime.Serialization;
     using System.Xml.Serialization;
 
+    [DataContract]
     public class Description
     {
-        [XmlElement(ElementName = "langString")]
+        [DataMember(Name = "LangString")]
+        [XmlElement(ElementName = "LangString")]
         public List<LangString> LangString { get; set; } = new();
 
         public Description() { }

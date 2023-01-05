@@ -78,7 +78,7 @@ namespace AdminShell
                     System.IO.File.Copy(fn, _tempFn);
                     fnToLoad = _tempFn;
                 }
-        
+
                 string nsuri = "";
 
                 // load package AASX
@@ -93,7 +93,7 @@ namespace AdminShell
                         originPart = package.GetPart(x.TargetUri);
                         break;
                     }
-      
+
                 if (originPart == null)
                     throw (new Exception("Unable to find AASX origin. Aborting!"));
 
@@ -145,7 +145,7 @@ namespace AdminShell
 
                 s.Close();
             }
-      
+
             return true;
         }
 
@@ -168,7 +168,7 @@ namespace AdminShell
                     nss.Add("IEC61360", "http://www.admin-shell.io/IEC61360/2/0");
                     serializer.Serialize(s, _aasenv, nss);
                 }
-        
+
                 return true;
             }
 
@@ -194,7 +194,7 @@ namespace AdminShell
                         serializer.Serialize(writer, _aasenv);
                     }
                 }
-        
+
                 return true;
             }
 
@@ -459,7 +459,7 @@ namespace AdminShell
                     System.IO.File.Copy(_tempFn, fn, overwrite: true);
                     _openPackage = Package.Open(_tempFn, FileMode.Open, FileAccess.Read, FileShare.Read);
                 }
- 
+
                 return true;
             }
 

@@ -4,22 +4,23 @@ namespace AdminShell
     using Newtonsoft.Json;
     using System.Runtime.Serialization;
 
+    [DataContract]
     [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum MessageTypeEnum
     {
         [EnumMember(Value = "Undefined")]
-        UndefinedEnum = 0,
+        Undefined = 0,
 
         [EnumMember(Value = "Info")]
-        InfoEnum = 1,
+        Info = 1,
 
         [EnumMember(Value = "Warning")]
-        WarningEnum = 2,
+        Warning = 2,
 
         [EnumMember(Value = "Error")]
-        ErrorEnum = 3,
+        Error = 3,
 
         [EnumMember(Value = "Exception")]
-        ExceptionEnum = 4
+        Exception = 4
     }
 }
