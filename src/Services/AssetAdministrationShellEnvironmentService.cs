@@ -688,9 +688,9 @@ namespace AdminShell
                     //Added support for submodel here, as no other api found for this functionality
                     else if (smeParent is Submodel submodel)
                     {
-                        var smeIndex = submodel.SubmodelElements.IndexOf(submodelElement);
-                        submodel.SubmodelElements.Remove(submodelElement);
-                        submodel.SubmodelElements.Insert(smeIndex, body);
+                        var smeIndex = submodel.SubmodelElements.IndexOf(new SubmodelElementWrapper(submodelElement));
+                        submodel.SubmodelElements.Remove(new SubmodelElementWrapper(submodelElement));
+                        submodel.SubmodelElements.Insert(smeIndex, new SubmodelElementWrapper(body));
                     }
                 }
 
@@ -732,9 +732,9 @@ namespace AdminShell
             {
                 if (smeParent != null && smeParent is Submodel submodel)
                 {
-                    submodel.SubmodelElements ??= new List<SubmodelElement>();
+                    submodel.SubmodelElements ??= new List<SubmodelElementWrapper>();
 
-                    submodel.SubmodelElements.Add(body);
+                    submodel.SubmodelElements.Add(new SubmodelElementWrapper(body));
 
                     body.Parent = submodel;
                 }
@@ -791,9 +791,9 @@ namespace AdminShell
             {
                 if (smeParent != null && smeParent is Submodel submodel)
                 {
-                    submodel.SubmodelElements ??= new List<SubmodelElement>();
+                    submodel.SubmodelElements ??= new List<SubmodelElementWrapper>();
 
-                    submodel.SubmodelElements.Add(body);
+                    submodel.SubmodelElements.Add(new SubmodelElementWrapper(body));
 
                     body.Parent = submodel;
 
@@ -997,10 +997,10 @@ namespace AdminShell
 
         private SubmodelElement FindSubmodelElementByIdShort(Submodel sm, string idShort)
         {
-                foreach (SubmodelElement sme in sm.SubmodelElements)
-                    if (sme.SemanticId != null)
-                        if (sme.SemanticId.Matches(new Identifier(idShort)))
-                            return sme;
+                foreach (SubmodelElementWrapper smew in sm.SubmodelElements)
+                    if (smew.SubmodelElement.SemanticId != null)
+                        if (smew.SubmodelElement.SemanticId.Matches(new Identifier(idShort)))
+                            return smew.SubmodelElement;
 
             return null;
         }
@@ -1150,7 +1150,7 @@ namespace AdminShell
                 }
                 else if (smeParent is Submodel parentSubmodel)
                 {
-                    parentSubmodel.SubmodelElements.Remove(submodelElement);
+                    parentSubmodel.SubmodelElements.Remove(new SubmodelElementWrapper(submodelElement));
                 }
 
                 TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);

@@ -17,11 +17,11 @@ namespace AdminShell
         public ExecutionStateEnum? ExecutionState { get; set; }
 
         [DataMember(Name="inoutputArguments")]
-        [XmlElement(ElementName = "inoutputArguments")]
+        [XmlArray(ElementName = "inoutputArguments")]
         public List<OperationVariable> InoutputArguments { get; set; }
 
         [DataMember(Name="outputArguments")]
-        [XmlElement(ElementName = "outputArguments")]
+        [XmlArray(ElementName = "outputArguments")]
         public List<OperationVariable> OutputArguments { get; set; }
 
         [DataMember(Name="requestId")]

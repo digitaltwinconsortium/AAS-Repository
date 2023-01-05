@@ -10,11 +10,11 @@ namespace AdminShell
     public class Submodel : Identifiable
     {
         [DataMember(Name = "embeddedDataSpecifications")]
-        [XmlElement(ElementName = "embeddedDataSpecifications")]
+        [XmlArray(ElementName = "embeddedDataSpecifications")]
         public List<EmbeddedDataSpecification> EmbeddedDataSpecifications { get; set; }
 
         [DataMember(Name = "qualifiers")]
-        [XmlElement(ElementName = "qualifiers")]
+        [XmlArray(ElementName = "qualifiers")]
         public List<Qualifier> Qualifiers { get; set; }
 
         [DataMember(Name = "semanticId")]
@@ -26,8 +26,8 @@ namespace AdminShell
         public ModelingKind Kind { get; set; }
 
         [DataMember(Name = "submodelElements")]
-        [XmlElement(ElementName = "submodelElements")]
-        public List<SubmodelElement> SubmodelElements { get; set; }
+        [XmlArray(ElementName = "submodelElements")]
+        public List<SubmodelElementWrapper> SubmodelElements { get; set; }
 
         [DataMember(Name = "HasDataSpecification")]
         [XmlElement(ElementName = "HasDataSpecification")]
@@ -58,8 +58,8 @@ namespace AdminShell
         public void SetAllParents()
         {
             if (SubmodelElements != null)
-                foreach (SubmodelElement sme in SubmodelElements)
-                    SetParentsForSMEs(this, sme);
+                foreach (SubmodelElementWrapper smew in SubmodelElements)
+                    SetParentsForSMEs(this, smew.SubmodelElement);
         }
     }
 }

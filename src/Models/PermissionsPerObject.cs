@@ -13,9 +13,11 @@ namespace AdminShell
         public Reference Object { get; set; }
 
         [DataMember(Name="permission")]
+        [XmlArray(ElementName = "permission")]
         public List<Permission> Permission { get; set; }
 
         [DataMember(Name="targetObjectAttributes")]
+        [XmlElement(ElementName = "targetObjectAttributes")]
         public ObjectAttributes TargetObjectAttributes { get; set; }
     }
 }

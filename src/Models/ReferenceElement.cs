@@ -7,8 +7,8 @@ namespace AdminShell
     [DataContract]
     public class ReferenceElement : DataElement
     {
-        [DataMember(Name = "value")]
-        [XmlElement(ElementName = "value")]
+        [DataMember(Name = "Value")]
+        [XmlElement(ElementName = "Value")]
         public Reference Value { get; set; } = new();
 
         public ReferenceElement() { }

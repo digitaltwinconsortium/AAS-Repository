@@ -11,16 +11,16 @@ namespace AdminShell
     public class AccessPermissionRule : Referable
     {
         [DataMember(Name="qualifiers")]
-        [XmlElement(ElementName= "qualifiers")]
+        [XmlArray(ElementName= "qualifiers")]
         public List<Qualifier> Qualifiers { get; set; }
 
         [DataMember(Name="permissionsPerObject")]
-        [XmlElement(ElementName = "permissionsPerObject")]
+        [XmlArray(ElementName = "permissionsPerObject")]
         public List<PermissionsPerObject> PermissionsPerObject { get; set; }
 
         [Required]
         [DataMember(Name="targetSubjectAttributes")]
-        [XmlElement(ElementName = "targetSubjectAttributes")]
+        [XmlArray(ElementName = "targetSubjectAttributes")]
         public List<SubjectAttributes> TargetSubjectAttributes { get; set; }
     }
 }

@@ -6,7 +6,7 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    [XmlType(TypeName = "SubmodelElement")]
+    [XmlType(TypeName = "submodelElement")]
     public class SubmodelElementWrapper
     {
         [DataMember]
@@ -27,7 +27,7 @@ namespace AdminShell
         [XmlElement(ElementName = "submodelElementStruct", Type = typeof(SubmodelElementStruct))]
         [XmlElement(ElementName = "globalReferenceElement", Type = typeof(GlobalReferenceElement))]
         [XmlElement(ElementName = "modelReferenceElement", Type = typeof(ModelReferenceElement))]
-        public SubmodelElement SubmodelElement { get; set; }
+        public SubmodelElement SubmodelElement { get; set; } = new();
 
         [XmlIgnore]
         public static string MetaModelVersionCoarse = "AAS3.0";
@@ -75,7 +75,6 @@ namespace AdminShell
             if (src is Entity)
                 SubmodelElement = new Entity(src as Entity);
 
-            // care abuot elements, which could be derived from (not so) abstract base types
             if (src is SubmodelElementList)
                 SubmodelElement = new SubmodelElementList(src as SubmodelElementList);
             else if (src is SubmodelElementStruct)
@@ -84,20 +83,17 @@ namespace AdminShell
                 SubmodelElement = new SubmodelElementCollection(
                     src as SubmodelElementCollection, shallowCopy: shallowCopy);
 
-            // again
             if (src is AnnotatedRelationshipElement)
                 SubmodelElement = new AnnotatedRelationshipElement(src as AnnotatedRelationshipElement);
             else if (src is RelationshipElement)
                 SubmodelElement = new RelationshipElement(src as RelationshipElement);
 
-            // again
             if (src is ModelReferenceElement)
                 SubmodelElement = new ModelReferenceElement(src as ModelReferenceElement);
             else if (src is GlobalReferenceElement)
                 SubmodelElement = new GlobalReferenceElement(src as GlobalReferenceElement);
             else if (src is ReferenceElement)
                 SubmodelElement = new ReferenceElement(src as ReferenceElement);
-
         }
     }
 }

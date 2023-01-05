@@ -8,7 +8,7 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    [XmlType(TypeName = "LangString", Namespace = "http://www.admin-shell.io/3/0")]
+    [XmlType(TypeName = "langString", Namespace = "http://www.admin-shell.io/3/0")]
     public class LangString
     {
         // constants

@@ -9,15 +9,15 @@ namespace AdminShell
     public class ConceptDescription : Identifiable
     {
         [DataMember(Name = "embeddedDataSpecifications")]
-        [XmlElement(ElementName = "embeddedDataSpecifications")]
+        [XmlArray(ElementName = "embeddedDataSpecifications")]
         public List<EmbeddedDataSpecification> EmbeddedDataSpecifications { get; set; }
 
         [DataMember(Name = "dataSpecifications")]
-        [XmlElement(ElementName = "dataSpecifications")]
+        [XmlArray(ElementName = "dataSpecifications")]
         public List<Reference> DataSpecifications { get; set; }
 
         [DataMember(Name = "isCaseOf")]
-        [XmlElement(ElementName = "isCaseOf")]
+        [XmlArray(ElementName = "isCaseOf")]
         public List<Reference> IsCaseOf { get; set; }
 
         [XmlIgnore]

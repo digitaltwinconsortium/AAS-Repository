@@ -23,7 +23,7 @@ namespace AdminShell
         public Reference SemanticId { get; set; } = new();
 
         [DataMember(Name = "qualifiers")]
-        [XmlElement(ElementName = "qualifiers")]
+        [XmlArray(ElementName = "qualifiers")]
         public List<Qualifier> Qualifiers { get; set; }
 
         [DataMember(Name = "kind")]

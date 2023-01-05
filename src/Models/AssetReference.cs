@@ -5,7 +5,7 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    [XmlType(TypeName = "AssetRef")]
+    [XmlType(TypeName = "assetRef")]
     public class AssetReference : GlobalReference
     {
     }

@@ -9,7 +9,7 @@ namespace AdminShell
     public partial class HasExtensions
     {
         [DataMember(Name="extensions")]
-        [XmlElement(ElementName = "extensions")]
+        [XmlArray(ElementName = "extensions")]
         public List<Extension> Extensions { get; set; }
     }
 }

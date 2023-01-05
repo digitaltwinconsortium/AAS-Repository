@@ -9,7 +9,7 @@ namespace AdminShell
     public class Descriptor
     {
         [DataMember(Name="endpoints")]
-        [XmlElement(ElementName = "endpoints")]
+        [XmlArray(ElementName = "endpoints")]
         public List<Endpoint> Endpoints { get; set; }
     }
 }

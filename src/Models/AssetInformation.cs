@@ -16,7 +16,7 @@ namespace AdminShell
         public GlobalReference GlobalAssetId { get; set; }
 
         [DataMember(Name = "specificAssetIds")]
-        [XmlElement(ElementName = "specificAssetIds")]
+        [XmlArray(ElementName = "specificAssetIds")]
         public List<IdentifierKeyValuePair> SpecificAssetIds { get; set; }
 
         [DataMember(Name = "defaultThumbnail")]

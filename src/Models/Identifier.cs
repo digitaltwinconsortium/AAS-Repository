@@ -13,16 +13,14 @@ namespace AdminShell
     [DataContract]
     public class Identifier
     {
-        [DataMember(Name ="value")]
-        [XmlElement(ElementName = "value")]
+        [DataMember(Name ="Value")]
         public string Value = string.Empty;
 
-        [DataMember(Name = "idType")]
         [XmlAttribute]
+        [DataMember(Name = "idType")]
         public string IdType = string.Empty;
 
         [DataMember(Name = "id")]
-        [XmlElement(ElementName = "id")]
         public string Id = string.Empty;
 
         public static implicit operator string(Identifier d)

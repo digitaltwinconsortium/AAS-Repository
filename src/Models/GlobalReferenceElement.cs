@@ -1,9 +1,15 @@
 ﻿
 namespace AdminShell
 {
+    using System.Runtime.Serialization;
+    using System.Xml.Serialization;
+
+    [DataContract]
     public class GlobalReferenceElement : ReferenceElement
     {
-        public GlobalReference value = new GlobalReference();
+        [DataMember(Name = "GRValue")]
+        [XmlElement(ElementName = "GRValue")]
+        public GlobalReference GRValue = new GlobalReference();
 
         public GlobalReferenceElement() { }
 
@@ -13,8 +19,8 @@ namespace AdminShell
             if (!(src is GlobalReferenceElement gre))
                 return;
 
-            if (gre.value != null)
-                this.value = new GlobalReference(gre.value);
+            if (gre.Value != null)
+                this.Value = new GlobalReference(gre.Value);
         }
     }
 }

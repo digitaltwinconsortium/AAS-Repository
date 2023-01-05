@@ -9,7 +9,7 @@ namespace AdminShell
     public class MultiLanguageProperty : DataElement
     {
         [DataMember(Name = "value")]
-        [XmlElement(ElementName = "value")]
+        [XmlArray(ElementName = "value")]
         public List<LangString> Value { get; set; } = new();
 
         [DataMember(Name = "valueId")]

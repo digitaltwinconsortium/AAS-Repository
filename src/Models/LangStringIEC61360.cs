@@ -10,7 +10,7 @@ namespace AdminShell
     public class LangStringIEC61360
     {
         [DataMember(Name = "langString")]
-        [XmlElement(ElementName = "langString")]
+        [XmlArray(ElementName = "langString")]
         public List<LangString> LangString = new List<LangString>();
 
         [XmlIgnore]

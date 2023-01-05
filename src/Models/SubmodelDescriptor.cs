@@ -15,7 +15,7 @@ namespace AdminShell
         public AdministrativeInformation Administration { get; set; }
 
         [DataMember(Name="description")]
-        [XmlElement(ElementName = "description")]
+        [XmlArray(ElementName = "description")]
         public List<LangString> Description { get; set; }
 
         [DataMember(Name="idShort")]

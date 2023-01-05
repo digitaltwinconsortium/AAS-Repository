@@ -9,11 +9,11 @@ namespace AdminShell
     public class View : Referable
     {
         [DataMember(Name = "embeddedDataSpecifications")]
-        [XmlElement(ElementName = "embeddedDataSpecifications")]
+        [XmlArray(ElementName = "embeddedDataSpecifications")]
         public List<EmbeddedDataSpecification> EmbeddedDataSpecifications { get; set; } = new();
 
         [DataMember(Name = "containedElements")]
-        [XmlElement(ElementName = "containedElements")]
+        [XmlArray(ElementName = "containedElements")]
         public List<Reference> ContainedElements { get; set; } = new();
 
         [DataMember(Name = "semanticId")]

@@ -165,7 +165,7 @@
         {
             foreach (var smew1 in sm.SubmodelElements)
             {
-                listIdshort.Add(smew1.IdShort);
+                listIdshort.Add(smew1.SubmodelElement.IdShort);
             }
             done = true;
         }
@@ -742,7 +742,7 @@
                     break;
                 case 2:
                     ret = string.Empty;
-                    if (e.EntityType == EntityTypeEnum.SelfManagedEntity)
+                    if (e.GetEntityType() == EntityTypeEnum.SelfManagedEntity)
                     {
                         if (e.AssetRef != null)
                         {

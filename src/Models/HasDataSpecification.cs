@@ -12,7 +12,7 @@ namespace AdminShell
     public class HasDataSpecification
     {
         [DataMember(Name = "embeddedDataSpecifications")]
-        [XmlElement(ElementName = "embeddedDataSpecifications")]
+        [XmlArray(ElementName = "embeddedDataSpecifications")]
         public List<EmbeddedDataSpecification> EmbeddedDataSpecifications { get; set; } = new();
 
         public HasDataSpecification() { }

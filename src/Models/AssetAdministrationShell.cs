@@ -13,7 +13,7 @@ namespace AdminShell
         public HasDataSpecification HasDataSpecification { get; set; } = new();
 
         [DataMember(Name="embeddedDataSpecifications")]
-        [XmlElement(ElementName = "embeddedDataSpecifications")]
+        [XmlArray(ElementName = "embeddedDataSpecifications")]
         public List<EmbeddedDataSpecification> EmbeddedDataSpecifications { get; set; } = new();
 
         [DataMember(Name="derivedFrom")]
@@ -33,15 +33,15 @@ namespace AdminShell
         public Security Security { get; set; } = new();
 
         [DataMember(Name="submodels")]
-        [XmlElement(ElementName = "submodels")]
+        [XmlArray(ElementName = "submodels")]
         public List<SubmodelReference> Submodels { get; set; } = new();
 
         [DataMember(Name="views")]
-        [XmlElement(ElementName = "views")]
+        [XmlArray(ElementName = "views")]
         public List<View> Views { get; set; } = new();
 
         [DataMember(Name = "conceptDictionaries")]
-        [XmlElement(ElementName = "conceptDictionaries")]
+        [XmlArray(ElementName = "conceptDictionaries")]
         public List<ConceptDictionary> ConceptDictionaries { get; set; } = new();
     }
 }

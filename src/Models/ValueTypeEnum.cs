@@ -3,6 +3,7 @@ namespace AdminShell
 {
     using Newtonsoft.Json;
     using System.Runtime.Serialization;
+    using System.Xml.Serialization;
 
     [DataContract]
     [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
@@ -108,6 +109,7 @@ namespace AdminShell
         QName = 32,
 
         [EnumMember(Value = "string")]
+        [XmlEnum(Name ="string")]
         String = 33,
 
         [EnumMember(Value = "normalizedString")]

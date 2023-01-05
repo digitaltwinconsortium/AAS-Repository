@@ -9,7 +9,7 @@ namespace AdminShell
     public class SubjectAttributes
     {
         [DataMember(Name="subjectAttributes")]
-        [XmlElement(ElementName = "subjectAttributes")]
+        [XmlArray(ElementName = "subjectAttributes")]
         public List<Reference> _SubjectAttributes { get; set; }
     }
 }

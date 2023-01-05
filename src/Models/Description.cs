@@ -9,7 +9,7 @@ namespace AdminShell
     public class Description
     {
         [DataMember(Name = "LangString")]
-        [XmlElement(ElementName = "LangString")]
+        [XmlArray(ElementName = "LangString")]
         public List<LangString> LangString { get; set; } = new();
 
         public Description() { }

@@ -9,7 +9,7 @@ namespace AdminShell
     public class ObjectAttributes
     {
         [DataMember(Name="objectAttribute")]
-        [XmlElement(ElementName = "objectAttribute")]
+        [XmlArray(ElementName = "objectAttribute")]
         public List<Property> ObjectAttribute { get; set; }
     }
 }

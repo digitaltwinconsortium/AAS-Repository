@@ -81,29 +81,29 @@ namespace AdminShell
         private void CreateViewFromSubModel(TreeNodeData rootItem, Submodel subModel, int i)
         {
             List<TreeNodeData> subModelElementTreeNodeDataList = new List<TreeNodeData>();
-            foreach (SubmodelElement subModelElement in subModel.SubmodelElements)
+            foreach (SubmodelElementWrapper smew in subModel.SubmodelElements)
             {
                 TreeNodeData subModelElementTreeNodeData = new TreeNodeData();
                 subModelElementTreeNodeData.EnvIndex = i;
-                subModelElementTreeNodeData.Text = subModelElement.IdShort;
-                subModelElementTreeNodeData.Tag = subModelElement;
+                subModelElementTreeNodeData.Text = smew.SubmodelElement.IdShort;
+                subModelElementTreeNodeData.Tag = smew;
                 subModelElementTreeNodeDataList.Add(subModelElementTreeNodeData);
 
-                if (subModelElement is SubmodelElementCollection)
+                if (smew.SubmodelElement is SubmodelElementCollection)
                 {
-                    SubmodelElementCollection submodelElementCollection = subModelElement as SubmodelElementCollection;
+                    SubmodelElementCollection submodelElementCollection = smew.SubmodelElement as SubmodelElementCollection;
                     CreateViewFromSubModelElementCollection(subModelElementTreeNodeData, submodelElementCollection, i);
                 }
 
-                if (subModelElement is Operation)
+                if (smew.SubmodelElement is Operation)
                 {
-                    Operation operation = subModelElement as Operation;
+                    Operation operation = smew.SubmodelElement as Operation;
                     CreateViewFromOperation(subModelElementTreeNodeData, operation, i);
                 }
 
-                if (subModelElement is Entity)
+                if (smew.SubmodelElement is Entity)
                 {
-                    Entity entity = subModelElement as Entity;
+                    Entity entity = smew.SubmodelElement as Entity;
                     CreateViewFromEntity(subModelElementTreeNodeData, entity, i);
                 }
             }

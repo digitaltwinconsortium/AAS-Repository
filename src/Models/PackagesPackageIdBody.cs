@@ -9,7 +9,7 @@ namespace AdminShell
     public class PackagesPackageIdBody
     {
         [DataMember(Name="aasIds")]
-        [XmlElement(ElementName = "aasIds")]
+        [XmlArray(ElementName = "aasIds")]
         public List<string> AasIds { get; set; }
 
         [DataMember(Name="file")]

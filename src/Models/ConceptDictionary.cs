@@ -10,7 +10,7 @@ namespace AdminShell
     public class ConceptDictionary : Referable
     {
         [DataMember(Name="conceptDescriptions")]
-        [XmlElement(ElementName = "conceptDescriptions")]
+        [XmlArray(ElementName = "conceptDescriptions")]
         public List<Reference> ConceptDescriptionsRefs { get; set; } = new();
     }
 }

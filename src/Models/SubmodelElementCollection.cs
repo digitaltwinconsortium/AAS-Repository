@@ -14,7 +14,7 @@ namespace AdminShell
     {
         // values == SMEs
         [DataMember(Name ="value")]
-        [XmlElement(ElementName = "value")]
+        [XmlArray(ElementName = "value")]
         public List<SubmodelElement> Value { get; set; } = new();
 
         [XmlIgnore]

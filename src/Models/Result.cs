@@ -9,7 +9,7 @@ namespace AdminShell
     public class Result
     {
         [DataMember(Name="messages")]
-        [XmlElement(ElementName = "messages")]
+        [XmlArray(ElementName = "messages")]
         public List<Message> Messages { get; set; }
 
         [DataMember(Name="success")]

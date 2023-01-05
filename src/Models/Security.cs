@@ -21,7 +21,7 @@ namespace AdminShell
         public X509Certificate Certificate { get; set; }
 
         [DataMember(Name="requiredCertificateExtension")]
-        [XmlElement(ElementName = "requiredCertificateExtension")]
+        [XmlArray(ElementName = "requiredCertificateExtension")]
         public List<Reference> RequiredCertificateExtension { get; set; }
     }
 }

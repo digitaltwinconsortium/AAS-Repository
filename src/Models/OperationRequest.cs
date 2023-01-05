@@ -9,11 +9,11 @@ namespace AdminShell
     public class OperationRequest
     {
         [DataMember(Name="inoutputArguments")]
-        [XmlElement(ElementName = "inoutputArguments")]
+        [XmlArray(ElementName = "inoutputArguments")]
         public List<OperationVariable> InoutputArguments { get; set; }
 
         [DataMember(Name="inputArguments")]
-        [XmlElement(ElementName = "inputArguments")]
+        [XmlArray(ElementName = "inputArguments")]
         public List<OperationVariable> InputArguments { get; set; }
 
         [DataMember(Name="requestId")]

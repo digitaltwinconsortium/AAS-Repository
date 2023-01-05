@@ -9,15 +9,15 @@ namespace AdminShell
     public class Operation : SubmodelElement
     {
         [DataMember(Name = "inoutputVariables")]
-        [XmlElement(ElementName = "inoutputVariables")]
+        [XmlArray(ElementName = "inoutputVariables")]
         public List<OperationVariable> InoutputVariables { get; set; } = new();
 
         [DataMember(Name = "inputVariables")]
-        [XmlElement(ElementName = "inputVariables")]
+        [XmlArray(ElementName = "inputVariables")]
         public List<OperationVariable> InputVariables { get; set; } = new();
 
         [DataMember(Name = "outputVariables")]
-        [XmlElement(ElementName = "outputVariables")]
+        [XmlArray(ElementName = "outputVariables")]
         public List<OperationVariable> OutputVariables { get; set; } = new();
 
         public List<OperationVariable> this[int dir]

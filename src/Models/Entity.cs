@@ -13,18 +13,18 @@ namespace AdminShell
         [Required]
         [DataMember(Name = "entityType")]
         [XmlElement(ElementName = "entityType")]
-        public EntityTypeEnum EntityType { get; set; }
+        public string EntityType { get; set; }
 
         [DataMember(Name = "globalAssetId")]
         [XmlElement(ElementName = "globalAssetId")]
         public Reference GlobalAssetId { get; set; }
 
         [DataMember(Name = "specificAssetIds")]
-        [XmlElement(ElementName = "specificAssetIds")]
+        [XmlArray(ElementName = "specificAssetIds")]
         public List<IdentifierKeyValuePair> SpecificAssetIds { get; set; }
 
         [DataMember(Name = "statements")]
-        [XmlElement(ElementName = "statements")]
+        [XmlArray(ElementName = "statements")]
         public List<SubmodelElement> Statements { get; set; }
 
         [DataMember(Name = "asset")]
@@ -50,6 +50,19 @@ namespace AdminShell
 
             if (ent.AssetRef != null)
                 AssetRef = new ModelReference(ent.AssetRef);
+        }
+
+        public EntityTypeEnum GetEntityType()
+        {
+            EntityTypeEnum res = EntityTypeEnum.Undefined;
+
+            if (EntityType != null && EntityType.Trim().ToLower() == EntityTypeEnum.CoManagedEntity.ToString().ToLower())
+                res = EntityTypeEnum.CoManagedEntity;
+
+            if (EntityType != null && EntityType.Trim().ToLower() == EntityTypeEnum.SelfManagedEntity.ToString().ToLower())
+                res = EntityTypeEnum.SelfManagedEntity;
+
+            return res;
         }
     }
 }

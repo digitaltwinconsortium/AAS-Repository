@@ -182,12 +182,12 @@ namespace AdminShell
                                 yield return sme;
             }
 
-            private static IEnumerable<SubmodelElement> FindAllSMEs(List<SubmodelElement> smec, Identifier semId)
+            private static IEnumerable<SubmodelElement> FindAllSMEs(List<SubmodelElementWrapper> smewc, Identifier semId)
             {
-                foreach (SubmodelElement sme in smec)
-                    if (sme.SemanticId != null)
-                        if (sme.SemanticId.Matches(semId))
-                            yield return sme;
+                foreach (SubmodelElementWrapper smew in smewc)
+                    if (smew.SubmodelElement.SemanticId != null)
+                        if (smew.SubmodelElement.SemanticId.Matches(semId))
+                            yield return smew.SubmodelElement;
             }
 
             private static async void RunQuerys(object state)

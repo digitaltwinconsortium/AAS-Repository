@@ -9,7 +9,7 @@ namespace AdminShell
     public class AnnotatedRelationshipElement : RelationshipElement
     {
         [DataMember(Name = "annotations")]
-        [XmlElement(ElementName = "annotations")]
+        [XmlArray(ElementName = "annotations")]
         public List<DataElement> Annotations { get; set; } = new();
 
         public AnnotatedRelationshipElement() { }

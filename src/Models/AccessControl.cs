@@ -9,7 +9,7 @@ namespace AdminShell
     public class AccessControl
     {
         [DataMember(Name="accessPermissionRule")]
-        [XmlElement(ElementName = "accessPermissionRule")]
+        [XmlArray(ElementName = "accessPermissionRule")]
         public List<AccessPermissionRule> AccessPermissionRule { get; set; }
 
         [DataMember(Name="defaultEnvironmentAttributes")]

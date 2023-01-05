@@ -16,7 +16,7 @@ namespace AdminShell
         public bool? ExternalInformationPoint { get; set; }
 
         [DataMember(Name="internalInformationPoint")]
-        [XmlElement(ElementName = "internalInformationPoint")]
+        [XmlArray(ElementName = "internalInformationPoint")]
         public List<Reference> InternalInformationPoint { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace AdminShell
     {
         [Required]
         [DataMember(Name="valueReferencePairTypes")]
-        [XmlElement(ElementName = "valueReferencePairTypes")]
+        [XmlArray(ElementName = "valueReferencePairTypes")]
         public List<ValueObject> ValueReferencePairTypes { get; set; }
     }
 }

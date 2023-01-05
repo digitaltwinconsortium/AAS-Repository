@@ -16,7 +16,7 @@ namespace AdminShell
         public string Name { get; set; } = string.Empty;
 
         [DataMember(Name="refersTo")]
-        [XmlElement(ElementName = "refersTo")]
+        [XmlArray(ElementName = "refersTo")]
         public List<ModelReference> RefersTo { get; set; } = new();
 
         [DataMember(Name = "value")]

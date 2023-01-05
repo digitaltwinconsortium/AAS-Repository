@@ -16,20 +16,20 @@ namespace AdminShell
         public string DataType { get; set; }
 
         [DataMember(Name = "definition")]
-        [XmlElement(ElementName = "definition")]
+        [XmlArray(ElementName = "definition")]
         public List<LangStringIEC61360> Definition { get; set; }
 
         [DataMember(Name = "levelType")]
-        [XmlElement(ElementName = "levelType")]
+        [XmlArray(ElementName = "levelType")]
         public List<LevelType> LevelType { get; set; }
 
         [Required]
         [DataMember(Name = "preferredName")]
-        [XmlElement(ElementName = "preferredName")]
+        [XmlArray(ElementName = "preferredName")]
         public List<LangStringIEC61360> PreferredName { get; set; }
 
         [DataMember(Name = "shortName")]
-        [XmlElement(ElementName = "shortName")]
+        [XmlArray(ElementName = "shortName")]
         public List<LangString> ShortName { get; set; }
 
         [DataMember(Name = "sourceOfDefinition")]

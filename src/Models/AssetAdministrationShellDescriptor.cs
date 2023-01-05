@@ -15,7 +15,7 @@ namespace AdminShell
         public AdministrativeInformation Administration { get; set; }
 
         [DataMember(Name="description")]
-        [XmlElement(ElementName = "description")]
+        [XmlArray(ElementName = "description")]
         public List<LangString> Description { get; set; }
 
         [DataMember(Name="globalAssetId")]
@@ -32,11 +32,11 @@ namespace AdminShell
         public string Identification { get; set; }
 
         [DataMember(Name="specificAssetIds")]
-        [XmlElement(ElementName = "specificAssetIds")]
+        [XmlArray(ElementName = "specificAssetIds")]
         public List<IdentifierKeyValuePair> SpecificAssetIds { get; set; }
 
         [DataMember(Name="submodelDescriptors")]
-        [XmlElement(ElementName = "submodelDescriptors")]
+        [XmlArray(ElementName = "submodelDescriptors")]
         public List<SubmodelDescriptor> SubmodelDescriptors { get; set; }
     }
 }
