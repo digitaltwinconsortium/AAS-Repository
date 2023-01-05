@@ -1,7 +1,7 @@
 ﻿
-namespace AdminShell.Data
+namespace AdminShell
 {
-    using AdminShell.Models;
+    using AdminShell.Data;
     using Aml.Engine.CAEX;
     using System;
     using System.Collections.Generic;
@@ -10,6 +10,30 @@ namespace AdminShell.Data
 
     public class TreeBuilder
     {
+        public static event EventHandler NewDataAvailable;
+
+        public class NewDataAvailableArgs : EventArgs
+        {
+            public TreeUpdateMode signalNewDataMode;
+
+            public NewDataAvailableArgs(TreeUpdateMode mode = TreeUpdateMode.Rebuild)
+            {
+                signalNewDataMode = mode;
+            }
+        }
+
+        public enum TreeUpdateMode
+        {
+            ValuesOnly = 0,     // same tree, only values changed
+            Rebuild,            // same tree, structure may change
+            RebuildAndCollapse  // build new tree, keep open nodes
+        }
+
+        public static void SignalNewData(TreeUpdateMode mode)
+        {
+            NewDataAvailable?.Invoke(null, new NewDataAvailableArgs(mode));
+        }
+
         public List<TreeNodeData> BuildTree()
         {
             List<TreeNodeData> viewItems = new List<TreeNodeData>();

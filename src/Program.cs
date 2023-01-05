@@ -1,20 +1,20 @@
-﻿using AdminShell;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using System.Collections.Generic;
-using System.IO;
-using System;
-using System.Threading.Tasks;
-
+﻿
 namespace AdminShell
 {
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Hosting;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading.Tasks;
+
     public class Program
     {
         public static List<AdminShellPackageEnv> env = new List<AdminShellPackageEnv>();
         public static List<string> envFileName = new List<string>();
         public static bool isLoading = true;
         public static object changeAasxFile = new object();
-        public static event EventHandler NewDataAvailable;
+
 
         public static void Main(string[] args)
         {
@@ -29,32 +29,6 @@ namespace AdminShell
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-
-        public class NewDataAvailableArgs : EventArgs
-        {
-            public int signalNewDataMode;
-
-            public NewDataAvailableArgs(int mode = 2)
-            {
-                signalNewDataMode = mode;
-            }
-        }
-
-        public enum TreeUpdateMode
-        {
-            ValuesOnly = 0,
-            Rebuild,
-            RebuildAndCollapse
-        }
-
-        // 0 == same tree, only values changed
-        // 1 == same tree, structure may change
-        // 2 == build new tree, keep open nodes
-        // 3 == build new tree, all nodes closed
-        public static void signalNewData(int mode)
-        {
-            NewDataAvailable?.Invoke(null, new NewDataAvailableArgs(mode));
-        }
 
         private static void LoadLocalAASXFiles()
         {
@@ -71,24 +45,23 @@ namespace AdminShell
             }
 
             // set all parents
-            if (env != null)
+            foreach (var e in env)
             {
-                foreach (var e in env)
+                if (e?.AasEnv?.Submodels != null)
                 {
-                    if (e?.AasEnv?.Submodels != null)
+                    foreach (var sm in e.AasEnv.Submodels)
                     {
-                        foreach (var sm in e.AasEnv.Submodels)
+                        if (sm != null)
                         {
-                            if (sm != null)
-                            {
-                                sm.SetAllParents();
-                            }
+                            sm.SetAllParents();
                         }
                     }
                 }
             }
 
             isLoading = false;
+
+            TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.RebuildAndCollapse);
         }
     }
 }

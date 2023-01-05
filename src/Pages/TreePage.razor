@@ -116,35 +116,35 @@
 
     protected override void OnInitialized()
     {
-        Program.NewDataAvailable += NewData;
+        TreeBuilder.NewDataAvailable += NewData;
     }
 
     public void Dispose()
     {
-        Program.NewDataAvailable -= NewData;
+        TreeBuilder.NewDataAvailable -= NewData;
     }
 
-    Program.TreeUpdateMode CurrentTreeUpdateMode = Program.TreeUpdateMode.RebuildAndCollapse;
+    TreeBuilder.TreeUpdateMode CurrentTreeUpdateMode = TreeBuilder.TreeUpdateMode.RebuildAndCollapse;
 
     private void NewData(object source, EventArgs args)
     {
-        if (CurrentTreeUpdateMode == Program.TreeUpdateMode.ValuesOnly)
+        if (CurrentTreeUpdateMode == TreeBuilder.TreeUpdateMode.ValuesOnly)
         {
-            CurrentTreeUpdateMode = (Program.TreeUpdateMode) source;
+            CurrentTreeUpdateMode = (TreeBuilder.TreeUpdateMode)source;
             InvokeAsync(() => this.StateHasChanged());
         }
     }
 
     string UpdateVisibleTree(TreeNodeData selectedNode)
     {
-        if (CurrentTreeUpdateMode == Program.TreeUpdateMode.ValuesOnly)
+        if (CurrentTreeUpdateMode == TreeBuilder.TreeUpdateMode.ValuesOnly)
         {
             return string.Empty;
         }
 
         Nodes = treeBuilder.BuildTree();
 
-        if (CurrentTreeUpdateMode == Program.TreeUpdateMode.RebuildAndCollapse)
+        if (CurrentTreeUpdateMode == TreeBuilder.TreeUpdateMode.RebuildAndCollapse)
         {
             ExpandedNodes.Clear();
             selectedNode = null;

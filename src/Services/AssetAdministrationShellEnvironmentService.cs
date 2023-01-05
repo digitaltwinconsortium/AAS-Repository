@@ -85,7 +85,7 @@ namespace AdminShell
             if (aas != null)
             {
                 aas.AssetInformation = body;
-                Program.signalNewData(1);
+                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
             }
         }
 
@@ -101,7 +101,7 @@ namespace AdminShell
             {
                 _packages[packageIndex].AasEnv.AssetAdministrationShells.Remove(aas);
                 _packages[packageIndex].AasEnv.AssetAdministrationShells.Add(body);
-                Program.signalNewData(1);
+                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
             }
         }
 
@@ -182,7 +182,9 @@ namespace AdminShell
             {
 
                 _packages[emptyPackageIndex].AasEnv.AssetAdministrationShells.Add(body);
-                Program.signalNewData(2);
+
+                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.RebuildAndCollapse);
+
                 return _packages[emptyPackageIndex].AasEnv.AssetAdministrationShells[0]; //Considering it is being added to empty package.
             }
             else
@@ -278,7 +280,7 @@ namespace AdminShell
                 if (submodelRefs.Any())
                 {
                     aas.Submodels.Remove(submodelRefs.First());
-                    Program.signalNewData(1);
+                    TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
                 }
                 else
                 {
@@ -297,7 +299,8 @@ namespace AdminShell
                 {
                     _packages[packageIndex] = null;             //TODO: jtikekar what about Submodels?
                 }
-                Program.signalNewData(2);
+
+                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.RebuildAndCollapse);
             }
             else
             {
@@ -465,7 +468,8 @@ namespace AdminShell
                 int cdIndex = _packages[packageIndex].AasEnv.ConceptDescriptions.IndexOf(conceptDescription);
                 _packages[packageIndex].AasEnv.ConceptDescriptions.Remove(conceptDescription);
                 _packages[packageIndex].AasEnv.ConceptDescriptions.Insert(cdIndex, body);
-                Program.signalNewData(0);
+
+                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.ValuesOnly);
             }
         }
 
@@ -487,7 +491,9 @@ namespace AdminShell
             {
 
                 _packages[emptyPackageIndex].AasEnv.ConceptDescriptions.Add(body);
-                Program.signalNewData(2);
+
+                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
+
                 return _packages[emptyPackageIndex].AasEnv.ConceptDescriptions[0]; //Considering it is being added to empty package.
             }
             else
@@ -502,7 +508,8 @@ namespace AdminShell
             if ((conceptDescription != null) && (packageIndex != -1))
             {
                 _packages[packageIndex].AasEnv.ConceptDescriptions.Remove(conceptDescription);
-                Program.signalNewData(1);
+
+                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
             }
             else
             {
@@ -687,8 +694,7 @@ namespace AdminShell
                     }
                 }
 
-
-                Program.signalNewData(1);
+                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
             }
         }
 
@@ -704,7 +710,8 @@ namespace AdminShell
             {
                 _packages[packageIndex].AasEnv.Submodels.Remove(submodel);
                 _packages[packageIndex].AasEnv.Submodels.Add(body);
-                Program.signalNewData(1);
+
+                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
             }
         }
 
@@ -762,7 +769,7 @@ namespace AdminShell
                     body.Parent = annotatedRelationshipElement;
                 }
 
-                Program.signalNewData(1);
+                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
 
                 return body;
             }
@@ -790,7 +797,7 @@ namespace AdminShell
 
                     body.Parent = submodel;
 
-                    Program.signalNewData(1);
+                    TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
 
                     return body;
                 }
@@ -818,7 +825,9 @@ namespace AdminShell
             {
 
                 _packages[emptyPackageIndex].AasEnv.Submodels.Add(body);
-                Program.signalNewData(2);
+
+                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.RebuildAndCollapse);
+
                 return _packages[emptyPackageIndex].AasEnv.Submodels[0]; //Considering it is being added to empty package.
             }
             else
@@ -944,7 +953,7 @@ namespace AdminShell
                     DeleteSubmodelReferenceById(aas.Id, submodelIdentifier);
                 }
 
-                Program.signalNewData(1);  //TODO jtikekar : may be not needed
+                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);  //TODO jtikekar : may be not needed
             }
             else
             {
@@ -1144,7 +1153,7 @@ namespace AdminShell
                     parentSubmodel.SubmodelElements.Remove(submodelElement);
                 }
 
-                Program.signalNewData(1);
+                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
             }
         }
 
@@ -1187,7 +1196,8 @@ namespace AdminShell
                     var targetFile = Path.Combine(sourcePath, fileName);
                     _packages[packageIndex].ReplaceSupplementaryFileInPackageAsync(file.Value, targetFile, contentType, fileContent);
                     file.Value = FormatFileName(targetFile);
-                    Program.signalNewData(2);
+
+                    TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.RebuildAndCollapse);
                 }
                 else
                 {

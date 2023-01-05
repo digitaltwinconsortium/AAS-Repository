@@ -1,7 +1,6 @@
 ﻿
 namespace AdminShell.Data
 {
-    using AdminShell.Models;
     using Newtonsoft.Json;
     using Opc.Ua;
     using Opc.Ua.Client;

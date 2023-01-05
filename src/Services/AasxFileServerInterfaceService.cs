@@ -43,7 +43,8 @@ namespace AdminShell
 
                 _packages[packageIndex] = null;
                 _envFileNames[packageIndex] = null;
-                Program.signalNewData(2);
+
+                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.RebuildAndCollapse);
             }
             else
             {
@@ -133,7 +134,9 @@ namespace AdminShell
                 {
                     _packages[emptyPackageIndex] = newAasx;
                     _envFileNames[emptyPackageIndex] = newFileName;
-                    Program.signalNewData(2);
+
+                    TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.RebuildAndCollapse);
+
                     return emptyPackageIndex.ToString();
                 }
                 else
@@ -198,7 +201,7 @@ namespace AdminShell
                     }
                 }
 
-                Program.signalNewData(2);
+                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.RebuildAndCollapse);
             }
             else
             {

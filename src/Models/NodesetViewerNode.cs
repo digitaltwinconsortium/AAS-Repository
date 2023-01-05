@@ -1,5 +1,5 @@
 ﻿
-namespace AdminShell.Models
+namespace AdminShell
 {
     public class NodesetViewerNode
     {
