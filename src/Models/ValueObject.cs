@@ -17,6 +17,6 @@ namespace AdminShell
 
         [DataMember(Name="valueType")]
         [XmlElement(ElementName = "valueType")]
-        public ValueTypeEnum ValueType { get; set; }
+        public string ValueType { get; set; }
      }
 }

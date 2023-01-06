@@ -17,7 +17,7 @@ namespace AdminShell
 
         [DataMember(Name = "valueTypeValues")]
         [XmlElement(ElementName = "valueTypeValues")]
-        public ValueTypeEnum ValueTypeValues { get; set; }
+        public string ValueTypeValues { get; set; }
 
         [DataMember(Name = "orderRelevant")]
         [XmlElement(ElementName = "orderRelevant")]

@@ -176,10 +176,10 @@ namespace AdminShell
             private static IEnumerable<SubmodelElement> FindAllSMEs(SubmodelElement smeInput, Identifier semId)
             {
                 if (smeInput is SubmodelElementCollection collection)
-                    foreach (SubmodelElement sme in collection.Value)
-                        if (sme.SemanticId != null)
-                            if (sme.SemanticId.Matches(semId))
-                                yield return sme;
+                    foreach (SubmodelElementWrapper smew in collection.Value)
+                        if (smew.SubmodelElement.SemanticId != null)
+                            if (smew.SubmodelElement.SemanticId.Matches(semId))
+                                yield return smew.SubmodelElement;
             }
 
             private static IEnumerable<SubmodelElement> FindAllSMEs(List<SubmodelElementWrapper> smewc, Identifier semId)

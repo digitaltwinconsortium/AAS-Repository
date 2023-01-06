@@ -25,7 +25,7 @@ namespace AdminShell
 
         [DataMember(Name = "statements")]
         [XmlArray(ElementName = "statements")]
-        public List<SubmodelElement> Statements { get; set; }
+        public List<SubmodelElementWrapper> Statements { get; set; }
 
         [DataMember(Name = "asset")]
         [XmlElement(ElementName = "asset")]
@@ -41,7 +41,7 @@ namespace AdminShell
 
             if (ent.Statements != null)
             {
-                Statements = new List<SubmodelElement>();
+                Statements = new List<SubmodelElementWrapper>();
                 foreach (var smw in ent.Statements)
                     Statements.Add(smw);
             }

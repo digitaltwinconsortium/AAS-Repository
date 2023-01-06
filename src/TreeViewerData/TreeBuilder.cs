@@ -119,44 +119,44 @@ namespace AdminShell
         private void CreateViewFromSubModelElementCollection(TreeNodeData rootItem, SubmodelElementCollection subModelElementCollection, int i)
         {
             List<TreeNodeData> treeNodeDataList = new List<TreeNodeData>();
-            foreach (SubmodelElement subModelElement in subModelElementCollection.Value)
+            foreach (SubmodelElementWrapper subModelElement in subModelElementCollection.Value)
             {
                 if (subModelElement != null && subModelElement != null)
                 {
                     TreeNodeData smeItem = new TreeNodeData();
                     smeItem.EnvIndex = i;
-                    smeItem.Text = subModelElement.IdShort;
+                    smeItem.Text = subModelElement.SubmodelElement.IdShort;
                     smeItem.Tag = subModelElement;
                     treeNodeDataList.Add(smeItem);
 
-                    if (subModelElement is SubmodelElementCollection)
+                    if (subModelElement.SubmodelElement is SubmodelElementCollection)
                     {
-                        SubmodelElementCollection smecNext = subModelElement as SubmodelElementCollection;
+                        SubmodelElementCollection smecNext = subModelElement.SubmodelElement as SubmodelElementCollection;
                         CreateViewFromSubModelElementCollection(smeItem, smecNext, i);
                     }
 
-                    if (subModelElement is Operation)
+                    if (subModelElement.SubmodelElement is Operation)
                     {
-                        Operation operation = subModelElement as Operation;
+                        Operation operation = subModelElement.SubmodelElement as Operation;
                         CreateViewFromOperation(smeItem, operation, i);
                     }
 
-                    if (subModelElement is Entity)
+                    if (subModelElement.SubmodelElement is Entity)
                     {
-                        Entity entity = subModelElement as Entity;
+                        Entity entity = subModelElement.SubmodelElement as Entity;
                         CreateViewFromEntity(smeItem, entity, i);
                     }
 
-                    if ((subModelElement.IdShort == "NODESET2_XML")
-                    && Uri.IsWellFormedUriString(subModelElement.ValueAsText(), UriKind.Absolute))
+                    if ((subModelElement.SubmodelElement.IdShort == "NODESET2_XML")
+                    && Uri.IsWellFormedUriString(subModelElement.SubmodelElement.ValueAsText(), UriKind.Absolute))
                     {
-                        CreateViewFromAdminShellNodeset(smeItem, new Uri(subModelElement.ValueAsText()), i);
+                        CreateViewFromAdminShellNodeset(smeItem, new Uri(subModelElement.SubmodelElement.ValueAsText()), i);
                     }
 
-                    if (subModelElement.IdShort == "CAEX")
+                    if (subModelElement.SubmodelElement.IdShort == "CAEX")
 
                     {
-                        CreateViewFromAMLCAEXFile(smeItem, subModelElement.ValueAsText(), i);
+                        CreateViewFromAMLCAEXFile(smeItem, subModelElement.SubmodelElement.ValueAsText(), i);
                     }
                 }
             }
@@ -396,13 +396,13 @@ namespace AdminShell
         private void CreateViewFromEntity(TreeNodeData rootItem, Entity entity, int i)
         {
             List<TreeNodeData> treeNodeDataList = new List<TreeNodeData>();
-            foreach (SubmodelElement statement in entity.Statements)
+            foreach (SubmodelElementWrapper statement in entity.Statements)
             {
                 if (statement != null && statement != null)
                 {
                     TreeNodeData smeItem = new TreeNodeData();
                     smeItem.EnvIndex = i;
-                    smeItem.Text = statement.IdShort;
+                    smeItem.Text = statement.SubmodelElement.IdShort;
                     smeItem.Type = "In";
                     smeItem.Tag = statement;
                     treeNodeDataList.Add(smeItem);

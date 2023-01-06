@@ -38,8 +38,8 @@ namespace AdminShell
             if (sme != null)
                 if (sme is SubmodelElementCollection collection)
                     if (collection.Value != null)
-                        foreach (SubmodelElement smeChild in collection.Value)
-                            yield return smeChild;
+                        foreach (SubmodelElementWrapper smewChild in collection.Value)
+                            yield return smewChild.SubmodelElement;
         }
 
         public static void SetParentsForSMEs(Referable parent, SubmodelElement sme)

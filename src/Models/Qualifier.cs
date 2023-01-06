@@ -21,7 +21,7 @@ namespace AdminShell
         [DataMember(Name = "valueType")]
         [XmlElement(ElementName = "valueType")]
         [MetaModelName("Qualifier.valueType")]
-        public ValueTypeEnum ValueType { get; set; }
+        public string ValueType { get; set; }
 
         [Required]
         [DataMember(Name = "type")]

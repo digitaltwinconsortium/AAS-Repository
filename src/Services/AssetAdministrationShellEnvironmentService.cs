@@ -675,15 +675,15 @@ namespace AdminShell
                 {
                     if (smeParent is SubmodelElementCollection collection)
                     {
-                        var smeIndex = collection.Value.IndexOf(submodelElement);
-                        collection.Value.Remove(submodelElement);
-                        collection.Value.Insert(smeIndex, body);
+                        var smeIndex = collection.Value.IndexOf(new SubmodelElementWrapper(submodelElement));
+                        collection.Value.Remove(new SubmodelElementWrapper(submodelElement));
+                        collection.Value.Insert(smeIndex, new SubmodelElementWrapper(body));
                     }
                     else if (smeParent is SubmodelElementList list)
                     {
-                        var smeIndex = list.Value.IndexOf(submodelElement);
-                        list.Value.Remove(submodelElement);
-                        list.Value.Insert(smeIndex, body);
+                        var smeIndex = list.Value.IndexOf(new SubmodelElementWrapper(submodelElement));
+                        list.Value.Remove(new SubmodelElementWrapper(submodelElement));
+                        list.Value.Insert(smeIndex, new SubmodelElementWrapper(body));
                     }
                     //Added support for submodel here, as no other api found for this functionality
                     else if (smeParent is Submodel submodel)
@@ -740,25 +740,25 @@ namespace AdminShell
                 }
                 else if (smeParent != null && smeParent is SubmodelElementCollection collection)
                 {
-                    collection.Value ??= new List<SubmodelElement>();
+                    collection.Value ??= new List<SubmodelElementWrapper>();
 
-                    collection.Value.Add(body);
+                    collection.Value.Add(new SubmodelElementWrapper(body));
 
                     body.Parent = collection;
                 }
                 else if (smeParent != null && smeParent is SubmodelElementList list)
                 {
-                    list.Value ??= new List<SubmodelElement>();
+                    list.Value ??= new List<SubmodelElementWrapper>();
 
-                    list.Value.Add(body);
+                    list.Value.Add(new SubmodelElementWrapper(body));
 
                     body.Parent = list;
                 }
                 else if (smeParent != null && smeParent is Entity entity)
                 {
-                    entity.Statements ??= new List<SubmodelElement>();
+                    entity.Statements = new List<SubmodelElementWrapper>();
 
-                    entity.Statements.Add(body);
+                    entity.Statements.Add(new SubmodelElementWrapper(body));
                     body.Parent = entity;
                 }
                 else if (smeParent != null && smeParent is AnnotatedRelationshipElement annotatedRelationshipElement)
@@ -1007,10 +1007,10 @@ namespace AdminShell
 
         private SubmodelElement FindSubmodelElementByIdShort(SubmodelElementCollection smec, string idShort)
         {
-            foreach (SubmodelElement sme in smec.Value)
-                if (sme.SemanticId != null)
-                    if (sme.SemanticId.Matches(new Identifier(idShort)))
-                        return sme;
+            foreach (SubmodelElementWrapper smew in smec.Value)
+                if (smew.SubmodelElement.SemanticId != null)
+                    if (smew.SubmodelElement.SemanticId.Matches(new Identifier(idShort)))
+                        return smew.SubmodelElement;
 
             return null;
         }
@@ -1134,11 +1134,11 @@ namespace AdminShell
             {
                 if (smeParent is SubmodelElementCollection parentCollection)
                 {
-                    parentCollection.Value.Remove(submodelElement);
+                    parentCollection.Value.Remove(new SubmodelElementWrapper(submodelElement));
                 }
                 else if (smeParent is SubmodelElementList parentList)
                 {
-                    parentList.Value.Remove(submodelElement);
+                    parentList.Value.Remove(new SubmodelElementWrapper(submodelElement));
                 }
                 else if (smeParent is AnnotatedRelationshipElement annotatedRelationshipElement)
                 {
@@ -1146,7 +1146,7 @@ namespace AdminShell
                 }
                 else if (smeParent is Entity entity)
                 {
-                    entity.Statements.Remove(submodelElement);
+                    entity.Statements.Remove(new SubmodelElementWrapper(submodelElement));
                 }
                 else if (smeParent is Submodel parentSubmodel)
                 {

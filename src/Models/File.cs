@@ -17,9 +17,8 @@ namespace AdminShell
 
         [DataMember(Name = "value")]
         [XmlElement(ElementName = "value")]
-        [MetaModelName("File.Value")]
+        [MetaModelName("File.value")]
         public string Value { get; set; }
-
 
         public File() { }
 

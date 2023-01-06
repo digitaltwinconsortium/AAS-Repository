@@ -23,7 +23,7 @@ namespace AdminShell
         [DataMember(Name = "valueType")]
         [XmlElement(ElementName = "valueType")]
         [MetaModelName("Range.valueType")]
-        public ValueTypeEnum ValueType { get; set; }
+        public string ValueType { get; set; }
 
         public Range() { }
 

@@ -15,7 +15,7 @@ namespace AdminShell
         // values == SMEs
         [DataMember(Name ="value")]
         [XmlArray(ElementName = "value")]
-        public List<SubmodelElement> Value { get; set; } = new();
+        public List<SubmodelElementWrapper> Value { get; set; } = new();
 
         [XmlIgnore]
         public bool Ordered = false;
@@ -36,7 +36,7 @@ namespace AdminShell
 
             if (!shallowCopy)
                 foreach (var sme in smc.Value)
-                    Value.Add(new SubmodelElement(sme));
+                    Value.Add(sme);
         }
     }
 }
