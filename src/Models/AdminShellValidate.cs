@@ -3,6 +3,10 @@ namespace AdminShell
 {
     public enum AasValidationSeverity
     {
-        Hint, Warning, SpecViolation, SchemaViolation, Serialization
+        Hint,
+        Warning,
+        SpecViolation,
+        SchemaViolation,
+        Serialization
     }
 }

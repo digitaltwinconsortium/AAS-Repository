@@ -10,7 +10,11 @@ namespace AdminShell
 
     public static class AasSchemaValidation
     {
-        public enum SerializationFormat { XML, JSON }
+        public enum SerializationFormat
+        {
+            XML,
+            JSON
+        }
 
         public static string[] GetSchemaResources(SerializationFormat fmt)
         {

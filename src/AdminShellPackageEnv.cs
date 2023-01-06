@@ -149,7 +149,12 @@ namespace AdminShell
             return true;
         }
 
-        public enum PreferredFormat { None, Xml, Json };
+        public enum PreferredFormat
+        {
+            None,
+            Xml,
+            Json
+        };
 
         public bool SaveAs(string fn, bool writeFreshly = false, PreferredFormat prefFmt = PreferredFormat.None, MemoryStream useMemoryStream = null)
         {

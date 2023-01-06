@@ -118,7 +118,7 @@ namespace AdminShell
         GMonth = 26,
 
         [EnumMember(Value = "gMonthDay")]
-        [XmlEnum(Name = "dateTime")]
+        [XmlEnum(Name = "gMonthDay")]
         GMonthDay = 27,
 
         [EnumMember(Value = "gYear")]

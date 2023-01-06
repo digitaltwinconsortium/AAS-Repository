@@ -11,9 +11,18 @@ namespace AdminShell
     {
         public delegate byte[] SourceGetByteChunk();
 
-        public enum LocationType { InPackage, AddPending, DeletePending }
+        public enum LocationType
+        {
+            InPackage,
+            AddPending,
+            DeletePending
+        }
 
-        public enum SpecialHandlingType { None, EmbedAsThumbnail }
+        public enum SpecialHandlingType
+        {
+            None,
+            EmbedAsThumbnail
+        }
 
         public Uri uri = null;
 

@@ -11,7 +11,12 @@ namespace AdminShell
     [DataContract]
     public class Key
     {
-        public enum MatchMode { Strict, Relaxed, Identification };
+        public enum MatchMode
+        {
+            Strict,
+            Relaxed,
+            Identification
+        };
 
         [Required]
         [XmlAttribute]

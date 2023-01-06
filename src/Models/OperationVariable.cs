@@ -9,7 +9,12 @@ namespace AdminShell
     [DataContract]
     public class OperationVariable : IAasElement
     {
-        public enum Direction { In, Out, InOut };
+        public enum Direction
+        {
+            In,
+            Out,
+            InOut
+        };
 
         [Required]
         [DataMember(Name = "value")]
