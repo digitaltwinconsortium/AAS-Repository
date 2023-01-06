@@ -154,7 +154,6 @@ namespace AdminShell
                     }
 
                     if (subModelElement.SubmodelElement.IdShort == "CAEX")
-
                     {
                         CreateViewFromAMLCAEXFile(smeItem, subModelElement.SubmodelElement.ValueAsText(), i);
                     }
