@@ -37,7 +37,7 @@ namespace AdminShell
 
         public Key(string type, string value)
         {
-            Type = (KeyElements)int.Parse(type);
+            Type = (KeyElements) Enum.Parse(typeof(KeyElements), type, true);
             Value = value;
         }
 
