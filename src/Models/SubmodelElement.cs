@@ -55,11 +55,6 @@ namespace AdminShell
                     Qualifiers.Add(new Qualifier(q));
             }
         }
-
-        public virtual string ValueAsText(string defaultLang = null)
-        {
-            return string.Empty;
-        }
     }
 }
 

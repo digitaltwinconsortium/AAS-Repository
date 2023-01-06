@@ -95,20 +95,5 @@ namespace AdminShell
             if (src.Description != null)
                 Description = new Description(src.Description);
         }
-
-        public string CollectIdShortByParent()
-        {
-            // recurse first
-            var head = "";
-            if (!(this is Identifiable) && Parent is Referable prf)
-                // can go up
-                head = prf.CollectIdShortByParent() + "/";
-            // add own
-            var myid = "<no Id-Short!>";
-            if (IdShort != null && IdShort.Trim() != "")
-                myid = IdShort.Trim();
-            // together
-            return head + myid;
-        }
     }
 }

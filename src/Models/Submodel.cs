@@ -33,33 +33,37 @@ namespace AdminShell
         [XmlElement(ElementName = "HasDataSpecification")]
         public HasDataSpecification HasDataSpecification { get; set; }
 
-        public static IEnumerable<SubmodelElement> EnumerateSMEChildren(SubmodelElement sme)
+        public void SetSMEsParent()
         {
-            if (sme != null)
-                if (sme is SubmodelElementCollection collection)
-                    if (collection.Value != null)
-                        foreach (SubmodelElementWrapper smewChild in collection.Value)
-                            yield return smewChild.SubmodelElement;
+            if (SubmodelElements != null)
+            {
+                foreach (SubmodelElementWrapper smew in SubmodelElements)
+                {
+                    SetSMEParent(smew.SubmodelElement, this);
+                }
+            }
         }
 
-        public static void SetParentsForSMEs(Referable parent, SubmodelElement sme)
+        private void SetSMEParent(SubmodelElement sme, Referable parent)
         {
             if (sme == null)
+            {
                 return;
+            }
 
             sme.Parent = parent;
 
-            var children = EnumerateSMEChildren(sme);
-            if (children != null)
-                foreach (SubmodelElement smeChild in children)
-                    SetParentsForSMEs(sme, smeChild);
-        }
-
-        public void SetAllParents()
-        {
-            if (SubmodelElements != null)
-                foreach (SubmodelElementWrapper smew in SubmodelElements)
-                    SetParentsForSMEs(this, smew.SubmodelElement);
+            // recurse if needed
+            if (sme is SubmodelElementCollection collection)
+            {
+                if (collection.Value != null)
+                {
+                    foreach (SubmodelElementWrapper smew in collection.Value)
+                    {
+                        SetSMEParent(smew.SubmodelElement, sme);
+                    }
+                }
+            }
         }
     }
 }

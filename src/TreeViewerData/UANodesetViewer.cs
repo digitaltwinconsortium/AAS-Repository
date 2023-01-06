@@ -35,7 +35,7 @@ namespace AdminShell.Data
                 _client.DefaultRequestHeaders.Add("Authorization", "basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(clientId + ":" + secret)));
 
                 // get namespaces
-                string address = "https://AdminShell.opcfoundation.org/infomodel/namespaces";
+                string address = "https://uacloudlibrary.opcfoundation.org/infomodel/namespaces";
                 HttpResponseMessage response = _client.Send(new HttpRequestMessage(HttpMethod.Get, address));
                 string[] identifiers = JsonConvert.DeserializeObject<string[]>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
 
@@ -43,7 +43,15 @@ namespace AdminShell.Data
                 foreach (string nodeset in identifiers)
                 {
                     string[] tuple = nodeset.Split(",");
-                    _namespacesInCloudLibrary.Add(tuple[0], tuple[1]);
+
+                    if (_namespacesInCloudLibrary.ContainsKey(tuple[0]))
+                    {
+                        _namespacesInCloudLibrary[tuple[0]] = tuple[1];
+                    }
+                    else
+                    {
+                        _namespacesInCloudLibrary.Add(tuple[0], tuple[1]);
+                    }
                 }
 
                 response = _client.Send(new HttpRequestMessage(HttpMethod.Get, instanceUrl));

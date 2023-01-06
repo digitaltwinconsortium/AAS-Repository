@@ -6,7 +6,7 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    [XmlType(TypeName = "submodelElement")]
+    [XmlType(TypeName = "submodelElement")] // The submodel element wrapper is actually just called submodel element in the XML file!
     public class SubmodelElementWrapper
     {
         [DataMember]

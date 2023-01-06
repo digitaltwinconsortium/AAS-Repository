@@ -389,3 +389,5 @@ healthchecksdb
 /src/AasxServerStandardBib/AdminShell.cs.old
 /src/AasxServerBlazor/temp.aasx
 /src/erich-repo
+/src/OPC Foundation/CertificateStores/UA Applications/certs
+/src/nodeset2.xml

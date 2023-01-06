@@ -157,14 +157,14 @@ namespace AdminShell
                     }
 
                     if ((smew.SubmodelElement.IdShort == "NODESET2_XML")
-                    && Uri.IsWellFormedUriString(smew.SubmodelElement.ValueAsText(), UriKind.Absolute))
+                    && Uri.IsWellFormedUriString(((File)smew.SubmodelElement).Value, UriKind.Absolute))
                     {
-                        CreateViewFromAdminShellNodeset(smeItem, new Uri(smew.SubmodelElement.ValueAsText()), i);
+                        CreateViewFromAdminShellNodeset(smeItem, new Uri(((File)smew.SubmodelElement).Value), i);
                     }
 
                     if (smew.SubmodelElement.IdShort == "CAEX")
                     {
-                        CreateViewFromAMLCAEXFile(smeItem, smew.SubmodelElement.ValueAsText(), i);
+                        CreateViewFromAMLCAEXFile(smeItem, ((File)smew.SubmodelElement).Value, i);
                     }
                 }
             }
