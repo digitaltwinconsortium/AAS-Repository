@@ -5,7 +5,6 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http.Connections;
-    using Microsoft.AspNetCore.Server.Kestrel.Core;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -92,18 +91,6 @@
 
                 options.EnableAnnotations();
             });
-
-            services.AddCors();
-
-            services.Configure<IISServerOptions>(options =>
-            {
-                options.AllowSynchronousIO = true;
-            });
-
-            services.Configure<KestrelServerOptions>(options =>
-            {
-                options.AllowSynchronousIO = true;
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -131,8 +118,7 @@
 
             app.UseRouting();
 
-            // Disable auth for now as Package Explorer can't do basic auth
-            //app.UseAuthentication();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
@@ -147,15 +133,9 @@
                         HttpTransportType.ServerSentEvents |
                         HttpTransportType.LongPolling;
                 });
+
                 endpoints.MapFallbackToPage("/_Host");
             });
-
-            app.UseCors(x => x
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .SetIsOriginAllowed(origin => true) // allow any origin
-                .AllowCredentials()
-            );
         }
     }
 }

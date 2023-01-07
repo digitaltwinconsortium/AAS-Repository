@@ -32,6 +32,7 @@ namespace AdminShell
 
         private static void LoadLocalAASXFiles()
         {
+            // TODO: Load these from cloud storage instead
             string[] fileNames = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.aasx");
             Console.WriteLine("Found " + fileNames.Length.ToString() + " AAS in directory " + Directory.GetCurrentDirectory());
             Array.Sort(fileNames);
