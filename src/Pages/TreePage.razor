@@ -463,21 +463,14 @@
         if (o is Submodel)
         {
             var sm = o as Submodel;
-
             ret = string.Empty;
-
-            if (sm.Kind == ModelingKind.Template)
-                ret += "<T> ";
-
-                ret += sm.IdShort;
+            ret += sm.IdShort;
         }
 
         if (o is SubmodelElement)
         {
             var sme = o as SubmodelElement;
             ret = string.Empty;
-            if (sme.Kind == ModelingKind.Template)
-                ret += "<T> ";
             ret += sme.IdShort;
         }
 
@@ -485,24 +478,18 @@
         {
             var f = o as File;
             ret = string.Empty;
-            if (f.Kind == ModelingKind.Template)
-                ret += "<T> ";
             ret += f.IdShort;
         }
         if (o is Blob)
         {
             var b = o as Blob;
             ret = string.Empty;
-            if (b.Kind == ModelingKind.Template)
-                ret += "<T> ";
             ret += b.IdShort;
         }
         if (o is MultiLanguageProperty)
         {
             var mlp = o as MultiLanguageProperty;
             ret = string.Empty;
-            if (mlp.Kind == ModelingKind.Template)
-                ret += "<T> ";
             ret += mlp.IdShort;
         }
         return (ret);
