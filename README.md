@@ -13,7 +13,7 @@ IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Ne
 1. Azure Data Explorer data source integration
 1. Integrated AAS browser
 1. Integrated OPC UA Nodeset file browser
-1. Integrarted AutomationML file browser
+1. Integrated AutomationML file browser
 1. Local storage of AASX package files (in the server's root directory)
 1. Cloud storage of AASX package files (future)
 
