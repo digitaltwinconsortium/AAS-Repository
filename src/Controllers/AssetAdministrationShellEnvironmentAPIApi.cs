@@ -18,13 +18,13 @@ namespace AdminShell
     [ApiController]
     public partial class AssetAdministrationShellEnvironmentAPIController : ControllerBase
     {
-        private readonly ILogger<AssetAdministrationShellEnvironmentAPIController> _logger;
+        private readonly ILogger _logger;
         private readonly IAssetAdministrationShellEnvironmentService _aasEnvService;
 
-        public AssetAdministrationShellEnvironmentAPIController(ILogger<AssetAdministrationShellEnvironmentAPIController> logger,
+        public AssetAdministrationShellEnvironmentAPIController(ILoggerFactory logger,
             IAssetAdministrationShellEnvironmentService aasEnvService)
         {
-            _logger = logger;
+            _logger = logger.CreateLogger("AssetAdministrationShellEnvironmentAPIController");
             _aasEnvService = aasEnvService;
         }
 
@@ -37,7 +37,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpDelete]
         [Route("/shells/{aasIdentifier}")]
-        [ValidateModelState]
         [SwaggerOperation("DeleteAssetAdministrationShellById")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
@@ -59,7 +58,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpDelete]
         [Route("/concept-descriptions/{cdIdentifier}")]
-        [ValidateModelState]
         [SwaggerOperation("DeleteConceptDescriptionById")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
@@ -81,7 +79,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpDelete]
         [Route("/Submodels/{submodelIdentifier}")]
-        [ValidateModelState]
         [SwaggerOperation("DeleteSubmodelById")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
@@ -105,7 +102,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpDelete]
         [Route("/shells/{aasIdentifier}/Submodels/{submodelIdentifier}/submodel/submodelelements/{idShortPath}")]
-        [ValidateModelState]
         [SwaggerOperation("DeleteSubmodelElementByPath")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
@@ -129,7 +125,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpDelete]
         [Route("/Submodels/{submodelIdentifier}/submodelelements/{idShortPath}")]
-        [ValidateModelState]
         [SwaggerOperation("DeleteSubmodelElementByPathSubmodelRepo")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
@@ -152,7 +147,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpDelete]
         [Route("/shells/{aasIdentifier}/Submodels/{submodelIdentifier}")]
-        [ValidateModelState]
         [SwaggerOperation("DeleteSubmodelReferenceById")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
@@ -176,7 +170,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/shells")]
-        [ValidateModelState]
         [SwaggerOperation("GetAllAssetAdministrationShells")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<AssetAdministrationShell>), description: "Requested Asset Administration Shells")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
@@ -197,7 +190,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/concept-descriptions")]
-        [ValidateModelState]
         [SwaggerOperation("GetAllConceptDescriptions")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<ConceptDescription>), description: "Requested Concept Descriptions")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
@@ -223,7 +215,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/shells/{aasIdentifier}/Submodels/{submodelIdentifier}/submodel/submodelelements")]
-        [ValidateModelState]
         [SwaggerOperation("GetAllSubmodelElements")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<SubmodelElement>), description: "List of found submodel elements")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
@@ -251,7 +242,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/Submodels/{submodelIdentifier}/submodelelements")]
-        [ValidateModelState]
         [SwaggerOperation("GetAllSubmodelElementsSubmodelRepo")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<SubmodelElement>), description: "List of found submodel elements")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
@@ -274,7 +264,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/shells/{aasIdentifier}/Submodels")]
-        [ValidateModelState]
         [SwaggerOperation("GetAllSubmodelReferences")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Reference>), description: "Requested submodel references")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
@@ -296,7 +285,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/Submodels")]
-        [ValidateModelState]
         [SwaggerOperation("GetAllSubmodels")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<Submodel>), description: "Requested Submodels")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
@@ -318,7 +306,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/shells/{aasIdentifier}")]
-        [ValidateModelState]
         [SwaggerOperation("GetAssetAdministrationShellById")]
         [SwaggerResponse(statusCode: 200, type: typeof(AssetAdministrationShell), description: "Requested Asset Administration Shell")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
@@ -340,7 +327,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/shells/{aasIdentifier}/asset-information")]
-        [ValidateModelState]
         [SwaggerOperation("GetAssetInformation")]
         [SwaggerResponse(statusCode: 200, type: typeof(AssetInformation), description: "Requested Asset Information")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
@@ -362,7 +348,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/concept-descriptions/{cdIdentifier}")]
-        [ValidateModelState]
         [SwaggerOperation("GetConceptDescriptionById")]
         [SwaggerResponse(statusCode: 200, type: typeof(ConceptDescription), description: "Requested Concept Description")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
@@ -388,7 +373,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/shells/{aasIdentifier}/Submodels/{submodelIdentifier}/submodel/submodelelements/{idShortPath}/attachment")]
-        [ValidateModelState]
         [SwaggerOperation("GetFileByPath")]
         [SwaggerResponse(statusCode: 200, type: typeof(string), description: "Requested file")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
@@ -424,7 +408,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/Submodels/{submodelIdentifier}/submodelelements/{idShortPath}/attachment")]
-        [ValidateModelState]
         [SwaggerOperation("GetFileByPathSubmodelRepo")]
         [SwaggerResponse(statusCode: 200, type: typeof(string), description: "Requested file")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
@@ -461,7 +444,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/shells/{aasIdentifier}/Submodels/{submodelIdentifier}/submodel/submodelelements/{idShortPath}/operation-results/{handleId}")]
-        [ValidateModelState]
         [SwaggerOperation("GetOperationAsyncResult")]
         [SwaggerResponse(statusCode: 200, type: typeof(OperationResult), description: "Operation result object")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
@@ -489,7 +471,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/Submodels/{submodelIdentifier}/submodelelements/{idShortPath}/operation-results/{handleId}")]
-        [ValidateModelState]
         [SwaggerOperation("GetOperationAsyncResultSubmodelRepo")]
         [SwaggerResponse(statusCode: 200, type: typeof(OperationResult), description: "Operation result object")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
@@ -516,7 +497,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/shells/{aasIdentifier}/Submodels/{submodelIdentifier}/submodel")]
-        [ValidateModelState]
         [SwaggerOperation("GetSubmodel")]
         [SwaggerResponse(statusCode: 200, type: typeof(Submodel), description: "Requested Submodel")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
@@ -539,7 +519,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/Submodels/{submodelIdentifier}")]
-        [ValidateModelState]
         [SwaggerOperation("GetSubmodelById")]
         [SwaggerResponse(statusCode: 200, type: typeof(Submodel), description: "Requested Submodel")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
@@ -567,7 +546,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/shells/{aasIdentifier}/Submodels/{submodelIdentifier}/submodel/submodelelements/{idShortPath}")]
-        [ValidateModelState]
         [SwaggerOperation("GetSubmodelElementByPath")]
         [SwaggerResponse(statusCode: 200, type: typeof(SubmodelElement), description: "Requested submodel element")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
@@ -596,7 +574,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/Submodels/{submodelIdentifier}/submodelelements/{idShortPath}")]
-        [ValidateModelState]
         [SwaggerOperation("GetSubmodelElementByPathSubmodelRepo")]
         [SwaggerResponse(statusCode: 200, type: typeof(SubmodelElement), description: "Requested submodel element")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
@@ -626,7 +603,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPost]
         [Route("/shells/{aasIdentifier}/Submodels/{submodelIdentifier}/submodel/submodelelements/{idShortPath}/invoke")]
-        [ValidateModelState]
         [SwaggerOperation("InvokeOperation")]
         [SwaggerResponse(statusCode: 200, type: typeof(OperationResult), description: "Operation result object")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
@@ -637,7 +613,7 @@ namespace AdminShell
         {
             var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
             var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
-            //TODO:jtikekar implement
+            //TODO: implement
             return StatusCode(200, default(OperationResult));
         }
 
@@ -656,7 +632,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPost]
         [Route("/Submodels/{submodelIdentifier}/submodelelements/{idShortPath}/invoke")]
-        [ValidateModelState]
         [SwaggerOperation("InvokeOperationSubmodelRepo")]
         [SwaggerResponse(statusCode: 200, type: typeof(OperationResult), description: "Operation result object")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
@@ -688,7 +663,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPost]
         [Route("/shells")]
-        [ValidateModelState]
         [SwaggerOperation("PostAssetAdministrationShell")]
         [SwaggerResponse(statusCode: 201, type: typeof(AssetAdministrationShell), description: "Asset Administration Shell created successfully")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
@@ -709,7 +683,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPost]
         [Route("/concept-descriptions")]
-        [ValidateModelState]
         [SwaggerOperation("PostConceptDescription")]
         [SwaggerResponse(statusCode: 201, type: typeof(ConceptDescription), description: "Concept Description created successfully")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
@@ -730,7 +703,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPost]
         [Route("/Submodels")]
-        [ValidateModelState]
         [SwaggerOperation("PostSubmodel")]
         [SwaggerResponse(statusCode: 201, type: typeof(Submodel), description: "Submodel created successfully")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
@@ -756,7 +728,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPost]
         [Route("/shells/{aasIdentifier}/Submodels/{submodelIdentifier}/submodel/submodelelements")]
-        [ValidateModelState]
         [SwaggerOperation("PostSubmodelElement")]
         [SwaggerResponse(statusCode: 201, type: typeof(SubmodelElement), description: "Submodel element created successfully")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
@@ -768,7 +739,6 @@ namespace AdminShell
 
             var output = _aasEnvService.CreateSubmodelElement(body, decodedAasId, decodedSubmodelId);
 
-            //TODO:jtikekar handle output modifiers
             return CreatedAtAction(nameof(PostSubmodelElement), output);
         }
 
@@ -788,7 +758,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPost]
         [Route("/shells/{aasIdentifier}/Submodels/{submodelIdentifier}/submodel/submodelelements/{idShortPath}")]
-        [ValidateModelState]
         [SwaggerOperation("PostSubmodelElementByPath")]
         [SwaggerResponse(statusCode: 201, type: typeof(SubmodelElement), description: "Submodel element created successfully")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
@@ -801,7 +770,6 @@ namespace AdminShell
 
             var output = _aasEnvService.CreateSubmodelElementByPath(body, decodedAasId, decodedSubmodelId, idShortPath);
 
-            //TODO:jtikekar Handle Output modifiers
             return CreatedAtAction(nameof(PostSubmodelElementByPath), output);
         }
 
@@ -820,7 +788,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPost]
         [Route("/Submodels/{submodelIdentifier}/submodelelements/{idShortPath}")]
-        [ValidateModelState]
         [SwaggerOperation("PostSubmodelElementByPathSubmodelRepo")]
         [SwaggerResponse(statusCode: 201, type: typeof(SubmodelElement), description: "Submodel element created successfully")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
@@ -832,9 +799,7 @@ namespace AdminShell
 
             var output = _aasEnvService.CreateSubmodelElementByPathSubmodelRepo(body, decodedSubmodelId, idShortPath);
 
-            //TODO:jtikekar Handle Output modifiers
             return CreatedAtAction(nameof(PostSubmodelElementByPathSubmodelRepo), output);
-
         }
 
         /// <summary>
@@ -850,7 +815,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPost]
         [Route("/Submodels/{submodelIdentifier}/submodelelements")]
-        [ValidateModelState]
         [SwaggerOperation("PostSubmodelElementSubmodelRepo")]
         [SwaggerResponse(statusCode: 201, type: typeof(SubmodelElement), description: "Submodel element created successfully")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
@@ -861,7 +825,6 @@ namespace AdminShell
 
             var output = _aasEnvService.CreateSubmodelElementSubmodelRepo(body, decodedSubmodelId);
 
-            //TODO:jtikekar handle output modifiers
             return CreatedAtAction(nameof(PostSubmodelElementSubmodelRepo), output);
         }
 
@@ -875,7 +838,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPost]
         [Route("/shells/{aasIdentifier}/Submodels")]
-        [ValidateModelState]
         [SwaggerOperation("PostSubmodelReference")]
         [SwaggerResponse(statusCode: 201, type: typeof(Reference), description: "Submodel reference created successfully")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
@@ -900,7 +862,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPut]
         [Route("/shells/{aasIdentifier}")]
-        [ValidateModelState]
         [SwaggerOperation("PutAssetAdministrationShellById")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
@@ -924,7 +885,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPut]
         [Route("/shells/{aasIdentifier}/asset-information")]
-        [ValidateModelState]
         [SwaggerOperation("PutAssetInformation")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
@@ -948,7 +908,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPut]
         [Route("/concept-descriptions/{cdIdentifier}")]
-        [ValidateModelState]
         [SwaggerOperation("PutConceptDescriptionById")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
@@ -961,8 +920,6 @@ namespace AdminShell
 
             return NoContent();
         }
-
-
 
         /// <summary>
         /// Updates the Submodel
@@ -978,7 +935,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPut]
         [Route("/shells/{aasIdentifier}/Submodels/{submodelIdentifier}/submodel")]
-        [ValidateModelState]
         [SwaggerOperation("PutSubmodel")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
@@ -989,7 +945,6 @@ namespace AdminShell
 
             _aasEnvService.UpdateSubmodel(body, decodedAasId, decodedSubmodelId);
 
-            //TODO: jtikekar handle output modifiers
             return NoContent();
         }
 
@@ -1004,7 +959,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPut]
         [Route("/Submodels/{submodelIdentifier}")]
-        [ValidateModelState]
         [SwaggerOperation("PutSubmodelById")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
@@ -1034,7 +988,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPut]
         [Route("/shells/{aasIdentifier}/Submodels/{submodelIdentifier}/submodel/submodelelements/{idShortPath}")]
-        [ValidateModelState]
         [SwaggerOperation("PutSubmodelElementByPath")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
@@ -1064,7 +1017,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPut]
         [Route("/Submodels/{submodelIdentifier}/submodelelements/{idShortPath}")]
-        [ValidateModelState]
         [SwaggerOperation("PutSubmodelElementByPathSubmodelRepo")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
@@ -1091,7 +1043,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPut]
         [Route("/shells/{aasIdentifier}/Submodels/{submodelIdentifier}/submodelelements/{idShortPath}/attachment")]
-        [ValidateModelState]
         [SwaggerOperation("PutFileByPath")]
         [SwaggerResponse(statusCode: 204, type: typeof(Result), description: "Submodel element updated successfully")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
@@ -1124,7 +1075,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpPut]
         [Route("/Submodels/{submodelIdentifier}/submodelelements/{idShortPath}/attachment")]
-        [ValidateModelState]
         [SwaggerOperation("PutFileByPathSubmodelRepo")]
         [SwaggerResponse(statusCode: 204, type: typeof(Result), description: "Submodel element updated successfully")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]

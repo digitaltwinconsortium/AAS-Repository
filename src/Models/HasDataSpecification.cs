@@ -47,11 +47,11 @@ namespace AdminShell
                 var eds = IEC61360;
                 if (eds != null)
                 {
-                    // replace this
-                    /* TODO (MIHO, 2020-08-30): this does not prevent the corner case, that we could have
-                        * multiple DataSpecificationIEC61360 in this list, which would be an error */
+                    // TODO: Remove all or just one?
                     EmbeddedDataSpecifications.Remove(eds);
+
                     EmbeddedDataSpecifications.Add(value);
+
                     return;
                 }
 

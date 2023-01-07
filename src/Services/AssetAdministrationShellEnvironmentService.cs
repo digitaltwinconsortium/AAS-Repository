@@ -10,12 +10,12 @@ namespace AdminShell
 
     public class AssetAdministrationShellEnvironmentService : IAssetAdministrationShellEnvironmentService
     {
-        private readonly ILogger<AssetAdministrationShellEnvironmentService> _logger;
+        private readonly ILogger _logger;
         private AdminShellPackageEnv[] _packages;
 
-        public AssetAdministrationShellEnvironmentService(ILogger<AssetAdministrationShellEnvironmentService> logger)
+        public AssetAdministrationShellEnvironmentService(ILoggerFactory logger)
         {
-            _logger = logger;
+            _logger = logger.CreateLogger("AssetAdministrationShellEnvironmentService");
             _packages = Program.env.ToArray();
         }
 
@@ -297,7 +297,7 @@ namespace AdminShell
                 _packages[packageIndex].AasEnv.AssetAdministrationShells.Remove(aas);
                 if (_packages[packageIndex].AasEnv.AssetAdministrationShells.Count == 0)
                 {
-                    _packages[packageIndex] = null;             //TODO: jtikekar what about Submodels?
+                    _packages[packageIndex] = null;             //TODO: what about Submodels?
                 }
 
                 TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.RebuildAndCollapse);
@@ -953,7 +953,7 @@ namespace AdminShell
                     DeleteSubmodelReferenceById(aas.Id, submodelIdentifier);
                 }
 
-                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);  //TODO jtikekar : may be not needed
+                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
             }
             else
             {
@@ -1024,7 +1024,6 @@ namespace AdminShell
             return null;
         }
 
-        //TODO:jtikekar refactor
         private SubmodelElement GetSubmodelElementByPath(object parent, string idShortPath, out object outParent)
         {
             outParent = parent;

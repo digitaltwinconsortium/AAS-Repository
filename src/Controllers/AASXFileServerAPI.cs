@@ -17,12 +17,12 @@ namespace AdminShell
     [ApiController]
     public class AASXFileServerApiController : ControllerBase
     {
-        private readonly ILogger<AASXFileServerApiController> _logger;
+        private readonly ILogger _logger;
         private readonly IAasxFileServerInterfaceService _fileService;
 
-        public AASXFileServerApiController(ILogger<AASXFileServerApiController> logger, IAasxFileServerInterfaceService fileService)
+        public AASXFileServerApiController(ILoggerFactory logger, IAasxFileServerInterfaceService fileService)
         {
-            _logger = logger;
+            _logger = logger.CreateLogger("AASXFileServerApiController");
             _fileService = fileService;
         }
 
@@ -35,15 +35,12 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpDelete]
         [Route("/packages/{packageId}")]
-        [ValidateModelState]
         [SwaggerOperation("DeleteAASXByPackageId")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult DeleteAASXByPackageId([FromRoute][Required] string packageId)
         {
-            var decodedPackageId = Encoding.UTF8.GetString(Convert.FromBase64String(packageId));
-
-            _fileService.DeleteAASXByPackageId(decodedPackageId);
+            _fileService.DeleteAASXByPackageId(packageId);
 
             return NoContent();
         }
@@ -57,17 +54,13 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/packages/{packageId}")]
-        [ValidateModelState]
         [SwaggerOperation("GetAASXByPackageId")]
         [SwaggerResponse(statusCode: 200, type: typeof(byte[]), description: "Requested AASX package")]
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAASXByPackageId([FromRoute][Required] string packageId)
         {
-            //TODO: jtikekar resolve issues
-            var decodedPackageId = Encoding.UTF8.GetString(Convert.FromBase64String(packageId));
-
-            var fileName = _fileService.GetAASXByPackageId(decodedPackageId, out byte[] content, out long fileSize);
+            var fileName = _fileService.GetAASXByPackageId(packageId, out byte[] content, out long fileSize);
 
             //content-disposition so that the aasx file can be downloaded from the web browser.
             ContentDisposition contentDisposition = new()
@@ -90,15 +83,12 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/packages")]
-        [ValidateModelState]
         [SwaggerOperation("GetAllAASXPackageIds")]
         [SwaggerResponse(statusCode: 200, type: typeof(List<PackageDescription>), description: "Requested package list")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllAASXPackageIds([FromQuery] string aasId)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasId));
-
-            var output = _fileService.GetAllAASXPackageIds(decodedAasId);
+            var output = _fileService.GetAllAASXPackageIds(aasId);
 
             return new ObjectResult(output);
         }
@@ -112,11 +102,9 @@ namespace AdminShell
         /// <returns></returns>
         [HttpPost]
         [Route("/packages")]
-        [ValidateModelState]
         [SwaggerOperation("PostAASXPackage")]
         public virtual IActionResult PostAASXPackage([FromForm] string aasIds, [FromForm] IFormFile file, [FromForm] string fileName)
         {
-            //TODO jtikekar aasIds
             var stream = new MemoryStream();
             file.CopyTo(stream);
             var packageId = _fileService.PostAASXPackage(stream.ToArray(), fileName);
@@ -133,11 +121,9 @@ namespace AdminShell
         /// <returns></returns>
         [HttpPut]
         [Route("/packages/{packageId}")]
-        [ValidateModelState]
         [SwaggerOperation("PutAASXPackageById")]
         public virtual IActionResult PutAASXPackageById([FromRoute][Required] string packageId, [FromForm] string fileName, [FromForm] IFormFile file, [FromForm] string aasIds)
         {
-            //TODO jtikekar aasIds
             var decodedPackageId = Encoding.UTF8.GetString(Convert.FromBase64String(packageId));
 
             var stream = new MemoryStream();

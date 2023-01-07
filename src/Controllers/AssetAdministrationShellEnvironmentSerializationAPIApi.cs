@@ -15,12 +15,12 @@ namespace AdminShell
     [ApiController]
     public class AssetAdministrationShellEnvironmentSerializationAPIController : ControllerBase
     {
-        private readonly ILogger<AssetAdministrationShellEnvironmentSerializationAPIController> _logger;
+        private readonly ILogger _logger;
         private readonly IAssetAdministrationShellEnvironmentService _aasEnvService;
 
-        public AssetAdministrationShellEnvironmentSerializationAPIController(ILogger<AssetAdministrationShellEnvironmentSerializationAPIController> logger, IAssetAdministrationShellEnvironmentService aasEnvSerive)
+        public AssetAdministrationShellEnvironmentSerializationAPIController(ILoggerFactory logger, IAssetAdministrationShellEnvironmentService aasEnvSerive)
         {
-            _logger = logger;
+            _logger = logger.CreateLogger("AssetAdministrationShellEnvironmentSerializationAPIController");
             _aasEnvService = aasEnvSerive;
         }
 
@@ -34,7 +34,6 @@ namespace AdminShell
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/serialization")]
-        [ValidateModelState]
         [SwaggerOperation("GenerateSerializationByIds")]
         [SwaggerResponse(statusCode: 200, type: typeof(byte[]), description: "Requested serialization based on SerializationFormat")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]

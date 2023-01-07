@@ -9,13 +9,13 @@ namespace AdminShell
 
     public class AasxFileServerInterfaceService : IAasxFileServerInterfaceService
     {
-        private readonly ILogger<AasxFileServerInterfaceService> _logger;
+        private readonly ILogger _logger;
         private AdminShellPackageEnv[] _packages;
         private string[] _envFileNames;
 
-        public AasxFileServerInterfaceService(ILogger<AasxFileServerInterfaceService> logger)
+        public AasxFileServerInterfaceService(ILoggerFactory logger)
         {
-            _logger = logger;
+            _logger = logger.CreateLogger("AasxFileServerInterfaceService");
             _packages = Program.env.ToArray();
             _envFileNames = Program.envFileName.ToArray();
         }

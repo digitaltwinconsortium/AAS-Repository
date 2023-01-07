@@ -9,6 +9,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
     using System;
 
@@ -41,8 +42,12 @@
 
             services.AddSingleton<TreeBuilder>();
 
+            services.AddLogging(builder => builder.AddConsole());
+
             services.AddAuthentication("BasicAuthentication")
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+
+            services.AddAuthorization();
 
             services.AddSwaggerGen(options =>
             {
@@ -117,7 +122,7 @@
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "AASX Server REST Service");
+                c.SwaggerEndpoint("/swagger/v3/swagger.json", "AAS Repository REST Service");
             });
 
             app.UseHttpsRedirection();
@@ -146,10 +151,11 @@
             });
 
             app.UseCors(x => x
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .SetIsOriginAllowed(origin => true) // allow any origin
-            .AllowCredentials());
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials()
+            );
         }
     }
 }
