@@ -14,6 +14,7 @@ IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Ne
 1. Integrated AAS browser
 1. Integrated OPC UA Nodeset file browser
 1. Integrated AutomationML file browser
+1. Basic authentication header support (use "admin" and ServicePassword environment variable to set password)
 1. Local storage of AASX package files (in the server's root directory)
 1. Cloud storage of AASX package files (future)
 
@@ -29,3 +30,4 @@ And then point your browser to http://localhost.
 
 1. UACLUsername: OPC Foundation UA Cloud Library username
 1. UACLPassword: OPC Foundation UA Cloud Library password
+1. ServicePassword: Password to access the service via basic authentication header
