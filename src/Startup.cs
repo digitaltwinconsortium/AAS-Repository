@@ -1,7 +1,5 @@
-﻿
-namespace AdminShell
+﻿namespace AdminShell
 {
-    using AdminShell.Data;
     using AdminShell.Interfaces;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Builder;
@@ -29,27 +27,35 @@ namespace AdminShell
         {
             services.AddControllers().AddNewtonsoftJson();
 
+            services.AddRazorPages();
+
+            services.AddServerSideBlazor();
+
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IAasxFileServerInterfaceService, AasxFileServerInterfaceService>();
 
             services.AddScoped<IAssetAdministrationShellEnvironmentService, AssetAdministrationShellEnvironmentService>();
 
+            services.AddSingleton<ADXEnergyDataSource>();
+
+            services.AddSingleton<TreeBuilder>();
+
             services.AddAuthentication("BasicAuthentication")
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo
+                options.SwaggerDoc("v3", new OpenApiInfo
                 {
-                    Title = "AASX Server REST Service",
-                    Version = "v1",
-                    Description = "A REST-full interface to the Asset Administration Shell Server",
+                    Title = "AAS Repository REST Service",
+                    Version = "v3",
+                    Description = "A REST-full interface to the Asset Administration Shell Repository",
                     Contact = new OpenApiContact
                     {
-                        Name = "Plattform Industrie 4.0",
+                        Name = "Digital Twin Consortium",
                         Email = string.Empty,
-                        Url = new Uri("https://www.plattform-i40.de"),
+                        Url = new Uri("https://www.digitaltwinconsortium.org"),
                     }
                 });
 
@@ -81,12 +87,6 @@ namespace AdminShell
 
                 options.EnableAnnotations();
             });
-
-            services.AddRazorPages();
-
-            services.AddServerSideBlazor();
-
-            services.AddSingleton<TreeBuilder>();
 
             services.AddCors();
 

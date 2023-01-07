@@ -1,5 +1,5 @@
 ﻿
-namespace AdminShell.Data
+namespace AdminShell
 {
     using Opc.Ua.Client;
     using System;

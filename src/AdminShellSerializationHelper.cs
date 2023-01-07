@@ -1,7 +1,6 @@
 ﻿
 namespace AdminShell
 {
-    using AdminShell;
     using System.IO;
     using System.Xml.Serialization;
 

@@ -53,7 +53,7 @@ namespace AdminShell
                     {
                         if (sm != null)
                         {
-                            sm.SetSMEsParent();
+                            sm.SetSMEParent();
                         }
                     }
                 }

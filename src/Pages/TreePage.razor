@@ -1,7 +1,6 @@
 ﻿@page "/"
 
 @using AdminShell
-@using AdminShell.Data
 @using System
 @using System.Net;
 @using System.Drawing;
@@ -9,6 +8,7 @@
 @implements IDisposable
 
 @inject TreeBuilder treeBuilder
+@inject ADXEnergyDataSource dataSource
 
 <div class="col-12 row">
     <br />

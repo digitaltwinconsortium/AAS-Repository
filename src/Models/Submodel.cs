@@ -33,7 +33,7 @@ namespace AdminShell
         [XmlElement(ElementName = "HasDataSpecification")]
         public HasDataSpecification HasDataSpecification { get; set; }
 
-        public void SetSMEsParent()
+        public void SetSMEParent()
         {
             if (SubmodelElements != null)
             {

@@ -1,5 +1,5 @@
 ﻿
-namespace AdminShell.Data
+namespace AdminShell
 {
     using Newtonsoft.Json;
     using Opc.Ua;
@@ -13,7 +13,6 @@ namespace AdminShell.Data
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
-    using AdminShell;
 
     public class UANodesetViewer
     {

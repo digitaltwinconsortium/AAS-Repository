@@ -1,7 +1,6 @@
 ﻿
 namespace AdminShell
 {
-    using AdminShell.Data;
     using Aml.Engine.CAEX;
     using System;
     using System.Collections.Generic;
@@ -156,7 +155,7 @@ namespace AdminShell
                         CreateViewFromEntity(smeItem, entity, i);
                     }
 
-                    if ((smew.SubmodelElement.IdShort == "NODESET2_XML")
+                    if (smew.SubmodelElement.IdShort == "NODESET2_XML"
                     && Uri.IsWellFormedUriString(((File)smew.SubmodelElement).Value, UriKind.Absolute))
                     {
                         CreateViewFromAdminShellNodeset(smeItem, new Uri(((File)smew.SubmodelElement).Value), i);
@@ -329,7 +328,7 @@ namespace AdminShell
                 viewer.Login(uri.AbsoluteUri, Environment.GetEnvironmentVariable("UACLUsername"), Environment.GetEnvironmentVariable("UACLPassword"));
 
                 NodesetViewerNode rootNode = viewer.GetRootNode().GetAwaiter().GetResult();
-                if ((rootNode != null) && rootNode.Children)
+                if (rootNode != null && rootNode.Children)
                 {
                     CreateViewFromUANode(rootItem, viewer, rootNode, i);
                 }
