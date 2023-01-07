@@ -1,7 +1,6 @@
 
 namespace AdminShell
 {
-    using AdminShell;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
@@ -40,7 +39,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult DeleteAASXByPackageId([FromRoute][Required] string packageId)
         {
-            _fileService.DeleteAASXByPackageId(packageId);
+            _fileService.DeleteAASXByPackageId(Encoding.UTF8.GetString(Convert.FromBase64String(packageId)));
 
             return NoContent();
         }
@@ -60,7 +59,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAASXByPackageId([FromRoute][Required] string packageId)
         {
-            var fileName = _fileService.GetAASXByPackageId(packageId, out byte[] content, out long fileSize);
+            var fileName = _fileService.GetAASXByPackageId(Encoding.UTF8.GetString(Convert.FromBase64String(packageId)), out byte[] content, out long fileSize);
 
             //content-disposition so that the aasx file can be downloaded from the web browser.
             ContentDisposition contentDisposition = new()
@@ -88,7 +87,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllAASXPackageIds([FromQuery] string aasId)
         {
-            var output = _fileService.GetAllAASXPackageIds(aasId);
+            var output = _fileService.GetAllAASXPackageIds(Encoding.UTF8.GetString(Convert.FromBase64String(aasId)));
 
             return new ObjectResult(output);
         }
@@ -124,15 +123,12 @@ namespace AdminShell
         [SwaggerOperation("PutAASXPackageById")]
         public virtual IActionResult PutAASXPackageById([FromRoute][Required] string packageId, [FromForm] string fileName, [FromForm] IFormFile file, [FromForm] string aasIds)
         {
-            var decodedPackageId = Encoding.UTF8.GetString(Convert.FromBase64String(packageId));
-
             var stream = new MemoryStream();
             file.CopyTo(stream);
 
-            _fileService.UpdateAASXPackageById(decodedPackageId, stream.ToArray(), fileName);
+            _fileService.UpdateAASXPackageById(Encoding.UTF8.GetString(Convert.FromBase64String(packageId)), stream.ToArray(), fileName);
 
             return NoContent();
-
         }
     }
 }
