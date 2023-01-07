@@ -41,6 +41,8 @@
 
             services.AddSingleton<TreeBuilder>();
 
+            services.AddSingleton<UANodesetViewer>();
+
             services.AddLogging(builder => builder.AddConsole());
 
             services.AddAuthentication("BasicAuthentication")

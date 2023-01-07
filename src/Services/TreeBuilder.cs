@@ -9,6 +9,8 @@ namespace AdminShell
 
     public class TreeBuilder
     {
+        private readonly UANodesetViewer _viewer;
+
         public static event EventHandler NewDataAvailable;
 
         public class NewDataAvailableArgs : EventArgs
@@ -26,6 +28,11 @@ namespace AdminShell
             ValuesOnly = 0,     // same tree, only values changed
             Rebuild,            // same tree, structure may change
             RebuildAndCollapse  // build new tree, keep open nodes
+        }
+
+        public TreeBuilder(UANodesetViewer viewer)
+        {
+            _viewer = viewer;
         }
 
         public static void SignalNewData(TreeUpdateMode mode)
@@ -324,16 +331,13 @@ namespace AdminShell
         {
             try
             {
-                UANodesetViewer viewer = new UANodesetViewer();
-                viewer.Login(uri.AbsoluteUri, Environment.GetEnvironmentVariable("UACLUsername"), Environment.GetEnvironmentVariable("UACLPassword"));
+                _viewer.Login(uri.AbsoluteUri, Environment.GetEnvironmentVariable("UACLUsername"), Environment.GetEnvironmentVariable("UACLPassword"));
 
-                NodesetViewerNode rootNode = viewer.GetRootNode().GetAwaiter().GetResult();
+                NodesetViewerNode rootNode = _viewer.GetRootNode().GetAwaiter().GetResult();
                 if (rootNode != null && rootNode.Children)
                 {
-                    CreateViewFromUANode(rootItem, viewer, rootNode, i);
+                    CreateViewFromUANode(rootItem, _viewer, rootNode, i);
                 }
-
-                viewer.Disconnect();
             }
             catch (Exception ex)
             {

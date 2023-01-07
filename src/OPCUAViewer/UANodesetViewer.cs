@@ -24,14 +24,23 @@ namespace AdminShell
 
         private string _sessionID = new Guid().ToString();
 
+        private bool _isRunning = false;
+
+        private string _instanceUrl = string.Empty;
+
         private Dictionary<string, string> _namespacesInCloudLibrary = new Dictionary<string, string>();
 
         public void Login(string instanceUrl, string clientId, string secret)
         {
-            if (!string.IsNullOrEmpty(clientId) && !string.IsNullOrEmpty(secret))
+            if (!_isRunning
+             && !string.IsNullOrEmpty(clientId)
+             && !string.IsNullOrEmpty(secret)
+             && !string.IsNullOrEmpty(instanceUrl)
+             && (_instanceUrl != instanceUrl))
             {
                 _client.DefaultRequestHeaders.Remove("Authorization");
                 _client.DefaultRequestHeaders.Add("Authorization", "basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes(clientId + ":" + secret)));
+                _instanceUrl = instanceUrl;
 
                 // get namespaces
                 string address = "https://uacloudlibrary.opcfoundation.org/infomodel/namespaces";
@@ -66,10 +75,12 @@ namespace AdminShell
                 // (re-)start the UA server
                 if (_application.Server != null)
                 {
-                    _application.Stop();
+                    Disconnect();
                 }
 
                 StartServerAsync().GetAwaiter().GetResult();
+
+                _isRunning = true;
             }
         }
 
@@ -212,7 +223,7 @@ namespace AdminShell
             }
         }
 
-        public void Disconnect()
+        private void Disconnect()
         {
             try
             {

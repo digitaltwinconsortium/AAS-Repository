@@ -1,7 +1,8 @@
 ﻿Copyright (c) 2019-2020 PHOENIX CONTACT GmbH & Co. KG <opensource@phoenixcontact.com>, author: Andreas Orzelski
 Copyright (c) 2018-2020 Festo AG & Co. KG
-Copyright (c) 2019 Fraunhofer IOSB-INA Lemgo, eine rechtlich nicht selbstaendige Einrichtung der Fraunhofer-Gesellschaft
-zur Foerderung der angewandten Forschung e.V.
+Copyright (c) 2019 Fraunhofer IOSB-INA Lemgo, eine rechtlich nicht selbstaendige Einrichtung der Fraunhofer-Gesellschaft zur Foerderung der angewandten Forschung e.V.
+Copytright (c) 2022 Erich Barnstedt
+
 This software is licensed under the Eclipse Public License 2.0 (EPL-2.0)
 The Newtonsoft.JSON serialization is licensed under the MIT License (MIT)
 The Grapevine REST server framework is licensed under Apache License 2.0 (Apache-2.0)
@@ -9,7 +10,7 @@ The MQTT server and client is licensed under the MIT license (MIT) (see below)
 Portions copyright (c) by OPC Foundation, Inc. and licensed under the Reciprocal Community License (RCL)
 
 This application is a sample application for demonstration of the features of the Administration Shell.
-It is not allowed for productive use. The implementation uses the concepts of the document "Details of the Asset 
+It is not allowed for productive use. The implementation uses the concepts of the document "Details of the Asset
 Administration Shell" published on www.plattform-i40.de which is licensed under Creative Commons CC BY-ND 3.0 DE.
 
 Eclipse Public License 2.0 (EPL-2.0)
@@ -278,8 +279,8 @@ No third-party beneficiary rights are created under this Agreement.
 
 Exhibit A - Form of Secondary Licenses Notice
 
-"This Source Code may also be made available under the following 
-Secondary Licenses when the conditions for such availability set forth 
+"This Source Code may also be made available under the following
+Secondary Licenses when the conditions for such availability set forth
 in the Eclipse Public License, v. 2.0 are satisfied: {name license(s),
 version(s), and exceptions or additional permissions here}."
 
