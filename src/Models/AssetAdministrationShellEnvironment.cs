@@ -33,9 +33,11 @@ namespace AdminShell
         {
             if (id == null)
                 return null;
+
             foreach (var aas in AssetAdministrationShells)
                 if (aas.Id != null && aas.Id.IsEqual(id))
                     return aas;
+
             return null;
         }
 
@@ -43,9 +45,11 @@ namespace AdminShell
         {
             if (idShort == null)
                 return null;
+
             foreach (var aas in AssetAdministrationShells)
                 if (aas.IdShort != null && aas.IdShort.Trim().ToLower() == idShort.Trim().ToLower())
                     return aas;
+
             return null;
         }
 

@@ -5,11 +5,10 @@ namespace AdminShell
     using System.Text.RegularExpressions;
     using System.Xml.Serialization;
 
+    // V3.0 made Id a simple string
     [DataContract]
     public class Identifiable : Referable
     {
-        // V3.0 made Id a simple string
-
         [DataMember(Name = "administration")]
         [XmlElement(ElementName = "administration")]
         public AdministrativeInformation Administration { get; set; }
@@ -23,21 +22,6 @@ namespace AdminShell
         }
 
         public Identifier Id { get; set; } = new();
-
-        public Identifiable() : base() { }
-
-        public Identifiable(Identifiable src)
-            : base(src)
-        {
-            if (src == null)
-                return;
-
-            if (src.Id != null)
-                Id = new Identifier(src.Id);
-
-            if (src.Administration != null)
-                Administration = new AdministrativeInformation(src.Administration);
-        }
 
         public string GetFriendlyName()
         {

@@ -25,6 +25,7 @@ namespace AdminShell
                 return;
 
             Value = new List<LangString>(mlp.Value);
+
             if (mlp.ValueId != null)
                 ValueId = new GlobalReference(mlp.ValueId);
         }

@@ -180,7 +180,7 @@ namespace AdminShell
                     {
                         //Replace existing file with temp file
                         originalFile = fileName;
-                        //Copy tempFile into originalFile location
+                        //Copy tempFile into originalFile Location
                         System.IO.File.Copy(tempNewFile, originalFile, overwrite: true);
                         // open again
                         var newAasx = new AdminShellPackageEnv(originalFile, true);

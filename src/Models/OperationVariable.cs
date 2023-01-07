@@ -29,11 +29,5 @@ namespace AdminShell
         {
             Value = new SubmodelElementWrapper(src?.Value?.SubmodelElement, shallowCopy);
         }
-
-        public OperationVariable(SubmodelElement elem)
-            : base()
-        {
-            Value = new SubmodelElementWrapper(elem);
-        }
     }
 }

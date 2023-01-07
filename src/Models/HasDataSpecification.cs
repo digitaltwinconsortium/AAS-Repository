@@ -23,12 +23,6 @@ namespace AdminShell
                 EmbeddedDataSpecifications.Add(r);
         }
 
-        public HasDataSpecification(IEnumerable<EmbeddedDataSpecification> src)
-        {
-            foreach (EmbeddedDataSpecification eds in src)
-                EmbeddedDataSpecifications.Add(new EmbeddedDataSpecification(eds));
-        }
-
         [XmlIgnore]
         public EmbeddedDataSpecification IEC61360
         {
@@ -43,7 +37,6 @@ namespace AdminShell
             }
             set
             {
-                // search existing first?
                 var eds = IEC61360;
                 if (eds != null)
                 {
@@ -55,7 +48,6 @@ namespace AdminShell
                     return;
                 }
 
-                // no? .. add!
                 EmbeddedDataSpecifications.Add(value);
             }
         }

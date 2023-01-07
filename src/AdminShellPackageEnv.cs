@@ -19,8 +19,8 @@ namespace AdminShell
 
         private AssetAdministrationShellEnvironment _aasenv = new AssetAdministrationShellEnvironment();
         private Package _openPackage = null;
-        private List<AdminShellPackageSupplementaryFile> _pendingFilesToAdd = new List<AdminShellPackageSupplementaryFile>();
-        private List<AdminShellPackageSupplementaryFile> _pendingFilesToDelete = new List<AdminShellPackageSupplementaryFile>();
+        private List<PackageSupplementaryFile> _pendingFilesToAdd = new List<PackageSupplementaryFile>();
+        private List<PackageSupplementaryFile> _pendingFilesToDelete = new List<PackageSupplementaryFile>();
 
         public AdminShellPackageEnv()
         {
@@ -345,11 +345,11 @@ namespace AdminShell
                     // normal files
                     xs = specPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-suppl");
                     foreach (var x in xs)
-                        if (x.TargetUri == psfDel.uri)
+                        if (x.TargetUri == psfDel.Uri)
                         {
                             // try to delete
                             specPart.DeleteRelationship(x.Id);
-                            package.DeletePart(psfDel.uri);
+                            package.DeletePart(psfDel.Uri);
                             found = true;
                             break;
                         }
@@ -357,17 +357,17 @@ namespace AdminShell
                     // thumbnails
                     xs = package.GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
                     foreach (var x in xs)
-                        if (x.TargetUri == psfDel.uri)
+                        if (x.TargetUri == psfDel.Uri)
                         {
                             // try to delete
                             package.DeleteRelationship(x.Id);
-                            package.DeletePart(psfDel.uri);
+                            package.DeletePart(psfDel.Uri);
                             found = true;
                             break;
                         }
 
                     if (!found)
-                        throw (new Exception($"Not able to delete pending file {psfDel.uri} in saving package {fn}"));
+                        throw (new Exception($"Not able to delete pending file {psfDel.Uri} in saving package {fn}"));
                 }
 
                 // after this, there are no more pending for delete files
@@ -377,31 +377,31 @@ namespace AdminShell
                 foreach (var psfAdd in _pendingFilesToAdd)
                 {
                     // make sure ..
-                    if ((psfAdd.sourceLocalPath == null && psfAdd.sourceGetBytesDel == null) || psfAdd.location != AdminShellPackageSupplementaryFile.LocationType.AddPending)
+                    if ((psfAdd.SourceLocalPath == null && psfAdd.SourceBytes == null) || psfAdd.Location != PackageSupplementaryFile.LocationType.AddPending)
                         continue;
 
                     // normal file?
-                    if (psfAdd.specialHandling == AdminShellPackageSupplementaryFile.SpecialHandlingType.None
-                        || psfAdd.specialHandling == AdminShellPackageSupplementaryFile.SpecialHandlingType.EmbedAsThumbnail)
+                    if (psfAdd.SpecialHandling == PackageSupplementaryFile.SpecialHandlingType.None
+                        || psfAdd.SpecialHandling == PackageSupplementaryFile.SpecialHandlingType.EmbedAsThumbnail)
                     {
 
                         // try find an existing part for that file ..
                         PackagePart filePart = null;
-                        if (psfAdd.specialHandling == AdminShellPackageSupplementaryFile.SpecialHandlingType.None)
+                        if (psfAdd.SpecialHandling == PackageSupplementaryFile.SpecialHandlingType.None)
                         {
                             xs = specPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-suppl");
                             foreach (var x in xs)
-                                if (x.TargetUri == psfAdd.uri)
+                                if (x.TargetUri == psfAdd.Uri)
                                 {
                                     filePart = package.GetPart(x.TargetUri);
                                     break;
                                 }
                         }
-                        if (psfAdd.specialHandling == AdminShellPackageSupplementaryFile.SpecialHandlingType.EmbedAsThumbnail)
+                        if (psfAdd.SpecialHandling == PackageSupplementaryFile.SpecialHandlingType.EmbedAsThumbnail)
                         {
                             xs = package.GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
                             foreach (var x in xs)
-                                if (x.SourceUri.ToString() == "/" && x.TargetUri == psfAdd.uri)
+                                if (x.SourceUri.ToString() == "/" && x.TargetUri == psfAdd.Uri)
                                 {
                                     filePart = package.GetPart(x.TargetUri);
                                     break;
@@ -411,35 +411,35 @@ namespace AdminShell
                         if (filePart == null)
                         {
                             // determine mimeType
-                            var mimeType = psfAdd.useMimeType;
+                            var mimeType = psfAdd.UseMimeType;
                             // reconcile mime
-                            if (mimeType == null && psfAdd.sourceLocalPath != null)
-                                mimeType = AdminShellPackageEnv.GuessMimeType(psfAdd.sourceLocalPath);
+                            if (mimeType == null && psfAdd.SourceLocalPath != null)
+                                mimeType = AdminShellPackageEnv.GuessMimeType(psfAdd.SourceLocalPath);
                             // still null?
                             if (mimeType == null)
                                 // see: https://stackoverflow.com/questions/6783921/which-mime-Type-to-use-for-a-binary-file-thats-specific-to-my-program
                                 mimeType = "application/octet-stream";
 
                             // create new part and link
-                            filePart = package.CreatePart(psfAdd.uri, mimeType, CompressionOption.Maximum);
-                            if (psfAdd.specialHandling == AdminShellPackageSupplementaryFile.SpecialHandlingType.None)
+                            filePart = package.CreatePart(psfAdd.Uri, mimeType, CompressionOption.Maximum);
+                            if (psfAdd.SpecialHandling == PackageSupplementaryFile.SpecialHandlingType.None)
                                 specPart.CreateRelationship(filePart.Uri, TargetMode.Internal, "http://www.admin-shell.io/aasx/relationships/aas-suppl");
-                            if (psfAdd.specialHandling == AdminShellPackageSupplementaryFile.SpecialHandlingType.EmbedAsThumbnail)
+                            if (psfAdd.SpecialHandling == PackageSupplementaryFile.SpecialHandlingType.EmbedAsThumbnail)
                                 package.CreateRelationship(filePart.Uri, TargetMode.Internal, "http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
                         }
 
                         // now should be able to write
                         using (var s = filePart.GetStream(FileMode.Create))
                         {
-                            if (psfAdd.sourceLocalPath != null)
+                            if (psfAdd.SourceLocalPath != null)
                             {
-                                var bytes = System.IO.File.ReadAllBytes(psfAdd.sourceLocalPath);
+                                var bytes = System.IO.File.ReadAllBytes(psfAdd.SourceLocalPath);
                                 s.Write(bytes, 0, bytes.Length);
                             }
 
-                            if (psfAdd.sourceGetBytesDel != null)
+                            if (psfAdd.SourceBytes != null)
                             {
-                                var bytes = psfAdd.sourceGetBytesDel();
+                                var bytes = psfAdd.SourceBytes;
                                 if (bytes != null)
                                     s.Write(bytes, 0, bytes.Length);
                             }

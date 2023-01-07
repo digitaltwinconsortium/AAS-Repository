@@ -13,12 +13,6 @@ namespace AdminShell
 
         public ModelReference() { }
 
-        public ModelReference(Key k)
-        {
-            if (k != null)
-                Keys.Add(k);
-        }
-
         public ModelReference(ModelReference src)
         {
             if (src == null)

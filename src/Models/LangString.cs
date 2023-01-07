@@ -33,24 +33,6 @@ namespace AdminShell
             Language = src.Language;
             Text = src.Text;
         }
-
-        public LangString(string lang, string str)
-        {
-            Language = lang;
-            Text = str;
-        }
-
-        public static List<LangString> CreateManyFromStringArray(string[] s)
-        {
-            var r = new List<LangString>();
-            var i = 0;
-            while ((i + 1) < s.Length)
-            {
-                r.Add(new LangString(s[i], s[i + 1]));
-                i += 2;
-            }
-            return r;
-        }
     }
 }
 

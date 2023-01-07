@@ -28,10 +28,5 @@ namespace AdminShell
         }
 
         public GlobalReference(Reference r) : base() { }
-
-        public GlobalReference(Identifier id) : base()
-        {
-            Value.Add(id);
-        }
     }
 }

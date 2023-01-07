@@ -45,13 +45,6 @@ namespace AdminShell
             Value = id;
         }
 
-        public Identifier(Key key)
-        {
-            IdType = key.Type.ToString();
-            Id = key.Value;
-            Value = key.Value;
-        }
-
         public bool IsEqual(Identifier other)
         {
             return Value.Trim().ToLower() == other.Value.Trim().ToLower();
