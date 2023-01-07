@@ -30,9 +30,15 @@
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
       "publishAllPorts": true,
       "environmentVariables": {
-        "ADX_PASSWORD": "",
+        "ServicePassword": "",
         "UACLUsername": "",
-        "UACLPassword": ""
+        "UACLPassword": "",
+        "ADX_HOST": "",
+        "ADX_DB": "",
+        "AAD_TENANT": "",
+        "AAD_APPLICATION_ID": "",
+        "AAD_APPLICATION_KEY": "",
+        "ADX_QUERY_INTERVAL":""
       }
     }
   }

@@ -26,8 +26,17 @@ docker run -p 80:80 ghcr.io/digitaltwinconsortium/aas-repository:masterv3
 
 And then point your browser to http://localhost.
 
+# Required Environment variables
+
+1. ServicePassword: Password to access the service via basic authentication header
+
 # Optional Environment variables
 
 1. UACLUsername: OPC Foundation UA Cloud Library username
 1. UACLPassword: OPC Foundation UA Cloud Library password
-1. ServicePassword: Password to access the service via basic authentication header
+1. ADX_HOST: Azure Data Explorer host endpoint
+1. ADX_DB: Azure Data Explorer database name
+1. AAD_TENANT: Azure Active Directory tenant ID of your Azure subscription (GUID)
+1. AAD_APPLICATION_ID: Azure Active Directory application ID (GUID, set this up via an app registration in the Azure Portal)
+1. AAD_APPLICATION_KEY: Azure Active Directory application key (with data owner access to ADX cluster and database, create a secret within your AAD app registration)
+1. ADX_QUERY_INTERVAL: The query interval for the ADX database

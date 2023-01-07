@@ -25,7 +25,7 @@ namespace AdminShell
     public class ADXEnergyDataSource : IDisposable
     {
         private Timer _queryTimer = new Timer(RunQuerys, null, Timeout.Infinite, Timeout.Infinite);
-        
+
         private static ICslQueryProvider _queryProvider = null;
         private static ConcurrentDictionary<string, object> _values = new ConcurrentDictionary<string, object>();
         private static ConcurrentDictionary<string, object> _values1MinuteAgo = new ConcurrentDictionary<string, object>();
@@ -35,20 +35,20 @@ namespace AdminShell
 
         public ADXEnergyDataSource()
         {
-            string sourceAddress = Environment.GetEnvironmentVariable("ADX_HOST");
-            string credentials = Environment.GetEnvironmentVariable("ADX_DB");
-            string key = Environment.GetEnvironmentVariable("ADX_PASSWORD");
-            string queryInternval = Environment.GetEnvironmentVariable("ADX_QUERY_INTERVAL");
-            string user = Environment.GetEnvironmentVariable("ADX_USER");
-            string tenant = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION");
+            string adxClusterName = Environment.GetEnvironmentVariable("ADX_HOST");
+            string adxDBName = Environment.GetEnvironmentVariable("ADX_DB");
+            string aadAppKey = Environment.GetEnvironmentVariable("AAD_APPLICATION_KEY");
+            string adxQueryInterval = Environment.GetEnvironmentVariable("ADX_QUERY_INTERVAL");
+            string aadAppID = Environment.GetEnvironmentVariable("AAD_APPLICATION_ID");
+            string aadTenant = Environment.GetEnvironmentVariable("AAD_TENANT");
 
-            if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(sourceAddress) && !string.IsNullOrEmpty(credentials) && !string.IsNullOrEmpty(user) && !string.IsNullOrEmpty(tenant))
+            if (!string.IsNullOrEmpty(aadAppKey) && !string.IsNullOrEmpty(adxClusterName) && !string.IsNullOrEmpty(adxDBName) && !string.IsNullOrEmpty(aadAppID) && !string.IsNullOrEmpty(aadTenant))
             {
-                KustoConnectionStringBuilder connectionString = new KustoConnectionStringBuilder(sourceAddress, credentials).WithAadApplicationKeyAuthentication(user, key, tenant);
+                KustoConnectionStringBuilder connectionString = new KustoConnectionStringBuilder(adxClusterName, adxDBName).WithAadApplicationKeyAuthentication(aadAppID, aadAppKey, aadTenant);
                 _queryProvider = KustoClientFactory.CreateCslQueryProvider(connectionString);
 
                 int interval = 5000;
-                if (queryInternval != null && int.TryParse(queryInternval, out interval))
+                if (adxQueryInterval != null && int.TryParse(adxQueryInterval, out interval))
                 {
                     _queryTimer.Change(interval, interval);
                 }
