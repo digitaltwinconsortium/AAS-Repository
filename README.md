@@ -8,9 +8,9 @@ IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Ne
 1. Standardized AAS REST interface (as specified in part 2 of the AAS spec)
 1. Swagger endpoint at /swagger
 1. IDTA AASX Package Explorer client interface support
-1. Joint CESMII/Plattform Industrie 4.0/IDTA/DTC Carbon Reporting Demonstrator support
-1. WattTime and CarbonIntensity.co.uk support
-1. Azure Data Explorer data source instegration
+1. Joint CESMII/Plattform Industrie 4.0/IDTA/DTC Carbon Reporting Demonstrator integration
+1. WattTime and CarbonIntensity.co.uk integration
+1. Azure Data Explorer data source integration
 1. Integrated AAS browser
 1. Integrated OPC UA Nodeset file browser
 1. Integrarted AutomationML file browser
@@ -19,13 +19,11 @@ IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Ne
 
 # Usage
 
-Docker containers are automatically built. Simply run the app via:
+Docker containers are automatically built. Simply run the app on a Docker-enabled PC via:
 
 docker run -p 80:80 ghcr.io/digitaltwinconsortium/aas-repository:masterv3
 
 And then point your browser to http://localhost.
-
-If you don't have Docker yet, you can download it for free from here.
 
 # Optional Environment variables
 
