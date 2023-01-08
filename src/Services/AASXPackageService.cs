@@ -155,9 +155,108 @@ namespace AdminShell
             return nsURI;
         }
 
-/*TODO
-        public bool SaveAs(string filename)
+        private string GuessMimeType(string filename)
         {
+            string fileExtension = Path.GetExtension(filename).ToLower();
+
+            string contentType = MediaTypeNames.Text.Plain;
+
+            if (fileExtension == ".pdf") contentType = MediaTypeNames.Application.Pdf;
+            if (fileExtension == ".xml") contentType = MediaTypeNames.Text.Xml;
+            if (fileExtension == ".txt") contentType = MediaTypeNames.Text.Plain;
+            if (fileExtension == ".igs") contentType = "application/iges";
+            if (fileExtension == ".iges") contentType = "application/iges";
+            if (fileExtension == ".stp") contentType = "application/step";
+            if (fileExtension == ".step") contentType = "application/step";
+            if (fileExtension == ".jpg") contentType = MediaTypeNames.Image.Jpeg;
+            if (fileExtension == ".jpeg") contentType = MediaTypeNames.Image.Jpeg;
+            if (fileExtension == ".png") contentType = "image/png";
+            if (fileExtension == ".gif") contentType = MediaTypeNames.Image.Gif;
+
+            return contentType;
+        }
+
+        public Stream GetPackageStream(string key)
+        {
+            return System.IO.File.OpenRead(key);
+        }
+
+        public Stream GetStreamFromPackagePart(string key, string uriString)
+        {
+            Package package = Package.Open(key, FileMode.Open, FileAccess.Read, FileShare.Read);
+ 
+            var part = package.GetPart(new Uri(uriString, UriKind.RelativeOrAbsolute));
+            if (part == null)
+            {
+                return null;
+            }
+
+            return part.GetStream(FileMode.Open);
+        }
+
+        public Stream GetLocalThumbnailStream(string key)
+        {
+            Package package = Package.Open(key, FileMode.Open, FileAccess.Read, FileShare.Read);
+            
+            PackagePart thumbPart = null;
+
+            PackageRelationshipCollection collection = package.GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
+
+            foreach (PackageRelationship relationship in collection)
+            {
+                if (relationship.SourceUri.ToString() == "/")
+                {
+                    thumbPart = package.GetPart(relationship.TargetUri);
+                    break;
+                }
+            }
+
+            if (thumbPart == null)
+            {
+                return null;
+            }
+
+            return thumbPart.GetStream(FileMode.Open);
+        }
+
+        public void Delete(string filename)
+        {
+            Packages.Remove(filename);
+
+            System.IO.File.Delete(filename);
+        }
+
+        public byte[] GetAASXBytes(string key)
+        {
+            return System.IO.File.ReadAllBytes(key);
+        }
+
+        public string GetAASXFileName(string key)
+        {
+            return key;
+        }
+
+        public void Save(string filename, byte[] fileContent)
+        {
+            System.IO.File.WriteAllBytes(filename, fileContent);
+            Load(filename);
+        }
+
+        public void Save(string key)
+        {
+            SaveAs(key, Packages[key]);
+        }
+
+        public string GetPackageID(string filename)
+        {
+            return filename;
+        }
+
+        public void SaveAs(string key, AssetAdministrationShellEnvironment env)
+        {
+            throw new NotImplementedException();
+
+            /*TODO
             // approach is to utilize the existing package, if possible. If not, create from scratch
             Package package = Package.Open(filename, FileMode.OpenOrCreate);
 
@@ -421,99 +520,7 @@ namespace AdminShell
                 System.IO.File.Copy(_tempFn, filename, overwrite: true);
                 _openPackage = Package.Open(_tempFn, FileMode.Open, FileAccess.Read, FileShare.Read);
             }
-        }
 */
-
-        private string GuessMimeType(string filename)
-        {
-            string fileExtension = Path.GetExtension(filename).ToLower();
-
-            string contentType = MediaTypeNames.Text.Plain;
-
-            if (fileExtension == ".pdf") contentType = MediaTypeNames.Application.Pdf;
-            if (fileExtension == ".xml") contentType = MediaTypeNames.Text.Xml;
-            if (fileExtension == ".txt") contentType = MediaTypeNames.Text.Plain;
-            if (fileExtension == ".igs") contentType = "application/iges";
-            if (fileExtension == ".iges") contentType = "application/iges";
-            if (fileExtension == ".stp") contentType = "application/step";
-            if (fileExtension == ".step") contentType = "application/step";
-            if (fileExtension == ".jpg") contentType = MediaTypeNames.Image.Jpeg;
-            if (fileExtension == ".jpeg") contentType = MediaTypeNames.Image.Jpeg;
-            if (fileExtension == ".png") contentType = "image/png";
-            if (fileExtension == ".gif") contentType = MediaTypeNames.Image.Gif;
-
-            return contentType;
-        }
-
-        public Stream GetPackageStream(string key)
-        {
-            return System.IO.File.OpenRead(key);
-        }
-
-        public Stream GetStreamFromPackagePart(string key, string uriString)
-        {
-            Package package = Package.Open(key, FileMode.Open, FileAccess.Read, FileShare.Read);
- 
-            var part = package.GetPart(new Uri(uriString, UriKind.RelativeOrAbsolute));
-            if (part == null)
-            {
-                return null;
-            }
-
-            return part.GetStream(FileMode.Open);
-        }
-
-        public Stream GetLocalThumbnailStream(string key)
-        {
-            Package package = Package.Open(key, FileMode.Open, FileAccess.Read, FileShare.Read);
-            
-            PackagePart thumbPart = null;
-
-            PackageRelationshipCollection collection = package.GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
-
-            foreach (PackageRelationship relationship in collection)
-            {
-                if (relationship.SourceUri.ToString() == "/")
-                {
-                    thumbPart = package.GetPart(relationship.TargetUri);
-                    break;
-                }
-            }
-
-            if (thumbPart == null)
-            {
-                return null;
-            }
-
-            return thumbPart.GetStream(FileMode.Open);
-        }
-
-        public void Delete(string filename)
-        {
-            Packages.Remove(filename);
-
-            System.IO.File.Delete(filename);
-        }
-
-        public byte[] GetAASXBytes(string key)
-        {
-            return System.IO.File.ReadAllBytes(key);
-        }
-
-        public string GetAASXFileName(string key)
-        {
-            return key;
-        }
-
-        public void Save(string fileName, byte[] fileContent)
-        {
-            System.IO.File.WriteAllBytes(fileName, fileContent);
-            Load(fileName);
-        }
-
-        public string GetPackageID(string filename)
-        {
-            return filename;
         }
     }
 }

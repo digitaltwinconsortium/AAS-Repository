@@ -2,6 +2,7 @@
 namespace AdminShell
 {
     using Microsoft.Extensions.Logging;
+    using Opc.Ua;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -180,9 +181,9 @@ namespace AdminShell
                 throw new Exception($"AssetAdministrationShell with Id {body.Identification} already exists.");
             }
 
-            AssetAdministrationShellEnvironment package = new();
-            package.AasEnv.AssetAdministrationShells.Add(body);
-            _packageService.Add(package);
+            AssetAdministrationShellEnvironment env = new();
+            env.AssetAdministrationShells.Add(body);
+            _packageService.SaveAs(body.Identification, env);
 
             VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
 
@@ -276,6 +277,8 @@ namespace AdminShell
                 if (submodelRefs.Any())
                 {
                     aas.Submodels.Remove(submodelRefs.First());
+                    _packageService.Save(aasIdentifier);
+
                     VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
                 }
                 else
@@ -287,13 +290,17 @@ namespace AdminShell
 
         public void DeleteAssetAdministrationShellById(string aasIdentifier)
         {
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out int packageIndex);
-            if ((aas != null) && (packageIndex != -1))
+            var aas = GetAssetAdministrationShellById(aasIdentifier, out string key);
+            if ((aas != null) && !string.IsNullOrEmpty(key))
             {
-                _packageService[packageIndex].AasEnv.AssetAdministrationShells.Remove(aas);
-                if (_packageService[packageIndex].AasEnv.AssetAdministrationShells.Count == 0)
+                _packageService.Packages[key].AssetAdministrationShells.Remove(aas);
+                if (_packageService.Packages[key].AssetAdministrationShells.Count == 0)
                 {
-                    _packageService[packageIndex] = null;             //TODO: what about Submodels?
+                    _packageService.Delete(key);             //TODO: what about Submodels?
+                }
+                else
+                {
+                    _packageService.Save(key);
                 }
 
                 VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
@@ -342,16 +349,9 @@ namespace AdminShell
             var output = new List<AssetAdministrationShell>();
 
             //Get All AASs
-            foreach (var package in _packageService)
+            foreach (var env in _packageService.Packages)
             {
-                if (package != null)
-                {
-                    var env = package.AasEnv;
-                    if (env != null)
-                    {
-                        output.AddRange(env.AssetAdministrationShells);
-                    }
-                }
+                output.AddRange(env.Value.AssetAdministrationShells);
             }
 
             if (output.Any())
@@ -409,9 +409,9 @@ namespace AdminShell
             return output;
         }
 
-        public AssetAdministrationShell GetAssetAdministrationShellById(string aasIdentifier, out int packageIndex)
+        public AssetAdministrationShell GetAssetAdministrationShellById(string aasIdentifier, out string key)
         {
-            bool found = IsAssetAdministrationShellPresent(aasIdentifier, out AssetAdministrationShell output, out packageIndex);
+            bool found = IsAssetAdministrationShellPresent(aasIdentifier, out AssetAdministrationShell output, out key);
 
             if (found)
             {
@@ -423,25 +423,21 @@ namespace AdminShell
             }
         }
 
-        private bool IsAssetAdministrationShellPresent(string aasIdentifier, out AssetAdministrationShell output, out int packageIndex)
+        private bool IsAssetAdministrationShellPresent(string aasIdentifier, out AssetAdministrationShell output, out string key)
         {
-            for (int i = 0; i < _packageService.Count; i++)
+            foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
             {
-                var env = _packageService[i].AasEnv;
-                if (env != null)
+                var aas = package.Value.AssetAdministrationShells.Where(a => a.Id.Equals(aasIdentifier));
+                if (aas.Any())
                 {
-                    var aas = env.AssetAdministrationShells.Where(a => a.Id.Equals(aasIdentifier));
-                    if (aas.Any())
-                    {
-                        output = aas.First();
-                        packageIndex = i;
-                        return true;
-                    }
+                    output = aas.First();
+                    key = package.Key;
+                    return true;
                 }
             }
 
             output = null;
-            packageIndex = -1;
+            key = null;
             return false;
         }
 
@@ -452,12 +448,13 @@ namespace AdminShell
                 throw new Exception("ConceptDescription");
             }
 
-            var conceptDescription = GetConceptDescriptionById(cdIdentifier, out int packageIndex);
+            var conceptDescription = GetConceptDescriptionById(cdIdentifier, out string key);
             if (conceptDescription != null)
             {
-                int cdIndex = _packageService[packageIndex].AasEnv.ConceptDescriptions.IndexOf(conceptDescription);
-                _packageService[packageIndex].AasEnv.ConceptDescriptions.Remove(conceptDescription);
-                _packageService[packageIndex].AasEnv.ConceptDescriptions.Insert(cdIndex, body);
+                int cdIndex = _packageService.Packages[key].ConceptDescriptions.IndexOf(conceptDescription);
+                _packageService.Packages[key].ConceptDescriptions.Remove(conceptDescription);
+                _packageService.Packages[key].ConceptDescriptions.Insert(cdIndex, body);
+                _packageService.Save(key);
 
                 VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.ValuesOnly);
             }
@@ -477,9 +474,9 @@ namespace AdminShell
                 throw new Exception($"ConceptDescription with Id {body.Id} already exists.");
             }
 
-            AASXPackageService package = new();
-            package.AasEnv.ConceptDescriptions.Add(body);
-            _packageService.Add(package);
+            AssetAdministrationShellEnvironment env = new();
+            env.ConceptDescriptions.Add(body);
+            _packageService.SaveAs(body.Id, env);
 
             VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
 
@@ -488,10 +485,11 @@ namespace AdminShell
 
         public void DeleteConceptDescriptionById(string cdIdentifier)
         {
-            var conceptDescription = GetConceptDescriptionById(cdIdentifier, out int packageIndex);
-            if ((conceptDescription != null) && (packageIndex != -1))
+            var conceptDescription = GetConceptDescriptionById(cdIdentifier, out string key);
+            if ((conceptDescription != null) && !string.IsNullOrEmpty(key))
             {
-                _packageService[packageIndex].AasEnv.ConceptDescriptions.Remove(conceptDescription);
+                _packageService.Packages[key].ConceptDescriptions.Remove(conceptDescription);
+                _packageService.Save(key);
 
                 VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
             }
@@ -501,9 +499,9 @@ namespace AdminShell
             }
         }
 
-        public ConceptDescription GetConceptDescriptionById(string cdIdentifier, out int packageIndex)
+        public ConceptDescription GetConceptDescriptionById(string cdIdentifier, out string key)
         {
-            bool found = IsConceptDescriptionPresent(cdIdentifier, out ConceptDescription output, out packageIndex);
+            bool found = IsConceptDescriptionPresent(cdIdentifier, out ConceptDescription output, out key);
             if (found)
             {
                 return output;
@@ -514,25 +512,21 @@ namespace AdminShell
             }
         }
 
-        private bool IsConceptDescriptionPresent(string cdIdentifier, out ConceptDescription output, out int packageIndex)
+        private bool IsConceptDescriptionPresent(string cdIdentifier, out ConceptDescription output, out string key)
         {
-            for (int i = 0; i < _packageService.Count; i++)
+            foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
             {
-                var env = _packageService[i].AasEnv;
-                if (env != null)
+                var conceptDescriptions = package.Value.ConceptDescriptions.Where(c => c.Id.Equals(cdIdentifier));
+                if (conceptDescriptions.Any())
                 {
-                    var conceptDescriptions = env.ConceptDescriptions.Where(c => c.Id.Equals(cdIdentifier));
-                    if (conceptDescriptions.Any())
-                    {
-                        output = conceptDescriptions.First();
-                        packageIndex = i;
-                        return true;
-                    }
+                    output = conceptDescriptions.First();
+                    key = package.Key;
+                    return true;
                 }
-        }
+            }
 
             output = null;
-            packageIndex = -1;
+            key = null;
             return false;
         }
 
@@ -549,16 +543,9 @@ namespace AdminShell
             var output = new List<ConceptDescription>();
 
             //Get All Concept descriptions
-            foreach (var package in _packageService)
+            foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
             {
-                if (package != null)
-                {
-                    var env = package.AasEnv;
-                    if (env != null)
-                    {
-                        output.AddRange(env.ConceptDescriptions);
-                    }
-                }
+                    output.AddRange(package.Value.ConceptDescriptions);
             }
 
             if (output.Any())
@@ -681,11 +668,12 @@ namespace AdminShell
                throw new Exception("Submodel");
             }
 
-            var submodel = GetSubmodelById(submodelIdentifier, out int packageIndex);
+            var submodel = GetSubmodelById(submodelIdentifier, out string key);
             if (submodel != null)
             {
-                _packageService[packageIndex].AasEnv.Submodels.Remove(submodel);
-                _packageService[packageIndex].AasEnv.Submodels.Add(body);
+                _packageService.Packages[key].Submodels.Remove(submodel);
+                _packageService.Packages[key].Submodels.Add(body);
+                _packageService.Save(key);
 
                 VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
             }
@@ -797,22 +785,20 @@ namespace AdminShell
                 throw new Exception($"Submodel with Id {body.Id} already exists.");
             }
 
-            AASXPackageService package = new();
-            package.AasEnv.Submodels.Add(body);
-            _packageService.Add(package);
+            AssetAdministrationShellEnvironment env = new();
+            env.Submodels.Add(body);
+            _packageService.Packages.Add(body.Id, env);
  
             VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
 
             return body;
         }
 
-        public Submodel GetSubmodelById(string submodelIdentifier, out int packageIndex)
+        public Submodel GetSubmodelById(string submodelIdentifier, out string key)
         {
-            bool found = IsSubmodelPresent(submodelIdentifier, out Submodel output, out packageIndex);
+            bool found = IsSubmodelPresent(submodelIdentifier, out Submodel output, out key);
             if (found)
             {
-                // SecurityCheck(output.IdShort, "submodel", output);
-
                 return output;
             }
             else
@@ -821,25 +807,21 @@ namespace AdminShell
             }
         }
 
-        private bool IsSubmodelPresent(string submodelIdentifier, out Submodel output, out int packageIndex)
+        private bool IsSubmodelPresent(string submodelIdentifier, out Submodel output, out string key)
         {
-            for (int i = 0; i < _packageService.Count; i++)
+            foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
             {
-                var env = _packageService[i].AasEnv;
-                if (env != null)
+                var submodels = package.Value.Submodels.Where(a => a.Id.Equals(submodelIdentifier));
+                if (submodels.Any())
                 {
-                    var submodels = env.Submodels.Where(a => a.Id.Equals(submodelIdentifier));
-                    if (submodels.Any())
-                    {
-                        output = submodels.First();
-                        packageIndex = i;
-                        return true;
-                    }
+                    output = submodels.First();
+                    key = package.Key;
+                    return true;
                 }
             }
 
             output = null;
-            packageIndex = -1;
+            key = null;
             return false;
         }
 
@@ -857,18 +839,11 @@ namespace AdminShell
             List<Submodel> output = new List<Submodel>();
 
             //Get All Submodels
-            foreach (var package in _packageService)
+            foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
             {
-                if (package != null)
+                foreach (var s in package.Value.Submodels)
                 {
-                    var env = package.AasEnv;
-                    if (env != null)
-                    {
-                        foreach (var s in env.Submodels)
-                        {
-                            output.Add(s);
-                        }
-                    }
+                    output.Add(s);
                 }
             }
 
@@ -909,16 +884,18 @@ namespace AdminShell
 
         public void DeleteSubmodelById(string submodelIdentifier)
         {
-            var submodel = GetSubmodelById(submodelIdentifier, out int packageIndex);
-            if ((submodel != null) && (packageIndex != -1))
+            var submodel = GetSubmodelById(submodelIdentifier, out string key);
+            if ((submodel != null) && !string.IsNullOrEmpty(key))
             {
-                _packageService[packageIndex].AasEnv.Submodels.Remove(submodel);
+                _packageService.Packages[key].Submodels.Remove(submodel);
 
                 //Delete submodel reference from AAS
-                foreach (var aas in _packageService[packageIndex].AasEnv.AssetAdministrationShells)
+                foreach (var aas in _packageService.Packages[key].AssetAdministrationShells)
                 {
                     DeleteSubmodelReferenceById(aas.Id, submodelIdentifier);
                 }
+
+                _packageService.Save(key);
 
                 VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
             }
@@ -1129,7 +1106,7 @@ namespace AdminShell
             string fileName = null;
             fileSize = 0;
 
-            var submodel = GetSubmodelById(submodelIdentifier, out int packageIndex);
+            var submodel = GetSubmodelById(submodelIdentifier, out string key);
 
             var fileElement = GetSubmodelElementByPathSubmodelRepo(submodelIdentifier, idShortPath, out _);
 
@@ -1138,7 +1115,7 @@ namespace AdminShell
                 if (fileElement is File file)
                 {
                     fileName = file.Value;
-                    fileSize = _packageService[packageIndex].GetLocalStreamFromPackage(fileName).Length;
+                    fileSize = _packageService.GetPackageStream(fileName).Length;
                 }
                 else
                 {
@@ -1151,7 +1128,7 @@ namespace AdminShell
 
         public void UpdateFileByPathSubmodelRepo(string submodelIdentifier, string idShortPath, string fileName, string contentType, Stream fileContent)
         {
-            _ = GetSubmodelById(submodelIdentifier, out int packageIndex);
+            _ = GetSubmodelById(submodelIdentifier, out string key);
 
             var fileElement = GetSubmodelElementByPathSubmodelRepo(submodelIdentifier, idShortPath, out _);
             if (fileElement != null)
@@ -1160,8 +1137,9 @@ namespace AdminShell
                 {
                     var sourcePath = Path.GetDirectoryName(file.Value);
                     var targetFile = Path.Combine(sourcePath, fileName);
-                    _packageService[packageIndex].ReplaceSupplementaryFileInPackageAsync(file.Value, targetFile, contentType, fileContent);
+                    _packageService.Packages[key].ReplaceSupplementaryFileInPackage(file.Value, targetFile, contentType, fileContent);
                     file.Value = FormatFileName(targetFile);
+                    _packageService.Save(key);
 
                     VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
                 }
