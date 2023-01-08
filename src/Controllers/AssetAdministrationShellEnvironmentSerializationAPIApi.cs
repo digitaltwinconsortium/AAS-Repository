@@ -16,9 +16,9 @@ namespace AdminShell
     public class AssetAdministrationShellEnvironmentSerializationAPIController : ControllerBase
     {
         private readonly ILogger _logger;
-        private readonly IAssetAdministrationShellEnvironmentService _aasEnvService;
+        private readonly AssetAdministrationShellEnvironmentService _aasEnvService;
 
-        public AssetAdministrationShellEnvironmentSerializationAPIController(ILoggerFactory logger, IAssetAdministrationShellEnvironmentService aasEnvSerive)
+        public AssetAdministrationShellEnvironmentSerializationAPIController(ILoggerFactory logger, AssetAdministrationShellEnvironmentService aasEnvSerive)
         {
             _logger = logger.CreateLogger("AssetAdministrationShellEnvironmentSerializationAPIController");
             _aasEnvService = aasEnvSerive;

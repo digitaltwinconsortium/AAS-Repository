@@ -2,14 +2,17 @@
 namespace AdminShell
 {
     using Aml.Engine.CAEX;
+    using Kusto.Cloud.Platform.Utils;
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using static AAS_Repository.Pages.TreePage;
 
-    public class TreeBuilder
+    public class VisualTreeBuilderService
     {
         private readonly UANodesetViewer _viewer;
+        private readonly AASXPackageService _packageService;
 
         public static event EventHandler NewDataAvailable;
 
@@ -30,9 +33,10 @@ namespace AdminShell
             RebuildAndCollapse  // build new tree, keep open nodes
         }
 
-        public TreeBuilder(UANodesetViewer viewer)
+        public VisualTreeBuilderService(UANodesetViewer viewer, AASXPackageService packages )
         {
             _viewer = viewer;
+            _packageService = packages;
         }
 
         public static void SignalNewData(TreeUpdateMode mode)
@@ -44,17 +48,14 @@ namespace AdminShell
         {
             List<TreeNodeData> viewItems = new List<TreeNodeData>();
 
-            for (int i = 0; i < Program.env.Count; i++)
+            for (int i = 0; i < _packageService.Packages.Values.Count; i++)
             {
                 TreeNodeData root = new TreeNodeData();
                 root.EnvIndex = i;
-                if (Program.env[i] != null)
-                {
-                    root.Text = Program.env[i].AasEnv.AssetAdministrationShells[0].IdShort;
-                    root.Tag = Program.env[i].AasEnv.AssetAdministrationShells[0];
-                    CreateViewFromAASEnv(root, Program.env[i].AasEnv, i);
-                    viewItems.Add(root);
-                }
+                root.Text = _packageService.Packages.Values.ToList()[i].AssetAdministrationShells[0].IdShort;
+                root.Tag = _packageService.Packages.Values.ToList()[i].AssetAdministrationShells[0];
+                CreateViewFromAASEnv(root, _packageService.Packages.Values.ToList()[i], i);
+                viewItems.Add(root);
             }
 
             return viewItems;
@@ -187,7 +188,7 @@ namespace AdminShell
         {
             try
             {
-                Stream packagePartStream = Program.env[i].GetLocalStreamFromPackage(filename);
+                Stream packagePartStream = _packageService.GetStreamFromPackagePart(_packageService.Packages.Keys.ToList()[i], filename);
                 CAEXDocument doc = CAEXDocument.LoadFromStream(packagePartStream);
                 List<TreeNodeData> treeNodeDataList = new List<TreeNodeData>();
 

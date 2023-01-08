@@ -8,18 +8,16 @@ namespace AdminShell
     using System.Linq;
     using System.Text.RegularExpressions;
 
-    public class AssetAdministrationShellEnvironmentService : IAssetAdministrationShellEnvironmentService
+    public class AssetAdministrationShellEnvironmentService
     {
         private readonly ILogger _logger;
-        private AdminShellPackageEnv[] _packages;
+        private readonly AASXPackageService _packageService;
 
-        public AssetAdministrationShellEnvironmentService(ILoggerFactory logger)
+        public AssetAdministrationShellEnvironmentService(ILoggerFactory logger, AASXPackageService packageService)
         {
             _logger = logger.CreateLogger("AssetAdministrationShellEnvironmentService");
-            _packages = Program.env.ToArray();
+            _packageService = packageService;
         }
-
-        #region AssetAdministrationShell
 
         public void UpdateFileByPath(string aasIdentifier, string submodelIdentifier, string idShortPath, string fileName, string contentType, Stream fileContent)
         {
@@ -85,7 +83,7 @@ namespace AdminShell
             if (aas != null)
             {
                 aas.AssetInformation = body;
-                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
+                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
             }
         }
 
@@ -93,15 +91,19 @@ namespace AdminShell
         {
             if (string.IsNullOrEmpty(body.Identification))
             {
-                throw new Exception("AssetAdministrationShell");
+                throw new Exception("Provided Asset Administration Shell is missing its ID!");
             }
 
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out int packageIndex);
-            if (aas != null && packageIndex != -1)
+            if (_packageService.Packages.ContainsKey(aasIdentifier))
             {
-                _packages[packageIndex].AasEnv.AssetAdministrationShells.Remove(aas);
-                _packages[packageIndex].AasEnv.AssetAdministrationShells.Add(body);
-                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
+                _packageService.Packages[aasIdentifier].AssetAdministrationShells.Remove(body);
+                _packageService.Packages[aasIdentifier].AssetAdministrationShells.Add(body);
+
+                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
+            }
+            else
+            {
+                throw new Exception($"Asset Admin Shell with ID {aasIdentifier} not found!");
             }
         }
 
@@ -178,19 +180,13 @@ namespace AdminShell
                 throw new Exception($"AssetAdministrationShell with Id {body.Identification} already exists.");
             }
 
-            if (EmptyPackageAvailable(out int emptyPackageIndex))
-            {
+            AssetAdministrationShellEnvironment package = new();
+            package.AasEnv.AssetAdministrationShells.Add(body);
+            _packageService.Add(package);
 
-                _packages[emptyPackageIndex].AasEnv.AssetAdministrationShells.Add(body);
+            VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
 
-                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.RebuildAndCollapse);
-
-                return _packages[emptyPackageIndex].AasEnv.AssetAdministrationShells[0]; //Considering it is being added to empty package.
-            }
-            else
-            {
-                throw new Exception("No empty environment package available in the server.");
-            }
+            return body;
         }
 
 
@@ -280,7 +276,7 @@ namespace AdminShell
                 if (submodelRefs.Any())
                 {
                     aas.Submodels.Remove(submodelRefs.First());
-                    TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
+                    VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
                 }
                 else
                 {
@@ -294,13 +290,13 @@ namespace AdminShell
             var aas = GetAssetAdministrationShellById(aasIdentifier, out int packageIndex);
             if ((aas != null) && (packageIndex != -1))
             {
-                _packages[packageIndex].AasEnv.AssetAdministrationShells.Remove(aas);
-                if (_packages[packageIndex].AasEnv.AssetAdministrationShells.Count == 0)
+                _packageService[packageIndex].AasEnv.AssetAdministrationShells.Remove(aas);
+                if (_packageService[packageIndex].AasEnv.AssetAdministrationShells.Count == 0)
                 {
-                    _packages[packageIndex] = null;             //TODO: what about Submodels?
+                    _packageService[packageIndex] = null;             //TODO: what about Submodels?
                 }
 
-                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.RebuildAndCollapse);
+                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
             }
             else
             {
@@ -346,7 +342,7 @@ namespace AdminShell
             var output = new List<AssetAdministrationShell>();
 
             //Get All AASs
-            foreach (var package in _packages)
+            foreach (var package in _packageService)
             {
                 if (package != null)
                 {
@@ -429,31 +425,25 @@ namespace AdminShell
 
         private bool IsAssetAdministrationShellPresent(string aasIdentifier, out AssetAdministrationShell output, out int packageIndex)
         {
-            output = null; packageIndex = -1;
-            foreach (var package in _packages)
+            for (int i = 0; i < _packageService.Count; i++)
             {
-                if (package != null)
+                var env = _packageService[i].AasEnv;
+                if (env != null)
                 {
-                    var env = package.AasEnv;
-                    if (env != null)
+                    var aas = env.AssetAdministrationShells.Where(a => a.Id.Equals(aasIdentifier));
+                    if (aas.Any())
                     {
-                        var aas = env.AssetAdministrationShells.Where(a => a.Id.Equals(aasIdentifier));
-                        if (aas.Any())
-                        {
-                            output = aas.First();
-                            packageIndex = Array.IndexOf(_packages, package);
-                            return true;
-                        }
+                        output = aas.First();
+                        packageIndex = i;
+                        return true;
                     }
                 }
             }
 
+            output = null;
+            packageIndex = -1;
             return false;
         }
-
-        #endregion
-
-        #region ConceptDescription
 
         public void UpdateConceptDescriptionById(ConceptDescription body, string cdIdentifier)
         {
@@ -465,11 +455,11 @@ namespace AdminShell
             var conceptDescription = GetConceptDescriptionById(cdIdentifier, out int packageIndex);
             if (conceptDescription != null)
             {
-                int cdIndex = _packages[packageIndex].AasEnv.ConceptDescriptions.IndexOf(conceptDescription);
-                _packages[packageIndex].AasEnv.ConceptDescriptions.Remove(conceptDescription);
-                _packages[packageIndex].AasEnv.ConceptDescriptions.Insert(cdIndex, body);
+                int cdIndex = _packageService[packageIndex].AasEnv.ConceptDescriptions.IndexOf(conceptDescription);
+                _packageService[packageIndex].AasEnv.ConceptDescriptions.Remove(conceptDescription);
+                _packageService[packageIndex].AasEnv.ConceptDescriptions.Insert(cdIndex, body);
 
-                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.ValuesOnly);
+                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.ValuesOnly);
             }
         }
 
@@ -487,19 +477,13 @@ namespace AdminShell
                 throw new Exception($"ConceptDescription with Id {body.Id} already exists.");
             }
 
-            if (EmptyPackageAvailable(out int emptyPackageIndex))
-            {
+            AASXPackageService package = new();
+            package.AasEnv.ConceptDescriptions.Add(body);
+            _packageService.Add(package);
 
-                _packages[emptyPackageIndex].AasEnv.ConceptDescriptions.Add(body);
+            VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
 
-                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
-
-                return _packages[emptyPackageIndex].AasEnv.ConceptDescriptions[0]; //Considering it is being added to empty package.
-            }
-            else
-            {
-                throw new Exception("No empty environment package available in the server.");
-            }
+            return body;
         }
 
         public void DeleteConceptDescriptionById(string cdIdentifier)
@@ -507,9 +491,9 @@ namespace AdminShell
             var conceptDescription = GetConceptDescriptionById(cdIdentifier, out int packageIndex);
             if ((conceptDescription != null) && (packageIndex != -1))
             {
-                _packages[packageIndex].AasEnv.ConceptDescriptions.Remove(conceptDescription);
+                _packageService[packageIndex].AasEnv.ConceptDescriptions.Remove(conceptDescription);
 
-                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
+                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
             }
             else
             {
@@ -532,26 +516,23 @@ namespace AdminShell
 
         private bool IsConceptDescriptionPresent(string cdIdentifier, out ConceptDescription output, out int packageIndex)
         {
-            output = null;
-            packageIndex = -1;
-            foreach (var package in _packages)
+            for (int i = 0; i < _packageService.Count; i++)
             {
-                if (package != null)
+                var env = _packageService[i].AasEnv;
+                if (env != null)
                 {
-                    var env = package.AasEnv;
-                    if (env != null)
+                    var conceptDescriptions = env.ConceptDescriptions.Where(c => c.Id.Equals(cdIdentifier));
+                    if (conceptDescriptions.Any())
                     {
-                        var conceptDescriptions = env.ConceptDescriptions.Where(c => c.Id.Equals(cdIdentifier));
-                        if (conceptDescriptions.Any())
-                        {
-                            output = conceptDescriptions.First();
-                            packageIndex = Array.IndexOf(_packages, package);
-                            return true;
-                        }
+                        output = conceptDescriptions.First();
+                        packageIndex = i;
+                        return true;
                     }
                 }
-            }
+        }
 
+            output = null;
+            packageIndex = -1;
             return false;
         }
 
@@ -568,7 +549,7 @@ namespace AdminShell
             var output = new List<ConceptDescription>();
 
             //Get All Concept descriptions
-            foreach (var package in _packages)
+            foreach (var package in _packageService)
             {
                 if (package != null)
                 {
@@ -657,11 +638,6 @@ namespace AdminShell
             return output;
         }
 
-        #endregion
-
-
-        #region Submodel
-
         public void UpdateSubmodelElementByPathSubmodelRepo(SubmodelElement body, string submodelIdentifier, string idShortPath = null)
         {
             if (string.IsNullOrEmpty(body.IdShort))
@@ -694,7 +670,7 @@ namespace AdminShell
                     }
                 }
 
-                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
+                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
             }
         }
 
@@ -708,10 +684,10 @@ namespace AdminShell
             var submodel = GetSubmodelById(submodelIdentifier, out int packageIndex);
             if (submodel != null)
             {
-                _packages[packageIndex].AasEnv.Submodels.Remove(submodel);
-                _packages[packageIndex].AasEnv.Submodels.Add(body);
+                _packageService[packageIndex].AasEnv.Submodels.Remove(submodel);
+                _packageService[packageIndex].AasEnv.Submodels.Add(body);
 
-                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
+                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
             }
         }
 
@@ -769,7 +745,7 @@ namespace AdminShell
                     body.Parent = annotatedRelationshipElement;
                 }
 
-                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
+                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
 
                 return body;
             }
@@ -797,7 +773,7 @@ namespace AdminShell
 
                     body.Parent = submodel;
 
-                    TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
+                    VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
 
                     return body;
                 }
@@ -821,19 +797,13 @@ namespace AdminShell
                 throw new Exception($"Submodel with Id {body.Id} already exists.");
             }
 
-            if (EmptyPackageAvailable(out int emptyPackageIndex))
-            {
+            AASXPackageService package = new();
+            package.AasEnv.Submodels.Add(body);
+            _packageService.Add(package);
+ 
+            VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
 
-                _packages[emptyPackageIndex].AasEnv.Submodels.Add(body);
-
-                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.RebuildAndCollapse);
-
-                return _packages[emptyPackageIndex].AasEnv.Submodels[0]; //Considering it is being added to empty package.
-            }
-            else
-            {
-                throw new Exception("No empty environment package available in the server.");
-            }
+            return body;
         }
 
         public Submodel GetSubmodelById(string submodelIdentifier, out int packageIndex)
@@ -853,26 +823,23 @@ namespace AdminShell
 
         private bool IsSubmodelPresent(string submodelIdentifier, out Submodel output, out int packageIndex)
         {
-            output = null;
-            packageIndex = -1;
-            foreach (var package in _packages)
+            for (int i = 0; i < _packageService.Count; i++)
             {
-                if (package != null)
+                var env = _packageService[i].AasEnv;
+                if (env != null)
                 {
-                    var env = package.AasEnv;
-                    if (env != null)
+                    var submodels = env.Submodels.Where(a => a.Id.Equals(submodelIdentifier));
+                    if (submodels.Any())
                     {
-                        var submodels = env.Submodels.Where(a => a.Id.Equals(submodelIdentifier));
-                        if (submodels.Any())
-                        {
-                            output = submodels.First();
-                            packageIndex = Array.IndexOf(_packages, package);
-                            return true;
-                        }
+                        output = submodels.First();
+                        packageIndex = i;
+                        return true;
                     }
                 }
             }
 
+            output = null;
+            packageIndex = -1;
             return false;
         }
 
@@ -890,7 +857,7 @@ namespace AdminShell
             List<Submodel> output = new List<Submodel>();
 
             //Get All Submodels
-            foreach (var package in _packages)
+            foreach (var package in _packageService)
             {
                 if (package != null)
                 {
@@ -945,15 +912,15 @@ namespace AdminShell
             var submodel = GetSubmodelById(submodelIdentifier, out int packageIndex);
             if ((submodel != null) && (packageIndex != -1))
             {
-                _packages[packageIndex].AasEnv.Submodels.Remove(submodel);
+                _packageService[packageIndex].AasEnv.Submodels.Remove(submodel);
 
                 //Delete submodel reference from AAS
-                foreach (var aas in _packages[packageIndex].AasEnv.AssetAdministrationShells)
+                foreach (var aas in _packageService[packageIndex].AasEnv.AssetAdministrationShells)
                 {
                     DeleteSubmodelReferenceById(aas.Id, submodelIdentifier);
                 }
 
-                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
+                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
             }
             else
             {
@@ -1152,7 +1119,7 @@ namespace AdminShell
                     parentSubmodel.SubmodelElements.Remove(new SubmodelElementWrapper(submodelElement));
                 }
 
-                TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.Rebuild);
+                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
             }
         }
 
@@ -1171,7 +1138,7 @@ namespace AdminShell
                 if (fileElement is File file)
                 {
                     fileName = file.Value;
-                    fileSize = _packages[packageIndex].GetLocalStreamFromPackage(fileName).Length;
+                    fileSize = _packageService[packageIndex].GetLocalStreamFromPackage(fileName).Length;
                 }
                 else
                 {
@@ -1193,10 +1160,10 @@ namespace AdminShell
                 {
                     var sourcePath = Path.GetDirectoryName(file.Value);
                     var targetFile = Path.Combine(sourcePath, fileName);
-                    _packages[packageIndex].ReplaceSupplementaryFileInPackageAsync(file.Value, targetFile, contentType, fileContent);
+                    _packageService[packageIndex].ReplaceSupplementaryFileInPackageAsync(file.Value, targetFile, contentType, fileContent);
                     file.Value = FormatFileName(targetFile);
 
-                    TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.RebuildAndCollapse);
+                    VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
                 }
                 else
                 {
@@ -1287,25 +1254,6 @@ namespace AdminShell
             }
 
             return null;
-        }
-
-        #endregion
-
-        private bool EmptyPackageAvailable(out int emptyPackageIndex)
-        {
-            emptyPackageIndex = -1;
-
-            for (int envi = 0; envi < _packages.Length; envi++)
-            {
-                if (_packages[envi] == null)
-                {
-                    emptyPackageIndex = envi;
-                    _packages[emptyPackageIndex] = new AdminShellPackageEnv();
-                    return true;
-                }
-            }
-
-            return false;
         }
     }
 }

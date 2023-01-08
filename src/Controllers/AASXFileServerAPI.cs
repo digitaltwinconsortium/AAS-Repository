@@ -17,9 +17,9 @@ namespace AdminShell
     public class AASXFileServerApiController : ControllerBase
     {
         private readonly ILogger _logger;
-        private readonly IAasxFileServerInterfaceService _fileService;
+        private readonly AasxFileServerInterfaceService _fileService;
 
-        public AASXFileServerApiController(ILoggerFactory logger, IAasxFileServerInterfaceService fileService)
+        public AASXFileServerApiController(ILoggerFactory logger, AasxFileServerInterfaceService fileService)
         {
             _logger = logger.CreateLogger("AASXFileServerApiController");
             _fileService = fileService;
@@ -71,6 +71,7 @@ namespace AdminShell
             HttpContext.Response.Headers.Add("X-FileName", fileName);
             HttpContext.Response.ContentLength = fileSize;
             HttpContext.Response.Body.WriteAsync(content);
+
             return new EmptyResult();
         }
 

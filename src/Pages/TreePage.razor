@@ -7,17 +7,14 @@
 
 @implements IDisposable
 
-@inject TreeBuilder treeBuilder
-@inject ADXEnergyDataSource dataSource
+@inject VisualTreeBuilderService _treeBuilder
+@inject CarbonDataService _dataSource
+@inject AASXPackageService _packages
 
 <div class="col-12 row">
     <br />
     <div class="col-8" style="border-style:solid;border-color:blue;border-radius:8px;word-wrap:break-word;word-break:break-all;position:sticky">
-        @if (Program.isLoading)
-        {
-            <span style="color:white;background-color:blue;">Loading...</span>
-        }
-
+ 
         @UpdateVisibleTree(SelectedNode)
 
         <TreeNode Nodes="Nodes" ChildSelector="@(item => item.Children)" @bind-SelectedNode="SelectedNode" @bind-ExpandedNodes="ExpandedNodes" HasChildNodes="@(item => item.Children?.Any() == true)">
@@ -116,35 +113,35 @@
 
     protected override void OnInitialized()
     {
-        TreeBuilder.NewDataAvailable += NewData;
+        VisualTreeBuilderService.NewDataAvailable += NewData;
     }
 
     public void Dispose()
     {
-        TreeBuilder.NewDataAvailable -= NewData;
+        VisualTreeBuilderService.NewDataAvailable -= NewData;
     }
 
-    TreeBuilder.TreeUpdateMode CurrentTreeUpdateMode = TreeBuilder.TreeUpdateMode.RebuildAndCollapse;
+    VisualTreeBuilderService.TreeUpdateMode CurrentTreeUpdateMode = VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse;
 
     private void NewData(object source, EventArgs args)
     {
-        if (CurrentTreeUpdateMode == TreeBuilder.TreeUpdateMode.ValuesOnly)
+        if (CurrentTreeUpdateMode == VisualTreeBuilderService.TreeUpdateMode.ValuesOnly)
         {
-            CurrentTreeUpdateMode = (TreeBuilder.TreeUpdateMode)source;
+            CurrentTreeUpdateMode = (VisualTreeBuilderService.TreeUpdateMode)source;
             InvokeAsync(() => this.StateHasChanged());
         }
     }
 
     string UpdateVisibleTree(TreeNodeData selectedNode)
     {
-        if (CurrentTreeUpdateMode == TreeBuilder.TreeUpdateMode.ValuesOnly)
+        if (CurrentTreeUpdateMode == VisualTreeBuilderService.TreeUpdateMode.ValuesOnly)
         {
             return string.Empty;
         }
 
-        Nodes = treeBuilder.BuildTree();
+        Nodes = _treeBuilder.BuildTree();
 
-        if (CurrentTreeUpdateMode == TreeBuilder.TreeUpdateMode.RebuildAndCollapse)
+        if (CurrentTreeUpdateMode == VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse)
         {
             ExpandedNodes.Clear();
             selectedNode = null;
@@ -234,21 +231,18 @@
         if (o is AssetAdministrationShell)
         {
             var aas = o as AssetAdministrationShell;
-            lock (Program.changeAasxFile)
+            System.IO.Stream s = null;
+            try
             {
-                System.IO.Stream s = null;
-                try
+                s = _packages[item.EnvIndex].GetLocalThumbnailStream();
+            }
+            catch { }
+            if (s != null)
+            {
+                using (var m = new System.IO.MemoryStream())
                 {
-                    s = Program.env[item.EnvIndex].GetLocalThumbnailStream();
-                }
-                catch { }
-                if (s != null)
-                {
-                    using (var m = new System.IO.MemoryStream())
-                    {
-                        s.CopyTo(m);
-                        return System.Convert.ToBase64String(m.ToArray());
-                    }
+                    s.CopyTo(m);
+                    return System.Convert.ToBase64String(m.ToArray());
                 }
             }
         }
@@ -266,7 +260,7 @@
                     case "jpg":
                     case "bmp":
                     case "png":
-                        var s = Program.env[item.EnvIndex].GetLocalStreamFromPackage(f.Value);
+                        var s = _packages[item.EnvIndex].GetLocalStreamFromPackage(f.Value);
                         if (s != null)
                         {
                             using (var m = new System.IO.MemoryStream())
@@ -588,7 +582,7 @@
             ret = string.Empty;
             var aas = tag as AssetAdministrationShell;
 
-            var asset = Program.env[item.EnvIndex].AasEnv.FindAAS(aas.Id);
+            var asset = _packages[item.EnvIndex].AasEnv.FindAAS(aas.Id);
 
             switch (line)
             {
@@ -1070,7 +1064,7 @@
             return ret;
         }
 
-        var cd = Program.env[item.EnvIndex].AasEnv.FindConceptDescription(se.SemanticId.Keys);
+        var cd = _packages[item.EnvIndex].AasEnv.FindConceptDescription(se.SemanticId.Keys);
         if (cd != null)
         {
             var iec = cd.IEC61360Content;

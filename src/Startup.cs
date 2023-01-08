@@ -11,6 +11,7 @@
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
     using System;
+    using System.IO;
 
     public class Startup
     {
@@ -33,13 +34,15 @@
 
             services.AddScoped<IUserService, UserService>();
 
-            services.AddScoped<IAasxFileServerInterfaceService, AasxFileServerInterfaceService>();
+            services.AddScoped<AasxFileServerInterfaceService>();
 
-            services.AddScoped<IAssetAdministrationShellEnvironmentService, AssetAdministrationShellEnvironmentService>();
+            services.AddScoped<AssetAdministrationShellEnvironmentService>();
 
-            services.AddSingleton<ADXEnergyDataSource>();
+            services.AddSingleton<CarbonDataService>();
 
-            services.AddSingleton<TreeBuilder>();
+            services.AddSingleton<VisualTreeBuilderService>();
+
+            services.AddSingleton<AASXPackageService>();
 
             services.AddSingleton<UANodesetViewer>();
 
@@ -93,6 +96,19 @@
 
                 options.EnableAnnotations();
             });
+
+            // Setup file storage
+            switch (Configuration["HostingPlatform"])
+            {
+                case "Azure": services.AddSingleton<IFileStorage, AzureFileStorage>(); break;
+                default:
+                {
+                    services.AddSingleton<IFileStorage, LocalFileStorage>();
+                    Console.WriteLine("WARNING: Using local filesystem for storage as HostingPlatform environment variable not specified or invalid!");
+                    break;
+                }
+            }
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,6 +1,4 @@
 
-
-
 namespace AdminShell
 {
     using Microsoft.AspNetCore.Http;
@@ -19,10 +17,9 @@ namespace AdminShell
     public partial class AssetAdministrationShellEnvironmentAPIController : ControllerBase
     {
         private readonly ILogger _logger;
-        private readonly IAssetAdministrationShellEnvironmentService _aasEnvService;
+        private readonly AssetAdministrationShellEnvironmentService _aasEnvService;
 
-        public AssetAdministrationShellEnvironmentAPIController(ILoggerFactory logger,
-            IAssetAdministrationShellEnvironmentService aasEnvService)
+        public AssetAdministrationShellEnvironmentAPIController(ILoggerFactory logger, AssetAdministrationShellEnvironmentService aasEnvService)
         {
             _logger = logger.CreateLogger("AssetAdministrationShellEnvironmentAPIController");
             _aasEnvService = aasEnvService;

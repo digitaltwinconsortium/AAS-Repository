@@ -19,10 +19,7 @@ namespace AdminShell
     using System.Threading;
     using System.Threading.Tasks;
 
-    /// <summary>
-    /// Implements a data source, which gets data from Azure Data Explorer
-    /// </summary>
-    public class ADXEnergyDataSource : IDisposable
+    public class CarbonDataService : IDisposable
     {
         private Timer _queryTimer = new Timer(RunQuerys, null, Timeout.Infinite, Timeout.Infinite);
 
@@ -33,7 +30,7 @@ namespace AdminShell
         private static float _geCO2Footprint = 0.0f;
         private static List<SubmodelElement> _dataPoints = new();
 
-        public ADXEnergyDataSource()
+        public CarbonDataService()
         {
             string adxClusterName = Environment.GetEnvironmentVariable("ADX_HOST");
             string adxDBName = Environment.GetEnvironmentVariable("ADX_DB");
@@ -234,7 +231,7 @@ namespace AdminShell
 
             UpdateSMEValues();
 
-            TreeBuilder.SignalNewData(TreeBuilder.TreeUpdateMode.ValuesOnly);
+            VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.ValuesOnly);
         }
 
         private static async Task GetCarbonIntensity()
