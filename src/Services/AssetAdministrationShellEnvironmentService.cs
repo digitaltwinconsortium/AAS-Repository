@@ -1137,7 +1137,7 @@ namespace AdminShell
                 {
                     var sourcePath = Path.GetDirectoryName(file.Value);
                     var targetFile = Path.Combine(sourcePath, fileName);
-                    _packageService.Packages[key].ReplaceSupplementaryFileInPackage(file.Value, targetFile, contentType, fileContent);
+                    _packageService.ReplaceSupplementaryFileInPackage(key, file.Value, targetFile, contentType, fileContent);
                     file.Value = FormatFileName(targetFile);
                     _packageService.Save(key);
 

@@ -252,6 +252,21 @@ namespace AdminShell
             return filename;
         }
 
+        public void ReplaceSupplementaryFileInPackage(string key, string sourceUri, string targetFile, string targetContentType, Stream fileContent)
+        {
+            Package package = Package.Open(key, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+            package.DeletePart(new Uri(sourceUri, UriKind.RelativeOrAbsolute));
+            var targetUri = PackUriHelper.CreatePartUri(new Uri(targetFile, UriKind.RelativeOrAbsolute));
+            PackagePart packagePart = package.CreatePart(targetUri, targetContentType);
+            fileContent.Position = 0;
+            using (Stream dest = packagePart.GetStream())
+            {
+                fileContent.CopyTo(dest);
+            }
+        }
+
+
         public void SaveAs(string key, AssetAdministrationShellEnvironment env)
         {
             throw new NotImplementedException();
