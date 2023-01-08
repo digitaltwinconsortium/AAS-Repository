@@ -11,6 +11,7 @@ namespace AdminShell
 
     public class AASXPackageService
     {
+        // we use the AASX filename as the key for packages lookup
         public Dictionary<string, AssetAdministrationShellEnvironment> Packages { get; private set; } = new();
 
         private readonly IFileStorage _storage;
@@ -444,15 +445,15 @@ namespace AdminShell
             return contentType;
         }
 
-        public Stream GetPackageStream(string filename)
+        public Stream GetPackageStream(string key)
         {
-            return System.IO.File.OpenRead(filename);
+            return System.IO.File.OpenRead(key);
         }
 
-        public Stream GetStreamFromPackagePart(string filename, string uriString)
+        public Stream GetStreamFromPackagePart(string key, string uriString)
         {
-            Package package = Package.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
-
+            Package package = Package.Open(key, FileMode.Open, FileAccess.Read, FileShare.Read);
+ 
             var part = package.GetPart(new Uri(uriString, UriKind.RelativeOrAbsolute));
             if (part == null)
             {
@@ -462,24 +463,27 @@ namespace AdminShell
             return part.GetStream(FileMode.Open);
         }
 
-        public Stream GetLocalThumbnailStream(string filename)
+        public Stream GetLocalThumbnailStream(string key)
         {
-            // get the thumbnail over the relationship
+            Package package = Package.Open(key, FileMode.Open, FileAccess.Read, FileShare.Read);
+            
             PackagePart thumbPart = null;
-            var xs = Packages[filename].GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
 
-            foreach (var x in xs)
+            PackageRelationshipCollection collection = package.GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
+
+            foreach (PackageRelationship relationship in collection)
             {
-                if (x.SourceUri.ToString() == "/")
+                if (relationship.SourceUri.ToString() == "/")
                 {
-                    thumbPart = this.openPackage.GetPart(x.TargetUri);
-                    thumbUri = x.TargetUri;
+                    thumbPart = package.GetPart(relationship.TargetUri);
                     break;
                 }
             }
 
             if (thumbPart == null)
+            {
                 return null;
+            }
 
             return thumbPart.GetStream(FileMode.Open);
         }
@@ -489,6 +493,27 @@ namespace AdminShell
             Packages.Remove(filename);
 
             System.IO.File.Delete(filename);
+        }
+
+        public byte[] GetAASXBytes(string key)
+        {
+            return System.IO.File.ReadAllBytes(key);
+        }
+
+        public string GetAASXFileName(string key)
+        {
+            return key;
+        }
+
+        public void Save(string fileName, byte[] fileContent)
+        {
+            System.IO.File.WriteAllBytes(fileName, fileContent);
+            Load(fileName);
+        }
+
+        public string GetPackageID(string filename)
+        {
+            return filename;
         }
     }
 }

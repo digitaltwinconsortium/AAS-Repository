@@ -34,8 +34,6 @@
 
             services.AddScoped<IUserService, UserService>();
 
-            services.AddScoped<AasxFileServerInterfaceService>();
-
             services.AddScoped<AssetAdministrationShellEnvironmentService>();
 
             services.AddSingleton<CarbonDataService>();

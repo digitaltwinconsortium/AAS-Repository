@@ -10,6 +10,7 @@ namespace AdminShell
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.IO;
+    using System.Linq;
     using System.Net.Mime;
     using System.Text;
 
@@ -17,12 +18,12 @@ namespace AdminShell
     public class AASXFileServerApiController : ControllerBase
     {
         private readonly ILogger _logger;
-        private readonly AasxFileServerInterfaceService _fileService;
+        private AASXPackageService _packageService;
 
-        public AASXFileServerApiController(ILoggerFactory logger, AasxFileServerInterfaceService fileService)
+        public AASXFileServerApiController(ILoggerFactory logger, AASXPackageService packageService)
         {
             _logger = logger.CreateLogger("AASXFileServerApiController");
-            _fileService = fileService;
+            _packageService= packageService;
         }
 
         /// <summary>
@@ -39,7 +40,16 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult DeleteAASXByPackageId([FromRoute][Required] string packageId)
         {
-            _fileService.DeleteAASXByPackageId(Encoding.UTF8.GetString(Convert.FromBase64String(packageId)));
+            if (_packageService.Packages.ContainsKey(Encoding.UTF8.GetString(Convert.FromBase64String(packageId))))
+            {
+                _packageService.Delete(packageId);
+
+                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
+            }
+            else
+            {
+                throw new Exception($"Package with packageId {packageId} not found.");
+            }
 
             return NoContent();
         }
@@ -59,20 +69,32 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAASXByPackageId([FromRoute][Required] string packageId)
         {
-            var fileName = _fileService.GetAASXByPackageId(Encoding.UTF8.GetString(Convert.FromBase64String(packageId)), out byte[] content, out long fileSize);
+            var fileName = string.Empty;
+            int fileSize = 0;
 
-            //content-disposition so that the aasx file can be downloaded from the web browser.
-            ContentDisposition contentDisposition = new()
+            byte[] content = _packageService.GetAASXBytes(Encoding.UTF8.GetString(Convert.FromBase64String(packageId)));
+            if (content != null)
             {
-                FileName = fileName
-            };
+                fileSize = content.Length;
+                fileName = _packageService.GetAASXFileName(Encoding.UTF8.GetString(Convert.FromBase64String(packageId)));
 
-            HttpContext.Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
-            HttpContext.Response.Headers.Add("X-FileName", fileName);
-            HttpContext.Response.ContentLength = fileSize;
-            HttpContext.Response.Body.WriteAsync(content);
+                // content-disposition is used to downloaded AASX files from the web browser
+                ContentDisposition contentDisposition = new()
+                {
+                    FileName = fileName
+                };
 
-            return new EmptyResult();
+                HttpContext.Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
+                HttpContext.Response.Headers.Add("X-FileName", fileName);
+                HttpContext.Response.ContentLength = fileSize;
+                HttpContext.Response.Body.WriteAsync(content);
+
+                return new EmptyResult();
+            }
+            else
+            {
+                throw new Exception($"Package with packageId {packageId} not found.");
+            }
         }
 
         /// <summary>
@@ -88,7 +110,33 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllAASXPackageIds([FromQuery] string aasId)
         {
-            var output = _fileService.GetAllAASXPackageIds(Encoding.UTF8.GetString(Convert.FromBase64String(aasId)));
+            var output = new List<PackageDescription>();
+
+            foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
+            {
+                var aasIdList = new List<string>();
+                foreach (var aas in package.Value.AssetAdministrationShells)
+                {
+                    aasIdList.Add(aas.IdShort);
+                }
+
+                PackageDescription packageDescription = new()
+                {
+                    PackageId = package.Key,
+                    AasIds = aasIdList
+                };
+
+                output.Add(packageDescription);
+            }
+
+            //Filter on aasId
+            if (output.Any())
+            {
+                if (!string.IsNullOrEmpty(Encoding.UTF8.GetString(Convert.FromBase64String(aasId))))
+                {
+                    output = output.Where(x => x.AasIds.Contains(Encoding.UTF8.GetString(Convert.FromBase64String(aasId)))).ToList();
+                }
+            }
 
             return new ObjectResult(output);
         }
@@ -107,7 +155,19 @@ namespace AdminShell
         {
             var stream = new MemoryStream();
             file.CopyTo(stream);
-            var packageId = _fileService.PostAASXPackage(stream.ToArray(), fileName);
+
+            // check if AASX already exists
+            if (_packageService.Packages.ContainsKey(fileName))
+            {
+                throw new Exception($"File already exists");
+            }
+
+            _packageService.Save(fileName, stream.ToArray());
+
+            VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
+
+            var packageId = _packageService.GetPackageID(fileName);
+
             return CreatedAtAction(nameof(PostAASXPackage), packageId);
         }
 
@@ -127,7 +187,16 @@ namespace AdminShell
             var stream = new MemoryStream();
             file.CopyTo(stream);
 
-            _fileService.UpdateAASXPackageById(Encoding.UTF8.GetString(Convert.FromBase64String(packageId)), stream.ToArray(), fileName);
+            // check if AASX already exists
+            if (!_packageService.Packages.ContainsKey(Encoding.UTF8.GetString(Convert.FromBase64String(packageId))))
+            {
+                throw new Exception($"Requested package with packageId {packageId} not found.");
+            }
+
+            _packageService.Packages.Remove(Encoding.UTF8.GetString(Convert.FromBase64String(packageId)));
+            _packageService.Save(fileName, stream.ToArray());
+
+            VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
 
             return NoContent();
         }

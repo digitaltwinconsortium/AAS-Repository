@@ -260,7 +260,7 @@
                     case "jpg":
                     case "bmp":
                     case "png":
-                        var s = _packages[item.EnvKey].GetLocalStreamFromPackage(f.Value);
+                        var s = _packageService.GetStreamFromPackagePart(item.EnvKey, f.Value);
                         if (s != null)
                         {
                             using (var m = new System.IO.MemoryStream())

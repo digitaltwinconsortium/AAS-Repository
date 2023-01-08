@@ -47,20 +47,20 @@ namespace AdminShell
         {
             List<TreeNodeData> viewItems = new List<TreeNodeData>();
 
-            for (int i = 0; i < _packageService.Packages.Values.Count; i++)
+            foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
             {
                 TreeNodeData root = new TreeNodeData();
-                root.EnvKey = i;
-                root.Text = _packageService.Packages.Values.ToList()[i].AssetAdministrationShells[0].IdShort;
-                root.Tag = _packageService.Packages.Values.ToList()[i].AssetAdministrationShells[0];
-                CreateViewFromAASEnv(root, _packageService.Packages.Values.ToList()[i], i);
+                root.EnvKey = package.Key;
+                root.Text = package.Value.AssetAdministrationShells[0].IdShort;
+                root.Tag = package.Value.AssetAdministrationShells[0];
+                CreateViewFromAASEnv(root, package.Key, package.Value);
                 viewItems.Add(root);
             }
 
             return viewItems;
         }
 
-        private void CreateViewFromAASEnv(TreeNodeData root, AssetAdministrationShellEnvironment aasEnv, int i)
+        private void CreateViewFromAASEnv(TreeNodeData root, string key, AssetAdministrationShellEnvironment aasEnv)
         {
             List<TreeNodeData> subModelTreeNodeDataList = new List<TreeNodeData>();
             foreach (Submodel subModel in aasEnv.Submodels)
@@ -69,13 +69,13 @@ namespace AdminShell
                 {
                     TreeNodeData subModelTreeNodeData = new()
                     {
-                        EnvKey = i,
+                        EnvKey = key,
                         Text = subModel.IdShort,
                         Tag = subModel
                     };
 
                     subModelTreeNodeDataList.Add(subModelTreeNodeData);
-                    CreateViewFromSubModel(subModelTreeNodeData, subModel, i);
+                    CreateViewFromSubModel(subModelTreeNodeData, key, subModel);
                 }
             }
 
@@ -87,14 +87,14 @@ namespace AdminShell
             }
         }
 
-        private void CreateViewFromSubModel(TreeNodeData rootItem, Submodel subModel, int i)
+        private void CreateViewFromSubModel(TreeNodeData rootItem, string key, Submodel subModel)
         {
             List<TreeNodeData> subModelElementTreeNodeDataList = new List<TreeNodeData>();
             foreach (SubmodelElementWrapper smew in subModel.SubmodelElements)
             {
                 TreeNodeData subModelElementTreeNodeData = new()
                 {
-                    EnvKey = i,
+                    EnvKey = key,
                     Text = smew.SubmodelElement.IdShort,
                     Tag = smew.SubmodelElement
                 };
@@ -104,19 +104,19 @@ namespace AdminShell
                 if (smew.SubmodelElement is SubmodelElementCollection)
                 {
                     SubmodelElementCollection submodelElementCollection = smew.SubmodelElement as SubmodelElementCollection;
-                    CreateViewFromSubModelElementCollection(subModelElementTreeNodeData, submodelElementCollection, i);
+                    CreateViewFromSubModelElementCollection(subModelElementTreeNodeData, key, submodelElementCollection);
                 }
 
                 if (smew.SubmodelElement is Operation)
                 {
                     Operation operation = smew.SubmodelElement as Operation;
-                    CreateViewFromOperation(subModelElementTreeNodeData, operation, i);
+                    CreateViewFromOperation(subModelElementTreeNodeData, key, operation);
                 }
 
                 if (smew.SubmodelElement is Entity)
                 {
                     Entity entity = smew.SubmodelElement as Entity;
-                    CreateViewFromEntity(subModelElementTreeNodeData, entity, i);
+                    CreateViewFromEntity(subModelElementTreeNodeData, key, entity);
                 }
             }
 
@@ -128,7 +128,7 @@ namespace AdminShell
             }
         }
 
-        private void CreateViewFromSubModelElementCollection(TreeNodeData rootItem, SubmodelElementCollection subModelElementCollection, int i)
+        private void CreateViewFromSubModelElementCollection(TreeNodeData rootItem, string key, SubmodelElementCollection subModelElementCollection)
         {
             List<TreeNodeData> treeNodeDataList = new List<TreeNodeData>();
             foreach (SubmodelElementWrapper smew in subModelElementCollection.Value)
@@ -137,7 +137,7 @@ namespace AdminShell
                 {
                     TreeNodeData smeItem = new()
                     {
-                        EnvKey = i,
+                        EnvKey = key,
                         Text = smew.SubmodelElement.IdShort,
                         Tag = smew.SubmodelElement
                     };
@@ -147,30 +147,30 @@ namespace AdminShell
                     if (smew.SubmodelElement is SubmodelElementCollection)
                     {
                         SubmodelElementCollection smecNext = smew.SubmodelElement as SubmodelElementCollection;
-                        CreateViewFromSubModelElementCollection(smeItem, smecNext, i);
+                        CreateViewFromSubModelElementCollection(smeItem, key, smecNext);
                     }
 
                     if (smew.SubmodelElement is Operation)
                     {
                         Operation operation = smew.SubmodelElement as Operation;
-                        CreateViewFromOperation(smeItem, operation, i);
+                        CreateViewFromOperation(smeItem, key, operation);
                     }
 
                     if (smew.SubmodelElement is Entity)
                     {
                         Entity entity = smew.SubmodelElement as Entity;
-                        CreateViewFromEntity(smeItem, entity, i);
+                        CreateViewFromEntity(smeItem, key, entity);
                     }
 
                     if (smew.SubmodelElement.IdShort == "NODESET2_XML"
                     && Uri.IsWellFormedUriString(((File)smew.SubmodelElement).Value, UriKind.Absolute))
                     {
-                        CreateViewFromAdminShellNodeset(smeItem, new Uri(((File)smew.SubmodelElement).Value), i);
+                        CreateViewFromAdminShellNodeset(smeItem, key, new Uri(((File)smew.SubmodelElement).Value));
                     }
 
                     if (smew.SubmodelElement.IdShort == "CAEX")
                     {
-                        CreateViewFromAMLCAEXFile(smeItem, ((File)smew.SubmodelElement).Value, i);
+                        CreateViewFromAMLCAEXFile(smeItem, key, ((File)smew.SubmodelElement).Value);
                     }
                 }
             }
@@ -183,11 +183,11 @@ namespace AdminShell
             }
         }
 
-        private void CreateViewFromAMLCAEXFile(TreeNodeData rootItem, string filename, int i)
+        private void CreateViewFromAMLCAEXFile(TreeNodeData rootItem, string key, string filename)
         {
             try
             {
-                Stream packagePartStream = _packageService.GetStreamFromPackagePart(_packageService.Packages.Keys.ToList()[i], filename);
+                Stream packagePartStream = _packageService.GetStreamFromPackagePart(key, filename);
                 CAEXDocument doc = CAEXDocument.LoadFromStream(packagePartStream);
                 List<TreeNodeData> treeNodeDataList = new List<TreeNodeData>();
 
@@ -195,7 +195,7 @@ namespace AdminShell
                 {
                     TreeNodeData smeItem = new()
                     {
-                        EnvKey = i,
+                        EnvKey = key,
                         Text = instanceHirarchy.ID,
                         Type = "AML",
                         Tag = new SubmodelElement() { IdShort = instanceHirarchy.Name },
@@ -206,7 +206,7 @@ namespace AdminShell
 
                     foreach (var internalElement in instanceHirarchy.InternalElement)
                     {
-                        CreateViewFromInternalElement(smeItem, (List<TreeNodeData>)smeItem.Children, internalElement, i);
+                        CreateViewFromInternalElement(smeItem, (List<TreeNodeData>)smeItem.Children, key, internalElement);
                     }
                 }
 
@@ -214,7 +214,7 @@ namespace AdminShell
                 {
                     TreeNodeData smeItem = new()
                     {
-                        EnvKey = i,
+                        EnvKey = key,
                         Text = roleclassLib.ID,
                         Type = "AML",
                         Tag = new SubmodelElement() { IdShort = roleclassLib.Name },
@@ -225,7 +225,7 @@ namespace AdminShell
 
                     foreach (RoleFamilyType roleClass in roleclassLib.RoleClass)
                     {
-                        CreateViewFromRoleClasses(smeItem, (List<TreeNodeData>)smeItem.Children, roleClass, i);
+                        CreateViewFromRoleClasses(smeItem, (List<TreeNodeData>)smeItem.Children, key, roleClass);
                     }
                 }
 
@@ -233,7 +233,7 @@ namespace AdminShell
                 {
                     TreeNodeData smeItem = new()
                     {
-                        EnvKey = i,
+                        EnvKey = key,
                         Text = systemUnitClassLib.ID,
                         Type = "AML",
                         Tag = new SubmodelElement() { IdShort = systemUnitClassLib.Name },
@@ -244,7 +244,7 @@ namespace AdminShell
 
                     foreach (SystemUnitFamilyType systemUnitClass in systemUnitClassLib.SystemUnitClass)
                     {
-                        CreateViewFromSystemUnitClasses(smeItem, (List<TreeNodeData>)smeItem.Children, systemUnitClass, i);
+                        CreateViewFromSystemUnitClasses(smeItem, (List<TreeNodeData>)smeItem.Children, key, systemUnitClass);
                     }
                 }
 
@@ -262,11 +262,11 @@ namespace AdminShell
             }
         }
 
-        private void CreateViewFromInternalElement(TreeNodeData rootItem, List<TreeNodeData> rootItemChildren, InternalElementType internalElement, int i)
+        private void CreateViewFromInternalElement(TreeNodeData rootItem, List<TreeNodeData> rootItemChildren, string key, InternalElementType internalElement)
         {
             TreeNodeData smeItem = new()
             {
-                EnvKey = i,
+                EnvKey = key,
                 Text = internalElement.ID,
                 Type = "AML",
                 Tag = new SubmodelElement() { IdShort = internalElement.Name },
@@ -278,15 +278,15 @@ namespace AdminShell
 
             foreach (InternalElementType childInternalElement in internalElement.InternalElement)
             {
-                CreateViewFromInternalElement(smeItem, (List<TreeNodeData>)smeItem.Children, childInternalElement, i);
+                CreateViewFromInternalElement(smeItem, (List<TreeNodeData>)smeItem.Children, key, childInternalElement);
             }
         }
 
-        private void CreateViewFromRoleClasses(TreeNodeData rootItem, List<TreeNodeData> rootItemChildren, RoleFamilyType roleClass, int i)
+        private void CreateViewFromRoleClasses(TreeNodeData rootItem, List<TreeNodeData> rootItemChildren, string key, RoleFamilyType roleClass)
         {
             TreeNodeData smeItem = new()
             {
-                EnvKey = i,
+                EnvKey = key,
                 Text = roleClass.ID,
                 Type = "AML",
                 Tag = new SubmodelElement() { IdShort = roleClass.Name },
@@ -298,15 +298,15 @@ namespace AdminShell
 
             foreach (RoleFamilyType childRoleClass in roleClass.RoleClass)
             {
-                CreateViewFromRoleClasses(smeItem, (List<TreeNodeData>)smeItem.Children, childRoleClass, i);
+                CreateViewFromRoleClasses(smeItem, (List<TreeNodeData>)smeItem.Children, key, childRoleClass);
             }
         }
 
-        private void CreateViewFromSystemUnitClasses(TreeNodeData rootItem, List<TreeNodeData> rootItemChildren, SystemUnitFamilyType systemUnitClass, int i)
+        private void CreateViewFromSystemUnitClasses(TreeNodeData rootItem, List<TreeNodeData> rootItemChildren, string key, SystemUnitFamilyType systemUnitClass)
         {
             TreeNodeData smeItem = new()
             {
-                EnvKey = i,
+                EnvKey = key,
                 Text = systemUnitClass.ID,
                 Type = "AML",
                 Tag = new SubmodelElement() { IdShort = systemUnitClass.Name },
@@ -318,16 +318,16 @@ namespace AdminShell
 
             foreach (InternalElementType childInternalElement in systemUnitClass.InternalElement)
             {
-                CreateViewFromInternalElement(smeItem, (List<TreeNodeData>)smeItem.Children, childInternalElement, i);
+                CreateViewFromInternalElement(smeItem, (List<TreeNodeData>)smeItem.Children, key, childInternalElement);
             }
 
             foreach (SystemUnitFamilyType childSystemUnitClass in systemUnitClass.SystemUnitClass)
             {
-                CreateViewFromSystemUnitClasses(smeItem, (List<TreeNodeData>)smeItem.Children, childSystemUnitClass, i);
+                CreateViewFromSystemUnitClasses(smeItem, (List<TreeNodeData>)smeItem.Children, key, childSystemUnitClass);
             }
         }
 
-        private void CreateViewFromAdminShellNodeset(TreeNodeData rootItem, Uri uri, int i)
+        private void CreateViewFromAdminShellNodeset(TreeNodeData rootItem, string key, Uri uri)
         {
             try
             {
@@ -336,7 +336,7 @@ namespace AdminShell
                 NodesetViewerNode rootNode = _viewer.GetRootNode().GetAwaiter().GetResult();
                 if (rootNode != null && rootNode.Children)
                 {
-                    CreateViewFromUANode(rootItem, _viewer, rootNode, i);
+                    CreateViewFromUANode(rootItem, _viewer, key, rootNode);
                 }
             }
             catch (Exception ex)
@@ -346,7 +346,7 @@ namespace AdminShell
             }
         }
 
-        private void CreateViewFromUANode(TreeNodeData rootItem, UANodesetViewer viewer, NodesetViewerNode rootNode, int i)
+        private void CreateViewFromUANode(TreeNodeData rootItem, UANodesetViewer viewer, string key, NodesetViewerNode rootNode)
         {
             try
             {
@@ -356,7 +356,7 @@ namespace AdminShell
                 {
                     TreeNodeData smeItem = new TreeNodeData
                     {
-                        EnvKey = i,
+                        EnvKey = key,
                         Text = node.Text,
                         Type = "UANode",
                         Tag = new SubmodelElement() { IdShort = node.Text }
@@ -366,7 +366,7 @@ namespace AdminShell
 
                     if (node.Children)
                     {
-                        CreateViewFromUANode(smeItem, viewer, node, i);
+                        CreateViewFromUANode(smeItem, viewer, key, node);
                     }
                 }
 
@@ -384,14 +384,14 @@ namespace AdminShell
             }
         }
 
-        private void CreateViewFromOperation(TreeNodeData rootItem, Operation operation, int i)
+        private void CreateViewFromOperation(TreeNodeData rootItem, string key, Operation operation)
         {
             List<TreeNodeData> treeNodeDataList = new List<TreeNodeData>();
             foreach (OperationVariable v in operation.InputVariables)
             {
                 TreeNodeData smeItem = new TreeNodeData
                 {
-                    EnvKey = i,
+                    EnvKey = key,
                     Text = v.Value.SubmodelElement.IdShort,
                     Type = "In",
                     Tag = v.Value.SubmodelElement
@@ -404,7 +404,7 @@ namespace AdminShell
             {
                 TreeNodeData smeItem = new TreeNodeData
                 {
-                    EnvKey = i,
+                    EnvKey = key,
                     Text = v.Value.SubmodelElement.IdShort,
                     Type = "Out",
                     Tag = v.Value.SubmodelElement
@@ -417,7 +417,7 @@ namespace AdminShell
             {
                 TreeNodeData smeItem = new TreeNodeData
                 {
-                    EnvKey = i,
+                    EnvKey = key,
                     Text = v.Value.SubmodelElement.IdShort,
                     Type = "InOut",
                     Tag = v.Value.SubmodelElement
@@ -434,7 +434,7 @@ namespace AdminShell
             }
         }
 
-        private void CreateViewFromEntity(TreeNodeData rootItem, Entity entity, int i)
+        private void CreateViewFromEntity(TreeNodeData rootItem, string key, Entity entity)
         {
             List<TreeNodeData> treeNodeDataList = new List<TreeNodeData>();
             foreach (SubmodelElementWrapper statement in entity.Statements)
@@ -443,7 +443,7 @@ namespace AdminShell
                 {
                     TreeNodeData smeItem = new TreeNodeData
                     {
-                        EnvKey = i,
+                        EnvKey = key,
                         Text = statement.SubmodelElement.IdShort,
                         Type = "In",
                         Tag = statement.SubmodelElement
