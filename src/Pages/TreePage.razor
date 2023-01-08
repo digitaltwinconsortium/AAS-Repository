@@ -9,12 +9,12 @@
 
 @inject VisualTreeBuilderService _treeBuilder
 @inject CarbonDataService _dataSource
-@inject AASXPackageService _packages
+@inject AASXPackageService _packageService
 
 <div class="col-12 row">
     <br />
     <div class="col-8" style="border-style:solid;border-color:blue;border-radius:8px;word-wrap:break-word;word-break:break-all;position:sticky">
- 
+
         @UpdateVisibleTree(SelectedNode)
 
         <TreeNode Nodes="Nodes" ChildSelector="@(item => item.Children)" @bind-SelectedNode="SelectedNode" @bind-ExpandedNodes="ExpandedNodes" HasChildNodes="@(item => item.Children?.Any() == true)">
@@ -102,7 +102,7 @@
 
         public object Tag { get; set; }
 
-        public int EnvIndex { get; set; }
+        public string EnvKey { get; set; }
     }
 
     List<TreeNodeData> Nodes = null;
@@ -234,7 +234,7 @@
             System.IO.Stream s = null;
             try
             {
-                s = _packages[item.EnvIndex].GetLocalThumbnailStream();
+                s = _packageService.GetLocalThumbnailStream(item.EnvKey);
             }
             catch { }
             if (s != null)
@@ -260,7 +260,7 @@
                     case "jpg":
                     case "bmp":
                     case "png":
-                        var s = _packages[item.EnvIndex].GetLocalStreamFromPackage(f.Value);
+                        var s = _packages[item.EnvKey].GetLocalStreamFromPackage(f.Value);
                         if (s != null)
                         {
                             using (var m = new System.IO.MemoryStream())
@@ -314,7 +314,7 @@
         object o = item.Tag;
         if (o is AssetAdministrationShell)
         {
-            return "/server/getaasx/" + Convert.ToString(SelectedNode.EnvIndex);
+            return "/server/getaasx/" + Convert.ToString(SelectedNode.EnvKey);
         }
 
         if (o is File || o is Property)
@@ -344,7 +344,7 @@
             {
                 if (split[1].ToLower() == "aasx")
                 {
-                    return "/server/getfile/" + item.EnvIndex.ToString() + value;
+                    return "/server/getfile/" + item.EnvKey.ToString() + value;
                 }
             }
         }
@@ -582,7 +582,7 @@
             ret = string.Empty;
             var aas = tag as AssetAdministrationShell;
 
-            var asset = _packages[item.EnvIndex].AasEnv.FindAAS(aas.Id);
+            var asset = _packageService.Packages[item.EnvKey].FindAAS(aas.Id);
 
             switch (line)
             {
@@ -1064,7 +1064,7 @@
             return ret;
         }
 
-        var cd = _packages[item.EnvIndex].AasEnv.FindConceptDescription(se.SemanticId.Keys);
+        var cd = _packageService.Packages[item.EnvKey].FindConceptDescription(se.SemanticId.Keys);
         if (cd != null)
         {
             var iec = cd.IEC61360Content;

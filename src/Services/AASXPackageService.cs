@@ -87,7 +87,7 @@ namespace AdminShell
 
             Stream specStream = specPart.GetStream(FileMode.Open);
             string nsURI = TryReadXmlFirstElementNamespaceURI(specStream);
-            
+
             // reopen spec
             specStream.Close();
             specStream = specPart.GetStream(FileMode.Open, FileAccess.Read);
@@ -133,7 +133,7 @@ namespace AdminShell
             try
             {
                 var reader = XmlReader.Create(specStream);
-                
+
                 for (int i = 0; i < 100; i++)
                 {
                     reader.Read();
@@ -159,7 +159,7 @@ namespace AdminShell
         {
             // approach is to utilize the existing package, if possible. If not, create from scratch
             Package package = Package.Open(filename, FileMode.OpenOrCreate);
-     
+
             // get the origin from the package
             PackagePart originPart = null;
             var xs = package.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aasx-origin");
@@ -229,16 +229,16 @@ namespace AdminShell
                     frn = _aasenv.AssetAdministrationShells[0].GetFriendlyName() ?? frn;
 
                 var aas_spec_fn = "/aasx/#/#.aas";
-                    
+
                 if (prefFmt == PreferredFormat.Json)
                     aas_spec_fn += ".json";
                 else
                     aas_spec_fn += ".xml";
-                    
+
                 aas_spec_fn = aas_spec_fn.Replace("#", "" + frn);
-                    
+
                 specPart = package.CreatePart(new Uri(aas_spec_fn, UriKind.RelativeOrAbsolute), System.Net.Mime.MediaTypeNames.Text.Xml, CompressionOption.Maximum);
-                    
+
                 originPart.CreateRelationship(specPart.Uri, TargetMode.Internal, "http://www.admin-shell.io/aasx/relationships/aas-spec");
             }
 
@@ -440,7 +440,7 @@ namespace AdminShell
             if (fileExtension == ".jpeg") contentType = MediaTypeNames.Image.Jpeg;
             if (fileExtension == ".png") contentType = "image/png";
             if (fileExtension == ".gif") contentType = MediaTypeNames.Image.Gif;
-            
+
             return contentType;
         }
 
@@ -462,10 +462,32 @@ namespace AdminShell
             return part.GetStream(FileMode.Open);
         }
 
+        public Stream GetLocalThumbnailStream(string filename)
+        {
+            // get the thumbnail over the relationship
+            PackagePart thumbPart = null;
+            var xs = Packages[filename].GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
+
+            foreach (var x in xs)
+            {
+                if (x.SourceUri.ToString() == "/")
+                {
+                    thumbPart = this.openPackage.GetPart(x.TargetUri);
+                    thumbUri = x.TargetUri;
+                    break;
+                }
+            }
+
+            if (thumbPart == null)
+                return null;
+
+            return thumbPart.GetStream(FileMode.Open);
+        }
+
         public void Delete(string filename)
         {
             Packages.Remove(filename);
-  
+
             System.IO.File.Delete(filename);
         }
     }

@@ -2,7 +2,6 @@
 namespace AdminShell
 {
     using Aml.Engine.CAEX;
-    using Kusto.Cloud.Platform.Utils;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -51,7 +50,7 @@ namespace AdminShell
             for (int i = 0; i < _packageService.Packages.Values.Count; i++)
             {
                 TreeNodeData root = new TreeNodeData();
-                root.EnvIndex = i;
+                root.EnvKey = i;
                 root.Text = _packageService.Packages.Values.ToList()[i].AssetAdministrationShells[0].IdShort;
                 root.Tag = _packageService.Packages.Values.ToList()[i].AssetAdministrationShells[0];
                 CreateViewFromAASEnv(root, _packageService.Packages.Values.ToList()[i], i);
@@ -70,7 +69,7 @@ namespace AdminShell
                 {
                     TreeNodeData subModelTreeNodeData = new()
                     {
-                        EnvIndex = i,
+                        EnvKey = i,
                         Text = subModel.IdShort,
                         Tag = subModel
                     };
@@ -95,7 +94,7 @@ namespace AdminShell
             {
                 TreeNodeData subModelElementTreeNodeData = new()
                 {
-                    EnvIndex = i,
+                    EnvKey = i,
                     Text = smew.SubmodelElement.IdShort,
                     Tag = smew.SubmodelElement
                 };
@@ -138,7 +137,7 @@ namespace AdminShell
                 {
                     TreeNodeData smeItem = new()
                     {
-                        EnvIndex = i,
+                        EnvKey = i,
                         Text = smew.SubmodelElement.IdShort,
                         Tag = smew.SubmodelElement
                     };
@@ -196,7 +195,7 @@ namespace AdminShell
                 {
                     TreeNodeData smeItem = new()
                     {
-                        EnvIndex = i,
+                        EnvKey = i,
                         Text = instanceHirarchy.ID,
                         Type = "AML",
                         Tag = new SubmodelElement() { IdShort = instanceHirarchy.Name },
@@ -215,7 +214,7 @@ namespace AdminShell
                 {
                     TreeNodeData smeItem = new()
                     {
-                        EnvIndex = i,
+                        EnvKey = i,
                         Text = roleclassLib.ID,
                         Type = "AML",
                         Tag = new SubmodelElement() { IdShort = roleclassLib.Name },
@@ -234,7 +233,7 @@ namespace AdminShell
                 {
                     TreeNodeData smeItem = new()
                     {
-                        EnvIndex = i,
+                        EnvKey = i,
                         Text = systemUnitClassLib.ID,
                         Type = "AML",
                         Tag = new SubmodelElement() { IdShort = systemUnitClassLib.Name },
@@ -267,7 +266,7 @@ namespace AdminShell
         {
             TreeNodeData smeItem = new()
             {
-                EnvIndex = i,
+                EnvKey = i,
                 Text = internalElement.ID,
                 Type = "AML",
                 Tag = new SubmodelElement() { IdShort = internalElement.Name },
@@ -287,7 +286,7 @@ namespace AdminShell
         {
             TreeNodeData smeItem = new()
             {
-                EnvIndex = i,
+                EnvKey = i,
                 Text = roleClass.ID,
                 Type = "AML",
                 Tag = new SubmodelElement() { IdShort = roleClass.Name },
@@ -307,7 +306,7 @@ namespace AdminShell
         {
             TreeNodeData smeItem = new()
             {
-                EnvIndex = i,
+                EnvKey = i,
                 Text = systemUnitClass.ID,
                 Type = "AML",
                 Tag = new SubmodelElement() { IdShort = systemUnitClass.Name },
@@ -357,7 +356,7 @@ namespace AdminShell
                 {
                     TreeNodeData smeItem = new TreeNodeData
                     {
-                        EnvIndex = i,
+                        EnvKey = i,
                         Text = node.Text,
                         Type = "UANode",
                         Tag = new SubmodelElement() { IdShort = node.Text }
@@ -392,7 +391,7 @@ namespace AdminShell
             {
                 TreeNodeData smeItem = new TreeNodeData
                 {
-                    EnvIndex = i,
+                    EnvKey = i,
                     Text = v.Value.SubmodelElement.IdShort,
                     Type = "In",
                     Tag = v.Value.SubmodelElement
@@ -405,7 +404,7 @@ namespace AdminShell
             {
                 TreeNodeData smeItem = new TreeNodeData
                 {
-                    EnvIndex = i,
+                    EnvKey = i,
                     Text = v.Value.SubmodelElement.IdShort,
                     Type = "Out",
                     Tag = v.Value.SubmodelElement
@@ -418,7 +417,7 @@ namespace AdminShell
             {
                 TreeNodeData smeItem = new TreeNodeData
                 {
-                    EnvIndex = i,
+                    EnvKey = i,
                     Text = v.Value.SubmodelElement.IdShort,
                     Type = "InOut",
                     Tag = v.Value.SubmodelElement
@@ -444,7 +443,7 @@ namespace AdminShell
                 {
                     TreeNodeData smeItem = new TreeNodeData
                     {
-                        EnvIndex = i,
+                        EnvKey = i,
                         Text = statement.SubmodelElement.IdShort,
                         Type = "In",
                         Tag = statement.SubmodelElement

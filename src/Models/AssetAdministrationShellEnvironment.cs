@@ -41,18 +41,6 @@ namespace AdminShell
             return null;
         }
 
-        public AssetAdministrationShell FindAAS(string idShort)
-        {
-            if (idShort == null)
-                return null;
-
-            foreach (var aas in AssetAdministrationShells)
-                if (aas.IdShort != null && aas.IdShort.Trim().ToLower() == idShort.Trim().ToLower())
-                    return aas;
-
-            return null;
-        }
-
         public Submodel FindSubmodel(Reference smref)
         {
             // trivial
