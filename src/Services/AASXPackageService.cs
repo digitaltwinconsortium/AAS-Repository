@@ -196,7 +196,7 @@ namespace AdminShell
             return System.IO.File.OpenRead(key);
         }
 
-        public Stream GetStreamFromPackagePart(string key, string uriString)
+        public byte[] GetFileContentsFromPackagePart(string key, string uriString)
         {
             Package package = Package.Open(key, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
@@ -206,11 +206,16 @@ namespace AdminShell
                 return null;
             }
 
-            package.Close();
-            return part.GetStream(FileMode.Open);
+            using (MemoryStream partStream = new())
+            {
+                part.GetStream(FileMode.Open).CopyTo(partStream);
+                package.Close();
+
+                return partStream.ToArray();
+            }
         }
 
-        public Stream GetLocalThumbnailStream(string key)
+        public byte[] GetLocalThumbnailBytes(string key)
         {
             Package package = Package.Open(key, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
 
@@ -232,8 +237,13 @@ namespace AdminShell
                 return null;
             }
 
-            package.Close();
-            return thumbPart.GetStream(FileMode.Open);
+            using (MemoryStream partStream = new())
+            {
+                thumbPart.GetStream(FileMode.Open).CopyTo(partStream);
+                package.Close();
+
+                return partStream.ToArray();
+            }
         }
 
         public void Delete(string filename)

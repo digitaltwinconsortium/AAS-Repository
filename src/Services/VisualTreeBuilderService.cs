@@ -179,8 +179,8 @@ namespace AdminShell
         {
             try
             {
-                Stream packagePartStream = _packageService.GetStreamFromPackagePart(key, filename);
-                CAEXDocument doc = CAEXDocument.LoadFromStream(packagePartStream);
+                byte[] fileContents = _packageService.GetFileContentsFromPackagePart(key, filename);
+                CAEXDocument doc = CAEXDocument.LoadFromBinary(fileContents);
                 List<TreeNodeData> treeNodeDataList = new List<TreeNodeData>();
 
                 foreach (var instanceHirarchy in doc.CAEXFile.InstanceHierarchy)

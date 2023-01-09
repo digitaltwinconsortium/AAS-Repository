@@ -231,19 +231,15 @@
         if (o is AssetAdministrationShell)
         {
             var aas = o as AssetAdministrationShell;
-            System.IO.Stream s = null;
+            byte[] conents = null;
             try
             {
-                s = _packageService.GetLocalThumbnailStream(item.EnvKey);
+                conents = _packageService.GetLocalThumbnailBytes(item.EnvKey);
             }
             catch { }
-            if (s != null)
+            if (conents != null)
             {
-                using (var m = new System.IO.MemoryStream())
-                {
-                    s.CopyTo(m);
-                    return System.Convert.ToBase64String(m.ToArray());
-                }
+                return System.Convert.ToBase64String(conents);
             }
         }
 
@@ -260,14 +256,10 @@
                     case "jpg":
                     case "bmp":
                     case "png":
-                        var s = _packageService.GetStreamFromPackagePart(item.EnvKey, f.Value);
-                        if (s != null)
+                        byte[] contents = _packageService.GetFileContentsFromPackagePart(item.EnvKey, f.Value);
+                        if (contents != null)
                         {
-                            using (var m = new System.IO.MemoryStream())
-                            {
-                                s.CopyTo(m);
-                                return System.Convert.ToBase64String(m.ToArray());
-                            }
+                            return System.Convert.ToBase64String(contents);
                         }
                         break;
                 }
