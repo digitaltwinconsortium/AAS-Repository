@@ -2,12 +2,10 @@
 namespace AdminShell
 {
     using Microsoft.Extensions.Logging;
-    using Opc.Ua;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Text.RegularExpressions;
 
     public class AssetAdministrationShellEnvironmentService
     {
@@ -1126,8 +1124,8 @@ namespace AdminShell
                 {
                     var sourcePath = Path.GetDirectoryName(file.Value);
                     var targetFile = Path.Combine(sourcePath, fileName);
-                    file.Value = FormatFilePath(targetFile);
-                    _packageService.ReplaceSupplementaryFileInPackage(key, targetFile, contentType, fileContent);
+                    file.Value = targetFile.Replace("\\", "/");
+                    _packageService.ReplaceSupplementaryFileInPackage(key, file.Value, contentType, fileContent);
                     _packageService.Save(key);
 
                     VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
@@ -1140,20 +1138,13 @@ namespace AdminShell
             else
             {
                 // add
-                File newFile = new();
-                var sourcePath = Path.GetDirectoryName(newFile.Value);
-                var targetFile = Path.Combine(sourcePath, fileName);
-                newFile.Value = FormatFilePath(targetFile);
-                _packageService.AddSupplementaryFileToPackage(key, newFile.Value, contentType, fileContent);
+                File file = new();
+                file.Value = fileName;
+                _packageService.AddSupplementaryFileToPackage(key, file.Value, contentType, fileContent);
                 _packageService.Save(key);
 
                 VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
             }
-        }
-
-        private string FormatFilePath(string filePath)
-        {
-            return Regex.Replace(filePath, @"\\", "/");
         }
 
         public OperationResult GetOperationAsyncResultSubmodelRepo(string decodedSubmodelId, string idShortPath, string handleId)
