@@ -231,7 +231,7 @@ namespace AdminShell
 
             UpdateSMEValues();
 
-            VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.ValuesOnly);
+            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
         }
 
         private static async Task GetCarbonIntensity()

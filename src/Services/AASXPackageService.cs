@@ -41,11 +41,44 @@ namespace AdminShell
             {
                 foreach (var sm in aasEnv.Submodels)
                 {
-                    sm.SetSMEParent();
+                    SetSMEParent(sm);
                 }
             }
 
-            VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
+            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
+        }
+
+        private void SetSMEParent(Submodel sm)
+        {
+            if (sm.SubmodelElements != null)
+            {
+                foreach (SubmodelElementWrapper smew in sm.SubmodelElements)
+                {
+                    SetSMEParent(smew.SubmodelElement, sm);
+                }
+            }
+        }
+
+        private void SetSMEParent(SubmodelElement sme, Referable parent)
+        {
+            if (sme == null)
+            {
+                return;
+            }
+
+            sme.Parent = parent;
+
+            // recurse if needed
+            if (sme is SubmodelElementCollection collection)
+            {
+                if (collection.Value != null)
+                {
+                    foreach (SubmodelElementWrapper smew in collection.Value)
+                    {
+                        SetSMEParent(smew.SubmodelElement, sme);
+                    }
+                }
+            }
         }
 
         private void Load(string filename)
@@ -184,7 +217,7 @@ namespace AdminShell
         public Stream GetStreamFromPackagePart(string key, string uriString)
         {
             Package package = Package.Open(key, FileMode.Open, FileAccess.Read, FileShare.Read);
- 
+
             var part = package.GetPart(new Uri(uriString, UriKind.RelativeOrAbsolute));
             if (part == null)
             {
@@ -197,7 +230,7 @@ namespace AdminShell
         public Stream GetLocalThumbnailStream(string key)
         {
             Package package = Package.Open(key, FileMode.Open, FileAccess.Read, FileShare.Read);
-            
+
             PackagePart thumbPart = null;
 
             PackageRelationshipCollection collection = package.GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");

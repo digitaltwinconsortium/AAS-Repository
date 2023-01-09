@@ -19,28 +19,6 @@ namespace AdminShell
         [DataMember(Name = "isCaseOf")]
         [XmlArray(ElementName = "isCaseOf")]
         public List<Reference> IsCaseOf { get; set; }
-
-        [XmlIgnore]
-        public DataSpecificationIEC61360 IEC61360Content
-        {
-            get
-            {
-                return EmbeddedDataSpecifications?[0].DataSpecificationContent.DataSpecificationIEC61360;
-            }
-            set
-            {
-                var eds = EmbeddedDataSpecifications?[0];
-                if (eds != null)
-                {
-                    eds.DataSpecificationContent.DataSpecificationIEC61360 = value;
-                    return;
-                }
-
-                var edsnew = new EmbeddedDataSpecification();
-                edsnew.DataSpecificationContent.DataSpecificationIEC61360 = value;
-                EmbeddedDataSpecifications.Add(edsnew);
-            }
-        }
     }
 }
 

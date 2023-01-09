@@ -22,34 +22,5 @@ namespace AdminShell
             foreach (var r in src.EmbeddedDataSpecifications)
                 EmbeddedDataSpecifications.Add(r);
         }
-
-        [XmlIgnore]
-        public EmbeddedDataSpecification IEC61360
-        {
-            get
-            {
-                foreach (EmbeddedDataSpecification eds in EmbeddedDataSpecifications)
-                    if ((eds.DataSpecificationContent?.DataSpecificationIEC61360 != null)
-                      || eds.DataSpecification?.Matches(DataSpecificationIEC61360.GetIdentifier()) == true)
-                        return eds;
-
-                return null;
-            }
-            set
-            {
-                var eds = IEC61360;
-                if (eds != null)
-                {
-                    // TODO: Remove all or just one?
-                    EmbeddedDataSpecifications.Remove(eds);
-
-                    EmbeddedDataSpecifications.Add(value);
-
-                    return;
-                }
-
-                EmbeddedDataSpecifications.Add(value);
-            }
-        }
     }
 }

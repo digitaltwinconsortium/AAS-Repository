@@ -7,13 +7,13 @@ namespace AdminShell
 
         public string ElementAbbreviation = "";
 
-        public SubmodelElementWrapper.AdequateElementEnum ElementEnum = SubmodelElementWrapper.AdequateElementEnum.Unknown;
+        public AdequateElementEnum ElementEnum = AdequateElementEnum.Unknown;
 
         public AasElementSelfDescription() { }
 
         public AasElementSelfDescription(
             string ElementName, string ElementAbbreviation,
-            SubmodelElementWrapper.AdequateElementEnum elementEnum = SubmodelElementWrapper.AdequateElementEnum.Unknown)
+            AdequateElementEnum elementEnum = AdequateElementEnum.Unknown)
         {
             this.ElementName = ElementName;
             this.ElementAbbreviation = ElementAbbreviation;

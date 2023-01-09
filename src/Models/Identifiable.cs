@@ -22,13 +22,5 @@ namespace AdminShell
         }
 
         public Identifier Id { get; set; } = new();
-
-        public string GetFriendlyName()
-        {
-            if (Id != null && Id.Value != "")
-                return Regex.Replace(Id.Value, @"[^a-zA-Z0-9\-_]", "_");
-
-            return Regex.Replace(IdShort, @"[^a-zA-Z0-9\-_]", "_");
-        }
     }
 }

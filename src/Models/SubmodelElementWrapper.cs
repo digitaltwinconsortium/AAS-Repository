@@ -35,28 +35,6 @@ namespace AdminShell
         [XmlIgnore]
         public static string MetaModelVersionFine = "RC02";
 
-        public enum AdequateElementEnum
-        {
-            Unknown = 0,
-            SubmodelElementCollection,
-            Property,
-            MultiLanguageProperty,
-            Range,
-            File,
-            Blob,
-            ReferenceElement,
-            RelationshipElement,
-            AnnotatedRelationshipElement,
-            Capability,
-            Operation,
-            BasicEvent,
-            Entity,
-            SubmodelElementList,
-            SubmodelElementStruct,
-            ModelReferenceElement,
-            GlobalReferenceElement
-        }
-
         public SubmodelElementWrapper() { }
 
         public SubmodelElementWrapper(SubmodelElement src, bool shallowCopy = false)

@@ -5,7 +5,7 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    public partial class ValueObject
+    public class ValueObject
     {
         [DataMember(Name="value")]
         [XmlElement(ElementName = "value")]

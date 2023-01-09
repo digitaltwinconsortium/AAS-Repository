@@ -6,7 +6,7 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    public partial class OperationResult
+    public class OperationResult
     {
         [DataMember(Name="executionResult")]
         [XmlElement(ElementName = "executionResult")]

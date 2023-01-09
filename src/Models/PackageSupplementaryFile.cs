@@ -9,19 +9,6 @@ namespace AdminShell
     /// </summary>
     public class PackageSupplementaryFile : Referable
     {
-        public enum LocationType
-        {
-            InPackage,
-            AddPending,
-            DeletePending
-        }
-
-        public enum SpecialHandlingType
-        {
-            None,
-            EmbedAsThumbnail
-        }
-
         public Uri Uri { get; set; }
 
         public string UseMimeType { get; set; }

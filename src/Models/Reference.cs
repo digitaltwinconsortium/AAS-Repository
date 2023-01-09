@@ -44,12 +44,12 @@ namespace AdminShell
             if (Count == 1)
             {
                 var k = Keys[0];
-                return k.Matches(other.IdType, other.Id, Key.MatchMode.Identification);
+                return k.Matches(other.IdType, other.Id, MatchMode.Identification);
             }
             return false;
         }
 
-        public bool Matches(Reference other, Key.MatchMode matchMode = Key.MatchMode.Strict)
+        public bool Matches(Reference other, MatchMode matchMode = MatchMode.Strict)
         {
             if (Keys == null || other == null || other.Keys == null || other.Count != Count)
                 return false;

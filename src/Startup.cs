@@ -1,6 +1,5 @@
 ﻿namespace AdminShell
 {
-    using AdminShell.Interfaces;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -11,7 +10,6 @@
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
     using System;
-    using System.IO;
 
     public class Startup
     {

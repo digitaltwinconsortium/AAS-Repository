@@ -5,7 +5,7 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    public partial class HasSemantics
+    public class HasSemantics
     {
         [DataMember(Name="SemanticId")]
         [XmlElement(ElementName = "SemanticId")]

@@ -5,7 +5,7 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    public partial class AdministrativeInformation
+    public class AdministrativeInformation
     {
         public AdministrativeInformation() { }
 

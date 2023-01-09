@@ -85,10 +85,5 @@ namespace AdminShell
             if (src.Definition != null)
                 Definition = new List<LangStringIEC61360>(src.Definition);
         }
-
-        public static Identifier GetIdentifier()
-        {
-            return new Identifier("http://admin-shell.io/DataSpecificationTemplates/DataSpecificationIEC61360/3/0");
-        }
     }
 }

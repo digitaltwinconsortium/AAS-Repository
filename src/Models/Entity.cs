@@ -51,18 +51,5 @@ namespace AdminShell
             if (ent.AssetRef != null)
                 AssetRef = new ModelReference(ent.AssetRef);
         }
-
-        public EntityTypeEnum GetEntityType()
-        {
-            EntityTypeEnum res = EntityTypeEnum.Undefined;
-
-            if (EntityType != null && EntityType.Trim().ToLower() == EntityTypeEnum.CoManagedEntity.ToString().ToLower())
-                res = EntityTypeEnum.CoManagedEntity;
-
-            if (EntityType != null && EntityType.Trim().ToLower() == EntityTypeEnum.SelfManagedEntity.ToString().ToLower())
-                res = EntityTypeEnum.SelfManagedEntity;
-
-            return res;
-        }
     }
 }

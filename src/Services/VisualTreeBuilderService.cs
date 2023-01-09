@@ -5,7 +5,6 @@ namespace AdminShell
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using static AAS_Repository.Pages.TreePage;
 
     public class VisualTreeBuilderService
@@ -23,13 +22,6 @@ namespace AdminShell
             {
                 signalNewDataMode = mode;
             }
-        }
-
-        public enum TreeUpdateMode
-        {
-            ValuesOnly = 0,     // same tree, only values changed
-            Rebuild,            // same tree, structure may change
-            RebuildAndCollapse  // build new tree, keep open nodes
         }
 
         public VisualTreeBuilderService(UANodesetViewer viewer, AASXPackageService packages )

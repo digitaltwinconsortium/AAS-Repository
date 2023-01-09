@@ -1,7 +1,6 @@
 ﻿
 namespace AdminShell
 {
-    using AdminShell.Interfaces;
     using System;
 
     public class UserService : IUserService

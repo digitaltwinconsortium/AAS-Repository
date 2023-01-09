@@ -1,5 +1,5 @@
 ﻿
-namespace AdminShell.Interfaces
+namespace AdminShell
 {
     public interface IUserService
     {

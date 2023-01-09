@@ -6,7 +6,7 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    public partial class HasExtensions
+    public class HasExtensions
     {
         [DataMember(Name="extensions")]
         [XmlArray(ElementName = "extensions")]

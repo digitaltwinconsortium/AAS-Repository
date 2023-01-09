@@ -7,7 +7,7 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    public partial class Permission
+    public class Permission
     {
         [Required]
         [DataMember(Name="kindOfPermission")]

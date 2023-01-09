@@ -32,38 +32,5 @@ namespace AdminShell
         [DataMember(Name = "HasDataSpecification")]
         [XmlElement(ElementName = "HasDataSpecification")]
         public HasDataSpecification HasDataSpecification { get; set; }
-
-        public void SetSMEParent()
-        {
-            if (SubmodelElements != null)
-            {
-                foreach (SubmodelElementWrapper smew in SubmodelElements)
-                {
-                    SetSMEParent(smew.SubmodelElement, this);
-                }
-            }
-        }
-
-        private void SetSMEParent(SubmodelElement sme, Referable parent)
-        {
-            if (sme == null)
-            {
-                return;
-            }
-
-            sme.Parent = parent;
-
-            // recurse if needed
-            if (sme is SubmodelElementCollection collection)
-            {
-                if (collection.Value != null)
-                {
-                    foreach (SubmodelElementWrapper smew in collection.Value)
-                    {
-                        SetSMEParent(smew.SubmodelElement, sme);
-                    }
-                }
-            }
-        }
     }
 }

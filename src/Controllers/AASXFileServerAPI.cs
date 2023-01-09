@@ -44,7 +44,7 @@ namespace AdminShell
             {
                 _packageService.Delete(packageId);
 
-                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
+                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
             }
             else
             {
@@ -164,7 +164,7 @@ namespace AdminShell
 
             _packageService.Save(fileName, stream.ToArray());
 
-            VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
+            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
 
             var packageId = _packageService.GetPackageID(fileName);
 
@@ -196,7 +196,7 @@ namespace AdminShell
             _packageService.Packages.Remove(Encoding.UTF8.GetString(Convert.FromBase64String(packageId)));
             _packageService.Save(fileName, stream.ToArray());
 
-            VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
+            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
 
             return NoContent();
         }

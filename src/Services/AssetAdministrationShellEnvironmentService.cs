@@ -84,7 +84,7 @@ namespace AdminShell
             if (aas != null)
             {
                 aas.AssetInformation = body;
-                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
+                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
             }
         }
 
@@ -100,7 +100,7 @@ namespace AdminShell
                 _packageService.Packages[aasIdentifier].AssetAdministrationShells.Remove(body);
                 _packageService.Packages[aasIdentifier].AssetAdministrationShells.Add(body);
 
-                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
+                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
             }
             else
             {
@@ -185,7 +185,7 @@ namespace AdminShell
             env.AssetAdministrationShells.Add(body);
             _packageService.SaveAs(body.Identification, env);
 
-            VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
+            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
 
             return body;
         }
@@ -279,7 +279,7 @@ namespace AdminShell
                     aas.Submodels.Remove(submodelRefs.First());
                     _packageService.Save(aasIdentifier);
 
-                    VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
+                    VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
                 }
                 else
                 {
@@ -296,14 +296,14 @@ namespace AdminShell
                 _packageService.Packages[key].AssetAdministrationShells.Remove(aas);
                 if (_packageService.Packages[key].AssetAdministrationShells.Count == 0)
                 {
-                    _packageService.Delete(key);             //TODO: what about Submodels?
+                    _packageService.Delete(key); // TODO: what about Submodels?
                 }
                 else
                 {
                     _packageService.Save(key);
                 }
 
-                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
+                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
             }
             else
             {
@@ -340,10 +340,6 @@ namespace AdminShell
             return null;
         }
 
-        /// <summary>
-        /// Retrieves all AASs from the server
-        /// </summary>
-        /// <returns></returns>
         public List<AssetAdministrationShell> GetAllAssetAdministrationShells(List<string> assetIds = null, string idShort = null)
         {
             var output = new List<AssetAdministrationShell>();
@@ -456,7 +452,7 @@ namespace AdminShell
                 _packageService.Packages[key].ConceptDescriptions.Insert(cdIndex, body);
                 _packageService.Save(key);
 
-                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.ValuesOnly);
+                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
             }
         }
 
@@ -478,7 +474,7 @@ namespace AdminShell
             env.ConceptDescriptions.Add(body);
             _packageService.SaveAs(body.Id, env);
 
-            VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
+            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
 
             return body;
         }
@@ -491,7 +487,7 @@ namespace AdminShell
                 _packageService.Packages[key].ConceptDescriptions.Remove(conceptDescription);
                 _packageService.Save(key);
 
-                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
+                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
             }
             else
             {
@@ -530,14 +526,6 @@ namespace AdminShell
             return false;
         }
 
-        /// <summary>
-        /// Retrieves all concept descriptions
-        /// </summary>
-        /// <param name="idShort"></param>
-        /// <param name="reqIsCaseOf"></param>
-        /// <param name="reqDataSpecificationRef"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public List<ConceptDescription> GetAllConceptDescriptions(string idShort = null, Reference reqIsCaseOf = null, Reference reqDataSpecificationRef = null)
         {
             var output = new List<ConceptDescription>();
@@ -657,7 +645,7 @@ namespace AdminShell
                     }
                 }
 
-                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
+                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
             }
         }
 
@@ -675,7 +663,7 @@ namespace AdminShell
                 _packageService.Packages[key].Submodels.Add(body);
                 _packageService.Save(key);
 
-                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
+                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
             }
         }
 
@@ -733,7 +721,7 @@ namespace AdminShell
                     body.Parent = annotatedRelationshipElement;
                 }
 
-                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
+                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
 
                 return body;
             }
@@ -761,7 +749,7 @@ namespace AdminShell
 
                     body.Parent = submodel;
 
-                    VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
+                    VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
 
                     return body;
                 }
@@ -788,8 +776,8 @@ namespace AdminShell
             AssetAdministrationShellEnvironment env = new();
             env.Submodels.Add(body);
             _packageService.Packages.Add(body.Id, env);
- 
-            VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
+
+            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
 
             return body;
         }
@@ -897,7 +885,7 @@ namespace AdminShell
 
                 _packageService.Save(key);
 
-                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
+                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
             }
             else
             {
@@ -1096,7 +1084,7 @@ namespace AdminShell
                     parentSubmodel.SubmodelElements.Remove(new SubmodelElementWrapper(submodelElement));
                 }
 
-                VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.Rebuild);
+                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
             }
         }
 
@@ -1141,7 +1129,7 @@ namespace AdminShell
                     file.Value = FormatFileName(targetFile);
                     _packageService.Save(key);
 
-                    VisualTreeBuilderService.SignalNewData(VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse);
+                    VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
                 }
                 else
                 {

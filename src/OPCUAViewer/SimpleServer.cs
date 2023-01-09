@@ -5,7 +5,7 @@ namespace AdminShell
     using Opc.Ua.Server;
     using System.Collections.Generic;
 
-    public partial class SimpleServer : StandardServer
+    public class SimpleServer : StandardServer
     {
         protected override MasterNodeManager CreateMasterNodeManager(IServerInternal server, ApplicationConfiguration configuration)
         {

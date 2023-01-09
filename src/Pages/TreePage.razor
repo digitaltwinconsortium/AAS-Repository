@@ -121,27 +121,27 @@
         VisualTreeBuilderService.NewDataAvailable -= NewData;
     }
 
-    VisualTreeBuilderService.TreeUpdateMode CurrentTreeUpdateMode = VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse;
+    TreeUpdateMode CurrentTreeUpdateMode = TreeUpdateMode.RebuildAndCollapse;
 
     private void NewData(object source, EventArgs args)
     {
-        if (CurrentTreeUpdateMode == VisualTreeBuilderService.TreeUpdateMode.ValuesOnly)
+        if (CurrentTreeUpdateMode == TreeUpdateMode.ValuesOnly)
         {
-            CurrentTreeUpdateMode = (VisualTreeBuilderService.TreeUpdateMode)source;
+            CurrentTreeUpdateMode = (TreeUpdateMode)source;
             InvokeAsync(() => this.StateHasChanged());
         }
     }
 
     string UpdateVisibleTree(TreeNodeData selectedNode)
     {
-        if (CurrentTreeUpdateMode == VisualTreeBuilderService.TreeUpdateMode.ValuesOnly)
+        if (CurrentTreeUpdateMode == TreeUpdateMode.ValuesOnly)
         {
             return string.Empty;
         }
 
         Nodes = _treeBuilder.BuildTree();
 
-        if (CurrentTreeUpdateMode == VisualTreeBuilderService.TreeUpdateMode.RebuildAndCollapse)
+        if (CurrentTreeUpdateMode == TreeUpdateMode.RebuildAndCollapse)
         {
             ExpandedNodes.Clear();
             selectedNode = null;
@@ -561,6 +561,41 @@
         return (ret);
     }
 
+    AssetAdministrationShell FindAAS(AssetAdministrationShellEnvironment env, Identifier id)
+    {
+        if (id == null)
+        {
+            return null;
+        }
+
+        foreach (var aas in env.AssetAdministrationShells)
+        {
+            if (aas.Id != null && aas.Id.IsEqual(id))
+            {
+                return aas;
+            }
+        }
+
+        return null;
+    }
+
+    public EntityTypeEnum GetEntityType(Entity e)
+    {
+        EntityTypeEnum res = EntityTypeEnum.Undefined;
+
+        if (e.EntityType != null && e.EntityType.Trim().ToLower() == EntityTypeEnum.CoManagedEntity.ToString().ToLower())
+        {
+            res = EntityTypeEnum.CoManagedEntity;
+        }
+
+        if (e.EntityType != null && e.EntityType.Trim().ToLower() == EntityTypeEnum.SelfManagedEntity.ToString().ToLower())
+        {
+            res = EntityTypeEnum.SelfManagedEntity;
+        }
+
+        return res;
+    }
+
     string ViewNodeDetails(TreeNodeData item, int line, int col)
     {
         if (item == null)
@@ -582,7 +617,7 @@
             ret = string.Empty;
             var aas = tag as AssetAdministrationShell;
 
-            var asset = _packageService.Packages[item.EnvKey].FindAAS(aas.Id);
+            var asset = FindAAS(_packageService.Packages[item.EnvKey], aas.Id);
 
             switch (line)
             {
@@ -723,7 +758,7 @@
                     break;
                 case 2:
                     ret = string.Empty;
-                    if (e.GetEntityType() == EntityTypeEnum.SelfManagedEntity)
+                    if (GetEntityType(e) == EntityTypeEnum.SelfManagedEntity)
                     {
                         if (e.AssetRef != null)
                         {
@@ -1064,10 +1099,10 @@
             return ret;
         }
 
-        var cd = _packageService.Packages[item.EnvKey].FindConceptDescription(se.SemanticId.Keys);
+        var cd = FindConceptDescription(_packageService.Packages[item.EnvKey], se.SemanticId.Keys);
         if (cd != null)
         {
-            var iec = cd.IEC61360Content;
+            var iec = cd.EmbeddedDataSpecifications?[0].DataSpecificationContent.DataSpecificationIEC61360;
             if (iec != null)
             {
                 ret = "Unit";
@@ -1081,5 +1116,35 @@
         }
 
         return ret;
+    }
+
+    public ConceptDescription FindConceptDescription(AssetAdministrationShellEnvironment env, List<Key> keys)
+    {
+        if (keys == null)
+        {
+            return null;
+        }
+
+        // can only refs with 1 key
+        if (keys.Count != 1)
+        {
+            return null;
+        }
+
+        var key = keys[0];
+        if (key.Type.ToString().ToLower().Trim() != "conceptdescription")
+        {
+            return null;
+        }
+
+        foreach (var cd in env.ConceptDescriptions)
+        {
+            if (cd.Id.Value.ToLower().Trim() == key.Value.ToLower().Trim())
+            {
+                return cd;
+            }
+        }
+
+        return null;
     }
 }

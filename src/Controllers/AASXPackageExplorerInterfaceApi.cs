@@ -113,12 +113,32 @@ namespace AdminShell
                     {
                         foreach (SubmodelReference smref in aas.Submodels)
                         {
-                            var sm = package.Value.FindSubmodel(smref);
-                            if (sm != null && sm.IdShort != null && sm.IdShort.Trim().ToLower() == smIdShort.Trim().ToLower())
+                            // can only refs with 1 key
+                            if (smref.Count != 1)
                             {
-                                JsonSerializerSettings settings = new JsonSerializerSettings();
-                                settings.ContractResolver = new AdminShellConverters.AdaptiveFilterContractResolver(true, true);
-                                return new JsonResult(sm, settings) { StatusCode = (int)HttpStatusCode.OK };
+                                return null;
+                            }
+
+                            var key = smref.Keys[0];
+                            if (key.Type.ToString().ToLower().Trim() != "submodel")
+                            {
+                                return null;
+                            }
+
+                            foreach (var sm in package.Value.Submodels)
+                            {
+                                if ((sm.Id.Value.ToLower().Trim() == key.Value.ToLower().Trim())
+                                && (sm.IdShort != null)
+                                && (sm.IdShort.Trim().ToLower() == smIdShort.Trim().ToLower()))
+                                {
+                                    JsonSerializerSettings settings = new JsonSerializerSettings();
+                                    settings.ContractResolver = new AdminShellConverters.AdaptiveFilterContractResolver(true, true);
+
+                                    return new JsonResult(sm, settings)
+                                    {
+                                        StatusCode = (int)HttpStatusCode.OK
+                                    };
+                                }
                             }
                         }
                     }

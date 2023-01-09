@@ -14,7 +14,7 @@ namespace AdminShell
     using System.Text;
 
     [ApiController]
-    public partial class AssetAdministrationShellEnvironmentAPIController : ControllerBase
+    public class AssetAdministrationShellEnvironmentAPIController : ControllerBase
     {
         private readonly ILogger _logger;
         private readonly AssetAdministrationShellEnvironmentService _aasEnvService;
@@ -610,7 +610,9 @@ namespace AdminShell
         {
             var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
             var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
-            //TODO: implement
+
+            // TODO: implement
+
             return StatusCode(200, default(OperationResult));
         }
 
