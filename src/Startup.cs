@@ -30,8 +30,6 @@
 
             services.AddServerSideBlazor();
 
-            services.AddScoped<IUserService, UserService>();
-
             services.AddScoped<AssetAdministrationShellEnvironmentService>();
 
             services.AddSingleton<CarbonDataService>();

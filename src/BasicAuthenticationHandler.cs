@@ -15,54 +15,32 @@ namespace AdminShell
 
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="userService"></param>
-        /// <param name="options"></param>
-        /// <param name="logger"></param>
-        /// <param name="encoder"></param>
-        /// <param name="clock"></param>
         public BasicAuthenticationHandler(
-            IUserService userService,
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
             ISystemClock clock)
             : base(options, logger, encoder, clock)
         {
-            _userService = userService;
         }
 
-        /// <summary>
-        /// Auth handler
-        /// </summary>
-        /// <returns></returns>
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            string username = null;
-            try
+            if (StringValues.IsNullOrEmpty(Request.Headers["Authorization"]))
             {
-                if (StringValues.IsNullOrEmpty(Request.Headers["Authorization"]))
-                {
-                    throw new ArgumentException("Authentication header missing in request!");
-                }
-
-                AuthenticationHeaderValue authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
-                string[] credentials = Encoding.UTF8.GetString(Convert.FromBase64String(authHeader.Parameter)).Split(':');
-                username = credentials.FirstOrDefault();
-                string password = credentials.LastOrDefault();
-
-                if (!_userService.ValidateCredentials(username, password))
-                {
-                    throw new ArgumentException("Invalid credentials!");
-                }
-            }
-            catch (Exception ex)
-            {
-                return Task.FromResult(AuthenticateResult.Fail($"Authentication failed: {ex.Message}"));
+                return Task.FromResult(AuthenticateResult.Fail($"Authentication failed: Authentication header missing in request!"));
             }
 
+            AuthenticationHeaderValue authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+            string[] credentials = Encoding.UTF8.GetString(Convert.FromBase64String(authHeader.Parameter)).Split(':');
+            string username = credentials.FirstOrDefault();
+            string password = credentials.LastOrDefault();
+
+            if (!ValidateCredentials(username, password))
+            {
+                return Task.FromResult(AuthenticateResult.Fail($"Authentication failed: Invalid credentials!"));
+            }
+            
             Claim[] claims = new[] {
                 new Claim(ClaimTypes.Name, username)
             };
@@ -74,6 +52,21 @@ namespace AdminShell
             return Task.FromResult(AuthenticateResult.Success(ticket));
         }
 
-        private readonly IUserService _userService;
+        public bool ValidateCredentials(string username, string password)
+        {
+#if DEBUG
+            return true;
+#else
+            string passwordFromEnvironment = Environment.GetEnvironmentVariable("ServicePassword");
+            if (string.IsNullOrEmpty(passwordFromEnvironment))
+            {
+                return false;
+            }
+            else
+            {
+                return username.Equals("admin") && password.Equals(passwordFromEnvironment);
+            }
+#endif
+        }
     }
 }
