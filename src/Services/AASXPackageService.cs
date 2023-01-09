@@ -335,7 +335,7 @@ namespace AdminShell
                 throw new Exception("Spec part missing in package!");
             }
 
-            // try find an existing part for that file ..
+            // try to find an existing part for that file
             PackagePart filePart = null;
             Uri targetUri = PackUriHelper.CreatePartUri(new Uri(targetFile, UriKind.RelativeOrAbsolute));
             relationships = specPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-suppl");

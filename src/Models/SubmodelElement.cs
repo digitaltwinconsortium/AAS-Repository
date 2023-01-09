@@ -16,15 +16,16 @@ namespace AdminShell
 
         [DataMember(Name = "hasDataSpecification")]
         [XmlElement(ElementName = "hasDataSpecification")]
-        public HasDataSpecification HasDataSpecification { get; set; }
+        public HasDataSpecification HasDataSpecification { get; set; } = new();
 
         [DataMember(Name = "semanticId")]
         [XmlElement(ElementName = "semanticId")]
         public Reference SemanticId { get; set; } = new();
 
-        [DataMember(Name = "qualifiers")]
-        [XmlArray(ElementName = "qualifiers")]
-        public List<Qualifier> Qualifiers { get; set; }
+        [DataMember(Name = "qualifier")]
+        [XmlArray(ElementName = "qualifier")]
+        [XmlArrayItem(ElementName = "qualifier")]
+        public List<Qualifier> Qualifiers { get; set; } = new();
 
         [DataMember(Name = "kind")]
         [XmlElement(ElementName = "kind")]
@@ -46,13 +47,9 @@ namespace AdminShell
 
             Kind = src.Kind;
 
-            if (src.Qualifiers != null)
+            foreach (var q in src.Qualifiers)
             {
-                if (Qualifiers == null)
-                    Qualifiers = new List<Qualifier>();
-
-                foreach (var q in src.Qualifiers)
-                    Qualifiers.Add(new Qualifier(q));
+                Qualifiers.Add(new Qualifier(q));
             }
         }
     }

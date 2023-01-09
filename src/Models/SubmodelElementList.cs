@@ -9,11 +9,11 @@ namespace AdminShell
     {
         [DataMember(Name = "semanticIdValues")]
         [XmlElement(ElementName = "semanticIdValues")]
-        public Reference SemanticIdValues { get; set; }
+        public Reference SemanticIdValues { get; set; } = new();
 
         [DataMember(Name = "submodelElementTypeValues")]
         [XmlElement(ElementName = "submodelElementTypeValues")]
-        public ModelType SubmodelElementTypeValues { get; set; }
+        public ModelType SubmodelElementTypeValues { get; set; } = new();
 
         [DataMember(Name = "valueTypeValues")]
         [XmlElement(ElementName = "valueTypeValues")]
@@ -25,7 +25,7 @@ namespace AdminShell
 
         [DataMember(Name = "semanticIdListElement")]
         [XmlElement(ElementName = "semanticIdListElement")]
-        public SemanticId SemanticIdListElement { get; set; }
+        public SemanticId SemanticIdListElement { get; set; } = new();
 
         [DataMember(Name = "typeValueListElement")]
         [XmlElement(ElementName = "typeValueListElement")]

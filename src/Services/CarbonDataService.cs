@@ -30,8 +30,19 @@ namespace AdminShell
         private static float _geCO2Footprint = 0.0f;
         private static List<SubmodelElement> _dataPoints = new();
 
-        public CarbonDataService()
+        public CarbonDataService(AASXPackageService packageService)
         {
+            foreach (AssetAdministrationShellEnvironment env in packageService.Packages.Values)
+            {
+                foreach (Submodel sm in env.Submodels)
+                {
+                    foreach (SubmodelElementWrapper smew in sm.SubmodelElements)
+                    {
+                        CheckForADXDataPointInSME(smew.SubmodelElement);
+                    }
+                }
+            }
+
             string adxClusterName = Environment.GetEnvironmentVariable("ADX_HOST");
             string adxDBName = Environment.GetEnvironmentVariable("ADX_DB");
             string aadAppKey = Environment.GetEnvironmentVariable("AAD_APPLICATION_KEY");
@@ -71,6 +82,31 @@ namespace AdminShell
             }
         }
 
+        protected void CheckForADXDataPointInSME(SubmodelElement sme)
+        {
+            // recurse if needed
+            if (sme is SubmodelElementCollection collection)
+            {
+                if (collection.Value != null)
+                {
+                    foreach (SubmodelElementWrapper smew in collection.Value)
+                    {
+                        CheckForADXDataPointInSME(smew.SubmodelElement);
+                    }
+                }
+            }
+
+            foreach (Qualifier q in sme.Qualifiers)
+            {
+                if ((q.Type == "ADX") && !_dataPoints.Contains(sme))
+                {
+                    _dataPoints.Add(sme);
+                    break;
+                }
+            }
+        }
+
+
         private static void UpdateSMEValues()
         {
             foreach (SubmodelElement sme in _dataPoints)
@@ -90,58 +126,63 @@ namespace AdminShell
         {
             try
             {
-                if (_values.ContainsKey(sme.IdShort))
+                foreach (Qualifier q in sme.Qualifiers)
                 {
-                    // lookup
-                    return (double)_values[sme.IdShort];
-                }
-                else
-                {
-                    // calculate our other values
-                    if (sme.IdShort == "ActiveEnergy1minTotal" && _values.ContainsKey("ActiveEnergy") && _values1MinuteAgo.ContainsKey("ActiveEnergy"))
+                    if (q.Type == "ADX")
                     {
-                        double activeEnergyNow = (double)_values["ActiveEnergy"];
-                        double activeEnergy1MinuteAgo = (double)_values1MinuteAgo["ActiveEnergy"];
-                        return activeEnergyNow - activeEnergy1MinuteAgo;
-                    }
-
-                    if (sme.IdShort == "Co2EquivalentTotal" && _values.ContainsKey("ActiveEnergy"))
-                    {
-                        // Active Energy is in Wh
-                        // Carbon Intensity is in gCo2/KWh
-                        // Therefore, to get gCO2/Wh, we need to divide by 1000
-                        if (_currentIntensity == null ||
-                            _currentIntensity.data.Length == 0 ||
-                            _currentIntensity.data[0] == null ||
-                            _currentIntensity.data[0].intensity == null)
+                        if (_values.ContainsKey(q.Value))
                         {
-                            // the German carbon intensity average is 515gCO2/kWh
-                            return (double)_values["ActiveEnergy"] * 515 / 1000;
+                            return (double)_values[q.Value];
                         }
                         else
                         {
-                            return (double)_values["ActiveEnergy"] * _currentIntensity.data[0].intensity.actual / 1000;
+                            // calculate our other values
+                            if (q.Value == "ActiveEnergy1minTotal" && _values.ContainsKey("ActiveEnergy") && _values1MinuteAgo.ContainsKey("ActiveEnergy"))
+                            {
+                                double activeEnergyNow = (double)_values["ActiveEnergy"];
+                                double activeEnergy1MinuteAgo = (double)_values1MinuteAgo["ActiveEnergy"];
+                                return activeEnergyNow - activeEnergy1MinuteAgo;
+                            }
+
+                            if (q.Value == "Co2EquivalentTotal" && _values.ContainsKey("ActiveEnergy"))
+                            {
+                                // Active Energy is in Wh
+                                // Carbon Intensity is in gCo2/KWh
+                                // Therefore, to get gCO2/Wh, we need to divide by 1000
+                                if (_currentIntensity == null ||
+                                    _currentIntensity.data.Length == 0 ||
+                                    _currentIntensity.data[0] == null ||
+                                    _currentIntensity.data[0].intensity == null)
+                                {
+                                    // the German carbon intensity average is 515gCO2/kWh
+                                    return (double)_values["ActiveEnergy"] * 515 / 1000;
+                                }
+                                else
+                                {
+                                    return (double)_values["ActiveEnergy"] * _currentIntensity.data[0].intensity.actual / 1000;
+                                }
+                            }
+
+                            if (q.Value == "Co2Equivalent1minTotal" && _values.ContainsKey("ActiveEnergy") && _values1MinuteAgo.ContainsKey("ActiveEnergy"))
+                            {
+                                if (_currentIntensity == null ||
+                                    _currentIntensity.data.Length == 0 ||
+                                    _currentIntensity.data[0] == null ||
+                                    _currentIntensity.data[0].intensity == null)
+                                {
+                                    return ((double)_values["ActiveEnergy"] - (double)_values1MinuteAgo["ActiveEnergy"]) * 515 / 1000 + _geCO2Footprint;
+                                }
+                                else
+                                {
+                                    return ((double)_values["ActiveEnergy"] - (double)_values1MinuteAgo["ActiveEnergy"]) * _currentIntensity.data[0].intensity.actual / 1000 + _geCO2Footprint;
+                                }
+                            }
                         }
                     }
-
-                    if (sme.IdShort == "Co2Equivalent1minTotal" && _values.ContainsKey("ActiveEnergy") && _values1MinuteAgo.ContainsKey("ActiveEnergy"))
-                    {
-                        if (_currentIntensity == null ||
-                            _currentIntensity.data.Length == 0 ||
-                            _currentIntensity.data[0] == null ||
-                            _currentIntensity.data[0].intensity == null)
-                        {
-                            return ((double)_values["ActiveEnergy"] - (double)_values1MinuteAgo["ActiveEnergy"]) * 515 / 1000 + _geCO2Footprint;
-                        }
-                        else
-                        {
-                            return ((double)_values["ActiveEnergy"] - (double)_values1MinuteAgo["ActiveEnergy"]) * _currentIntensity.data[0].intensity.actual / 1000 + _geCO2Footprint;
-                        }
-                    }
-
-                    // if we can't find it, simply return 0
-                    return 0.0;
                 }
+
+                // if we can't find it, simply return 0
+                return 0.0;
             }
             catch (Exception ex)
             {
@@ -164,7 +205,7 @@ namespace AdminShell
                 HttpResponseMessage response = client.GetAsync(path).GetAwaiter().GetResult();
                 if (response.IsSuccessStatusCode)
                 {
-                    var json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    string json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
                     using (TextReader reader = new StringReader(json))
                     {
@@ -193,8 +234,9 @@ namespace AdminShell
 
                 return 0.0f;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine("Accessing other AAS failed with: " + ex.Message);
                 return 0.0f;
             }
         }

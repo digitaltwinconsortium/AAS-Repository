@@ -4,7 +4,6 @@ namespace AdminShell
     using Aml.Engine.CAEX;
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using static AAS_Repository.Pages.TreePage;
 
     public class VisualTreeBuilderService
@@ -14,16 +13,6 @@ namespace AdminShell
 
         public static event EventHandler NewDataAvailable;
 
-        public class NewDataAvailableArgs : EventArgs
-        {
-            public TreeUpdateMode signalNewDataMode;
-
-            public NewDataAvailableArgs(TreeUpdateMode mode = TreeUpdateMode.Rebuild)
-            {
-                signalNewDataMode = mode;
-            }
-        }
-
         public VisualTreeBuilderService(UANodesetViewer viewer, AASXPackageService packages )
         {
             _viewer = viewer;
@@ -32,7 +21,7 @@ namespace AdminShell
 
         public static void SignalNewData(TreeUpdateMode mode)
         {
-            NewDataAvailable?.Invoke(null, new NewDataAvailableArgs(mode));
+            NewDataAvailable?.Invoke(mode, EventArgs.Empty);
         }
 
         public List<TreeNodeData> BuildTree()

@@ -40,51 +40,66 @@ namespace AdminShell
         public SubmodelElementWrapper(SubmodelElement src, bool shallowCopy = false)
         {
             if (src is SubmodelElementCollection)
-                SubmodelElement = new SubmodelElementCollection(
-                    src as SubmodelElementCollection, shallowCopy: shallowCopy);
+                SubmodelElement = new SubmodelElementCollection(src as SubmodelElementCollection, shallowCopy);
+            
             if (src is Property)
                 SubmodelElement = new Property(src as Property);
+            
             if (src is MultiLanguageProperty)
                 SubmodelElement = new MultiLanguageProperty(src as MultiLanguageProperty);
+            
             if (src is Range)
                 SubmodelElement = new Range(src as Range);
+            
             if (src is File)
                 SubmodelElement = new File(src as File);
+            
             if (src is Blob)
                 SubmodelElement = new Blob(src as Blob);
+            
             if (src is ReferenceElement)
                 SubmodelElement = new ReferenceElement(src as ReferenceElement);
+            
             if (src is RelationshipElement)
                 SubmodelElement = new RelationshipElement(src as RelationshipElement);
+            
             if (src is AnnotatedRelationshipElement)
                 SubmodelElement = new AnnotatedRelationshipElement(src as AnnotatedRelationshipElement);
+            
             if (src is Capability)
                 SubmodelElement = new Capability(src as Capability);
+            
             if (src is Operation)
                 SubmodelElement = new Operation(src as Operation);
+            
             if (src is BasicEvent)
                 SubmodelElement = new BasicEvent(src as BasicEvent);
+            
             if (src is Entity)
                 SubmodelElement = new Entity(src as Entity);
 
             if (src is SubmodelElementList)
                 SubmodelElement = new SubmodelElementList(src as SubmodelElementList);
-            else if (src is SubmodelElementStruct)
+            
+            if (src is SubmodelElementStruct)
                 SubmodelElement = new SubmodelElementStruct(src as SubmodelElementStruct);
-            else if (src is SubmodelElementCollection)
-                SubmodelElement = new SubmodelElementCollection(
-                    src as SubmodelElementCollection, shallowCopy: shallowCopy);
+            
+            if (src is SubmodelElementCollection)
+                SubmodelElement = new SubmodelElementCollection(src as SubmodelElementCollection, shallowCopy);
 
             if (src is AnnotatedRelationshipElement)
                 SubmodelElement = new AnnotatedRelationshipElement(src as AnnotatedRelationshipElement);
-            else if (src is RelationshipElement)
+            
+            if (src is RelationshipElement)
                 SubmodelElement = new RelationshipElement(src as RelationshipElement);
 
             if (src is ModelReferenceElement)
                 SubmodelElement = new ModelReferenceElement(src as ModelReferenceElement);
-            else if (src is GlobalReferenceElement)
+            
+            if (src is GlobalReferenceElement)
                 SubmodelElement = new GlobalReferenceElement(src as GlobalReferenceElement);
-            else if (src is ReferenceElement)
+            
+            if (src is ReferenceElement)
                 SubmodelElement = new ReferenceElement(src as ReferenceElement);
         }
     }

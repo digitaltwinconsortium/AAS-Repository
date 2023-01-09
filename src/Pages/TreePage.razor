@@ -52,7 +52,7 @@
                 }
 
                 bool externalLink = false;
-                string link = getLink(SelectedNode, out externalLink);
+                string link = GetLink(SelectedNode, out externalLink);
                 if (SelectedNode != null && link != string.Empty)
                 {
                     <a href="@link" target="_blank">@link</a><br>
@@ -74,7 +74,7 @@
                 }
                 if (SelectedNode != null && (SelectedNode.Tag is AssetAdministrationShell || SelectedNode.Tag is File))
                 {
-                    string detailsImage = createDetailsImage(SelectedNode);
+                    string detailsImage = CreateDetailsImage(SelectedNode);
                     if (detailsImage != string.Empty)
                     {
                         <br />
@@ -127,7 +127,7 @@
     {
         if (CurrentTreeUpdateMode == TreeUpdateMode.ValuesOnly)
         {
-            CurrentTreeUpdateMode = (TreeUpdateMode)source;
+            CurrentTreeUpdateMode = (TreeUpdateMode) source;
             InvokeAsync(() => this.StateHasChanged());
         }
     }
@@ -147,79 +147,13 @@
             selectedNode = null;
         }
 
-        CurrentTreeUpdateMode = 0;
+        CurrentTreeUpdateMode = TreeUpdateMode.ValuesOnly;
         SelectedNode = selectedNode;
 
         return string.Empty;
     }
 
-    void updateNode(TreeNodeData i)
-    {
-        var clist = i.Children as List<TreeNodeData>;
-        List<string> listIdshort = new List<string>();
-        bool done = false;
-        if (!done && i.Tag is Submodel sm)
-        {
-            foreach (var smew1 in sm.SubmodelElements)
-            {
-                listIdshort.Add(smew1.SubmodelElement.IdShort);
-            }
-            done = true;
-        }
-        if (!done && i.Tag is SubmodelElementCollection smec)
-        {
-            foreach (var smew2 in smec.Value)
-            {
-                listIdshort.Add(smew2.SubmodelElement.IdShort);
-            }
-            done = true;
-        }
-        if (!done && i.Tag is SubmodelElement sme)
-        {
-            listIdshort.Add(sme.IdShort);
-            done = true;
-        }
-        // check if child name exists in data children idshorts, if not delete
-        if (done)
-        {
-            List<TreeNodeData> toDelete = new List<TreeNodeData>();
-            if (clist != null)
-            {
-                foreach (var c in clist)
-                {
-                    if (!listIdshort.Contains(c.Text))
-                    {
-                        toDelete.Add(c);
-                    }
-                }
-            }
-            else
-            {
-                if (!listIdshort.Contains(i.Text))
-                {
-                    toDelete.Add(i);
-                }
-            }
-            foreach (var c in toDelete)
-            {
-                var parent = c.Parent as TreeNodeData;
-                if (parent != null)
-                {
-                    (parent.Children as List<TreeNodeData>).Remove(c);
-                }
-            }
-        }
-        // check if data children idshorts exist in child names, if not insert
-        if (clist != null)
-        {
-            foreach (var c in clist)
-            {
-                updateNode(c);
-            }
-        }
-    }
-
-    string createDetailsImage(TreeNodeData item)
+    string CreateDetailsImage(TreeNodeData item)
     {
         if (item == null)
         {
@@ -269,32 +203,7 @@
         return string.Empty;
     }
 
-    bool hasDownloadFile(TreeNodeData item)
-    {
-        if (item == null)
-        {
-            return false;
-        }
-
-        object o = item.Tag;
-
-        if (o is File)
-        {
-
-            var f = o as File;
-
-            // Test for /aasx/
-            string[] split = f.Value.Split(new Char[] { '/' });
-            if (split[1].ToLower() == "aasx")
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    string getLink(TreeNodeData item, out bool external)
+    string GetLink(TreeNodeData item, out bool external)
     {
         external = false;
 
@@ -411,24 +320,6 @@
         return (ret);
     }
 
-    string ViewTimeStamp(TreeNodeData item)
-    {
-        if (item == null)
-        {
-            return string.Empty;
-        }
-
-        string ret = string.Empty;
-
-        object o = item.Tag;
-
-        if (o is Referable r)
-            // ret += " (" + r.TimeStamp.Ticks + ") ";
-            ret += " (" + r.TimeStamp.ToString("yy-MM-dd HH:mm:ss.fff") + ") ";
-
-        return ret;
-    }
-
     string ViewNodeID(TreeNodeData item)
     {
         if (item == null)
@@ -499,10 +390,6 @@
         if (o is Submodel)
         {
             var sm = o as Submodel;
-            if (sm.Qualifiers != null && sm.Qualifiers.Count > 0)
-            {
-                ret += " @QUALIFIERS";
-            }
         }
         if (o is SubmodelElementCollection)
         {
@@ -521,19 +408,11 @@
                 {
                     ret = " = " + prop.Value;
                 }
-                if (prop.Qualifiers != null && prop.Qualifiers.Count > 0)
-                {
-                    ret += " @QUALIFIERS";
-                }
             }
             if (o is File)
             {
                 var f = o as File;
                 ret = " = " + f.Value;
-                if (f.Qualifiers != null && f.Qualifiers.Count > 0)
-                {
-                    ret += " @QUALIFIERS";
-                }
             }
         }
         if (o is MultiLanguageProperty)
@@ -544,10 +423,6 @@
             for (int i = 0; i < ls.Count; i++)
             {
                 ret += ls[i].Language + " ";
-            }
-            if (mlp.Qualifiers != null && mlp.Qualifiers.Count > 0)
-            {
-                ret += " @QUALIFIERS";
             }
         }
         return (ret);

@@ -41,3 +41,7 @@ And then point your browser to http://localhost.
 1. AAD_APPLICATION_ID: Azure Active Directory application ID (GUID, set this up via an app registration in the Azure Portal)
 1. AAD_APPLICATION_KEY: Azure Active Directory application key (with data owner access to ADX cluster and database, create a secret within your AAD app registration)
 1. ADX_QUERY_INTERVAL: The query interval for the ADX database
+1. WATTTIME_USER: WattTime service username
+1. WATTTIME_PASSWORD: WattTime service password
+1. WATTTIME_LATITUDE: WattTime location to query
+1. WATTTIME_LONGITUDE: WattTime location to query

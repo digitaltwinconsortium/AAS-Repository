@@ -2,7 +2,6 @@
 namespace AdminShell
 {
     using System.Runtime.Serialization;
-    using System.Text.RegularExpressions;
     using System.Xml.Serialization;
 
     // V3.0 made Id a simple string
