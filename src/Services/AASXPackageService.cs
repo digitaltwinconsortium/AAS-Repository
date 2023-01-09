@@ -6,6 +6,7 @@ namespace AdminShell
     using System.IO;
     using System.IO.Packaging;
     using System.Net.Mime;
+    using System.Text.RegularExpressions;
     using System.Xml;
     using System.Xml.Serialization;
 
@@ -83,7 +84,7 @@ namespace AdminShell
 
         private void Load(string filename)
         {
-            Package package = Package.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
+            Package package = Package.Open(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
             // verify all the parts exist
 
@@ -158,6 +159,8 @@ namespace AdminShell
             Packages.Add(filename, aasenv);
 
             specStream.Close();
+
+            package.Close();
         }
 
         private string TryReadXmlFirstElementNamespaceURI(Stream specStream)
@@ -188,27 +191,6 @@ namespace AdminShell
             return nsURI;
         }
 
-        private string GuessMimeType(string filename)
-        {
-            string fileExtension = Path.GetExtension(filename).ToLower();
-
-            string contentType = MediaTypeNames.Text.Plain;
-
-            if (fileExtension == ".pdf") contentType = MediaTypeNames.Application.Pdf;
-            if (fileExtension == ".xml") contentType = MediaTypeNames.Text.Xml;
-            if (fileExtension == ".txt") contentType = MediaTypeNames.Text.Plain;
-            if (fileExtension == ".igs") contentType = "application/iges";
-            if (fileExtension == ".iges") contentType = "application/iges";
-            if (fileExtension == ".stp") contentType = "application/step";
-            if (fileExtension == ".step") contentType = "application/step";
-            if (fileExtension == ".jpg") contentType = MediaTypeNames.Image.Jpeg;
-            if (fileExtension == ".jpeg") contentType = MediaTypeNames.Image.Jpeg;
-            if (fileExtension == ".png") contentType = "image/png";
-            if (fileExtension == ".gif") contentType = MediaTypeNames.Image.Gif;
-
-            return contentType;
-        }
-
         public Stream GetPackageStream(string key)
         {
             return System.IO.File.OpenRead(key);
@@ -216,7 +198,7 @@ namespace AdminShell
 
         public Stream GetStreamFromPackagePart(string key, string uriString)
         {
-            Package package = Package.Open(key, FileMode.Open, FileAccess.Read, FileShare.Read);
+            Package package = Package.Open(key, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
             var part = package.GetPart(new Uri(uriString, UriKind.RelativeOrAbsolute));
             if (part == null)
@@ -224,12 +206,13 @@ namespace AdminShell
                 return null;
             }
 
+            package.Close();
             return part.GetStream(FileMode.Open);
         }
 
         public Stream GetLocalThumbnailStream(string key)
         {
-            Package package = Package.Open(key, FileMode.Open, FileAccess.Read, FileShare.Read);
+            Package package = Package.Open(key, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
 
             PackagePart thumbPart = null;
 
@@ -249,6 +232,7 @@ namespace AdminShell
                 return null;
             }
 
+            package.Close();
             return thumbPart.GetStream(FileMode.Open);
         }
 
@@ -285,37 +269,103 @@ namespace AdminShell
             return filename;
         }
 
-        public void ReplaceSupplementaryFileInPackage(string key, string sourceUri, string targetFile, string targetContentType, Stream fileContent)
+        public void ReplaceSupplementaryFileInPackage(string key, string targetFile, string targetContentType, Stream fileContent)
         {
-            Package package = Package.Open(key, FileMode.Open, FileAccess.Read, FileShare.Read);
+            Package package = Package.Open(key, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
 
-            package.DeletePart(new Uri(sourceUri, UriKind.RelativeOrAbsolute));
-            var targetUri = PackUriHelper.CreatePartUri(new Uri(targetFile, UriKind.RelativeOrAbsolute));
+            package.DeletePart(new Uri(targetFile, UriKind.RelativeOrAbsolute));
+
+            Uri targetUri = PackUriHelper.CreatePartUri(new Uri(targetFile, UriKind.RelativeOrAbsolute));
             PackagePart packagePart = package.CreatePart(targetUri, targetContentType);
             fileContent.Position = 0;
+
             using (Stream dest = packagePart.GetStream())
             {
                 fileContent.CopyTo(dest);
             }
+
+            package.Flush();
+            package.Close();
         }
 
-
-        public void SaveAs(string key, AssetAdministrationShellEnvironment env)
+        public void AddSupplementaryFileToPackage(string key, string targetFile, string targetContentType, Stream fileContent)
         {
-            throw new NotImplementedException();
-
-            /*TODO
-            // approach is to utilize the existing package, if possible. If not, create from scratch
-            Package package = Package.Open(filename, FileMode.OpenOrCreate);
+            Package package = Package.Open(key, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
 
             // get the origin from the package
             PackagePart originPart = null;
-            var xs = package.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aasx-origin");
-            foreach (var x in xs)
+            PackageRelationshipCollection relationships = package.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aasx-origin");
+            foreach (var relationship in relationships)
             {
-                if (x.SourceUri.ToString() == "/")
+                if (relationship.SourceUri.ToString() == "/")
                 {
-                    originPart = package.GetPart(x.TargetUri);
+                    originPart = package.GetPart(relationship.TargetUri);
+                    break;
+                }
+            }
+
+            if (originPart == null)
+            {
+                throw new Exception("Origin part missing in package!");
+            }
+
+            // get the specs from the package
+            PackagePart specPart = null;
+            PackageRelationship specRel = null;
+            relationships = originPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-spec");
+            foreach (var relationship in relationships)
+            {
+                specRel = relationship;
+                specPart = package.GetPart(relationship.TargetUri);
+                break;
+            }
+
+            if (specPart == null)
+            {
+                throw new Exception("Spec part missing in package!");
+            }
+
+            // try find an existing part for that file ..
+            PackagePart filePart = null;
+            Uri targetUri = PackUriHelper.CreatePartUri(new Uri(targetFile, UriKind.RelativeOrAbsolute));
+            relationships = specPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-suppl");
+            foreach (var relationship in relationships)
+            {
+                if (relationship.TargetUri == targetUri)
+                {
+                    filePart = package.GetPart(relationship.TargetUri);
+                    break;
+                }
+            }
+
+            if (filePart == null)
+            {
+                filePart = package.CreatePart(targetUri, targetContentType, CompressionOption.Maximum);
+                specPart.CreateRelationship(filePart.Uri, TargetMode.Internal, "http://www.admin-shell.io/aasx/relationships/aas-suppl");
+            }
+
+            using (Stream partStream = filePart.GetStream(FileMode.Create))
+            {
+                fileContent.CopyTo(partStream);
+            }
+
+            package.Flush();
+            package.Close();
+        }
+
+        public void SaveAs(string key, AssetAdministrationShellEnvironment env)
+        {
+            // approach is to utilize an existing package, if possible. If not, create from scratch
+            Package package = Package.Open(key, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
+
+            // get the origin from the package
+            PackagePart originPart = null;
+            PackageRelationshipCollection relationships = package.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aasx-origin");
+            foreach (var relationship in relationships)
+            {
+                if (relationship.SourceUri.ToString() == "/")
+                {
+                    originPart = package.GetPart(relationship.TargetUri);
                     break;
                 }
             }
@@ -323,7 +373,7 @@ namespace AdminShell
             if (originPart == null)
             {
                 // create, as not existing
-                originPart = package.CreatePart(new Uri("/aasx/aasx-origin", UriKind.RelativeOrAbsolute), System.Net.Mime.MediaTypeNames.Text.Plain, CompressionOption.Maximum);
+                originPart = package.CreatePart(new Uri("/aasx/aasx-origin", UriKind.RelativeOrAbsolute), MediaTypeNames.Text.Plain, CompressionOption.Maximum);
                 using (var s = originPart.GetStream(FileMode.Create))
                 {
                     var bytes = System.Text.Encoding.ASCII.GetBytes("Intentionally empty.");
@@ -336,11 +386,11 @@ namespace AdminShell
             // get the specs from the package
             PackagePart specPart = null;
             PackageRelationship specRel = null;
-            xs = originPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-spec");
-            foreach (var x in xs)
+            relationships = originPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-spec");
+            foreach (var relationship in relationships)
             {
-                specRel = x;
-                specPart = package.GetPart(x.TargetUri);
+                specRel = relationship;
+                specPart = package.GetPart(relationship.TargetUri);
                 break;
             }
 
@@ -349,17 +399,17 @@ namespace AdminShell
             {
                 var name = Path.GetFileNameWithoutExtension(specPart.Uri.ToString()).ToLower().Trim();
                 var ext = Path.GetExtension(specPart.Uri.ToString()).ToLower().Trim();
-                if (ext == ".json" && prefFmt == PreferredFormat.Xml
-                        || ext == ".xml" && prefFmt == PreferredFormat.Json
-                        || name.StartsWith("aasenv-with-no-Id"))
+                if (ext == ".json" || name.StartsWith("aasenv-with-no-Id"))
                 {
-                    // try kill specpart
                     try
                     {
                         originPart.DeleteRelationship(specRel.Id);
                         package.DeletePart(specPart.Uri);
                     }
-                    catch { }
+                    catch (Exception)
+                    {
+                        // do nothing
+                    }
                     finally
                     {
                         specPart = null;
@@ -371,204 +421,32 @@ namespace AdminShell
             if (specPart == null)
             {
                 // create, as not existing
-                var frn = "aasenv-with-no-Id";
+                string frn = "aasenv-with-no-Id";
 
-                if (_aasenv.AssetAdministrationShells.Count > 0)
-                    frn = _aasenv.AssetAdministrationShells[0].GetFriendlyName() ?? frn;
+                if (env.AssetAdministrationShells.Count > 0)
+                {
+                    frn = Regex.Replace(env.AssetAdministrationShells[0].Identification ?? frn, @"[^a-zA-Z0-9\-_]", "_");
+                }
 
-                var aas_spec_fn = "/aasx/#/#.aas";
+                string aas_spec_fn = "/aasx/#/#.aas.xml".Replace("#", frn);
 
-                if (prefFmt == PreferredFormat.Json)
-                    aas_spec_fn += ".json";
-                else
-                    aas_spec_fn += ".xml";
-
-                aas_spec_fn = aas_spec_fn.Replace("#", "" + frn);
-
-                specPart = package.CreatePart(new Uri(aas_spec_fn, UriKind.RelativeOrAbsolute), System.Net.Mime.MediaTypeNames.Text.Xml, CompressionOption.Maximum);
+                specPart = package.CreatePart(new Uri(aas_spec_fn, UriKind.RelativeOrAbsolute), MediaTypeNames.Text.Xml, CompressionOption.Maximum);
 
                 originPart.CreateRelationship(specPart.Uri, TargetMode.Internal, "http://www.admin-shell.io/aasx/relationships/aas-spec");
             }
 
-            // now, specPart shall be != null!
-            if (specPart.Uri.ToString().ToLower().Trim().EndsWith("json"))
+            using (var s = specPart.GetStream(FileMode.Create))
             {
-                using (var s = specPart.GetStream(FileMode.Create))
-                {
-                    JsonSerializer serializer = new JsonSerializer();
-                    serializer.NullValueHandling = NullValueHandling.Ignore;
-                    serializer.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
-                    serializer.Formatting = Formatting.Indented;
-                    using (var sw = new StreamWriter(s))
-                    {
-                        using (JsonWriter writer = new JsonTextWriter(sw))
-                        {
-                            serializer.Serialize(writer, _aasenv);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                using (var s = specPart.GetStream(FileMode.Create))
-                {
-                    var serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment));
-                    var nss = new XmlSerializerNamespaces();
-                    nss.Add("xsi", System.Xml.Schema.XmlSchema.InstanceNamespace);
-                    nss.Add("aas", "http://www.admin-shell.io/aas/2/0");
-                    nss.Add("IEC61360", "http://www.admin-shell.io/IEC61360/2/0");
-                    serializer.Serialize(s, _aasenv, nss);
-                }
+                var serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment));
+                var nss = new XmlSerializerNamespaces();
+                nss.Add("xsi", System.Xml.Schema.XmlSchema.InstanceNamespace);
+                nss.Add("aas", "http://www.admin-shell.io/aas/3/0");
+                nss.Add("IEC61360", "http://www.admin-shell.io/IEC61360/3/0");
+                serializer.Serialize(s, env, nss);
             }
 
-            // there might be pending files to be deleted (first delete, then add, in case of identical files in both categories)
-            foreach (var psfDel in _pendingFilesToDelete)
-            {
-                // try find an existing part for that file ..
-                var found = false;
-
-                // normal files
-                xs = specPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-suppl");
-                foreach (var x in xs)
-                {
-                    if (x.TargetUri == psfDel.Uri)
-                    {
-                        // try to delete
-                        specPart.DeleteRelationship(x.Id);
-                        package.DeletePart(psfDel.Uri);
-                        found = true;
-                        break;
-                    }
-                }
-
-                // thumbnails
-                xs = package.GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
-                foreach (var x in xs)
-                {
-                    if (x.TargetUri == psfDel.Uri)
-                    {
-                        // try to delete
-                        package.DeleteRelationship(x.Id);
-                        package.DeletePart(psfDel.Uri);
-                        found = true;
-                        break;
-                    }
-                }
-
-                if (!found)
-                    throw new Exception($"Not able to delete pending file {psfDel.Uri} in saving package {filename}");
-            }
-
-            // after this, there are no more pending for delete files
-            _pendingFilesToDelete.Clear();
-
-            // write pending supplementary files
-            foreach (var psfAdd in _pendingFilesToAdd)
-            {
-                // make sure ..
-                if (psfAdd.SourceLocalPath == null && psfAdd.SourceBytes == null || psfAdd.Location != PackageSupplementaryFile.LocationType.AddPending)
-                {
-                    continue;
-                }
-
-                // normal file?
-                if (psfAdd.SpecialHandling == PackageSupplementaryFile.SpecialHandlingType.None
-                    || psfAdd.SpecialHandling == PackageSupplementaryFile.SpecialHandlingType.EmbedAsThumbnail)
-                {
-
-                    // try find an existing part for that file ..
-                    PackagePart filePart = null;
-                    if (psfAdd.SpecialHandling == PackageSupplementaryFile.SpecialHandlingType.None)
-                    {
-                        xs = specPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-suppl");
-                        foreach (var x in xs)
-                            if (x.TargetUri == psfAdd.Uri)
-                            {
-                                filePart = package.GetPart(x.TargetUri);
-                                break;
-                            }
-                    }
-
-                    if (psfAdd.SpecialHandling == PackageSupplementaryFile.SpecialHandlingType.EmbedAsThumbnail)
-                    {
-                        xs = package.GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
-                        foreach (var x in xs)
-                            if (x.SourceUri.ToString() == "/" && x.TargetUri == psfAdd.Uri)
-                            {
-                                filePart = package.GetPart(x.TargetUri);
-                                break;
-                            }
-                    }
-
-                    if (filePart == null)
-                    {
-                        // determine mimeType
-                        var mimeType = psfAdd.UseMimeType;
-
-                        // reconcile mime
-                        if (mimeType == null && psfAdd.SourceLocalPath != null)
-                        {
-                            mimeType = GuessMimeType(psfAdd.SourceLocalPath);
-                        }
-
-                        // still null?
-                        if (mimeType == null)
-                        {
-                            // see: https://stackoverflow.com/questions/6783921/which-mime-Type-to-use-for-a-binary-file-thats-specific-to-my-program
-                            mimeType = "application/octet-stream";
-                        }
-
-                        // create new part and link
-                        filePart = package.CreatePart(psfAdd.Uri, mimeType, CompressionOption.Maximum);
-
-                        if (psfAdd.SpecialHandling == PackageSupplementaryFile.SpecialHandlingType.None)
-                        {
-                            specPart.CreateRelationship(filePart.Uri, TargetMode.Internal, "http://www.admin-shell.io/aasx/relationships/aas-suppl");
-                        }
-
-                        if (psfAdd.SpecialHandling == PackageSupplementaryFile.SpecialHandlingType.EmbedAsThumbnail)
-                        {
-                            package.CreateRelationship(filePart.Uri, TargetMode.Internal, "http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
-                        }
-                    }
-
-                    // now should be able to write
-                    using (var s = filePart.GetStream(FileMode.Create))
-                    {
-                        if (psfAdd.SourceLocalPath != null)
-                        {
-                            var bytes = System.IO.File.ReadAllBytes(psfAdd.SourceLocalPath);
-                            s.Write(bytes, 0, bytes.Length);
-                        }
-
-                        if (psfAdd.SourceBytes != null)
-                        {
-                            var bytes = psfAdd.SourceBytes;
-                            if (bytes != null)
-                                s.Write(bytes, 0, bytes.Length);
-                        }
-                    }
-                }
-
-
-            }
-
-            // after this, there are no more pending for add files
-            _pendingFilesToAdd.Clear();
-
-            // flush and close
             package.Flush();
-            _openPackage = null;
             package.Close();
-
-            // if in temp _fn, close the package, copy to original _fn, re-open the package
-            if (_tempFn != null)
-            {
-                package.Close();
-                System.IO.File.Copy(_tempFn, filename, overwrite: true);
-                _openPackage = Package.Open(_tempFn, FileMode.Open, FileAccess.Read, FileShare.Read);
-            }
-*/
         }
     }
 }

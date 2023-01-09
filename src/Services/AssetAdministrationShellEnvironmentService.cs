@@ -1121,12 +1121,13 @@ namespace AdminShell
             var fileElement = GetSubmodelElementByPathSubmodelRepo(submodelIdentifier, idShortPath, out _);
             if (fileElement != null)
             {
+                // update
                 if (fileElement is File file)
                 {
                     var sourcePath = Path.GetDirectoryName(file.Value);
                     var targetFile = Path.Combine(sourcePath, fileName);
-                    _packageService.ReplaceSupplementaryFileInPackage(key, file.Value, targetFile, contentType, fileContent);
-                    file.Value = FormatFileName(targetFile);
+                    file.Value = FormatFilePath(targetFile);
+                    _packageService.ReplaceSupplementaryFileInPackage(key, targetFile, contentType, fileContent);
                     _packageService.Save(key);
 
                     VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
@@ -1136,15 +1137,23 @@ namespace AdminShell
                     throw new Exception($"Submodel element {fileElement.IdShort} is not of Type File.");
                 }
             }
+            else
+            {
+                // add
+                File newFile = new();
+                var sourcePath = Path.GetDirectoryName(newFile.Value);
+                var targetFile = Path.Combine(sourcePath, fileName);
+                newFile.Value = FormatFilePath(targetFile);
+                _packageService.AddSupplementaryFileToPackage(key, newFile.Value, contentType, fileContent);
+                _packageService.Save(key);
+
+                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
+            }
         }
 
-        private string FormatFileName(string fileName)
+        private string FormatFilePath(string filePath)
         {
-            string fileNameTemp = fileName;
-
-            string output = Regex.Replace(fileNameTemp, @"\\", "/");
-
-            return output;
+            return Regex.Replace(filePath, @"\\", "/");
         }
 
         public OperationResult GetOperationAsyncResultSubmodelRepo(string decodedSubmodelId, string idShortPath, string handleId)
