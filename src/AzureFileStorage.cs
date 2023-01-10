@@ -1,50 +1,44 @@
 
+using System.Threading.Tasks;
+using System.Threading;
+
 namespace AdminShell
 {
     using Azure.Storage.Blobs;
     using Azure.Storage.Blobs.Models;
     using Microsoft.Extensions.Logging;
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
 
-    /// <summary>
-    /// Azure storage class
-    /// </summary>
     public class AzureFileStorage : IFileStorage
     {
         private readonly ILogger _logger;
 
-        /// <summary>
-        /// Default constructor
-        /// </summary>
         public AzureFileStorage(ILoggerFactory logger)
         {
             _logger = logger.CreateLogger("AzureFileStorage");
         }
 
-        /// <summary>
-        /// Find a file based on a unique name
-        /// </summary>
-        public async Task<string> FindFileAsync(string name, CancellationToken cancellationToken = default)
+        public async Task<string[]> FindAllFilesAsync(string path, CancellationToken cancellationToken = default)
         {
             try
             {
                 if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BlobStorageConnectionString")))
                 {
                     // open blob storage
-                    BlobContainerClient container = new BlobContainerClient(Environment.GetEnvironmentVariable("BlobStorageConnectionString"), "uacloudlib");
+                    BlobContainerClient container = new BlobContainerClient(Environment.GetEnvironmentVariable("BlobStorageConnectionString"), "aasrepo");
                     await container.CreateIfNotExistsAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
 
                     var resultSegment = container.GetBlobsAsync();
+
+                    List<string> files = new List<string>();
                     await foreach (BlobItem blobItem in resultSegment.ConfigureAwait(false))
                     {
-                        if (blobItem.Name == name)
-                        {
-                            return blobItem.Name;
-                        }
+                        files.Add(blobItem.Name);
                     }
                 }
 
@@ -57,24 +51,21 @@ namespace AdminShell
             }
         }
 
-        /// <summary>
-        /// Upload a file to a blob.
-        /// </summary>
-        public async Task<string> UploadFileAsync(string name, string content, CancellationToken cancellationToken = default)
+        public async Task<bool> SaveFileAsync(string path, byte[] content, CancellationToken cancellationToken = default)
         {
             try
             {
                 if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BlobStorageConnectionString")))
                 {
                     // open blob storage
-                    BlobContainerClient container = new BlobContainerClient(Environment.GetEnvironmentVariable("BlobStorageConnectionString"), "uacloudlib");
+                    BlobContainerClient container = new BlobContainerClient(Environment.GetEnvironmentVariable("BlobStorageConnectionString"), "aasrepo");
                     await container.CreateIfNotExistsAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
 
                     // Get a reference to the blob
-                    BlobClient blob = container.GetBlobClient(name);
+                    BlobClient blob = container.GetBlobClient(path);
 
                     // Open the file and upload its data
-                    using (MemoryStream file = new MemoryStream(Encoding.UTF8.GetBytes(content)))
+                    using (MemoryStream file = new MemoryStream(content))
                     {
                         await blob.DeleteIfExistsAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
                         await blob.UploadAsync(file, cancellationToken).ConfigureAwait(false);
@@ -86,41 +77,39 @@ namespace AdminShell
                             throw new Exception("Could not verify upload!");
                         }
 
-                        return name;
+                        return true;
                     }
                 }
 
-                return string.Empty;
+                return false;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return string.Empty;
+
+                return false;
             }
         }
 
-        /// <summary>
-        /// Download a blob to a file.
-        /// </summary>
-        public async Task<string> DownloadFileAsync(string name, CancellationToken cancellationToken = default)
+        public async Task<byte[]> LoadFileAsync(string path, CancellationToken cancellationToken = default)
         {
             try
             {
                 if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BlobStorageConnectionString")))
                 {
                     // open blob storage
-                    BlobContainerClient container = new BlobContainerClient(Environment.GetEnvironmentVariable("BlobStorageConnectionString"), "uacloudlib");
+                    BlobContainerClient container = new BlobContainerClient(Environment.GetEnvironmentVariable("BlobStorageConnectionString"), "aasrepo");
                     await container.CreateIfNotExistsAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
 
                     var resultSegment = container.GetBlobsAsync();
                     await foreach (BlobItem blobItem in resultSegment.ConfigureAwait(false))
                     {
-                        if (blobItem.Name.Equals(name))
+                        if (blobItem.Name.Equals(path))
                         {
                             // Get a reference to the blob
                             BlobClient blob = container.GetBlobClient(blobItem.Name);
 
-                            // Download the blob's contents and save it to a file
+                            // Download the blob's contents and save it in memory
                             BlobDownloadInfo download = await blob.DownloadAsync(cancellationToken).ConfigureAwait(false);
                             using (MemoryStream file = new MemoryStream())
                             {
@@ -133,45 +122,38 @@ namespace AdminShell
                                     throw new Exception("Could not verify upload!");
                                 }
 
-                                return Encoding.UTF8.GetString(file.ToArray());
+                                return file.ToArray();
                             }
                         }
                     }
                 }
 
-                return string.Empty;
+                return null;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return string.Empty;
+
+                return null;
             }
         }
 
-        public async Task DeleteFileAsync(string name, CancellationToken cancellationToken = default)
+        public async Task DeleteFileAsync(string path, CancellationToken cancellationToken = default)
         {
-#if DEBUG
             try
             {
                 if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("BlobStorageConnectionString")))
                 {
                     // open blob storage
-                    BlobContainerClient container = new BlobContainerClient(Environment.GetEnvironmentVariable("BlobStorageConnectionString"), "uacloudlib");
+                    BlobContainerClient container = new BlobContainerClient(Environment.GetEnvironmentVariable("BlobStorageConnectionString"), "aasrepo");
 
-                    var response = await container.DeleteBlobAsync(name, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    var response = await container.DeleteBlobAsync(path, cancellationToken: cancellationToken).ConfigureAwait(false);
                 }
-
-                return;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return;
             }
-#else
-            await Task.CompletedTask;
-#endif
         }
-
     }
 }

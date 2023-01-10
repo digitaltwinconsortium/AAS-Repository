@@ -6,12 +6,12 @@ namespace AdminShell
 
     public interface IFileStorage
     {
-        Task<string> FindFileAsync(string name, CancellationToken cancellationToken = default);
+        Task<string[]> FindAllFilesAsync(string path, CancellationToken cancellationToken = default);
 
-        Task<string> UploadFileAsync(string name, string content, CancellationToken cancellationToken = default);
+        Task<bool> SaveFileAsync(string path, byte[] content, CancellationToken cancellationToken = default);
 
-        Task<string> DownloadFileAsync(string name, CancellationToken cancellationToken = default);
-  
-        Task DeleteFileAsync(string name, CancellationToken cancellationToken = default);
+        Task<byte[]> LoadFileAsync(string path, CancellationToken cancellationToken = default);
+
+        Task DeleteFileAsync(string path, CancellationToken cancellationToken = default);
     }
 }

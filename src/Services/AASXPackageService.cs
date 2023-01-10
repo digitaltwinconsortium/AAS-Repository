@@ -21,15 +21,18 @@ namespace AdminShell
         {
             _storage = storage;
 
-            string[] fileNames = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.aasx");
-            Console.WriteLine("Found " + fileNames.Length.ToString() + " AAS in directory " + Directory.GetCurrentDirectory());
+            string[] fileNames = _storage.FindAllFilesAsync(".").GetAwaiter().GetResult();
+            Console.WriteLine("Found " + fileNames.Length.ToString() + " AAS in storage.");
 
             // load all AASX files
             foreach (string filename in fileNames)
             {
                 try
                 {
-                    Load(filename);
+                    if (filename.EndsWith(".aasx"))
+                    {
+                        Load(filename);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -82,9 +85,9 @@ namespace AdminShell
             }
         }
 
-        private void Load(string filename)
+        private void Load(string key)
         {
-            Package package = Package.Open(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            Package package = Package.Open(GetPackageStream(key), FileMode.Open, FileAccess.Read);
 
             // verify all the parts exist
 
@@ -156,7 +159,7 @@ namespace AdminShell
                 throw new Exception("Type error XML spec file!");
             }
 
-            Packages.Add(filename, aasenv);
+            Packages.Add(key, aasenv);
 
             specStream.Close();
 
@@ -193,12 +196,18 @@ namespace AdminShell
 
         public Stream GetPackageStream(string key)
         {
-            return System.IO.File.OpenRead(key);
+            byte[] content = _storage.LoadFileAsync(key).GetAwaiter().GetResult();
+            if (content != null)
+            {
+                return new MemoryStream(content);
+            }
+
+            return null;
         }
 
         public byte[] GetFileContentsFromPackagePart(string key, string uriString)
         {
-            Package package = Package.Open(key, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            Package package = Package.Open(GetPackageStream(key), FileMode.Open, FileAccess.Read);
 
             var part = package.GetPart(new Uri(uriString, UriKind.RelativeOrAbsolute));
             if (part == null)
@@ -217,7 +226,7 @@ namespace AdminShell
 
         public byte[] GetLocalThumbnailBytes(string key)
         {
-            Package package = Package.Open(key, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
+            Package package = Package.Open(GetPackageStream(key), FileMode.Open, FileAccess.Read);
 
             PackagePart thumbPart = null;
 
@@ -250,12 +259,7 @@ namespace AdminShell
         {
             Packages.Remove(filename);
 
-            System.IO.File.Delete(filename);
-        }
-
-        public byte[] GetAASXBytes(string key)
-        {
-            return System.IO.File.ReadAllBytes(key);
+            _storage.DeleteFileAsync(filename).GetAwaiter().GetResult();
         }
 
         public string GetAASXFileName(string key)
@@ -265,7 +269,8 @@ namespace AdminShell
 
         public void Save(string filename, byte[] fileContent)
         {
-            System.IO.File.WriteAllBytes(filename, fileContent);
+            _storage.SaveFileAsync(filename, fileContent).GetAwaiter().GetResult();
+
             Load(filename);
         }
 
@@ -281,7 +286,8 @@ namespace AdminShell
 
         public void ReplaceSupplementaryFileInPackage(string key, string targetFile, string targetContentType, Stream fileContent)
         {
-            Package package = Package.Open(key, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
+            MemoryStream packageStream = (MemoryStream)GetPackageStream(key);
+            Package package = Package.Open(packageStream, FileMode.Open, FileAccess.ReadWrite);
 
             package.DeletePart(new Uri(targetFile, UriKind.RelativeOrAbsolute));
 
@@ -296,11 +302,15 @@ namespace AdminShell
 
             package.Flush();
             package.Close();
+
+            _storage.SaveFileAsync(key, packageStream.ToArray()).GetAwaiter().GetResult();
+            packageStream.Close();
         }
 
         public void AddSupplementaryFileToPackage(string key, string targetFile, string targetContentType, Stream fileContent)
         {
-            Package package = Package.Open(key, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
+            MemoryStream packageStream = (MemoryStream)GetPackageStream(key);
+            Package package = Package.Open(packageStream, FileMode.Open, FileAccess.ReadWrite);
 
             // get the origin from the package
             PackagePart originPart = null;
@@ -361,12 +371,17 @@ namespace AdminShell
 
             package.Flush();
             package.Close();
+
+            _storage.SaveFileAsync(key, packageStream.ToArray()).GetAwaiter().GetResult();
+            packageStream.Close();
         }
 
         public void SaveAs(string key, AssetAdministrationShellEnvironment env)
         {
             // approach is to utilize an existing package, if possible. If not, create from scratch
-            Package package = Package.Open(key, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
+
+            MemoryStream packageStream = (MemoryStream)GetPackageStream(key);
+            Package package = Package.Open(packageStream, FileMode.OpenOrCreate, FileAccess.ReadWrite);
 
             // get the origin from the package
             PackagePart originPart = null;
@@ -457,6 +472,9 @@ namespace AdminShell
 
             package.Flush();
             package.Close();
+
+            _storage.SaveFileAsync(key, packageStream.ToArray()).GetAwaiter().GetResult();
+            packageStream.Close();
         }
     }
 }

@@ -69,14 +69,10 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAASXByPackageId([FromRoute][Required] string packageId)
         {
-            var fileName = string.Empty;
-            int fileSize = 0;
-
-            byte[] content = _packageService.GetAASXBytes(Encoding.UTF8.GetString(Convert.FromBase64String(packageId)));
-            if (content != null)
+            Stream stream = _packageService.GetPackageStream(Encoding.UTF8.GetString(Convert.FromBase64String(packageId)));
+            if (stream != null)
             {
-                fileSize = content.Length;
-                fileName = _packageService.GetAASXFileName(Encoding.UTF8.GetString(Convert.FromBase64String(packageId)));
+                string fileName = _packageService.GetAASXFileName(Encoding.UTF8.GetString(Convert.FromBase64String(packageId)));
 
                 // content-disposition is used to downloaded AASX files from the web browser
                 ContentDisposition contentDisposition = new()
@@ -86,8 +82,8 @@ namespace AdminShell
 
                 HttpContext.Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
                 HttpContext.Response.Headers.Add("X-FileName", fileName);
-                HttpContext.Response.ContentLength = fileSize;
-                HttpContext.Response.Body.WriteAsync(content);
+                HttpContext.Response.ContentLength = stream.Length;
+                HttpContext.Response.Body = stream;
 
                 return new EmptyResult();
             }
