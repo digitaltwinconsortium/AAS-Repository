@@ -4,7 +4,7 @@ IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Ne
 
 # Features
 
-1. Loading of Asset Admin Shells V1, V2 and V3 (but always saving in V3 format, leveraging XML)
+1. Loading of Asset Admin Shells V1, V2 and V3 (both XML and JSON), but always saving in V3 format, leveraging XML)
 1. Standardized AAS REST interface (as specified in part 2 of the AAS spec)
 1. Swagger endpoint at /swagger
 1. IDTA AASX Package Explorer client interface support
