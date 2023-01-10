@@ -41,64 +41,64 @@ namespace AdminShell
         {
             if (src is SubmodelElementCollection)
                 SubmodelElement = new SubmodelElementCollection(src as SubmodelElementCollection, shallowCopy);
-            
+
             if (src is Property)
                 SubmodelElement = new Property(src as Property);
-            
+
             if (src is MultiLanguageProperty)
                 SubmodelElement = new MultiLanguageProperty(src as MultiLanguageProperty);
-            
+
             if (src is Range)
                 SubmodelElement = new Range(src as Range);
-            
+
             if (src is File)
                 SubmodelElement = new File(src as File);
-            
+
             if (src is Blob)
                 SubmodelElement = new Blob(src as Blob);
-            
+
             if (src is ReferenceElement)
                 SubmodelElement = new ReferenceElement(src as ReferenceElement);
-            
+
             if (src is RelationshipElement)
                 SubmodelElement = new RelationshipElement(src as RelationshipElement);
-            
+
             if (src is AnnotatedRelationshipElement)
                 SubmodelElement = new AnnotatedRelationshipElement(src as AnnotatedRelationshipElement);
-            
+
             if (src is Capability)
                 SubmodelElement = new Capability(src as Capability);
-            
+
             if (src is Operation)
                 SubmodelElement = new Operation(src as Operation);
-            
+
             if (src is BasicEvent)
                 SubmodelElement = new BasicEvent(src as BasicEvent);
-            
+
             if (src is Entity)
                 SubmodelElement = new Entity(src as Entity);
 
             if (src is SubmodelElementList)
                 SubmodelElement = new SubmodelElementList(src as SubmodelElementList);
-            
+
             if (src is SubmodelElementStruct)
                 SubmodelElement = new SubmodelElementStruct(src as SubmodelElementStruct);
-            
+
             if (src is SubmodelElementCollection)
                 SubmodelElement = new SubmodelElementCollection(src as SubmodelElementCollection, shallowCopy);
 
             if (src is AnnotatedRelationshipElement)
                 SubmodelElement = new AnnotatedRelationshipElement(src as AnnotatedRelationshipElement);
-            
+
             if (src is RelationshipElement)
                 SubmodelElement = new RelationshipElement(src as RelationshipElement);
 
             if (src is ModelReferenceElement)
                 SubmodelElement = new ModelReferenceElement(src as ModelReferenceElement);
-            
+
             if (src is GlobalReferenceElement)
                 SubmodelElement = new GlobalReferenceElement(src as GlobalReferenceElement);
-            
+
             if (src is ReferenceElement)
                 SubmodelElement = new ReferenceElement(src as ReferenceElement);
         }

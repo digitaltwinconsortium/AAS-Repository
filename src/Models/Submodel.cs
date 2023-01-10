@@ -25,9 +25,40 @@ namespace AdminShell
         [XmlElement(ElementName = "kind")]
         public ModelingKind Kind { get; set; } = new();
 
-        [DataMember(Name = "submodelElements")]
+        // Important note: XML serialization uses SubModel Element Wrappers while JSON serialization does not!
+        // So we have to first deserialize into a placeholder Json member and then copy the contents into the correct member
         [XmlArray(ElementName = "submodelElements")]
         public List<SubmodelElementWrapper> SubmodelElements { get; set; } = new();
+
+        [XmlIgnore]
+        [DataMember(Name = "submodelElements")]
+        public SubmodelElement[] JsonSubmodelElements
+        {
+            get
+            {
+                var submodelElements = new List<SubmodelElement>();
+
+                foreach (SubmodelElementWrapper smew in SubmodelElements)
+                {
+                    submodelElements.Add(smew.SubmodelElement);
+                }
+
+                return submodelElements.ToArray();
+            }
+
+            set
+            {
+                if (value != null)
+                {
+                    SubmodelElements.Clear();
+
+                    foreach (SubmodelElement sme in value)
+                    {
+                        SubmodelElements.Add(new SubmodelElementWrapper() { SubmodelElement = sme });
+                    }
+                }
+            }
+        }
 
         [DataMember(Name = "HasDataSpecification")]
         [XmlElement(ElementName = "HasDataSpecification")]

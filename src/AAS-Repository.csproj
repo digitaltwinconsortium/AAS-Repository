@@ -15,6 +15,7 @@
   <ItemGroup>
     <PackageReference Include="Aml.Engine" Version="3.0.2" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.14.1" />
+    <PackageReference Include="JsonSubTypes" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.12" />
     <PackageReference Include="Microsoft.Azure.Kusto.Data" Version="11.2.1" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />

@@ -107,6 +107,10 @@ namespace AdminShell
 
         [EnumMember(Value = "FragmentReference")]
         [XmlEnum(Name = "FragmentReference")]
-        FragmentReference = 24
+        FragmentReference = 24,
+
+        [EnumMember(Value = "SubmodelElementCollection")]
+        [XmlEnum(Name = "SubmodelElementCollection")]
+        SubmodelElementCollection = 25,
     }
 }

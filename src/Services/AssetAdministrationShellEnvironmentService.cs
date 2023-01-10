@@ -421,7 +421,7 @@ namespace AdminShell
         {
             foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
             {
-                var aas = package.Value.AssetAdministrationShells.Where(a => a.Id.Equals(aasIdentifier));
+                var aas = package.Value.AssetAdministrationShells.Where(a => a.Identification.Id.Equals(aasIdentifier));
                 if (aas.Any())
                 {
                     output = aas.First();
@@ -437,7 +437,7 @@ namespace AdminShell
 
         public void UpdateConceptDescriptionById(ConceptDescription body, string cdIdentifier)
         {
-            if (string.IsNullOrEmpty(body.Id))
+            if (string.IsNullOrEmpty(body.Identification.Id))
             {
                 throw new Exception("ConceptDescription");
             }
@@ -456,21 +456,21 @@ namespace AdminShell
 
         public ConceptDescription CreateConceptDescription(ConceptDescription body)
         {
-            if (string.IsNullOrEmpty(body.Id))
+            if (string.IsNullOrEmpty(body.Identification.Id))
             {
                 throw new Exception("ConceptDescription");
             }
 
             //Check if AAS exists
-            var found = IsConceptDescriptionPresent(body.Id, out _, out _);
+            var found = IsConceptDescriptionPresent(body.Identification.Id, out _, out _);
             if (found)
             {
-                throw new Exception($"ConceptDescription with Id {body.Id} already exists.");
+                throw new Exception($"ConceptDescription with Id {body.Identification.Id} already exists.");
             }
 
             AssetAdministrationShellEnvironment env = new();
             env.ConceptDescriptions.Add(body);
-            _packageService.SaveAs(body.Id, env);
+            _packageService.SaveAs(body.Identification.Id, env);
 
             VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
 
@@ -510,7 +510,7 @@ namespace AdminShell
         {
             foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
             {
-                var conceptDescriptions = package.Value.ConceptDescriptions.Where(c => c.Id.Equals(cdIdentifier));
+                var conceptDescriptions = package.Value.ConceptDescriptions.Where(c => c.Identification.Id.Equals(cdIdentifier));
                 if (conceptDescriptions.Any())
                 {
                     output = conceptDescriptions.First();
@@ -759,21 +759,21 @@ namespace AdminShell
 
         public Submodel CreateSubmodel(Submodel body)
         {
-            if (string.IsNullOrEmpty(body.Id))
+            if (string.IsNullOrEmpty(body.Identification.Id))
             {
                 throw new Exception("Submodel");
             }
 
             //Check if AAS exists
-            var found = IsSubmodelPresent(body.Id, out _, out _);
+            var found = IsSubmodelPresent(body.Identification.Id, out _, out _);
             if (found)
             {
-                throw new Exception($"Submodel with Id {body.Id} already exists.");
+                throw new Exception($"Submodel with Id {body.Identification.Id} already exists.");
             }
 
             AssetAdministrationShellEnvironment env = new();
             env.Submodels.Add(body);
-            _packageService.Packages.Add(body.Id, env);
+            _packageService.Packages.Add(body.Identification.Id, env);
 
             VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
 
@@ -797,7 +797,7 @@ namespace AdminShell
         {
             foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
             {
-                var submodels = package.Value.Submodels.Where(a => a.Id.Equals(submodelIdentifier));
+                var submodels = package.Value.Submodels.Where(a => a.Identification.Id.Equals(submodelIdentifier));
                 if (submodels.Any())
                 {
                     output = submodels.First();
@@ -878,7 +878,7 @@ namespace AdminShell
                 //Delete submodel reference from AAS
                 foreach (var aas in _packageService.Packages[key].AssetAdministrationShells)
                 {
-                    DeleteSubmodelReferenceById(aas.Id, submodelIdentifier);
+                    DeleteSubmodelReferenceById(aas.Identification.Id, submodelIdentifier);
                 }
 
                 _packageService.Save(key);

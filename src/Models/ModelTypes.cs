@@ -2,7 +2,6 @@
 namespace AdminShell
 {
     using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
     using System.Runtime.Serialization;
     using System.Xml.Serialization;
 
@@ -120,6 +119,10 @@ namespace AdminShell
 
         [EnumMember(Value = "Qualifier")]
         [XmlEnum(Name = "Qualifier")]
-        Qualifier = 27
+        Qualifier = 27,
+
+        [EnumMember(Value = "SubmodelElementCollection")]
+        [XmlEnum(Name = "SubmodelElementCollection")]
+        SubmodelElementCollection = 28
     }
 }

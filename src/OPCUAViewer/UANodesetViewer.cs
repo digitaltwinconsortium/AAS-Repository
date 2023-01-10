@@ -176,7 +176,7 @@ namespace AdminShell
                         try
                         {
                             // try to auto-download the missing references from the UA Cloud Library
-                            string address = _client.BaseAddress + "infomodel/download/" + Uri.EscapeDataString(_namespacesInCloudLibrary[modelreference]);
+                            string address = "https://uacloudlibrary.opcfoundation.org/infomodel/download/" + Uri.EscapeDataString(_namespacesInCloudLibrary[modelreference]);
                             HttpResponseMessage response = _client.Send(new HttpRequestMessage(HttpMethod.Get, address));
                             AddressSpace addressSpace = JsonConvert.DeserializeObject<AddressSpace>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
 

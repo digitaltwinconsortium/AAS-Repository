@@ -38,18 +38,6 @@
                         <span style="color:white;background-color:blue;">@nodeDetails0</span> @nodeDetails1<br>
                     }
                 }
-                if (SelectedNode != null && SelectedNode.Tag is Referable r)
-                {
-                    <span style="color:lightgray;">UPDATE @r.TimeStamp.ToString("yy-MM-dd HH:mm:ss.fff")</span><br />
-                    <button style="background-color:lightgray" @onclick="setTimeStamp">TIMESTAMP</button><br />
-                    <span style="color:lightgray;">CREATE @r.TimeStampCreate.ToString("yy-MM-dd HH:mm:ss.fff")</span><br />
-                    @code{
-                        private void setTimeStamp()
-                        {
-                            (SelectedNode.Tag as Referable).setTimeStamp(DateTime.UtcNow);
-                        }
-                    }
-                }
 
                 bool externalLink = false;
                 string link = GetLink(SelectedNode, out externalLink);
@@ -420,9 +408,9 @@
             var mlp = o as MultiLanguageProperty;
             var ls = mlp.Value;
             ret = " = ";
-            for (int i = 0; i < ls.Count; i++)
+            for (int i = 0; i < ls.LangString.Count; i++)
             {
-                ret += ls[i].Language + " ";
+                ret += ls.LangString[i].Language + " ";
             }
         }
         return (ret);
@@ -437,7 +425,7 @@
 
         foreach (var aas in env.AssetAdministrationShells)
         {
-            if (aas.Id != null && aas.Id.IsEqual(id))
+            if (aas.Identification.Id != null && aas.Identification.Equals(id))
             {
                 return aas;
             }
@@ -484,14 +472,14 @@
             ret = string.Empty;
             var aas = tag as AssetAdministrationShell;
 
-            var asset = FindAAS(_packageService.Packages[item.EnvKey], aas.Id);
+            var asset = FindAAS(_packageService.Packages[item.EnvKey], aas.Identification.Id);
 
             switch (line)
             {
                 case 0:
                     ret = "ID";
                     if (col == 1)
-                        ret = aas.Id + string.Empty;
+                        ret = aas.Identification.Id + string.Empty;
                     break;
                 case 1:
                     if (asset != null)
@@ -506,7 +494,7 @@
                     {
                         ret = "ASSETID";
                         if (col == 1)
-                            ret = asset.Id + string.Empty;
+                            ret = asset.Identification.Id + string.Empty;
                     }
                     break;
                 case 3:
@@ -515,7 +503,7 @@
                         ret = "ASSETID URLENCODED";
                         if (col == 1)
                         {
-                            string url = WebUtility.UrlEncode(asset.Id);
+                            string url = WebUtility.UrlEncode(asset.Identification.Id);
                             ret = url;
                         }
                     }
@@ -535,7 +523,7 @@
                 case 0:
                     ret = "ID";
                     if (col == 1)
-                        ret = sm.Id + string.Empty;
+                        ret = sm.Identification.Id + string.Empty;
                     break;
                 case 1:
                     ret = "Semantic ID";
@@ -862,9 +850,9 @@
         {
             var mlp = tag as MultiLanguageProperty;
             var ls = mlp.Value;
-            for (int i = 0; i < ls.Count; i++)
+            for (int i = 0; i < ls.LangString.Count; i++)
             {
-                ret += ls[i].Language + " ";
+                ret += ls.LangString[i].Language + " ";
             }
             switch (line)
             {
@@ -885,11 +873,11 @@
                 case 3:
                 case 4:
                     ret = string.Empty;
-                    if (ls.Count > line - 1)
+                    if (ls.LangString.Count > line - 1)
                     {
-                        ret = ls[line - 1].Language;
+                        ret = ls.LangString[line - 1].Language;
                         if (col == 1)
-                            ret = ls[line - 1].Text + string.Empty;
+                            ret = ls.LangString[line - 1].Text + string.Empty;
                     }
                     break;
                 case 5:
@@ -1006,7 +994,7 @@
 
         foreach (var cd in env.ConceptDescriptions)
         {
-            if (cd.Id.Value.ToLower().Trim() == key.Value.ToLower().Trim())
+            if (cd.Identification.Value.ToLower().Trim() == key.Value.ToLower().Trim())
             {
                 return cd;
             }

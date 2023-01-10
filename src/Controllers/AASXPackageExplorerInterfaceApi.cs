@@ -32,7 +32,7 @@ namespace AdminShell
             {
                 foreach (AssetAdministrationShell aas in env.AssetAdministrationShells)
                 {
-                    aaslist.Add(i.ToString() + " : " + aas.IdShort + " : " + aas.Id + " : ");
+                    aaslist.Add(i.ToString() + " : " + aas.IdShort + " : " + aas.Identification.Id + " : ");
                     i++;
                 }
             }
@@ -127,7 +127,7 @@ namespace AdminShell
 
                             foreach (var sm in package.Value.Submodels)
                             {
-                                if ((sm.Id.Value.ToLower().Trim() == key.Value.ToLower().Trim())
+                                if ((sm.Identification.Id.ToLower().Trim() == key.Value.ToLower().Trim())
                                 && (sm.IdShort != null)
                                 && (sm.IdShort.Trim().ToLower() == smIdShort.Trim().ToLower()))
                                 {

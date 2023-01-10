@@ -23,9 +23,41 @@ namespace AdminShell
         [XmlArray(ElementName = "specificAssetIds")]
         public List<IdentifierKeyValuePair> SpecificAssetIds { get; set; }
 
-        [DataMember(Name = "statements")]
+        // Important note: XML serialization uses SubModel Element Wrappers while JSON serialization does not!
+        // So we have to first deserialize into a placeholder Json member and then copy the contents into the correct member
+        [JsonIgnore]
         [XmlArray(ElementName = "statements")]
         public List<SubmodelElementWrapper> Statements { get; set; }
+
+        [XmlIgnore]
+        [DataMember(Name = "statements")]
+        public SubmodelElement[] JsonStatements
+        {
+            get
+            {
+                var submodelElements = new List<SubmodelElement>();
+
+                foreach (SubmodelElementWrapper smew in Statements)
+                {
+                    submodelElements.Add(smew.SubmodelElement);
+                }
+
+                return submodelElements.ToArray();
+            }
+
+            set
+            {
+                if (value != null)
+                {
+                    Statements.Clear();
+
+                    foreach (SubmodelElement sme in value)
+                    {
+                        Statements.Add(new SubmodelElementWrapper() { SubmodelElement = sme });
+                    }
+                }
+            }
+        }
 
         [DataMember(Name = "asset")]
         [XmlElement(ElementName = "asset")]

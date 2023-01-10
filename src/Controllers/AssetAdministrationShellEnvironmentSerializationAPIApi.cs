@@ -59,7 +59,7 @@ namespace AdminShell
             var aasList = _aasEnvService.GetAllAssetAdministrationShells();
             foreach (var aasId in decodedAasIds)
             {
-                var foundAas = aasList.Where(a => a.Id.Equals(aasId));
+                var foundAas = aasList.Where(a => a.Identification.Id.Equals(aasId));
                 if (foundAas.Any())
                 {
                     outputEnv.AssetAdministrationShells.Add(foundAas.First());
@@ -69,7 +69,7 @@ namespace AdminShell
             var submodelList = _aasEnvService.GetAllSubmodels();
             foreach (var submodelId in decodedSubmodelIds)
             {
-                var foundSubmodel = submodelList.Where(s => s.Id.Equals(submodelId));
+                var foundSubmodel = submodelList.Where(s => s.Identification.Id.Equals(submodelId));
                 if (foundSubmodel.Any())
                 {
                     outputEnv.Submodels.Add(foundSubmodel.First());

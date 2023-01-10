@@ -32,6 +32,7 @@ namespace AdminShell
 
         public CarbonDataService(AASXPackageService packageService)
         {
+            // retrieve our ADX-tagged data points from all loaded AASes
             foreach (AssetAdministrationShellEnvironment env in packageService.Packages.Values)
             {
                 foreach (Submodel sm in env.Submodels)
@@ -43,6 +44,7 @@ namespace AdminShell
                 }
             }
 
+            // connect to ADX cluster
             string adxClusterName = Environment.GetEnvironmentVariable("ADX_HOST");
             string adxDBName = Environment.GetEnvironmentVariable("ADX_DB");
             string aadAppKey = Environment.GetEnvironmentVariable("AAD_APPLICATION_KEY");
@@ -55,8 +57,7 @@ namespace AdminShell
                 KustoConnectionStringBuilder connectionString = new KustoConnectionStringBuilder(adxClusterName, adxDBName).WithAadApplicationKeyAuthentication(aadAppID, aadAppKey, aadTenant);
                 _queryProvider = KustoClientFactory.CreateCslQueryProvider(connectionString);
 
-                int interval = 5000;
-                if (adxQueryInterval != null && int.TryParse(adxQueryInterval, out interval))
+                if (adxQueryInterval != null && int.TryParse(adxQueryInterval, out int interval))
                 {
                     _queryTimer.Change(interval, interval);
                 }
@@ -80,6 +81,24 @@ namespace AdminShell
                 _queryProvider.Dispose();
                 _queryProvider = null;
             }
+        }
+
+        private static async void RunQuerys(object state)
+        {
+            // read the row from our OPC UA telemetry table
+            RunADXQuery("opcua_telemetry | top 1 by creationTimeUtc desc", _values);
+
+            // read the row from our OPC UA telemetry table
+            RunADXQuery("opcua_telemetry | where creationTimeUtc > (now() - 2m) | where creationTimeUtc < (now() - 1m) | top 1 by creationTimeUtc desc", _values1MinuteAgo);
+
+            await GetCarbonIntensity().ConfigureAwait(false);
+
+            // get CO2 foot print data from our supply chain, in this case the GE machine's AAS
+            _geCO2Footprint = ReadCO2FromRemoteAAS("https://carbonreportingge.azurewebsites.net/", "0", "Energy_model_harmonized");
+
+            UpdateSMEValues();
+
+            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
         }
 
         protected void CheckForADXDataPointInSME(SubmodelElement sme)
@@ -178,6 +197,8 @@ namespace AdminShell
                                 }
                             }
                         }
+
+                        break;
                     }
                 }
 
@@ -192,7 +213,7 @@ namespace AdminShell
             }
         }
 
-        static float ReadCO2Per1Minute(string aasServerAddress, string aasId, string smIdShort)
+        static float ReadCO2FromRemoteAAS(string aasServerAddress, string aasId, string smIdShort)
         {
             try
             {
@@ -256,24 +277,6 @@ namespace AdminShell
                 if (smew.SubmodelElement.SemanticId != null)
                     if (smew.SubmodelElement.SemanticId.Matches(semId))
                         yield return smew.SubmodelElement;
-        }
-
-        private static async void RunQuerys(object state)
-        {
-            // read the row from our OPC UA telemetry table
-            RunADXQuery("opcua_telemetry | top 1 by creationTimeUtc desc", _values);
-
-            // read the row from our OPC UA telemetry table
-            RunADXQuery("opcua_telemetry | where creationTimeUtc > (now() - 2m) | where creationTimeUtc < (now() - 1m) | top 1 by creationTimeUtc desc", _values1MinuteAgo);
-
-            await GetCarbonIntensity().ConfigureAwait(false);
-
-            // get CO2 foot print data from our supply chain, in this case the GE machine's AAS
-            _geCO2Footprint = ReadCO2Per1Minute("https://carbonreportingge.azurewebsites.net/", "0", "Energy_model_harmonized");
-
-            UpdateSMEValues();
-
-            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
         }
 
         private static async Task GetCarbonIntensity()

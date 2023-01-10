@@ -44,7 +44,7 @@ namespace AdminShell
             if (Count == 1)
             {
                 var k = Keys[0];
-                return k.Matches(other.IdType, other.Id, MatchMode.Identification);
+                return k.Matches(other.IdType, other.Id, other.Value, MatchMode.Identification);
             }
             return false;
         }
@@ -55,8 +55,11 @@ namespace AdminShell
                 return false;
 
             var same = true;
+
             for (int i = 0; i < Count; i++)
+            {
                 same = same && Keys[i].Matches(other.Keys[i], matchMode);
+            }
 
             return same;
         }

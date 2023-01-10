@@ -1,12 +1,15 @@
 ﻿
 namespace AdminShell
 {
+    using JsonSubTypes;
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
     using System.Xml.Serialization;
 
     [DataContract]
+    [JsonConverter(typeof(JsonSubtypes), "modelType.name")]
     public class SubmodelElement : Referable
     {
         public static Type[] PROP_MLP = new Type[]
@@ -20,7 +23,7 @@ namespace AdminShell
 
         [DataMember(Name = "semanticId")]
         [XmlElement(ElementName = "semanticId")]
-        public Reference SemanticId { get; set; } = new();
+        public SemanticId SemanticId { get; set; } = new();
 
         [DataMember(Name = "qualifier")]
         [XmlArray(ElementName = "qualifier")]

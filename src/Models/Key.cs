@@ -55,13 +55,13 @@ namespace AdminShell
             return $"[{Type}, {Value}]";
         }
 
-        public bool Matches(string type, string id, MatchMode matchMode = MatchMode.Relaxed)
+        public bool Matches(string type, string id, string value, MatchMode matchMode = MatchMode.Relaxed)
         {
             if (matchMode == MatchMode.Relaxed)
                 return Type.ToString() == type && Value == id;
 
             if (matchMode == MatchMode.Identification)
-                return Value == id;
+                return Value == value;
 
             return false;
         }
@@ -69,8 +69,11 @@ namespace AdminShell
         public bool Matches(Key key, MatchMode matchMode = MatchMode.Relaxed)
         {
             if (key == null)
+            {
                 return false;
-            return Matches(key.Type.ToString(), key.Value, matchMode);
+            }
+
+            return Matches(key.Type.ToString(), key.Value, key.Value, matchMode);
         }
     }
 }
