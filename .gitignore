@@ -391,3 +391,5 @@ healthchecksdb
 /src/erich-repo
 /src/OPC Foundation/CertificateStores/UA Applications/certs
 /src/nodeset2.xml
+/src/.nodeset2.xml
+/src/DI.nodeset2.xml
