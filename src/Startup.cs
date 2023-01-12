@@ -32,7 +32,9 @@
 
             services.AddScoped<AssetAdministrationShellEnvironmentService>();
 
-            services.AddSingleton<CarbonDataService>();
+            services.AddSingleton<CarbonReportingService>();
+
+            services.AddSingleton<ProductCarbonFootprintService>();
 
             services.AddSingleton<VisualTreeBuilderService>();
 
