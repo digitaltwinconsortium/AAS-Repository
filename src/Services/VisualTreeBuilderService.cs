@@ -2,6 +2,7 @@
 namespace AdminShell
 {
     using Aml.Engine.CAEX;
+    using Microsoft.Extensions.Logging;
     using System;
     using System.Collections.Generic;
     using static AAS_Repository.Pages.TreePage;
@@ -10,13 +11,15 @@ namespace AdminShell
     {
         private readonly UANodesetViewer _viewer;
         private readonly AASXPackageService _packageService;
+        private readonly ILogger _logger;
 
         public static event EventHandler NewDataAvailable;
 
-        public VisualTreeBuilderService(UANodesetViewer viewer, AASXPackageService packages )
+        public VisualTreeBuilderService(ILoggerFactory logger, UANodesetViewer viewer, AASXPackageService packages )
         {
             _viewer = viewer;
             _packageService = packages;
+            _logger = logger.CreateLogger("VisualTreeBuilderService");
         }
 
         public static void SignalNewData(TreeUpdateMode mode)
@@ -239,7 +242,7 @@ namespace AdminShell
             catch (Exception ex)
             {
                 // ignore this node
-                Console.WriteLine(ex);
+                _logger.LogError(ex, ex.Message);
             }
         }
 
@@ -323,7 +326,7 @@ namespace AdminShell
             catch (Exception ex)
             {
                 // ignore this part of the AAS
-                Console.WriteLine(ex);
+                _logger.LogError(ex, ex.Message);
             }
         }
 
@@ -361,7 +364,7 @@ namespace AdminShell
             catch (Exception ex)
             {
                 // ignore this node
-                Console.WriteLine(ex);
+                _logger.LogError(ex, ex.Message);
             }
         }
 

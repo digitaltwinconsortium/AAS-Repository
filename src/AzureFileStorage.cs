@@ -46,7 +46,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                _logger.LogError(ex, ex.Message);
                 return null;
             }
         }
@@ -85,7 +85,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                _logger.LogError(ex, ex.Message);
 
                 return false;
             }
@@ -132,7 +132,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                _logger.LogError(ex, ex.Message);
 
                 return null;
             }
@@ -152,7 +152,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                _logger.LogError(ex, ex.Message);
             }
         }
     }

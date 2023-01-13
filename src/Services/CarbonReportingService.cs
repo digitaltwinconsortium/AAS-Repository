@@ -2,6 +2,7 @@
 namespace AdminShell
 {
     using Kusto.Cloud.Platform.Utils;
+    using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
     using System;
     using System.Collections.Concurrent;
@@ -17,15 +18,21 @@ namespace AdminShell
 
     public class CarbonReportingService : ADXDataService
     {
-        private Timer _queryTimer = new Timer(RunQuerys, null, Timeout.Infinite, Timeout.Infinite);
-        private static float _geCO2Footprint = 0.0f;
-        private static ConcurrentDictionary<string, object> _values = new ConcurrentDictionary<string, object>();
-        private static ConcurrentDictionary<string, object> _values1MinuteAgo = new ConcurrentDictionary<string, object>();
-        private static CarbonIntensityQueryResult _currentIntensity = null;
+        private Timer _queryTimer;
+        private float _geCO2Footprint = 0.0f;
+        private ConcurrentDictionary<string, object> _values = new ConcurrentDictionary<string, object>();
+        private ConcurrentDictionary<string, object> _values1MinuteAgo = new ConcurrentDictionary<string, object>();
+        private CarbonIntensityQueryResult _currentIntensity = null;
 
-        public CarbonReportingService(AASXPackageService packageService)
+        private readonly ILogger _logger;
+
+        public CarbonReportingService(ILoggerFactory logger, AASXPackageService packageService)
         : base(packageService)
         {
+            _logger = logger.CreateLogger("CarbonReportingService");
+
+            _queryTimer = new Timer(RunQuerys);
+
             string adxQueryInterval = Environment.GetEnvironmentVariable("ADX_QUERY_INTERVAL");
             if (adxQueryInterval != null && int.TryParse(adxQueryInterval, out int interval))
             {
@@ -48,7 +55,7 @@ namespace AdminShell
             base.Dispose();
         }
 
-        private static async void RunQuerys(object state)
+        private async void RunQuerys(object state)
         {
             // read the row from our OPC UA telemetry table
             RunADXQuery("opcua_telemetry | top 1 by creationTimeUtc desc", _values);
@@ -66,7 +73,7 @@ namespace AdminShell
             VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
         }
 
-        private static void UpdateSMEValues()
+        private void UpdateSMEValues()
         {
             foreach (SubmodelElement sme in _dataPoints)
             {
@@ -81,7 +88,7 @@ namespace AdminShell
             }
         }
 
-        public static double GetCarbonReportingValue(SubmodelElement sme)
+        public double GetCarbonReportingValue(SubmodelElement sme)
         {
             try
             {
@@ -153,7 +160,7 @@ namespace AdminShell
             }
         }
 
-        static float ReadCarbonReportFromRemoteAAS(string aasServerAddress, string aasId, string smIdShort)
+        float ReadCarbonReportFromRemoteAAS(string aasServerAddress, string aasId, string smIdShort)
         {
             try
             {
@@ -197,12 +204,12 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Accessing other AAS failed with: " + ex.Message);
+                _logger.LogError(ex, "Accessing other AAS failed with: " + ex.Message);
                 return 0.0f;
             }
         }
 
-        private static IEnumerable<SubmodelElement> FindAllSMEs(SubmodelElement smeInput, Identifier semId)
+        private IEnumerable<SubmodelElement> FindAllSMEs(SubmodelElement smeInput, Identifier semId)
         {
             if (smeInput is SubmodelElementCollection collection)
                 foreach (SubmodelElementWrapper smew in collection.Value)
@@ -211,7 +218,7 @@ namespace AdminShell
                             yield return smew.SubmodelElement;
         }
 
-        private static IEnumerable<SubmodelElement> FindAllSMEs(List<SubmodelElementWrapper> smewc, Identifier semId)
+        private IEnumerable<SubmodelElement> FindAllSMEs(List<SubmodelElementWrapper> smewc, Identifier semId)
         {
             foreach (SubmodelElementWrapper smew in smewc)
                 if (smew.SubmodelElement.SemanticId != null)
@@ -219,7 +226,7 @@ namespace AdminShell
                         yield return smew.SubmodelElement;
         }
 
-        private static async Task GetCarbonIntensity()
+        private async Task GetCarbonIntensity()
         {
             string watttimeUser = Environment.GetEnvironmentVariable("WATTTIME_USER");
             if (!string.IsNullOrEmpty(watttimeUser))

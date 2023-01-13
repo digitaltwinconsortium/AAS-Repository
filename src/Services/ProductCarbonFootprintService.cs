@@ -12,13 +12,14 @@ namespace AdminShell
 
     public class ProductCarbonFootprintService : ADXDataService
     {
-        private Timer _timer = new Timer(CalculatePCF, null, Timeout.Infinite, Timeout.Infinite);
-        private static ConcurrentDictionary<string, object> _values = new ConcurrentDictionary<string, object>();
-        private static CarbonIntensityQueryResult _currentIntensity = null;
+        private Timer _timer;
+        private ConcurrentDictionary<string, object> _values = new ConcurrentDictionary<string, object>();
+        private CarbonIntensityQueryResult _currentIntensity = null;
 
         public ProductCarbonFootprintService(AASXPackageService packageService)
         : base(packageService)
         {
+            _timer = new Timer(CalculatePCF);
             _timer.Change(15000, 15000);
         }
 
@@ -32,7 +33,7 @@ namespace AdminShell
             base.Dispose();
         }
 
-        private static void CalculatePCF(object state)
+        private void CalculatePCF(object state)
         {
             // TODO: RunADXQuery("", _values);
 
@@ -41,7 +42,7 @@ namespace AdminShell
             VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
         }
 
-        private static async Task GetCarbonIntensity(string latitude, string longitude)
+        private async Task GetCarbonIntensity(string latitude, string longitude)
         {
             string watttimeUser = Environment.GetEnvironmentVariable("WATTTIME_USER");
             if (!string.IsNullOrEmpty(watttimeUser))

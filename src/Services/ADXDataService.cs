@@ -12,10 +12,9 @@ namespace AdminShell
 
     public class ADXDataService : IDisposable
     {
-        private static ICslQueryProvider _queryProvider = null;
+        private ICslQueryProvider _queryProvider = null;
 
-
-        protected static List<SubmodelElement> _dataPoints = new();
+        protected List<SubmodelElement> _dataPoints = new();
 
         public ADXDataService(AASXPackageService packageService)
         {
@@ -78,7 +77,7 @@ namespace AdminShell
             }
         }
 
-        protected static void RunADXQuery(string query, ConcurrentDictionary<string, object> values)
+        protected void RunADXQuery(string query, ConcurrentDictionary<string, object> values)
         {
             ClientRequestProperties clientRequestProperties = new ClientRequestProperties()
             {

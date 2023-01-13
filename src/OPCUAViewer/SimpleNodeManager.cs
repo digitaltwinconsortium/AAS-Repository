@@ -56,8 +56,6 @@ namespace AdminShell
                         {
                             ImportNodeset2Xml(externalReferences, nodesetFile, i);
                         }
-
-                        Console.WriteLine("Import nodes pass " + i.ToString() + " completed!");
                     }
                 }
 
@@ -80,9 +78,9 @@ namespace AdminShell
                     {
                         AddPredefinedNode(SystemContext, predefinedNodes[i]);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        Console.WriteLine("Pass " + pass.ToString() + ": Importing node ns=" + predefinedNodes[i].NodeId.NamespaceIndex + ";i=" + predefinedNodes[i].NodeId.Identifier + " (" + predefinedNodes[i].DisplayName + ") failed with error: " + ex.Message);
+                        // do nothing
                     }
                 }
             }

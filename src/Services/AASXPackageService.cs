@@ -1,6 +1,7 @@
 ﻿
 namespace AdminShell
 {
+    using Microsoft.Extensions.Logging;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -16,13 +17,16 @@ namespace AdminShell
         public Dictionary<string, AssetAdministrationShellEnvironment> Packages { get; private set; } = new();
 
         private readonly IFileStorage _storage;
+        private readonly ILogger _logger;
 
-        public AASXPackageService(IFileStorage storage)
+        public AASXPackageService(ILoggerFactory logger, IFileStorage storage)
         {
             _storage = storage;
+            _logger = logger.CreateLogger("AASXPackageService");
 
             string[] fileNames = _storage.FindAllFilesAsync(".").GetAwaiter().GetResult();
-            Console.WriteLine("Found " + fileNames.Length.ToString() + " AAS in storage.");
+
+            _logger.LogInformation("Found " + fileNames.Length.ToString() + " AAS in storage.");
 
             // load all AASX files
             foreach (string filename in fileNames)
@@ -36,7 +40,7 @@ namespace AdminShell
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Can't load AASX file {filename}: {ex}");
+                    _logger.LogError(ex, $"Can't load AASX file {filename}: {ex}");
                 }
             }
 
@@ -89,10 +93,25 @@ namespace AdminShell
         {
             Package package = Package.Open(GetPackageStream(key), FileMode.Open, FileAccess.Read);
 
-            // verify all the parts exist
+            System.IO.Packaging.AdminShell.PackageDigitalSignatureManager dsm = new(package);
+
+            // verify the collection of certificates in the package
+            foreach (System.IO.Packaging.AdminShell.PackageDigitalSignature signature in dsm.Signatures)
+            {
+                System.IO.Packaging.AdminShell.PackageDigitalSignatureManager.VerifyCertificate(signature.Signer);
+            }
+
+            // verify all signatures in the package
+            System.IO.Packaging.AdminShell.VerifyResult vResult = dsm.VerifySignatures(false);
+            if ((vResult != System.IO.Packaging.AdminShell.VerifyResult.NotSigned) && (vResult != System.IO.Packaging.AdminShell.VerifyResult.Success))
+            {
+                _logger.LogWarning("Package signature invalid!");
+            }
+
+            // verify that all the parts exist
 
             // get the origin from the package
-            PackagePart originPart = null;
+            System.IO.Packaging.PackagePart originPart = null;
             PackageRelationshipCollection relationships = package.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aasx-origin");
             foreach (var relationship in relationships)
             {
@@ -109,7 +128,7 @@ namespace AdminShell
             }
 
             // get the specs from the package
-            PackagePart specPart = null;
+            System.IO.Packaging.PackagePart specPart = null;
             relationships = originPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-spec");
             foreach (var relationship in relationships)
             {

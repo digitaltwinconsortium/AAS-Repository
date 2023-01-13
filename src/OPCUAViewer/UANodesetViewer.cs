@@ -218,7 +218,6 @@ namespace AdminShell
             if (e.Error.StatusCode == Opc.Ua.StatusCodes.BadCertificateUntrusted)
             {
                 // accept all OPC UA client certificates
-                Console.WriteLine("Automatically trusting client certificate " + e.Certificate.Subject);
                 e.Accept = true;
             }
         }
