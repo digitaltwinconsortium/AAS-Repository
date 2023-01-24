@@ -9,7 +9,7 @@ IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Ne
 1. Swagger endpoint at /swagger
 1. IDTA AASX Package Explorer client interface support
 1. Joint CESMII/Plattform Industrie 4.0/IDTA/DTC Carbon Reporting Demonstrator integration
-1. WattTime and CarbonIntensity.co.uk integration
+1. WattTime integration
 1. Azure Data Explorer data source integration
 1. Integrated AAS browser
 1. Integrated OPC UA Nodeset file browser
@@ -35,7 +35,7 @@ And then point your browser to http://localhost.
 1. HostingPlatform: The hosting platform of the repository. Current options are `Azure` (the default is to run it locally)
 1. UACLUsername: OPC Foundation UA Cloud Library username
 1. UACLPassword: OPC Foundation UA Cloud Library password
-1. ADX_HOST: Azure Data Explorer host endpoint
+1. ADX_HOST: Azure Data Explorer host name
 1. ADX_DB: Azure Data Explorer database name
 1. AAD_TENANT: Azure Active Directory tenant ID of your Azure subscription (GUID)
 1. AAD_APPLICATION_ID: Azure Active Directory application ID (GUID, set this up via an app registration in the Azure Portal)
@@ -45,3 +45,6 @@ And then point your browser to http://localhost.
 1. WATTTIME_PASSWORD: WattTime service password
 1. WATTTIME_LATITUDE: WattTime location to query
 1. WATTTIME_LONGITUDE: WattTime location to query
+1. CALCULATE_PCF: Set to 1 to enable PCF calculation
+1. CARBON_REPORTING: Set to 1 to enable carbon reporting
+1. ADT_HOSTNAME: ADT instance host name
