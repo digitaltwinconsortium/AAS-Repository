@@ -30,7 +30,7 @@
     <Content Include="Application.Config.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="erich-repo.aasx">
+    <Content Include="ProductCarbonFootprint.aasx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -54,6 +54,6 @@
 
   <ItemGroup>
     <None Remove="Application.Config.xml" />
-    <None Remove="erich-repo.aasx" />
+    <None Remove="ProductCarbonFootprint.aasx" />
   </ItemGroup>
 </Project>
