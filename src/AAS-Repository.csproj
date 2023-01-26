@@ -30,7 +30,7 @@
     <Content Include="Application.Config.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ProductCarbonFootprint.aasx">
+    <Content Include="ProductCarbonFootprint.template">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -54,6 +54,6 @@
 
   <ItemGroup>
     <None Remove="Application.Config.xml" />
-    <None Remove="ProductCarbonFootprint.aasx" />
+    <None Remove="ProductCarbonFootprint.template" />
   </ItemGroup>
 </Project>

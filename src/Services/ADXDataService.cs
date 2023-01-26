@@ -16,8 +16,12 @@ namespace AdminShell
 
         protected List<SubmodelElement> _dataPoints = new();
 
+        protected readonly AASXPackageService _packageService;
+
         public ADXDataService(AASXPackageService packageService)
         {
+            _packageService = packageService;
+
             // retrieve our ADX-tagged data points from all loaded AASes
             foreach (AssetAdministrationShellEnvironment env in packageService.Packages.Values)
             {

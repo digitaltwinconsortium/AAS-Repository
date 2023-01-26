@@ -8,6 +8,7 @@ namespace AdminShell
     using System.IO.Packaging;
     using System.Net.Mime;
     using System.Text.RegularExpressions;
+    using System.Threading;
     using System.Xml;
     using System.Xml.Serialization;
 
@@ -89,9 +90,17 @@ namespace AdminShell
             }
         }
 
-        private void Load(string key)
+        public void Load(string key, string newKey = null)
         {
-            Package package = Package.Open(GetPackageStream(key), FileMode.Open, FileAccess.Read);
+            Package package;
+            if (!string.IsNullOrEmpty(newKey))
+            {
+                package = Package.Open(GetLocalPackageStream(key), FileMode.Open, FileAccess.Read);
+            }
+            else
+            {
+                package = Package.Open(GetPackageStream(key), FileMode.Open, FileAccess.Read);
+            }
 
             System.IO.Packaging.AdminShell.PackageDigitalSignatureManager dsm = new(package);
 
@@ -111,7 +120,7 @@ namespace AdminShell
             // verify that all the parts exist
 
             // get the origin from the package
-            System.IO.Packaging.PackagePart originPart = null;
+            PackagePart originPart = null;
             PackageRelationshipCollection relationships = package.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aasx-origin");
             foreach (var relationship in relationships)
             {
@@ -128,7 +137,7 @@ namespace AdminShell
             }
 
             // get the specs from the package
-            System.IO.Packaging.PackagePart specPart = null;
+            PackagePart specPart = null;
             relationships = originPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-spec");
             foreach (var relationship in relationships)
             {
@@ -178,7 +187,14 @@ namespace AdminShell
                 throw new Exception("Type error XML spec file!");
             }
 
-            Packages.Add(key, aasenv);
+            if (newKey != null)
+            {
+                Save(newKey, System.IO.File.ReadAllBytes(key));
+            }
+            else
+            {
+                Packages.Add(key, aasenv);
+            }
 
             specStream.Close();
 
@@ -215,13 +231,31 @@ namespace AdminShell
 
         public Stream GetPackageStream(string key)
         {
-            byte[] content = _storage.LoadFileAsync(key).GetAwaiter().GetResult();
-            if (content != null)
+            try
             {
-                return new MemoryStream(content);
+                return new MemoryStream(_storage.LoadFileAsync(key).GetAwaiter().GetResult());
             }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
 
-            return null;
+        private Stream GetLocalPackageStream(string key)
+        {
+            try
+            {
+                if (!Path.IsPathRooted(key))
+                {
+                    key = Path.Combine(Directory.GetCurrentDirectory(), key);
+                }
+
+                return new MemoryStream(System.IO.File.ReadAllBytes(key));
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public byte[] GetFileContentsFromPackagePart(string key, string uriString)

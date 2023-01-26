@@ -395,3 +395,4 @@ healthchecksdb
 /src/DI.nodeset2.xml
 /src/ProductCarbonFootprint_SBT
 /src/ProductCarbonFootprint
+*.aasx

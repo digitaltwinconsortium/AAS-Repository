@@ -2,15 +2,9 @@
 namespace AdminShell
 {
     using Microsoft.Extensions.Logging;
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Concurrent;
-    using System.Collections.Generic;
     using System.Diagnostics;
-    using System.IO;
-    using System.Linq;
-    using System.Net.Http;
-    using System.Net.Http.Headers;
     using System.Threading;
 
     public class CarbonReportingService : ADXDataService
@@ -68,7 +62,14 @@ namespace AdminShell
             await WattTime.GetCarbonIntensity(latitude, longitude).ConfigureAwait(false);
 
             // get CO2 foot print data from our supply chain, in this case the GE machine's AAS
-            _geCO2Footprint = ReadCarbonReportFromRemoteAAS("https://carbonreportingge.azurewebsites.net/", "0", "Energy_model_harmonized");
+            try
+            {
+                _geCO2Footprint = CarbonReportingClient.ReadCarbonReportFromRemoteAAS("https://carbonreportingge.azurewebsites.net/", "0", "Energy_model_harmonized");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Accessing Carbon Reporting AAS failed with: " + ex.Message);
+            }
 
             UpdateSMEValues();
 
@@ -160,72 +161,6 @@ namespace AdminShell
 
                 return 0.0;
             }
-        }
-
-        float ReadCarbonReportFromRemoteAAS(string aasServerAddress, string aasId, string smIdShort)
-        {
-            try
-            {
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri(aasServerAddress);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                Submodel submodel = null;
-                var path = $"/aas/{aasId}/Submodels/{smIdShort}/complete";
-                HttpResponseMessage response = client.GetAsync(path).GetAwaiter().GetResult();
-                if (response.IsSuccessStatusCode)
-                {
-                    string json = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-
-                    using (TextReader reader = new StringReader(json))
-                    {
-                        JsonSerializer serializer = new JsonSerializer();
-                        submodel = (Submodel)serializer.Deserialize(reader, typeof(Submodel));
-                    }
-                }
-
-                // access electrical energy
-                SubmodelElement smcEe = FindAllSMEs(submodel?.SubmodelElements, new Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/electrical-energy/1/0")).FirstOrDefault();
-
-                // access CO2 per 1 minute
-                foreach (SubmodelElement smcPhase in FindAllSMEs(smcEe, new Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/electrical-total/1/0")))
-                {
-                    // get Value
-                    string value = ((Property)FindAllSMEs(smcPhase, new Identifier("https://admin-shell.io/sandbox/idta/carbon-reporting/cd/co2-equivalent-per-1-min/1/0")).FirstOrDefault()).Value;
-                    if (value != null && float.TryParse(value, out float f))
-                    {
-                        return f;
-                    }
-                    else
-                    {
-                        return 0.0f;
-                    }
-                }
-
-                return 0.0f;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Accessing other AAS failed with: " + ex.Message);
-                return 0.0f;
-            }
-        }
-
-        private IEnumerable<SubmodelElement> FindAllSMEs(SubmodelElement smeInput, Identifier semId)
-        {
-            if (smeInput is SubmodelElementCollection collection)
-                foreach (SubmodelElementWrapper smew in collection.Value)
-                    if (smew.SubmodelElement.SemanticId != null)
-                        if (smew.SubmodelElement.SemanticId.Matches(semId))
-                            yield return smew.SubmodelElement;
-        }
-
-        private IEnumerable<SubmodelElement> FindAllSMEs(List<SubmodelElementWrapper> smewc, Identifier semId)
-        {
-            foreach (SubmodelElementWrapper smew in smewc)
-                if (smew.SubmodelElement.SemanticId != null)
-                    if (smew.SubmodelElement.SemanticId.Matches(semId))
-                        yield return smew.SubmodelElement;
         }
     }
 }
