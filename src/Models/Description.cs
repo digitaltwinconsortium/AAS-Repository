@@ -8,8 +8,8 @@ namespace AdminShell
     [DataContract]
     public class Description
     {
-        [DataMember(Name = "LangString")]
-        [XmlArray(ElementName = "LangString")]
+        [DataMember(Name = "langString")]
+        [XmlArray(ElementName = "langString")]
         public List<LangString> LangString { get; set; } = new();
 
         public Description() { }

@@ -12,8 +12,8 @@ namespace AdminShell
     [DataContract]
     public class Identifier
     {
-        [DataMember(Name ="Value")]
-        [XmlElement(ElementName = "Value")]
+        [DataMember(Name ="value")]
+        [XmlElement(ElementName = "value")]
         public string Value = string.Empty;
 
         [DataMember(Name = "idType")]

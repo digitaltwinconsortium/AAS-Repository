@@ -87,20 +87,13 @@ namespace AdminShell
             if (src is SubmodelElementCollection)
                 SubmodelElement = new SubmodelElementCollection(src as SubmodelElementCollection, shallowCopy);
 
-            if (src is AnnotatedRelationshipElement)
-                SubmodelElement = new AnnotatedRelationshipElement(src as AnnotatedRelationshipElement);
-
-            if (src is RelationshipElement)
-                SubmodelElement = new RelationshipElement(src as RelationshipElement);
-
             if (src is ModelReferenceElement)
                 SubmodelElement = new ModelReferenceElement(src as ModelReferenceElement);
 
             if (src is GlobalReferenceElement)
                 SubmodelElement = new GlobalReferenceElement(src as GlobalReferenceElement);
 
-            if (src is ReferenceElement)
-                SubmodelElement = new ReferenceElement(src as ReferenceElement);
+
         }
     }
 }

@@ -11,7 +11,7 @@ namespace AdminShell
         [Required]
         [DataMember(Name = "key")]
         [XmlElement(ElementName = "key")]
-        [MetaModelName("IdentifierKeyValuePair.key")]
+        [MetaModelName("IdentifierKeyValuePair.Key")]
         public string Key { get; set; }
 
         [Required]

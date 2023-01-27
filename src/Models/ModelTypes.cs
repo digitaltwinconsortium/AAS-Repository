@@ -123,6 +123,14 @@ namespace AdminShell
 
         [EnumMember(Value = "SubmodelElementCollection")]
         [XmlEnum(Name = "SubmodelElementCollection")]
-        SubmodelElementCollection = 28
+        SubmodelElementCollection = 28,
+
+        [EnumMember(Value = "ModelReferenceElement")]
+        [XmlEnum(Name = "ModelReferenceElement")]
+        ModelReferenceElement = 29,
+
+        [EnumMember(Value = "GlobalReferenceElement")]
+        [XmlEnum(Name = "GlobalReferenceElement")]
+        GlobalReferenceElement = 30
     }
 }

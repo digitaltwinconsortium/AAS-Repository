@@ -13,7 +13,7 @@ namespace AdminShell
     {
         [DataMember(Name = "category")]
         [XmlElement(ElementName = "category")]
-        [MetaModelName("Referable.category")]
+        [MetaModelName("Referable.Category")]
         public string Category { get; set; }
 
         [DataMember(Name = "description")]
@@ -27,17 +27,17 @@ namespace AdminShell
         [Required]
         [DataMember(Name = "idShort")]
         [XmlElement(ElementName = "idShort")]
-        [MetaModelName("Referable.idShort")]
+        [MetaModelName("Referable.IdShort")]
         public string IdShort { get; set; }
 
         [Required]
         [DataMember(Name = "modelType")]
         [XmlElement(ElementName = "modelType")]
-        public ModelType ModelType { get; set; }
+        public ModelType ModelType { get; set; } = new();
 
         [DataMember(Name = "checksum")]
         [XmlElement(ElementName = "checksum")]
-        [MetaModelName("Referable.checksum")]
+        [MetaModelName("Referable.Checksum")]
         public string Checksum { get; set; } = string.Empty;
 
         [XmlIgnore]

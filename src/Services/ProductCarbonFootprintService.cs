@@ -136,9 +136,7 @@ namespace AdminShell
                     float pcf = scope1Emissions + scope2Emissions + scope3Emissions;
 
                     // persist AAS with serial number and calculated PCF
-                    GenerateAASXFile( (float)serialNumber, pcf, scope1Emissions, scope2Emissions, scope3Emissions);
-
-                    VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
+                    GenerateAASXFile(productionLineName + serialNumber.ToString(), pcf, scope1Emissions, scope2Emissions, scope3Emissions);
                 }
             }
             catch (Exception ex)
@@ -147,15 +145,21 @@ namespace AdminShell
             }
         }
 
-        private void GenerateAASXFile(float serialNumber, float pcf, float scope1Emissions, float scope2Emissions, float scope3Emissions)
+        private void GenerateAASXFile(string serialNumber, float pcf, float scope1Emissions, float scope2Emissions, float scope3Emissions)
         {
-            // make a copy of our template
             string newKey = "ProductCarbonFootprint" + "_" + serialNumber.ToString() + ".aasx";
+            if (_packageService.Packages.ContainsKey(newKey))
+            {
+                // AASX already exists
+                return;
+            }
+
+            // make a copy of our template
             _packageService.Load("ProductCarbonFootprint.template", newKey);
 
             // set serial number
             SubmodelElement serialNumberSME = FindSME(_packageService.Packages[newKey].Submodels[0].SubmodelElements, new Identifier("www.company.com/ids/cd/9544_4082_7091_8596"));
-            ((Property)serialNumberSME).Value = serialNumber.ToString();
+            ((Property)serialNumberSME).Value = serialNumber;
 
             // access pcf Submodel Element Collection
             SubmodelElement pcfSMEC = FindSME(_packageService.Packages[newKey].Submodels[1].SubmodelElements, new Identifier("0173-1#01-AHE716#001"));
@@ -178,6 +182,8 @@ namespace AdminShell
 
             // persist
             _packageService.Save(newKey);
+
+            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
         }
 
         private SubmodelElement FindSME(SubmodelElement smeInput, Identifier semId)

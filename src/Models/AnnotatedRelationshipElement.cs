@@ -12,11 +12,15 @@ namespace AdminShell
         [XmlArray(ElementName = "annotations")]
         public List<DataElement> Annotations { get; set; } = new();
 
-        public AnnotatedRelationshipElement() { }
+        public AnnotatedRelationshipElement()
+        {
+            ModelType.Name = ModelTypes.AnnotatedRelationshipElement;
+        }
 
         public AnnotatedRelationshipElement(AnnotatedRelationshipElement src) : base(src)
         {
             Annotations = src.Annotations;
+            ModelType.Name = ModelTypes.AnnotatedRelationshipElement;
         }
     }
 }

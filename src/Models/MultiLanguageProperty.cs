@@ -15,7 +15,10 @@ namespace AdminShell
         [XmlElement(ElementName = "valueId")]
         public GlobalReference ValueId { get; set; }
 
-        public MultiLanguageProperty() { }
+        public MultiLanguageProperty()
+        {
+            ModelType.Name = ModelTypes.MultiLanguageProperty;
+        }
 
         public MultiLanguageProperty(SubmodelElement src)
             : base(src)
@@ -26,6 +29,7 @@ namespace AdminShell
             }
 
             Value = new LangStringSet(mlp.Value);
+            ModelType.Name = ModelTypes.MultiLanguageProperty;
 
             if (mlp.ValueId != null)
             {

@@ -4,7 +4,7 @@ IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Ne
 
 # Features
 
-1. Loading of Asset Admin Shells V1, V2 and V3 (both XML and JSON), but always saving in V3 format, leveraging XML)
+1. Loading of Asset Admin Shells V1, V2 and V3 (both XML and JSON), but always saving in V3 format, leveraging both JSON and XML)
 1. Standardized AAS REST interface (as specified in part 2 of the AAS spec)
 1. Swagger endpoint at /swagger
 1. IDTA AASX Package Explorer client interface support
@@ -46,6 +46,7 @@ And then point your browser to http://localhost.
 1. WATTTIME_PASSWORD: WattTime service password
 1. WATTTIME_LATITUDE: WattTime location to query
 1. WATTTIME_LONGITUDE: WattTime location to query
-1. CALCULATE_PCF: Set to 1 to enable PCF calculation
-1. CARBON_REPORTING: Set to 1 to enable carbon reporting
+1. CALCULATE_PCF: Set to "1" to enable PCF calculation
+1. CARBON_REPORTING: Set to "1" to enable carbon reporting
 1. ADT_HOSTNAME: ADT instance host name
+1. USE_JSON_SERIALIZATION: Set "1" to enable saving AAS spec in JSON format (within AASX file)

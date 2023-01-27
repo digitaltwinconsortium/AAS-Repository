@@ -7,8 +7,8 @@ namespace AdminShell
     [DataContract]
     public class GlobalReferenceElement : ReferenceElement
     {
-        [DataMember(Name = "GRValue")]
-        [XmlElement(ElementName = "GRValue")]
+        [DataMember(Name = "grvalue")]
+        [XmlElement(ElementName = "grvalue")]
         public GlobalReference GRValue = new GlobalReference();
 
         public GlobalReferenceElement() { }

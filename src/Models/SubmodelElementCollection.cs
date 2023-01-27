@@ -54,20 +54,30 @@ namespace AdminShell
         [XmlIgnore]
         public bool AllowDuplicates = false;
 
-        public SubmodelElementCollection() { }
+        public SubmodelElementCollection()
+        {
+            ModelType.Name = ModelTypes.SubmodelElementCollection;
+        }
 
         public SubmodelElementCollection(SubmodelElement src, bool shallowCopy = false)
             : base(src)
         {
             if (!(src is SubmodelElementCollection smc))
+            {
                 return;
+            }
 
             Ordered = smc.Ordered;
             AllowDuplicates = smc.AllowDuplicates;
+            ModelType.Name = ModelTypes.SubmodelElementCollection;
 
             if (!shallowCopy)
+            {
                 foreach (var sme in smc.Value)
+                {
                     Value.Add(sme);
+                }
+            }
         }
     }
 }

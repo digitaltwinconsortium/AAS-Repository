@@ -44,23 +44,36 @@ namespace AdminShell
             }
         }
 
-        public Operation() { }
+        public Operation()
+        {
+            ModelType.Name = ModelTypes.Operation;
+        }
 
         public Operation(SubmodelElement src)
             : base(src)
         {
             if (!(src is Operation op))
+            {
                 return;
+            }
+
+            ModelType.Name = ModelTypes.Operation;
 
             for (int i = 0; i < 2; i++)
+            {
                 if (op[i] != null)
                 {
                     if (this[i] == null)
+                    {
                         this[i] = new List<OperationVariable>();
+                    }
+
                     foreach (var ov in op[i])
+                    {
                         this[i].Add(new OperationVariable(ov));
+                    }
                 }
+            }
         }
     }
 }
-

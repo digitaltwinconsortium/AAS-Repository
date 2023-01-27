@@ -17,13 +17,13 @@ namespace AdminShell
         [Required]
         [DataMember(Name = "language")]
         [XmlAttribute(Namespace = "http://www.admin-shell.io/3/0")]
-        [MetaModelName("LangString.lang")]
+        [MetaModelName("LangString.Language")]
         public string Language { get; set; }
 
         [Required]
         [DataMember(Name = "text")]
         [XmlText]
-        [MetaModelName("LangString.text")]
+        [MetaModelName("LangString.Text")]
         public string Text { get; set; }
 
         public LangString() { }

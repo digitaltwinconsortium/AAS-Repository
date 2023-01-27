@@ -2,13 +2,14 @@
 namespace AdminShell
 {
     using Microsoft.Extensions.Logging;
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.IO.Packaging;
     using System.Net.Mime;
+    using System.Text;
     using System.Text.RegularExpressions;
-    using System.Threading;
     using System.Xml;
     using System.Xml.Serialization;
 
@@ -152,7 +153,12 @@ namespace AdminShell
             }
 
             Stream specStream = specPart.GetStream(FileMode.Open);
-            string nsURI = TryReadXmlFirstElementNamespaceURI(specStream);
+
+            string nsURI = null;
+            if (specPart.ContentType == "text/xml")
+            {
+                nsURI = TryReadXmlFirstElementNamespaceURI(specStream);
+            }
 
             // reopen spec
             specStream.Close();
@@ -161,30 +167,39 @@ namespace AdminShell
             // deserialize spec
             AssetAdministrationShellEnvironment aasenv = null;
 
-            // read V1.0
-            if (nsURI != null && nsURI.Trim() == "http://www.admin-shell.io/aas/1/0")
+            if (specPart.ContentType == "text/xml")
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/1/0");
-                aasenv = serializer.Deserialize(specStream) as AssetAdministrationShellEnvironment;
-            }
+                // read V1.0
+                if (nsURI != null && nsURI.Trim() == "http://www.admin-shell.io/aas/1/0")
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/1/0");
+                    aasenv = serializer.Deserialize(specStream) as AssetAdministrationShellEnvironment;
+                }
 
-            // read V2.0
-            if (nsURI != null && nsURI.Trim() == "http://www.admin-shell.io/aas/2/0")
-            {
-                XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/2/0");
-                aasenv = serializer.Deserialize(specStream) as AssetAdministrationShellEnvironment;
-            }
+                // read V2.0
+                if (nsURI != null && nsURI.Trim() == "http://www.admin-shell.io/aas/2/0")
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/2/0");
+                    aasenv = serializer.Deserialize(specStream) as AssetAdministrationShellEnvironment;
+                }
 
-            // read V3.0
-            if (nsURI != null && nsURI.Trim() == "http://www.admin-shell.io/aas/3/0")
+                // read V3.0
+                if (nsURI != null && nsURI.Trim() == "http://www.admin-shell.io/aas/3/0")
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/3/0");
+                    aasenv = serializer.Deserialize(specStream) as AssetAdministrationShellEnvironment;
+                }
+            }
+            else
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/3/0");
-                aasenv = serializer.Deserialize(specStream) as AssetAdministrationShellEnvironment;
+                byte[] bytes = new byte[specStream.Length];
+                specStream.Read(bytes);
+                aasenv = JsonConvert.DeserializeObject<AssetAdministrationShellEnvironment>(Encoding.UTF8.GetString(bytes));
             }
 
             if (aasenv == null)
             {
-                throw new Exception("Type error XML spec file!");
+                throw new Exception("Error parsing AAS spec!");
             }
 
             if (newKey != null)
@@ -209,9 +224,8 @@ namespace AdminShell
             {
                 var reader = XmlReader.Create(specStream);
 
-                for (int i = 0; i < 100; i++)
+                while (reader.Read())
                 {
-                    reader.Read();
                     if (reader.NodeType == XmlNodeType.Element)
                     {
                         nsURI = reader.NamespaceURI;
@@ -438,8 +452,7 @@ namespace AdminShell
 
             // get the origin from the package
             PackagePart originPart = null;
-            PackageRelationshipCollection relationships = package.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aasx-origin");
-            foreach (var relationship in relationships)
+            foreach (PackageRelationship relationship in package.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aasx-origin"))
             {
                 if (relationship.SourceUri.ToString() == "/")
                 {
@@ -464,20 +477,19 @@ namespace AdminShell
             // get the specs from the package
             PackagePart specPart = null;
             PackageRelationship specRel = null;
-            relationships = originPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-spec");
-            foreach (var relationship in relationships)
+            foreach (PackageRelationship relationship in originPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-spec"))
             {
                 specRel = relationship;
                 specPart = package.GetPart(relationship.TargetUri);
                 break;
             }
 
-            // check, if we have to change the spec part
+            // check if we have to change the spec part
             if (specPart != null && specRel != null)
             {
                 var name = Path.GetFileNameWithoutExtension(specPart.Uri.ToString()).ToLower().Trim();
                 var ext = Path.GetExtension(specPart.Uri.ToString()).ToLower().Trim();
-                if (ext == ".json" || name.StartsWith("aasenv-with-no-Id"))
+                if (ext == ".json" || name.StartsWith("aasenv-with-no-Id") || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("USE_JSON_SERIALIZATION")))
                 {
                     try
                     {
@@ -491,7 +503,6 @@ namespace AdminShell
                     finally
                     {
                         specPart = null;
-                        specRel = null;
                     }
                 }
             }
@@ -503,24 +514,43 @@ namespace AdminShell
 
                 if (env.AssetAdministrationShells.Count > 0)
                 {
-                    frn = Regex.Replace(env.AssetAdministrationShells[0].Identification ?? frn, @"[^a-zA-Z0-9\-_]", "_");
+                    frn = Regex.Replace(env.AssetAdministrationShells[0].IdShort ?? frn, @"[^a-zA-Z0-9\-_]", "_");
                 }
 
-                string aas_spec_fn = "/aasx/#/#.aas.xml".Replace("#", frn);
-
-                specPart = package.CreatePart(new Uri(aas_spec_fn, UriKind.RelativeOrAbsolute), MediaTypeNames.Text.Xml, CompressionOption.Maximum);
+                if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("USE_JSON_SERIALIZATION")))
+                {
+                    string aas_spec_fn = "/aasx/#/#.aas.json".Replace("#", frn);
+                    specPart = package.CreatePart(new Uri(aas_spec_fn, UriKind.RelativeOrAbsolute), MediaTypeNames.Text.Plain, CompressionOption.Maximum);
+                }
+                else
+                {
+                    string aas_spec_fn = "/aasx/#/#.aas.xml".Replace("#", frn);
+                    specPart = package.CreatePart(new Uri(aas_spec_fn, UriKind.RelativeOrAbsolute), MediaTypeNames.Text.Xml, CompressionOption.Maximum);
+                }
 
                 originPart.CreateRelationship(specPart.Uri, TargetMode.Internal, "http://www.admin-shell.io/aasx/relationships/aas-spec");
             }
 
             using (var s = specPart.GetStream(FileMode.Create))
             {
-                var serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment));
-                var nss = new XmlSerializerNamespaces();
-                nss.Add("xsi", System.Xml.Schema.XmlSchema.InstanceNamespace);
-                nss.Add("aas", "http://www.admin-shell.io/aas/3/0");
-                nss.Add("IEC61360", "http://www.admin-shell.io/IEC61360/3/0");
-                serializer.Serialize(s, env, nss);
+                if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("USE_JSON_SERIALIZATION")))
+                {
+                    string json = JsonConvert.SerializeObject(env);
+                    s.Write(Encoding.UTF8.GetBytes(json));
+                }
+                else
+                {
+                    var serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment));
+                    var nss = new XmlSerializerNamespaces();
+                    nss.Add("xsi", System.Xml.Schema.XmlSchema.InstanceNamespace);
+                    nss.Add("aas", "http://www.admin-shell.io/aas/3/0");
+                    nss.Add("IEC", "http://www.admin-shell.io/IEC61360/3/0");
+                    nss.Add("abac", "http://www.admin-shell.io/aas/abac/3/0");
+                    serializer.Serialize(s, env, nss);
+                }
+
+                s.Flush();
+                s.Close();
             }
 
             package.Flush();

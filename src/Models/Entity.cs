@@ -63,25 +63,35 @@ namespace AdminShell
         [XmlElement(ElementName = "asset")]
         public ModelReference AssetRef = null;
 
-        public Entity() { }
+        public Entity()
+        {
+            ModelType.Name = ModelTypes.Entity;
+        }
 
         public Entity(SubmodelElement src)
             : base(src)
         {
             if (!(src is Entity ent))
+            {
                 return;
+            }
 
             if (ent.Statements != null)
             {
                 Statements = new List<SubmodelElementWrapper>();
                 foreach (var smw in ent.Statements)
+                {
                     Statements.Add(smw);
+                }
             }
 
             EntityType = ent.EntityType;
+            ModelType.Name = ModelTypes.Entity;
 
             if (ent.AssetRef != null)
+            {
                 AssetRef = new ModelReference(ent.AssetRef);
+            }
         }
     }
 }

@@ -14,16 +14,25 @@ namespace AdminShell
         [XmlElement(ElementName = "observed")]
         public Reference Observed { get; set; } = new();
 
-        public BasicEvent() { }
+        public BasicEvent()
+        {
+            ModelType.Name = ModelTypes.BasicEvent;
+        }
 
         public BasicEvent(SubmodelElement src)
             : base(src)
         {
             if (!(src is BasicEvent be))
+            {
                 return;
+            }
+
+            ModelType.Name = ModelTypes.BasicEvent;
 
             if (be.Observed != null)
+            {
                 Observed = new Reference(be.Observed);
+            }
         }
     }
 }

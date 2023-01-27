@@ -11,31 +11,37 @@ namespace AdminShell
     {
         [DataMember(Name = "max")]
         [XmlElement(ElementName = "max")]
-        [MetaModelName("Range.max")]
+        [MetaModelName("Range.Max")]
         public string Max { get; set; }
 
         [DataMember(Name = "min")]
         [XmlElement(ElementName = "min")]
-        [MetaModelName("Range.min")]
+        [MetaModelName("Range.Min")]
         public string Min { get; set; }
 
         [Required]
         [DataMember(Name = "valueType")]
         [XmlElement(ElementName = "valueType")]
-        [MetaModelName("Range.valueType")]
+        [MetaModelName("Range.ValueType")]
         public string ValueType { get; set; }
 
-        public Range() { }
+        public Range()
+        {
+            ModelType.Name = ModelTypes.Range;
+        }
 
         public Range(SubmodelElement src)
             : base(src)
         {
             if (!(src is Range rng))
+            {
                 return;
+            }
 
             ValueType = rng.ValueType;
             Min = rng.Min;
             Max = rng.Max;
+            ModelType.Name = ModelTypes.Range;
         }
     }
 }

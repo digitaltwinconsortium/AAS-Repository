@@ -19,19 +19,30 @@ namespace AdminShell
         [XmlElement(ElementName = "second")]
         public ModelReference Second { get; set; } = new();
 
-        public RelationshipElement() { }
+        public RelationshipElement()
+        {
+            ModelType.Name = ModelTypes.RelationshipElement;
+        }
 
         public RelationshipElement(SubmodelElement src)
             : base(src)
         {
             if (!(src is RelationshipElement rel))
+            {
                 return;
+            }
+
+            ModelType.Name = ModelTypes.RelationshipElement;
 
             if (rel.First != null)
+            {
                 First = new ModelReference(rel.First);
+            }
 
             if (rel.Second != null)
+            {
                 Second = new ModelReference(rel.Second);
+            }
         }
     }
 }

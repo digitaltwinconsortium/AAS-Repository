@@ -10,8 +10,8 @@ namespace AdminShell
     public class ModelType
     {
         [Required]
-        [DataMember(Name="name")]
+        [DataMember(Name = "name")]
         [XmlElement(ElementName = "name")]
-        public ModelTypes Name { get; set; }
+        public ModelTypes Name { get; set; } = new();
     }
 }

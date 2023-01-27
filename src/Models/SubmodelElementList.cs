@@ -35,18 +35,26 @@ namespace AdminShell
         [XmlElement(ElementName = "valueTypeListElement")]
         public string ValueTypeListElement { get; set; }
 
-        public SubmodelElementList() { }
+        public SubmodelElementList()
+        {
+            ModelType.Name = ModelTypes.SubmodelElementList;
+        }
 
         public SubmodelElementList(SubmodelElement src, bool shallowCopy = false)
             : base(src, shallowCopy)
         {
             if (!(src is SubmodelElementList sml))
+            {
                 return;
+            }
 
             OrderRelevant = sml.OrderRelevant;
+            ModelType.Name = ModelTypes.SubmodelElementList;
 
             if (sml.SemanticIdListElement != null)
+            {
                 SemanticIdListElement = new SemanticId(sml.SemanticIdListElement);
+            }
 
             TypeValueListElement = sml.TypeValueListElement;
             ValueTypeListElement = sml.ValueTypeListElement;

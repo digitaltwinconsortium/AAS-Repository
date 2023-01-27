@@ -12,7 +12,7 @@ namespace AdminShell
     {
         [DataMember(Name = "dataType")]
         [XmlElement(ElementName = "dataType")]
-        [MetaModelName("DataSpecificationIEC61360.dataType")]
+        [MetaModelName("DataSpecificationIEC61360.DataType")]
         public string DataType { get; set; }
 
         [DataMember(Name = "definition")]
@@ -34,17 +34,17 @@ namespace AdminShell
 
         [DataMember(Name = "sourceOfDefinition")]
         [XmlElement(ElementName = "sourceOfDefinition")]
-        [MetaModelName("DataSpecificationIEC61360.sourceOfDefinition")]
+        [MetaModelName("DataSpecificationIEC61360.SourceOfDefinition")]
         public string SourceOfDefinition { get; set; }
 
         [DataMember(Name = "symbol")]
         [XmlElement(ElementName = "symbol")]
-        [MetaModelName("DataSpecificationIEC61360.symbol")]
+        [MetaModelName("DataSpecificationIEC61360.Symbol")]
         public string Symbol { get; set; }
 
         [DataMember(Name = "unit")]
         [XmlElement(ElementName = "unit")]
-        [MetaModelName("DataSpecificationIEC61360.unit")]
+        [MetaModelName("DataSpecificationIEC61360.Unit")]
         public string Unit { get; set; }
 
         [DataMember(Name = "unitId")]
@@ -53,7 +53,7 @@ namespace AdminShell
 
         [DataMember(Name = "valueFormat")]
         [XmlElement(ElementName = "valueFormat")]
-        [MetaModelName("DataSpecificationIEC61360.valueFormat")]
+        [MetaModelName("DataSpecificationIEC61360.ValueFormat")]
         public string ValueFormat { get; set; }
 
         [DataMember(Name = "valueList")]
