@@ -41,9 +41,18 @@ namespace AdminShell
             string aadAppID = Environment.GetEnvironmentVariable("AAD_APPLICATION_ID");
             string aadTenant = Environment.GetEnvironmentVariable("AAD_TENANT");
 
-            if (!string.IsNullOrEmpty(aadAppKey) && !string.IsNullOrEmpty(adxClusterName) && !string.IsNullOrEmpty(adxDBName) && !string.IsNullOrEmpty(aadAppID) && !string.IsNullOrEmpty(aadTenant))
+            if (!string.IsNullOrEmpty(adxClusterName) && !string.IsNullOrEmpty(adxDBName) && !string.IsNullOrEmpty(aadAppID))
             {
-                KustoConnectionStringBuilder connectionString = new KustoConnectionStringBuilder(adxClusterName, adxDBName).WithAadApplicationKeyAuthentication(aadAppID, aadAppKey, aadTenant);
+                KustoConnectionStringBuilder connectionString;
+                if (!string.IsNullOrEmpty(aadAppKey) && !string.IsNullOrEmpty(aadTenant))
+                {
+                    connectionString = new KustoConnectionStringBuilder(adxClusterName, adxDBName).WithAadApplicationKeyAuthentication(aadAppID, aadAppKey, aadTenant);
+                }
+                else
+                {
+                    connectionString = new KustoConnectionStringBuilder(adxClusterName, adxDBName).WithAadUserManagedIdentity(aadAppID);
+                }
+
                 _queryProvider = KustoClientFactory.CreateCslQueryProvider(connectionString);
             }
         }
