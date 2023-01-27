@@ -40,7 +40,7 @@ namespace AdminShell
             string adtEndpoint = Environment.GetEnvironmentVariable("ADT_HOSTNAME");
             if (!string.IsNullOrEmpty(adtEndpoint))
             {
-                string[] adtEndpointParts = adtEndpoint.Split('.');
+                string[] adtEndpointParts = adtEndpoint.Replace("https://", string.Empty).Split('.');
                 string region = string.Empty;
                 switch (adtEndpointParts[2])
                 {

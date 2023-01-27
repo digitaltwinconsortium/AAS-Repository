@@ -46,7 +46,7 @@ namespace AdminShell
                 KustoConnectionStringBuilder connectionString;
                 if (!string.IsNullOrEmpty(aadAppKey) && !string.IsNullOrEmpty(aadTenant))
                 {
-                    connectionString = new KustoConnectionStringBuilder(adxClusterName, adxDBName).WithAadApplicationKeyAuthentication(aadAppID, aadAppKey, aadTenant);
+                    connectionString = new KustoConnectionStringBuilder(adxClusterName.Replace("https://", string.Empty), adxDBName).WithAadApplicationKeyAuthentication(aadAppID, aadAppKey, aadTenant);
                 }
                 else
                 {
