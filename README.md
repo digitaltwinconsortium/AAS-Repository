@@ -48,5 +48,4 @@ And then point your browser to http://localhost.
 1. WATTTIME_LONGITUDE: WattTime location to query
 1. CALCULATE_PCF: Set to "1" to enable PCF calculation
 1. CARBON_REPORTING: Set to "1" to enable carbon reporting
-1. ADT_HOSTNAME: ADT instance host name
 1. USE_JSON_SERIALIZATION: Set "1" to enable saving AAS spec in JSON format (within AASX file)
