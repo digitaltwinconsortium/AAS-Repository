@@ -37,45 +37,7 @@ namespace AdminShell
 
         private string GetADTHistoryTableName()
         {
-            string adtEndpoint = Environment.GetEnvironmentVariable("ADT_HOSTNAME");
-            if (!string.IsNullOrEmpty(adtEndpoint))
-            {
-                string[] adtEndpointParts = adtEndpoint.Replace("https://", string.Empty).Split('.');
-                string region = string.Empty;
-                switch (adtEndpointParts[2])
-                {
-                    case "eus": region = "eastus"; break;
-                    case "eus2": region = "eastus2"; break;
-                    case "scus": region = "southcentralus"; break;
-                    case "wus2": region = "westus2"; break;
-                    case "wus3": region = "westus3"; break;
-                    case "aue": region = "australiaeast"; break;
-                    case "sea": region = "southeastasia"; break;
-                    case "neu": region = "northeurope"; break;
-                    case "swc": region = "swedencentral"; break;
-                    case "uks": region = "uksouth"; break;
-                    case "weu": region = "westeurope"; break;
-                    case "cus": region = "centralus"; break;
-                    case "san": region = "southafricanorth"; break;
-                    case "ci": region = "centralindia"; break;
-                    case "ea": region = "eastasia"; break;
-                    case "jpe": region = "japaneast"; break;
-                    case "kac": region = "koreacentral"; break;
-                    case "cc": region = "canadacentral"; break;
-                    case "frc": region = "francecentral"; break;
-                    case "gwc": region = "germanywestcentral"; break;
-                    case "noe": region = "norwayeast"; break;
-                    case "swn": region = "switzerlandnorth"; break;
-                    case "uaen": region = "uaenorth"; break;
-                    case "brs": region = "brazilsouth"; break;
-                    case "qtc": region = "qatarcentral"; break;
-                    default: throw new Exception("Could not determine region of ADT instance!");
-                }
-
-                return "adt_dh_" + adtEndpointParts[0].Replace('-', '_') + "_" + region;
-            }
-
-            throw new Exception("Environment variable ADT_HOSTNAME not defined!");
+            return "AdtPropertyEvents";
         }
 
         private void GeneratePCFAAS(object state)
