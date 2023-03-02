@@ -40,6 +40,8 @@ namespace AdminShell
                     {
                         files.Add(blobItem.Name);
                     }
+
+                    return files.ToArray();
                 }
 
                 return null;
