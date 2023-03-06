@@ -36,6 +36,8 @@
 
             services.AddSingleton<ProductCarbonFootprintService>();
 
+            services.AddSingleton<SmECService>();
+
             services.AddSingleton<VisualTreeBuilderService>();
 
             services.AddSingleton<AASXPackageService>();

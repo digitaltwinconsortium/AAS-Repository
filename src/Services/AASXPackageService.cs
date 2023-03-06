@@ -155,7 +155,7 @@ namespace AdminShell
             Stream specStream = specPart.GetStream(FileMode.Open);
 
             string nsURI = null;
-            if (specPart.ContentType == "text/xml")
+            if ((specPart.ContentType == "text/xml") || (specPart.ContentType == "application/xml"))
             {
                 nsURI = TryReadXmlFirstElementNamespaceURI(specStream);
             }
@@ -167,7 +167,7 @@ namespace AdminShell
             // deserialize spec
             AssetAdministrationShellEnvironment aasenv = null;
 
-            if (specPart.ContentType == "text/xml")
+            if ((specPart.ContentType == "text/xml") || (specPart.ContentType == "application/xml"))
             {
                 // read V1.0
                 if (nsURI != null && nsURI.Trim() == "http://www.admin-shell.io/aas/1/0")

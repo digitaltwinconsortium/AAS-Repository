@@ -2,7 +2,6 @@
 namespace AdminShell
 {
     using Aml.Engine.CAEX;
-    using Kusto.Cloud.Platform.Communication;
     using Microsoft.Extensions.Logging;
     using System;
     using System.Collections.Generic;
@@ -15,15 +14,17 @@ namespace AdminShell
         private readonly ILogger _logger;
         private readonly CarbonReportingService _carbonReporting;
         private readonly ProductCarbonFootprintService _pcf;
+        private readonly SmECService _smec;
 
         public static event EventHandler NewDataAvailable;
 
-        public VisualTreeBuilderService(ILoggerFactory logger, UANodesetViewer viewer, AASXPackageService packages, CarbonReportingService carbonReporting, ProductCarbonFootprintService pcf)
+        public VisualTreeBuilderService(ILoggerFactory logger, UANodesetViewer viewer, AASXPackageService packages, CarbonReportingService carbonReporting, ProductCarbonFootprintService pcf, SmECService smec)
         {
             _viewer = viewer;
             _packageService = packages;
             _carbonReporting = carbonReporting;
             _pcf = pcf;
+            _smec = smec;
             _logger = logger.CreateLogger("VisualTreeBuilderService");
         }
 

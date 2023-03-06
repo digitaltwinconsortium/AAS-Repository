@@ -169,7 +169,7 @@
             var f = o as File;
             // Test for /aasx/
             string[] split = f.Value.Split(new Char[] { '/' });
-            if (split[1].ToLower() == "aasx")
+            if ((split.Length > 1) && (split[1].ToLower() == "aasx"))
             {
                 split = f.Value.Split(new Char[] { '.' });
                 switch(split.Last().ToLower())

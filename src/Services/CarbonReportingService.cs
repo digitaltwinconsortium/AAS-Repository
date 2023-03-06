@@ -84,6 +84,7 @@ namespace AdminShell
                 {
                     prop.Value = GetCarbonReportingValue(sme).ToString();
                 }
+
                 if (sme is Blob blob)
                 {
                     blob.Value = GetCarbonReportingValue(sme).ToString();

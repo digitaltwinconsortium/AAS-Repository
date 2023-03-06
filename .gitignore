@@ -396,3 +396,4 @@ healthchecksdb
 /src/ProductCarbonFootprint_SBT
 /src/ProductCarbonFootprint
 *.aasx
+/src/HARTING_SmEC_v005_SAP
