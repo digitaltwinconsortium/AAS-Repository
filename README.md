@@ -11,6 +11,7 @@ IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Ne
 1. Joint CESMII/Plattform Industrie 4.0/IDTA/DTC Carbon Reporting Demonstrator integration
 1. Product Carbon Footprint (PCF) calculation (based on GHG Protocol specification) for the production line simulation which is part of the [DTC's Manufacturing Ontologies reference solution](https://github.com/digitaltwinconsortium/ManufacturingOntologies).
 1. WattTime integration
+1. Harting SmEC integration
 1. Azure Data Explorer data source integration
 1. Integrated AAS browser
 1. Integrated OPC UA Nodeset file browser
@@ -48,4 +49,5 @@ And then point your browser to http://localhost.
 1. WATTTIME_LONGITUDE: WattTime location to query
 1. CALCULATE_PCF: Set to "1" to enable PCF calculation
 1. CARBON_REPORTING: Set to "1" to enable carbon reporting
+1. SMEC_REPORTING: Set to "1" to enable Harting SmEC reporting
 1. USE_JSON_SERIALIZATION: Set "1" to enable saving AAS spec in JSON format (within AASX file)
