@@ -39,7 +39,7 @@ namespace AdminShell
                 else
                 {
                     // default to 15s interval
-                    _queryTimer.Change(5000, 150000);
+                    _queryTimer.Change(15000, 15000);
                 }
             }
         }
