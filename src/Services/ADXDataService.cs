@@ -90,7 +90,7 @@ namespace AdminShell
             }
         }
 
-        protected void RunADXQuery(string query, ConcurrentDictionary<string, object> values)
+        protected void RunADXQuery(string query, ConcurrentDictionary<string, object> values, bool allowMultiRow = false)
         {
             ClientRequestProperties clientRequestProperties = new ClientRequestProperties()
             {
@@ -109,13 +109,27 @@ namespace AdminShell
                             {
                                 if (reader.GetValue(i) != null)
                                 {
-                                    if (values.ContainsKey(reader.GetName(i)))
+                                    if (!allowMultiRow)
                                     {
-                                        values[reader.GetName(i)] = reader.GetValue(i);
+                                        if (values.ContainsKey(reader.GetName(i)))
+                                        {
+                                            values[reader.GetName(i)] = reader.GetValue(i);
+                                        }
+                                        else
+                                        {
+                                            values.TryAdd(reader.GetName(i), reader.GetValue(i));
+                                        }
                                     }
                                     else
                                     {
-                                        values.TryAdd(reader.GetName(i), reader.GetValue(i));
+                                        if (values.ContainsKey(reader.GetValue(i).ToString()))
+                                        {
+                                            values[reader.GetValue(i).ToString()] = reader.GetValue(i);
+                                        }
+                                        else
+                                        {
+                                            values.TryAdd(reader.GetValue(i).ToString(), reader.GetValue(i));
+                                        }
                                     }
                                 }
                             }

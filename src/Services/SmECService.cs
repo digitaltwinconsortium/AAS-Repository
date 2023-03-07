@@ -4,7 +4,9 @@ namespace AdminShell
     using Microsoft.Extensions.Logging;
     using System;
     using System.Collections.Concurrent;
+    using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Linq;
     using System.Threading;
 
     public class SmECService : ADXDataService
@@ -21,6 +23,12 @@ namespace AdminShell
 
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("SMEC_REPORTING")))
             {
+                RunADXQuery("AdtPropertyEvents | where Key == 'equipmentID' | distinct tostring(Value)", _values, true);
+
+                CreateSMEValues(_values);
+
+                _values.Clear();
+
                 _queryTimer = new Timer(RunQuerys);
 
                 string adxQueryInterval = Environment.GetEnvironmentVariable("ADX_QUERY_INTERVAL");
@@ -49,71 +57,56 @@ namespace AdminShell
         private void RunQuerys(object state)
         {
             // read the row from our OPC UA telemetry table
-            RunADXQuery("let intermediateTable = AdtPropertyEvents | where Id == toscalar(GetDigitalTwinIdForUANode('', '', 'id_detected')); intermediateTable | where isnotnull(SourceTimeStamp) | join intermediateTable on $left.TimeStamp == $right.TimeStamp | where Key1 == 'equipmentID' | project SourceTimeStamp, OPCUANodeValue = tostring(Value), OPCUADisplayName = Value1 | top 1 by SourceTimeStamp desc", _values);
-            UpdateSMEValues();
-            _values.Clear();
+            foreach (Property prop in _dataPoints)
+            {
+                RunADXQuery("let intermediateTable = AdtPropertyEvents | where Id == toscalar(GetDigitalTwinIdForUANode('', '', '" + prop.IdShort + "')); intermediateTable | where isnotnull(SourceTimeStamp) | join intermediateTable on $left.TimeStamp == $right.TimeStamp | where Key1 == 'equipmentID' | project SourceTimeStamp, OPCUANodeValue = tostring(Value), OPCUADisplayName = Value1 | top 1 by SourceTimeStamp desc", _values);
 
-            RunADXQuery("let intermediateTable = AdtPropertyEvents | where Id == toscalar(GetDigitalTwinIdForUANode('', '', 'mated')); intermediateTable | where isnotnull(SourceTimeStamp) | join intermediateTable on $left.TimeStamp == $right.TimeStamp | where Key1 == 'equipmentID' | project SourceTimeStamp, OPCUANodeValue = tostring(Value), OPCUADisplayName = Value1 | top 1 by SourceTimeStamp desc", _values);
-            UpdateSMEValues();
-            _values.Clear();
+                UpdateSMEValues();
 
-            RunADXQuery("let intermediateTable = AdtPropertyEvents | where Id == toscalar(GetDigitalTwinIdForUANode('', '', 'locked')); intermediateTable | where isnotnull(SourceTimeStamp) | join intermediateTable on $left.TimeStamp == $right.TimeStamp | where Key1 == 'equipmentID' | project SourceTimeStamp, OPCUANodeValue = tostring(Value), OPCUADisplayName = Value1 | top 1 by SourceTimeStamp desc", _values);
-            UpdateSMEValues();
-            _values.Clear();
-
-            RunADXQuery("let intermediateTable = AdtPropertyEvents | where Id == toscalar(GetDigitalTwinIdForUANode('', '', 'blocked')); intermediateTable | where isnotnull(SourceTimeStamp) | join intermediateTable on $left.TimeStamp == $right.TimeStamp | where Key1 == 'equipmentID' | project SourceTimeStamp, OPCUANodeValue = tostring(Value), OPCUADisplayName = Value1 | top 1 by SourceTimeStamp desc", _values);
-            UpdateSMEValues();
-            _values.Clear();
-
-            RunADXQuery("let intermediateTable = AdtPropertyEvents | where Id == toscalar(GetDigitalTwinIdForUANode('', '', 'current')); intermediateTable | where isnotnull(SourceTimeStamp) | join intermediateTable on $left.TimeStamp == $right.TimeStamp | where Key1 == 'equipmentID' | project SourceTimeStamp, OPCUANodeValue = tostring(Value), OPCUADisplayName = Value1 | top 1 by SourceTimeStamp desc", _values);
-            UpdateSMEValues();
-            _values.Clear();
-
-            RunADXQuery("let intermediateTable = AdtPropertyEvents | where Id == toscalar(GetDigitalTwinIdForUANode('', '', 'voltage')); intermediateTable | where isnotnull(SourceTimeStamp) | join intermediateTable on $left.TimeStamp == $right.TimeStamp | where Key1 == 'equipmentID' | project SourceTimeStamp, OPCUANodeValue = tostring(Value), OPCUADisplayName = Value1 | top 1 by SourceTimeStamp desc", _values);
-            UpdateSMEValues();
-            _values.Clear();
-
-            RunADXQuery("let intermediateTable = AdtPropertyEvents | where Id == toscalar(GetDigitalTwinIdForUANode('', '', 'temperature')); intermediateTable | where isnotnull(SourceTimeStamp) | join intermediateTable on $left.TimeStamp == $right.TimeStamp | where Key1 == 'equipmentID' | project SourceTimeStamp, OPCUANodeValue = tostring(Value), OPCUADisplayName = Value1 | top 1 by SourceTimeStamp desc", _values);
-            UpdateSMEValues();
-            _values.Clear();
+                _values.Clear();
+            }
 
             VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
         }
 
-        private void UpdateSMEValues()
+        private void CreateSMEValues(ConcurrentDictionary<string, object> values)
         {
-            foreach (SubmodelElement sme in _dataPoints)
+            // retrieve our OperationalData Submodel
+            foreach (AssetAdministrationShellEnvironment env in _packageService.Packages.Values)
             {
-                if (sme is Property prop)
+                foreach (Submodel sm in env.Submodels)
                 {
-                    prop.Value = GetValue(sme).ToString();
+                    if (sm.IdShort == "OperationalData")
+                    {
+                        List<string> keys = values.Keys.ToList();
+                        keys.Sort();
+                        foreach (string dataItem in keys)
+                        {
+                            // create a wrapper and submodel element per data item
+                            Property sme = new() { IdShort = dataItem };
+                            _dataPoints.Add(sme);
+                            sm.SubmodelElements.Add(new SubmodelElementWrapper() { SubmodelElement = sme });
+                        }
+                    }
                 }
             }
         }
 
-        public string GetValue(SubmodelElement sme)
+        private void UpdateSMEValues()
         {
-            try
+            foreach (Property prop in _dataPoints)
             {
-                foreach (Qualifier q in sme.Qualifiers)
+                try
                 {
-                    if (q.Type == "ADX")
+                    if (_values["OPCUADisplayName"].ToString().Contains(prop.IdShort))
                     {
-                        if (_values["OPCUADisplayName"].ToString().Contains(q.Value))
-                        {
-                            return _values["OPCUANodeValue"].ToString();
-                        }
+                        prop.Value = _values["OPCUANodeValue"].ToString();
                     }
                 }
-
-                // if we can't find it, simply return 0
-                return string.Empty;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return string.Empty;
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
             }
         }
     }
