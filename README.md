@@ -35,6 +35,7 @@ And then point your browser to http://localhost.
 # Optional Environment variables
 
 1. HostingPlatform: The hosting platform of the repository. Current options are `Azure` (the default is to run it locally)
+1. BlobStorageConnectionString: The connection string to the Azure Blob storage when the hosting platform is set to Azure
 1. UACLUsername: OPC Foundation UA Cloud Library username
 1. UACLPassword: OPC Foundation UA Cloud Library password
 1. ADX_HOST: Azure Data Explorer host name
