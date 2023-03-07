@@ -27,22 +27,24 @@ namespace AdminShell
             _logger = logger.CreateLogger("AASXPackageService");
 
             string[] fileNames = _storage.FindAllFilesAsync(".").GetAwaiter().GetResult();
-
-            _logger.LogInformation("Found " + fileNames.Length.ToString() + " AAS in storage.");
-
-            // load all AASX files
-            foreach (string filename in fileNames)
+            if (fileNames != null)
             {
-                try
+                _logger.LogInformation("Found " + fileNames.Length.ToString() + " AAS in storage.");
+
+                // load all AASX files
+                foreach (string filename in fileNames)
                 {
-                    if (filename.EndsWith(".aasx"))
+                    try
                     {
-                        Load(filename);
+                        if (filename.EndsWith(".aasx"))
+                        {
+                            Load(filename);
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, $"Can't load AASX file {filename}: {ex}");
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, $"Can't load AASX file {filename}: {ex}");
+                    }
                 }
             }
 
