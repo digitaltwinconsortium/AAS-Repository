@@ -14,11 +14,11 @@ namespace AdminShell
         private readonly ILogger _logger;
         private readonly CarbonReportingService _carbonReporting;
         private readonly ProductCarbonFootprintService _pcf;
-        private readonly SmECService _smec;
+        private readonly OPCUAPubSubService _smec;
 
         public static event EventHandler NewDataAvailable;
 
-        public VisualTreeBuilderService(ILoggerFactory logger, UANodesetViewer viewer, AASXPackageService packages, CarbonReportingService carbonReporting, ProductCarbonFootprintService pcf, SmECService smec)
+        public VisualTreeBuilderService(ILoggerFactory logger, UANodesetViewer viewer, AASXPackageService packages, CarbonReportingService carbonReporting, ProductCarbonFootprintService pcf, OPCUAPubSubService smec)
         {
             _viewer = viewer;
             _packageService = packages;

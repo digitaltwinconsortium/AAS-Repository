@@ -36,7 +36,7 @@
 
             services.AddSingleton<ProductCarbonFootprintService>();
 
-            services.AddSingleton<SmECService>();
+            services.AddSingleton<OPCUAPubSubService>();
 
             services.AddSingleton<VisualTreeBuilderService>();
 

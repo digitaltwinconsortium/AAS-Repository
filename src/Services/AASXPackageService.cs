@@ -333,7 +333,7 @@ namespace AdminShell
 
         public string GetAASXFileName(string key)
         {
-            return key;
+            return Path.GetFileNameWithoutExtension(key);
         }
 
         public void Save(string filename, byte[] fileContent)

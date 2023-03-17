@@ -9,19 +9,19 @@ namespace AdminShell
     using System.Linq;
     using System.Threading;
 
-    public class SmECService : ADXDataService
+    public class OPCUAPubSubService : ADXDataService
     {
         private Timer _queryTimer;
         private ConcurrentDictionary<string, object> _values = new ConcurrentDictionary<string, object>();
 
         private readonly ILogger _logger;
 
-        public SmECService(ILoggerFactory logger, AASXPackageService packageService)
+        public OPCUAPubSubService(ILoggerFactory logger, AASXPackageService packageService)
         : base(packageService)
         {
-            _logger = logger.CreateLogger("CarbonReportingService");
+            _logger = logger.CreateLogger("OPCUAPubSubService");
 
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("SMEC_REPORTING")))
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("OPCUA_REPORTING")))
             {
                 RunADXQuery("AdtPropertyEvents | where Key == 'equipmentID' | distinct tostring(Value)", _values, true);
 
@@ -72,9 +72,9 @@ namespace AdminShell
         private void CreateSMEValues(ConcurrentDictionary<string, object> values)
         {
             // retrieve our OperationalData Submodel
-            foreach (AssetAdministrationShellEnvironment env in _packageService.Packages.Values)
+            foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
             {
-                foreach (Submodel sm in env.Submodels)
+                foreach (Submodel sm in package.Value.Submodels)
                 {
                     if (sm.IdShort == "OperationalData")
                     {
@@ -82,10 +82,14 @@ namespace AdminShell
                         keys.Sort();
                         foreach (string dataItem in keys)
                         {
-                            // create a wrapper and submodel element per data item
-                            Property sme = new() { IdShort = dataItem };
-                            _dataPoints.Add(sme);
-                            sm.SubmodelElements.Add(new SubmodelElementWrapper() { SubmodelElement = sme });
+                            string filename = _packageService.GetAASXFileName(package.Key);
+                            if (dataItem.Contains(filename))
+                            {
+                                // create a wrapper and submodel element per data item
+                                Property sme = new() { IdShort = dataItem };
+                                _dataPoints.Add(sme);
+                                sm.SubmodelElements.Add(new SubmodelElementWrapper() { SubmodelElement = sme });
+                            }
                         }
                     }
                 }
