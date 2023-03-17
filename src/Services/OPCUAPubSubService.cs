@@ -86,7 +86,7 @@ namespace AdminShell
                             if (dataItem.Contains(filename))
                             {
                                 // create a wrapper and submodel element per data item
-                                Property sme = new() { IdShort = dataItem };
+                                Property sme = new() { IdShort = dataItem.Substring(dataItem.IndexOf(';') + 1).TrimEnd(';') };
                                 _dataPoints.Add(sme);
                                 sm.SubmodelElements.Add(new SubmodelElementWrapper() { SubmodelElement = sme });
                             }
