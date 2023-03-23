@@ -32,7 +32,7 @@ namespace AdminShell
             {
                 foreach (AssetAdministrationShell aas in env.AssetAdministrationShells)
                 {
-                    aaslist.Add(i.ToString() + " : " + aas.IdShort + " : " + aas.Identification.Id + " : ");
+                    aaslist.Add(i.ToString() + " : " + aas.IdShort + " : " + aas.Identification.Id + " : " + aas.Identification.IdType);
                     i++;
                 }
             }
