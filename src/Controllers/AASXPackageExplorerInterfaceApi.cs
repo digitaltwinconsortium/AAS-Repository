@@ -43,7 +43,7 @@ namespace AdminShell
         }
 
         [HttpGet]
-        [Route("/server/getaasx/{Id}")]
+        [Route("/server/getaasx/{id}")]
         public virtual IActionResult GetAASX([FromRoute][Required] int id)
         {
             int i = 0;
@@ -72,7 +72,7 @@ namespace AdminShell
         }
 
         [HttpGet]
-        [Route("/aas/{Id}/core")]
+        [Route("/aas/{id}/core")]
         public virtual IActionResult GetAASInfo([FromRoute][Required] int id)
         {
             dynamic res = new ExpandoObject();

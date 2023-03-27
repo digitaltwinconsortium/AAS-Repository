@@ -258,50 +258,50 @@
 
         if (o is AssetAdministrationShell)
         {
-            ret += "AAS";
+            ret += "AAS ";
         }
         if (o is Submodel)
         {
-            ret += "Sub";
+            ret += "Sub ";
         }
         if (o is SubmodelElement)
         {
             if (o is SubmodelElementCollection)
             {
-                ret += "Coll";
+                ret += "Coll ";
             }
             if (o is Property)
             {
-                ret += "Prop";
+                ret += "Prop ";
             }
         }
         if (o is Operation)
         {
-            ret += "Opr";
+            ret += "Opr ";
         }
         if (o is File)
         {
-            ret += "File";
+            ret += "File ";
         }
         if (o is Blob)
         {
-            ret += "Blob";
+            ret += "Blob ";
         }
         if (o is MultiLanguageProperty)
         {
-            ret += "Lang";
+            ret += "Lang ";
         }
         if (o is RelationshipElement)
         {
-            ret += "Rel";
+            ret += "Rel ";
         }
         if (o is ReferenceElement)
         {
-            ret += "Ref";
+            ret += "Ref ";
         }
         if (o is Entity)
         {
-            ret += "Ent";
+            ret += "Ent ";
         }
 
         return (ret);
@@ -476,14 +476,14 @@
             switch (line)
             {
                 case 0:
-                    ret = "ID";
+                    ret = "ID ";
                     if (col == 1)
                         ret = aas.Identification.Id + string.Empty;
                     break;
                 case 1:
                     if (asset != null)
                     {
-                        ret = "ASSET";
+                        ret = "ASSET ";
                         if (col == 1)
                             ret = asset.IdShort;
                     }
@@ -491,7 +491,7 @@
                 case 2:
                     if (asset != null)
                     {
-                        ret = "ASSETID";
+                        ret = "ASSETID ";
                         if (col == 1)
                             ret = asset.Identification.Id + string.Empty;
                     }
@@ -499,7 +499,7 @@
                 case 3:
                     if (asset != null)
                     {
-                        ret = "ASSETID URLENCODED";
+                        ret = "ASSETID URLENCODED ";
                         if (col == 1)
                         {
                             string url = WebUtility.UrlEncode(asset.Identification.Id);
@@ -520,12 +520,12 @@
             switch (line)
             {
                 case 0:
-                    ret = "ID";
+                    ret = "ID ";
                     if (col == 1)
                         ret = sm.Identification.Id + string.Empty;
                     break;
                 case 1:
-                    ret = "Semantic ID";
+                    ret = "Semantic ID ";
                     if (col == 1)
                     {
                         ret = "NULL";
@@ -553,7 +553,7 @@
             switch (line)
             {
                 case 0:
-                    ret = "Semantic ID";
+                    ret = "Semantic ID ";
                     if (col == 1)
                     {
                         ret = "NULL";
@@ -565,12 +565,12 @@
                     }
                     break;
                 case 1:
-                    ret = "Value Type";
+                    ret = "Value Type ";
                     if (col == 1)
                         ret = prop.ValueType + string.Empty;
                     break;
                 case 2:
-                    ret = "Value";
+                    ret = "Value ";
                     if (col == 1)
                         ret = prop.Value + string.Empty;
                     break;
@@ -594,7 +594,7 @@
             switch (line)
             {
                 case 0:
-                    ret = "Semantic ID";
+                    ret = "Semantic ID ";
                     if (col == 1)
                     {
                         ret = "NULL";
@@ -606,7 +606,7 @@
                     }
                     break;
                 case 1:
-                    ret = "Entity Type";
+                    ret = "Entity Type ";
                     if (col == 1)
                         ret = e.EntityType + string.Empty;
                     break;
@@ -616,7 +616,7 @@
                     {
                         if (e.AssetRef != null)
                         {
-                            ret = "Asset";
+                            ret = "Asset ";
                             if (col == 1)
                             {
                                 var k = e.AssetRef.Keys;
@@ -645,7 +645,7 @@
             switch (line)
             {
                 case 0:
-                    ret = "Semantic ID";
+                    ret = "Semantic ID ";
                     if (col == 1)
                     {
                         ret = "NULL";
@@ -657,7 +657,7 @@
                     }
                     break;
                 case 1:
-                    ret = "Value";
+                    ret = "Value ";
                     if (col == 1)
                         ret = f.Value;
                     break;
@@ -677,7 +677,7 @@
             switch (line)
             {
                 case 0:
-                    ret = "Semantic ID";
+                    ret = "Semantic ID ";
                     if (col == 1)
                     {
                         ret = "NULL";
@@ -689,12 +689,12 @@
                     }
                     break;
                 case 1:
-                    ret = "MimeType";
+                    ret = "MimeType ";
                     if (col == 1)
                         ret = b.MimeType;
                     break;
                 case 2:
-                    ret = "Value";
+                    ret = "Value ";
                     if (col == 1)
                         ret = b.Value;
                     break;
@@ -715,7 +715,7 @@
             switch (line)
             {
                 case 0:
-                    ret = "Semantic ID";
+                    ret = "Semantic ID ";
                     if (col == 1)
                     {
                         ret = "NULL";
@@ -727,7 +727,7 @@
                     }
                     break;
                 case 1:
-                    ret = "CountInputs";
+                    ret = "CountInputs ";
                     if (col == 1)
                     {
                         ret = "0";
@@ -738,7 +738,7 @@
                     }
                     break;
                 case 2:
-                    ret = "CountOutputs";
+                    ret = "CountOutputs ";
                     if (col == 1)
                     {
                         ret = "0";
@@ -765,7 +765,7 @@
             switch (line)
             {
                 case 0:
-                    ret = "Semantic ID";
+                    ret = "Semantic ID ";
                     if (col == 1)
                     {
                         ret = "NULL";
@@ -777,7 +777,7 @@
                     }
                     break;
                 case 1:
-                    ret = "First";
+                    ret = "First ";
                     if (col == 1)
                     {
                         ret = "NULL";
@@ -789,7 +789,7 @@
                     }
                     break;
                 case 2:
-                    ret = "Second";
+                    ret = "Second ";
                     if (col == 1)
                     {
                         ret = "NULL";
@@ -817,7 +817,7 @@
             switch (line)
             {
                 case 0:
-                    ret = "Semantic ID";
+                    ret = "Semantic ID ";
                     if (col == 1)
                     {
                         ret = "NULL";
@@ -829,7 +829,7 @@
                     }
                     break;
                 case 1:
-                    ret = "Value";
+                    ret = "Value ";
                     if (col == 1)
                     {
                         ret = "NULL";
@@ -856,7 +856,7 @@
             switch (line)
             {
                 case 0:
-                    ret = "Semantic ID";
+                    ret = "Semantic ID ";
                     if (col == 1)
                     {
                         ret = "NULL";
@@ -895,8 +895,8 @@
             ret = sme.IdShort + ", " + sme.SemanticId;
             switch (line)
             {
-                case 0:
-                    ret = "Semantic ID";
+                case 0: 
+                    ret = "Semantic ID ";
                     if (col == 1)
                     {
                         ret = "NULL";
@@ -926,7 +926,7 @@
 
         if (q != null && q.Count > 0)
         {
-            ret = "Qualifiers";
+            ret = "Qualifiers ";
             if (col == 1)
             {
                 ret = string.Empty;
@@ -959,7 +959,7 @@
             var iec = cd.EmbeddedDataSpecifications?[0].DataSpecificationContent.DataSpecificationIEC61360;
             if (iec != null)
             {
-                ret = "Unit";
+                ret = "Unit ";
                 if (col == 1)
                 {
                     ret = iec.Unit;

@@ -22,6 +22,7 @@ namespace AdminShell
 
         [DataMember(Name = "id")]
         [XmlElement(ElementName = "id")]
+        [XmlText]
         public string Id = string.Empty;
 
         public static implicit operator string(Identifier d)
