@@ -17,8 +17,8 @@ namespace AdminShell
         public string Category { get; set; }
 
         [DataMember(Name = "description")]
-        [XmlElement(ElementName = "description")]
-        public Description Description { get; set; }
+        [XmlArray(ElementName = "description")]
+        public List<LangString> Description { get; set; } = new();
 
         [DataMember(Name = "displayName")]
         [XmlElement(ElementName = "displayName")]
@@ -93,7 +93,7 @@ namespace AdminShell
             Category = src.Category;
 
             if (src.Description != null)
-                Description = new Description(src.Description);
+                Description = src.Description;
         }
     }
 }
