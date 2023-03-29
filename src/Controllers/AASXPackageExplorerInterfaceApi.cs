@@ -85,7 +85,6 @@ namespace AdminShell
                     if (i == id)
                     {
                         res.AAS = aas;
-                        res.Asset = aas.Asset;
 
                         JsonSerializerSettings settings = new JsonSerializerSettings();
                         settings.ContractResolver = new AdminShellConverters.AdaptiveFilterContractResolver(false, false);

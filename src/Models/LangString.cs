@@ -14,7 +14,7 @@ namespace AdminShell
         public static string LANG_DEFAULT = "en";
 
         [Required]
-        [DataMember(Name="lang")]
+        [DataMember(Name="language")]
         [XmlAttribute(AttributeName="lang")]
         [MetaModelName("LangString.Language")]
         public string Language { get; set; }

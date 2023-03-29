@@ -9,6 +9,10 @@ namespace AdminShell
     [XmlType(TypeName = "reference")]
     public class Reference : IAasElement
     {
+        [XmlElement(ElementName = "type")]
+        [DataMember(Name = "type")]
+        public KeyElements Type { get; set; } = KeyElements.GlobalReference;
+
         [DataMember(Name = "keys")]
         [XmlArray("keys")]
         [XmlArrayItem("key")]

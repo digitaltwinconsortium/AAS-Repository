@@ -8,10 +8,6 @@ namespace AdminShell
     [DataContract]
     public class AssetAdministrationShell : Identifiable
     {
-        [DataMember(Name = "hasDataSpecification")]
-        [XmlElement(ElementName = "hasDataSpecification")]
-        public HasDataSpecification HasDataSpecification { get; set; } = new();
-
         [DataMember(Name="embeddedDataSpecifications")]
         [XmlArray(ElementName = "embeddedDataSpecifications")]
         public List<EmbeddedDataSpecification> EmbeddedDataSpecifications { get; set; } = new();
@@ -24,14 +20,6 @@ namespace AdminShell
         [XmlElement(ElementName = "assetInformation")]
         public AssetInformation AssetInformation { get; set; } = new();
 
-        [DataMember(Name = "asset")]
-        [XmlElement(ElementName = "asset")]
-        public AssetReference Asset { get; set; } = new();
-
-        [DataMember(Name="security")]
-        [XmlElement(ElementName = "security")]
-        public Security Security { get; set; } = new();
-
         [DataMember(Name="submodels")]
         [XmlArray(ElementName = "submodels")]
         public List<SubmodelReference> Submodels { get; set; } = new();
@@ -39,9 +27,5 @@ namespace AdminShell
         [DataMember(Name="views")]
         [XmlArray(ElementName = "views")]
         public List<View> Views { get; set; } = new();
-
-        [DataMember(Name = "conceptDictionaries")]
-        [XmlArray(ElementName = "conceptDictionaries")]
-        public List<ConceptDictionary> ConceptDictionaries { get; set; } = new();
     }
 }
