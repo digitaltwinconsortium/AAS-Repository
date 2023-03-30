@@ -19,15 +19,11 @@ namespace AdminShell
         [XmlElement(ElementName = "globalAssetId")]
         public Reference GlobalAssetId { get; set; }
 
-        [DataMember(Name = "specificAssetIds")]
-        [XmlArray(ElementName = "specificAssetIds")]
-        public List<IdentifierKeyValuePair> SpecificAssetIds { get; set; }
-
         // Important note: XML serialization uses SubModel Element Wrappers while JSON serialization does not!
         // So we have to first deserialize into a placeholder Json member and then copy the contents into the correct member
         [JsonIgnore]
         [XmlArray(ElementName = "statements")]
-        public List<SubmodelElementWrapper> Statements { get; set; }
+        public List<SubmodelElementWrapper> Statements { get; set; } = new();
 
         [XmlIgnore]
         [DataMember(Name = "statements")]
@@ -59,13 +55,9 @@ namespace AdminShell
             }
         }
 
-        [DataMember(Name = "asset")]
-        [XmlElement(ElementName = "asset")]
-        public ModelReference AssetRef = null;
-
         public Entity()
         {
-            ModelType.Name = ModelTypes.Entity;
+            ModelType = ModelTypes.Entity;
         }
 
         public Entity(SubmodelElement src)
@@ -86,12 +78,7 @@ namespace AdminShell
             }
 
             EntityType = ent.EntityType;
-            ModelType.Name = ModelTypes.Entity;
-
-            if (ent.AssetRef != null)
-            {
-                AssetRef = new ModelReference(ent.AssetRef);
-            }
+            ModelType = ModelTypes.Entity;
         }
     }
 }

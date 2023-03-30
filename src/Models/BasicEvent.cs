@@ -16,7 +16,7 @@ namespace AdminShell
 
         public BasicEvent()
         {
-            ModelType.Name = ModelTypes.BasicEvent;
+            ModelType = ModelTypes.BasicEvent;
         }
 
         public BasicEvent(SubmodelElement src)
@@ -27,7 +27,7 @@ namespace AdminShell
                 return;
             }
 
-            ModelType.Name = ModelTypes.BasicEvent;
+            ModelType = ModelTypes.BasicEvent;
 
             if (be.Observed != null)
             {

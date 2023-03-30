@@ -32,7 +32,7 @@ namespace AdminShell
             {
                 foreach (AssetAdministrationShell aas in env.AssetAdministrationShells)
                 {
-                    aaslist.Add(i.ToString() + " : " + aas.IdShort + " : " + aas.Identification.Id + " : " + aas.Identification.IdType);
+                    aaslist.Add(i.ToString() + " : " + aas.IdShort + " : " + aas.Identification.Id + " : AAS");
                     i++;
                 }
             }
@@ -56,6 +56,7 @@ namespace AdminShell
                         Stream fileStream = _packageService.GetPackageStream(package.Key);
                         if (fileStream != null)
                         {
+                            fileStream.Position = 0;
                             return new FileStreamResult(fileStream, "application/octet-stream");
                         }
                         else

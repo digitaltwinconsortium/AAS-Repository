@@ -9,24 +9,19 @@ namespace AdminShell
     [XmlRoot(ElementName = "aasenv")]
     public class AssetAdministrationShellEnvironment
     {
-        [DataMember(Name = "assetAdministrationShells")]
-        [XmlArray("assetAdministrationShells")]
-        [XmlArrayItem("assetAdministrationShell")]
+        [DataMember(Name="assetAdministrationShells")]
+        [XmlArray(ElementName="assetAdministrationShells")]
+        [XmlArrayItem(ElementName="assetAdministrationShell")]
         public List<AssetAdministrationShell> AssetAdministrationShells { get; set; } = new();
 
-        [DataMember(Name = "assets")]
-        [XmlArray("assets")]
-        [XmlArrayItem("asset")]
-        public List<Asset> Assets { get; set; } = new();
-
-        [DataMember(Name = "submodels")]
-        [XmlArray("submodels")]
-        [XmlArrayItem("submodel")]
+        [DataMember(Name="submodels")]
+        [XmlArray(ElementName="submodels")]
+        [XmlArrayItem(ElementName="submodel")]
         public List<Submodel> Submodels { get; set; } = new();
 
-        [DataMember(Name = "conceptDescriptions")]
-        [XmlArray("conceptDescriptions")]
-        [XmlArrayItem("conceptDescription")]
+        [DataMember(Name="conceptDescriptions")]
+        [XmlArray(ElementName="conceptDescriptions")]
+        [XmlArrayItem(ElementName="conceptDescription")]
         public List<ConceptDescription> ConceptDescriptions { get; set; } = new();
     }
 }

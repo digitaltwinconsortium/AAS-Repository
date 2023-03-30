@@ -92,8 +92,6 @@ namespace AdminShell
 
             if (src is GlobalReferenceElement)
                 SubmodelElement = new GlobalReferenceElement(src as GlobalReferenceElement);
-
-
         }
     }
 }

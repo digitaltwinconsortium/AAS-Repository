@@ -8,13 +8,13 @@ namespace AdminShell
     {
         public SubmodelElementStruct()
         {
-            ModelType.Name = ModelTypes.SubmodelElementStruct;
+            ModelType = ModelTypes.SubmodelElementStruct;
         }
 
         public SubmodelElementStruct(SubmodelElement src, bool shallowCopy = false)
             : base(src, shallowCopy)
         {
-            ModelType.Name = ModelTypes.SubmodelElementStruct;
+            ModelType = ModelTypes.SubmodelElementStruct;
         }
     }
 }

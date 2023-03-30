@@ -7,7 +7,7 @@ namespace AdminShell
 
     /// <summary>
     /// In V2.0, this was the most important SME to hold multiple child SMEs.
-    /// Ib V3.0, this is deprecated. Use SubmodelElementList, SubmodelElementStruct instead.
+    /// In V3.0, this is deprecated. Use SubmodelElementList, SubmodelElementStruct instead.
     /// </summary>
     [DataContract]
     public class SubmodelElementCollection : SubmodelElement
@@ -56,7 +56,7 @@ namespace AdminShell
 
         public SubmodelElementCollection()
         {
-            ModelType.Name = ModelTypes.SubmodelElementCollection;
+            ModelType = ModelTypes.SubmodelElementCollection;
         }
 
         public SubmodelElementCollection(SubmodelElement src, bool shallowCopy = false)
@@ -69,7 +69,7 @@ namespace AdminShell
 
             Ordered = smc.Ordered;
             AllowDuplicates = smc.AllowDuplicates;
-            ModelType.Name = ModelTypes.SubmodelElementCollection;
+            ModelType = ModelTypes.SubmodelElementCollection;
 
             if (!shallowCopy)
             {

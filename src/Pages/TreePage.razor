@@ -155,7 +155,7 @@
             byte[] conents = null;
             try
             {
-                conents = _packageService.GetLocalThumbnailBytes(item.EnvKey);
+                conents = _packageService.GetThumbnailFromPackage(item.EnvKey);
             }
             catch { }
             if (conents != null)
@@ -407,9 +407,9 @@
             var mlp = o as MultiLanguageProperty;
             var ls = mlp.Value;
             ret = " = ";
-            for (int i = 0; i < ls.LangString.Count; i++)
+            for (int i = 0; i < ls.Count; i++)
             {
-                ret += ls.LangString[i].Language + " ";
+                ret += ls[i].Language + " ";
             }
         }
         return (ret);
@@ -612,21 +612,6 @@
                     break;
                 case 2:
                     ret = string.Empty;
-                    if (GetEntityType(e) == EntityTypeEnum.SelfManagedEntity)
-                    {
-                        if (e.AssetRef != null)
-                        {
-                            ret = "Asset ";
-                            if (col == 1)
-                            {
-                                var k = e.AssetRef.Keys;
-                                if (k != null)
-                                {
-                                    ret = k.ToString();
-                                }
-                            }
-                        }
-                    }
                     break;
                 case 3:
                     ret = getQualifiers(e.Qualifiers, col);
@@ -849,9 +834,9 @@
         {
             var mlp = tag as MultiLanguageProperty;
             var ls = mlp.Value;
-            for (int i = 0; i < ls.LangString.Count; i++)
+            for (int i = 0; i < ls.Count; i++)
             {
-                ret += ls.LangString[i].Language + " ";
+                ret += ls[i].Language + " ";
             }
             switch (line)
             {
@@ -872,11 +857,11 @@
                 case 3:
                 case 4:
                     ret = string.Empty;
-                    if (ls.LangString.Count > line - 1)
+                    if (ls.Count > line - 1)
                     {
-                        ret = ls.LangString[line - 1].Language;
+                        ret = ls[line - 1].Language;
                         if (col == 1)
-                            ret = ls.LangString[line - 1].Text + string.Empty;
+                            ret = ls[line - 1].Text + string.Empty;
                     }
                     break;
                 case 5:
@@ -895,7 +880,7 @@
             ret = sme.IdShort + ", " + sme.SemanticId;
             switch (line)
             {
-                case 0: 
+                case 0:
                     ret = "Semantic ID ";
                     if (col == 1)
                     {

@@ -5,7 +5,7 @@ namespace AdminShell
     {
         public ModelReferenceElement()
         {
-            ModelType.Name = ModelTypes.ModelReferenceElement;
+            ModelType = ModelTypes.ModelReferenceElement;
         }
 
         public ModelReferenceElement(SubmodelElement src)
@@ -16,7 +16,7 @@ namespace AdminShell
                 return;
             }
 
-            ModelType.Name = ModelTypes.ModelReferenceElement;
+            ModelType = ModelTypes.ModelReferenceElement;
 
             if (mre.Value != null)
             {

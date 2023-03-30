@@ -66,6 +66,11 @@ namespace AdminShell
                 _values.Clear();
             }
 
+            foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
+            {
+                _packageService.Save(package.Key);
+            }
+
             VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
         }
 
@@ -86,9 +91,32 @@ namespace AdminShell
                             if (dataItem.Contains(filename))
                             {
                                 // create a wrapper and submodel element per data item
-                                Property sme = new() { IdShort = dataItem.Substring(dataItem.IndexOf(';') + 1).TrimEnd(';') };
+                                string idShort = dataItem.Substring(dataItem.IndexOf(';') + 1).TrimEnd(';');
+
+                                Property sme = new()
+                                {
+                                    IdShort = idShort,
+                                    ValueType = "string"
+                                };
+
+                                SubmodelElementWrapper smew = new() { SubmodelElement = sme };
+
                                 _dataPoints.Add(sme);
-                                sm.SubmodelElements.Add(new SubmodelElementWrapper() { SubmodelElement = sme });
+
+                                bool smeExists = false;
+                                foreach (SubmodelElementWrapper existingSMEW in sm.SubmodelElements)
+                                {
+                                    if (existingSMEW.SubmodelElement.IdShort == idShort)
+                                    {
+                                        smeExists = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!smeExists)
+                                {
+                                    sm.SubmodelElements.Add(smew);
+                                }
                             }
                         }
                     }

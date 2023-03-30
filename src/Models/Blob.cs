@@ -10,7 +10,7 @@ namespace AdminShell
     public class Blob : DataElement
     {
         [Required]
-        [DataMember(Name = "mimeType")]
+        [DataMember(Name = "contentType")]
         [XmlElement(ElementName = "mimeType")]
         [MetaModelName("Blob.MimeType")]
         public string MimeType { get; set; } = string.Empty;
@@ -22,7 +22,7 @@ namespace AdminShell
 
         public Blob()
         {
-            ModelType.Name = ModelTypes.Blob;
+            ModelType = ModelTypes.Blob;
         }
 
         public Blob(SubmodelElement src)
@@ -35,7 +35,7 @@ namespace AdminShell
 
             MimeType = blb.MimeType;
             Value = blb.Value;
-            ModelType.Name = ModelTypes.Blob;
+            ModelType = ModelTypes.Blob;
         }
     }
 }

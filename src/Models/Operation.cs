@@ -46,7 +46,7 @@ namespace AdminShell
 
         public Operation()
         {
-            ModelType.Name = ModelTypes.Operation;
+            ModelType = ModelTypes.Operation;
         }
 
         public Operation(SubmodelElement src)
@@ -57,7 +57,7 @@ namespace AdminShell
                 return;
             }
 
-            ModelType.Name = ModelTypes.Operation;
+            ModelType = ModelTypes.Operation;
 
             for (int i = 0; i < 2; i++)
             {

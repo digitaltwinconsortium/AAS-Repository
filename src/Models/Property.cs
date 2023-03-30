@@ -16,22 +16,14 @@ namespace AdminShell
         [XmlElement(ElementName = "valueId")]
         public GlobalReference ValueId { get; set; }
 
-        // Important note: XML serialization uses a string for ValueType and JSON serialization uses a special Json type!
+        [DataMember(Name = "valueType")]
         [XmlElement(ElementName = "valueType")]
         [MetaModelName("Property.ValueType")]
         public string ValueType { get; set; }
 
-        [XmlIgnore]
-        [DataMember(Name = "valueType")]
-        public JsonValueType JsonValueType
-        {
-            get { return new JsonValueType(ValueType); }
-            set { ValueType = value?.DataObjectType?.Name; }
-        }
-
         public Property()
         {
-            ModelType.Name = ModelTypes.Property;
+            ModelType = ModelTypes.Property;
         }
 
         public Property(SubmodelElement src)
@@ -43,7 +35,7 @@ namespace AdminShell
             }
 
             ValueType = p.ValueType;
-            ModelType.Name = ModelTypes.Property;
+            ModelType = ModelTypes.Property;
             Value = p.Value;
 
             if (p.ValueId != null)

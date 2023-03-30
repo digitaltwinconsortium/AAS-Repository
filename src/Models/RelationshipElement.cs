@@ -21,7 +21,7 @@ namespace AdminShell
 
         public RelationshipElement()
         {
-            ModelType.Name = ModelTypes.RelationshipElement;
+            ModelType = ModelTypes.RelationshipElement;
         }
 
         public RelationshipElement(SubmodelElement src)
@@ -32,7 +32,7 @@ namespace AdminShell
                 return;
             }
 
-            ModelType.Name = ModelTypes.RelationshipElement;
+            ModelType = ModelTypes.RelationshipElement;
 
             if (rel.First != null)
             {

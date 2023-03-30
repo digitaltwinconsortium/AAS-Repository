@@ -33,7 +33,7 @@ namespace AdminShell
         [Required]
         [DataMember(Name = "modelType")]
         [XmlElement(ElementName = "modelType")]
-        public ModelType ModelType { get; set; } = new();
+        public ModelTypes ModelType { get; set; } = new();
 
         [DataMember(Name = "checksum")]
         [XmlElement(ElementName = "checksum")]

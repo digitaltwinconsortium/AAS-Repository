@@ -20,11 +20,13 @@ namespace AdminShell
 
         private readonly IFileStorage _storage;
         private readonly ILogger _logger;
+        private List<PackageSupplementaryFile> _files;
 
         public AASXPackageService(ILoggerFactory logger, IFileStorage storage)
         {
             _storage = storage;
             _logger = logger.CreateLogger("AASXPackageService");
+            _files = new();
 
             string[] fileNames = _storage.FindAllFilesAsync(".").GetAwaiter().GetResult();
             if (fileNames != null)
@@ -199,6 +201,8 @@ namespace AdminShell
                 aasenv = JsonConvert.DeserializeObject<AssetAdministrationShellEnvironment>(Encoding.UTF8.GetString(bytes));
             }
 
+            ReadSupplementaryFiles(key, package);
+
             if (aasenv == null)
             {
                 throw new Exception("Error parsing AAS spec!");
@@ -249,7 +253,13 @@ namespace AdminShell
         {
             try
             {
-                return new MemoryStream(_storage.LoadFileAsync(key).GetAwaiter().GetResult());
+                MemoryStream newStream = new();
+                using (MemoryStream contents = new(_storage.LoadFileAsync(key).GetAwaiter().GetResult()))
+                {
+                    contents.CopyTo(newStream);
+                }
+
+                return newStream;
             }
             catch (Exception)
             {
@@ -266,7 +276,14 @@ namespace AdminShell
                     key = Path.Combine(Directory.GetCurrentDirectory(), key);
                 }
 
-                return new MemoryStream(System.IO.File.ReadAllBytes(key));
+                MemoryStream newStream = new();
+
+                using (MemoryStream contents = new(System.IO.File.ReadAllBytes(key)))
+                {
+                    contents.CopyTo(newStream);
+                }
+
+                return newStream;
             }
             catch (Exception)
             {
@@ -293,7 +310,7 @@ namespace AdminShell
             }
         }
 
-        public byte[] GetLocalThumbnailBytes(string key)
+        public byte[] GetThumbnailFromPackage(string key)
         {
             Package package = Package.Open(GetPackageStream(key), FileMode.Open, FileAccess.Read);
 
@@ -376,6 +393,79 @@ namespace AdminShell
             packageStream.Close();
         }
 
+        public void ReadSupplementaryFiles(string key, Package package)
+        {
+            // get the thumbnail(s) from the package
+            PackagePart thumbPart;
+            foreach (PackageRelationship rel in package.GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail"))
+            {
+                if (rel.SourceUri.ToString() == "/")
+                {
+                    thumbPart = package.GetPart(rel.TargetUri);
+
+                    PackageSupplementaryFile file = new()
+                    {
+                        Uri = rel.TargetUri,
+                        Location = LocationType.InPackage,
+                        SpecialHandling = SpecialHandlingType.EmbedAsThumbnail,
+                        Key = key
+                    };
+
+                    using (MemoryStream partStream = new())
+                    {
+                        thumbPart.GetStream(FileMode.Open).CopyTo(partStream);
+                        file.SourceBytes = partStream.ToArray();
+                    }
+
+                    _files.Add(file);
+                }
+            }
+
+            // get the origin from the package
+            PackagePart originPart = null;
+            foreach (PackageRelationship rel in package.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aasx-origin"))
+            {
+                if (rel.SourceUri.ToString() == "/")
+                {
+                    originPart = package.GetPart(rel.TargetUri);
+                    break;
+                }
+            }
+
+            if (originPart != null)
+            {
+                // get the specs from the origin
+                PackagePart specPart = null;
+                foreach (PackageRelationship rel in originPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-spec"))
+                {
+                    specPart = package.GetPart(rel.TargetUri);
+                    break;
+                }
+
+                if (specPart != null)
+                {
+                    // get the supplemental files from the package, derived from spec
+                    foreach (PackageRelationship rel in specPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-suppl"))
+                    {
+                        PackageSupplementaryFile file = new()
+                        {
+                            Uri = rel.TargetUri,
+                            Location = LocationType.InPackage,
+                            Key = key
+                        };
+
+                        using (MemoryStream partStream = new())
+                        {
+                            specPart.GetStream(FileMode.Open).CopyTo(partStream);
+                            file.SourceBytes = partStream.ToArray();
+                        }
+
+                        _files.Add(file);
+                    }
+                }
+            }
+        }
+
         public void AddSupplementaryFileToPackage(string key, string targetFile, string targetContentType, Stream fileContent)
         {
             MemoryStream packageStream = (MemoryStream)GetPackageStream(key);
@@ -414,10 +504,21 @@ namespace AdminShell
                 throw new Exception("Spec part missing in package!");
             }
 
+            AddFileToSpec(package, specPart, targetFile, fileContent);
+
+            package.Flush();
+            package.Close();
+
+            _storage.SaveFileAsync(key, packageStream.ToArray()).GetAwaiter().GetResult();
+            packageStream.Close();
+        }
+
+        private void AddFileToSpec(Package package, PackagePart specPart, string targetFile, Stream fileContent)
+        {
             // try to find an existing part for that file
             PackagePart filePart = null;
             Uri targetUri = PackUriHelper.CreatePartUri(new Uri(targetFile, UriKind.RelativeOrAbsolute));
-            relationships = specPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-suppl");
+            PackageRelationshipCollection relationships = specPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-suppl");
             foreach (var relationship in relationships)
             {
                 if (relationship.TargetUri == targetUri)
@@ -429,7 +530,7 @@ namespace AdminShell
 
             if (filePart == null)
             {
-                filePart = package.CreatePart(targetUri, targetContentType, CompressionOption.Maximum);
+                filePart = package.CreatePart(targetUri, MediaTypeNames.Application.Octet, CompressionOption.Maximum);
                 specPart.CreateRelationship(filePart.Uri, TargetMode.Internal, "http://www.admin-shell.io/aasx/relationships/aas-suppl");
             }
 
@@ -437,12 +538,6 @@ namespace AdminShell
             {
                 fileContent.CopyTo(partStream);
             }
-
-            package.Flush();
-            package.Close();
-
-            _storage.SaveFileAsync(key, packageStream.ToArray()).GetAwaiter().GetResult();
-            packageStream.Close();
         }
 
         public void SaveAs(string key, AssetAdministrationShellEnvironment env)
@@ -469,7 +564,7 @@ namespace AdminShell
                 originPart = package.CreatePart(new Uri("/aasx/aasx-origin", UriKind.RelativeOrAbsolute), MediaTypeNames.Text.Plain, CompressionOption.Maximum);
                 using (var s = originPart.GetStream(FileMode.Create))
                 {
-                    var bytes = System.Text.Encoding.ASCII.GetBytes("Intentionally empty.");
+                    var bytes = Encoding.ASCII.GetBytes("Intentionally empty.");
                     s.Write(bytes, 0, bytes.Length);
                 }
 
@@ -549,6 +644,17 @@ namespace AdminShell
                     nss.Add("IEC", "http://www.admin-shell.io/IEC61360/3/0");
                     nss.Add("abac", "http://www.admin-shell.io/aas/abac/3/0");
                     serializer.Serialize(s, env, nss);
+                }
+
+                foreach (PackageSupplementaryFile file in _files)
+                {
+                    if (file.Key == key)
+                    {
+                        using (MemoryStream contents = new(file.SourceBytes))
+                        {
+                            AddFileToSpec(package, specPart, file.Uri.ToString(), contents);
+                        }
+                    }
                 }
 
                 s.Flush();

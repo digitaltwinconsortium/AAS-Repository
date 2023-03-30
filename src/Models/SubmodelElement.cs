@@ -17,16 +17,12 @@ namespace AdminShell
             typeof(MultiLanguageProperty), typeof(Property)
         };
 
-        [DataMember(Name = "hasDataSpecification")]
-        [XmlElement(ElementName = "hasDataSpecification")]
-        public HasDataSpecification HasDataSpecification { get; set; } = new();
-
         [DataMember(Name = "semanticId")]
         [XmlElement(ElementName = "semanticId")]
         public SemanticId SemanticId { get; set; } = new();
 
-        [DataMember(Name = "qualifier")]
-        [XmlArray(ElementName = "qualifier")]
+        [DataMember(Name = "qualifiers")]
+        [XmlArray(ElementName = "qualifiers")]
         [XmlArrayItem(ElementName = "qualifier")]
         public List<Qualifier> Qualifiers { get; set; } = new();
 
@@ -41,10 +37,9 @@ namespace AdminShell
             : base(src)
         {
             if (src == null)
+            {
                 return;
-
-            if (src.HasDataSpecification != null)
-                HasDataSpecification = new HasDataSpecification(src.HasDataSpecification);
+            }
 
             SemanticId = src.SemanticId;
 

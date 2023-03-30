@@ -1,6 +1,7 @@
 ﻿
 namespace AdminShell
 {
+    using System.Collections.Generic;
     using System.Runtime.Serialization;
     using System.Xml.Serialization;
 
@@ -9,7 +10,7 @@ namespace AdminShell
     {
         [DataMember(Name = "value")]
         [XmlElement(ElementName = "value")]
-        public LangStringSet Value { get; set; } = new();
+        public List<LangString> Value { get; set; } = new();
 
         [DataMember(Name = "valueId")]
         [XmlElement(ElementName = "valueId")]
@@ -17,7 +18,7 @@ namespace AdminShell
 
         public MultiLanguageProperty()
         {
-            ModelType.Name = ModelTypes.MultiLanguageProperty;
+            ModelType = ModelTypes.MultiLanguageProperty;
         }
 
         public MultiLanguageProperty(SubmodelElement src)
@@ -28,8 +29,8 @@ namespace AdminShell
                 return;
             }
 
-            Value = new LangStringSet(mlp.Value);
-            ModelType.Name = ModelTypes.MultiLanguageProperty;
+            Value = new List<LangString>(mlp.Value);
+            ModelType = ModelTypes.MultiLanguageProperty;
 
             if (mlp.ValueId != null)
             {

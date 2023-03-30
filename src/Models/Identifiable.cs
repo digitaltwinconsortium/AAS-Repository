@@ -14,7 +14,7 @@ namespace AdminShell
 
         [JsonIgnore]
         [XmlElement(ElementName = "identification")]
-        public Identifier Identification { get; set; }
+        public Identifier Identification { get; set; } = new Identifier();
 
         [XmlIgnore]
         [DataMember(Name = "id")]
@@ -22,11 +22,14 @@ namespace AdminShell
         {
             get
             {
-                return Identification.Id;
+                return Identification?.Id;
             }
             set
             {
-                Identification.Id = value;
+                if (Identification != null)
+                {
+                    Identification.Id = value;
+                }
             }
         }
     }

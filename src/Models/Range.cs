@@ -27,7 +27,7 @@ namespace AdminShell
 
         public Range()
         {
-            ModelType.Name = ModelTypes.Range;
+            ModelType = ModelTypes.Range;
         }
 
         public Range(SubmodelElement src)
@@ -41,7 +41,7 @@ namespace AdminShell
             ValueType = rng.ValueType;
             Min = rng.Min;
             Max = rng.Max;
-            ModelType.Name = ModelTypes.Range;
+            ModelType = ModelTypes.Range;
         }
     }
 }

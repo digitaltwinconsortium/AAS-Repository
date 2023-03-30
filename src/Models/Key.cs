@@ -12,14 +12,14 @@ namespace AdminShell
     public class Key
     {
         [Required]
-        [XmlAttribute]
-        [DataMember(Name = "type")]
+        [DataMember(Name="type")]
+        [XmlAttribute(AttributeName="type")]
         [MetaModelName("Key.Type")]
         public KeyElements Type { get; set; }
 
         [Required]
         [XmlText]
-        [DataMember(Name = "value")]
+        [DataMember(Name="value")]
         [MetaModelName("Key.Value")]
         public string Value { get; set; }
 

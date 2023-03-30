@@ -585,11 +585,11 @@ namespace AdminShell
                     var cdList = new List<ConceptDescription>();
                     foreach (var conceptDescription in output)
                     {
-                        if (conceptDescription.DataSpecifications?.Count > 0)
+                        if (conceptDescription.EmbeddedDataSpecifications?.Count > 0)
                         {
-                            foreach (var reference in conceptDescription.DataSpecifications)
+                            foreach (var reference in conceptDescription.EmbeddedDataSpecifications)
                             {
-                                if (reference != null && reference.Matches(reqDataSpecificationRef))
+                                if (reference != null && reference.DataSpecification.Matches(reqDataSpecificationRef))
                                 {
                                     cdList.Add(conceptDescription);
                                     break;

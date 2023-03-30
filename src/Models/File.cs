@@ -10,7 +10,7 @@ namespace AdminShell
     public class File : DataElement
     {
         [Required]
-        [DataMember(Name = "mimeType")]
+        [DataMember(Name = "contentType")]
         [XmlElement(ElementName = "mimeType")]
         [MetaModelName("File.MimeType")]
         public string MimeType { get; set; }
@@ -22,7 +22,7 @@ namespace AdminShell
 
         public File()
         {
-            ModelType.Name = ModelTypes.File;
+            ModelType = ModelTypes.File;
         }
 
         public File(SubmodelElement src)
@@ -35,7 +35,7 @@ namespace AdminShell
 
             MimeType = file.MimeType;
             Value = file.Value;
-            ModelType.Name = ModelTypes.File;
+            ModelType = ModelTypes.File;
         }
     }
 }

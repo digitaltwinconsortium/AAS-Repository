@@ -13,7 +13,7 @@ namespace AdminShell
 
         [DataMember(Name = "submodelElementTypeValues")]
         [XmlElement(ElementName = "submodelElementTypeValues")]
-        public ModelType SubmodelElementTypeValues { get; set; } = new();
+        public ModelTypes SubmodelElementTypeValues { get; set; } = new();
 
         [DataMember(Name = "valueTypeValues")]
         [XmlElement(ElementName = "valueTypeValues")]
@@ -37,7 +37,7 @@ namespace AdminShell
 
         public SubmodelElementList()
         {
-            ModelType.Name = ModelTypes.SubmodelElementList;
+            ModelType = ModelTypes.SubmodelElementList;
         }
 
         public SubmodelElementList(SubmodelElement src, bool shallowCopy = false)
@@ -49,7 +49,7 @@ namespace AdminShell
             }
 
             OrderRelevant = sml.OrderRelevant;
-            ModelType.Name = ModelTypes.SubmodelElementList;
+            ModelType = ModelTypes.SubmodelElementList;
 
             if (sml.SemanticIdListElement != null)
             {

@@ -9,8 +9,8 @@ namespace AdminShell
     public class UnitId
     {
         [DataMember(Name = "keys")]
-        [XmlArray("keys")]
-        [XmlArrayItem("key")]
+        [XmlArray(ElementName = "keys")]
+        [XmlArrayItem(ElementName = "key")]
         public List<Key> Keys { get; set; } = new();
 
         public UnitId() { }

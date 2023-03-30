@@ -11,9 +11,9 @@ namespace AdminShell
     public class GlobalReference : Reference
     {
         [Required]
-        [XmlArray("values")]
-        [XmlArrayItem("value")]
-        [DataMember(Name = "value")]
+        [DataMember(Name="value")]
+        [XmlArray(ElementName="values")]
+        [XmlArrayItem(ElementName="value")]
         public List<Identifier> Value { get; set; } = new();
 
         public GlobalReference() : base() { }

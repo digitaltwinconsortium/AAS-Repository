@@ -14,13 +14,13 @@ namespace AdminShell
 
         public AnnotatedRelationshipElement()
         {
-            ModelType.Name = ModelTypes.AnnotatedRelationshipElement;
+            ModelType = ModelTypes.AnnotatedRelationshipElement;
         }
 
         public AnnotatedRelationshipElement(AnnotatedRelationshipElement src) : base(src)
         {
             Annotations = src.Annotations;
-            ModelType.Name = ModelTypes.AnnotatedRelationshipElement;
+            ModelType = ModelTypes.AnnotatedRelationshipElement;
         }
     }
 }

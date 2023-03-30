@@ -6,16 +6,16 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    [XmlType(TypeName = "reference")]
+    [XmlType(TypeName="reference")]
     public class Reference : IAasElement
     {
-        [XmlElement(ElementName = "type")]
-        [DataMember(Name = "type")]
+        [XmlElement(ElementName="type")]
+        [DataMember(Name="type")]
         public KeyElements Type { get; set; } = KeyElements.GlobalReference;
 
-        [DataMember(Name = "keys")]
-        [XmlArray("keys")]
-        [XmlArrayItem("key")]
+        [DataMember(Name="keys")]
+        [XmlArray(ElementName="keys")]
+        [XmlArrayItem(ElementName="key")]
         public List<Key> Keys { get; set; } = new();
 
         [XmlIgnore]

@@ -7,23 +7,20 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    [XmlType(TypeName = "langString")]
+    [XmlType(TypeName="langString")]
     public class LangString
     {
-        // constants
-        public static string LANG_DEFAULT = "en";
-
         [Required]
         [DataMember(Name="language")]
         [XmlAttribute(AttributeName="lang")]
         [MetaModelName("LangString.Language")]
-        public string Language { get; set; }
+        public string Language { get; set; } = "en";
 
         [Required]
-        [DataMember(Name="text")]
+        [DataMember(Name = "text")]
         [XmlText]
         [MetaModelName("LangString.Text")]
-        public string Text { get; set; }
+        public string Text { get; set; } = string.Empty;
 
         public LangString() { }
 

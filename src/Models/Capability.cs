@@ -5,13 +5,13 @@ namespace AdminShell
     {
         public Capability()
         {
-            ModelType.Name = ModelTypes.Capability;
+            ModelType = ModelTypes.Capability;
         }
 
         public Capability(SubmodelElement src)
             : base(src)
         {
-            ModelType.Name = ModelTypes.Capability;
+            ModelType = ModelTypes.Capability;
         }
     }
 }
