@@ -59,7 +59,7 @@ namespace AdminShell
             ModelType = ModelTypes.SubmodelElementCollection;
         }
 
-        public SubmodelElementCollection(SubmodelElement src, bool shallowCopy = false)
+        public SubmodelElementCollection(SubmodelElement src)
             : base(src)
         {
             if (!(src is SubmodelElementCollection smc))
@@ -71,12 +71,9 @@ namespace AdminShell
             AllowDuplicates = smc.AllowDuplicates;
             ModelType = ModelTypes.SubmodelElementCollection;
 
-            if (!shallowCopy)
+            foreach (var sme in smc.Value)
             {
-                foreach (var sme in smc.Value)
-                {
-                    Value.Add(sme);
-                }
+                Value.Add(sme);
             }
         }
     }

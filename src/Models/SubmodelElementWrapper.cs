@@ -37,10 +37,10 @@ namespace AdminShell
 
         public SubmodelElementWrapper() { }
 
-        public SubmodelElementWrapper(SubmodelElement src, bool shallowCopy = false)
+        public SubmodelElementWrapper(SubmodelElement src)
         {
             if (src is SubmodelElementCollection)
-                SubmodelElement = new SubmodelElementCollection(src as SubmodelElementCollection, shallowCopy);
+                SubmodelElement = new SubmodelElementCollection(src as SubmodelElementCollection);
 
             if (src is Property)
                 SubmodelElement = new Property(src as Property);
@@ -85,7 +85,7 @@ namespace AdminShell
                 SubmodelElement = new SubmodelElementStruct(src as SubmodelElementStruct);
 
             if (src is SubmodelElementCollection)
-                SubmodelElement = new SubmodelElementCollection(src as SubmodelElementCollection, shallowCopy);
+                SubmodelElement = new SubmodelElementCollection(src as SubmodelElementCollection);
 
             if (src is ModelReferenceElement)
                 SubmodelElement = new ModelReferenceElement(src as ModelReferenceElement);

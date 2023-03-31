@@ -40,8 +40,8 @@ namespace AdminShell
             ModelType = ModelTypes.SubmodelElementList;
         }
 
-        public SubmodelElementList(SubmodelElement src, bool shallowCopy = false)
-            : base(src, shallowCopy)
+        public SubmodelElementList(SubmodelElement src)
+            : base(src)
         {
             if (!(src is SubmodelElementList sml))
             {

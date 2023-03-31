@@ -198,10 +198,11 @@ namespace AdminShell
             {
                 byte[] bytes = new byte[specStream.Length];
                 specStream.Read(bytes);
-                aasenv = JsonConvert.DeserializeObject<AssetAdministrationShellEnvironment>(Encoding.UTF8.GetString(bytes));
+                JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
+                aasenv = JsonConvert.DeserializeObject<AssetAdministrationShellEnvironment>(Encoding.UTF8.GetString(bytes), settings);
             }
 
-            ReadSupplementaryFiles(key, package);
+            ReadFilesFromPackage(key, package);
 
             if (aasenv == null)
             {
@@ -393,12 +394,14 @@ namespace AdminShell
             packageStream.Close();
         }
 
-        public void ReadSupplementaryFiles(string key, Package package)
+        public void ReadFilesFromPackage(string key, Package package)
         {
             // get the thumbnail(s) from the package
             PackagePart thumbPart;
             foreach (PackageRelationship rel in package.GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail"))
             {
+                _logger.LogInformation("Package relationship for thumbnail in package " + key + ": " + rel.TargetUri);
+
                 if (rel.SourceUri.ToString() == "/")
                 {
                     thumbPart = package.GetPart(rel.TargetUri);
@@ -447,20 +450,30 @@ namespace AdminShell
                     // get the supplemental files from the package, derived from spec
                     foreach (PackageRelationship rel in specPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-suppl"))
                     {
-                        PackageSupplementaryFile file = new()
-                        {
-                            Uri = rel.TargetUri,
-                            Location = LocationType.InPackage,
-                            Key = key
-                        };
+                        _logger.LogInformation("Package relationship for supplemental file in package " + key + ": " + rel.TargetUri);
 
-                        using (MemoryStream partStream = new())
+                        // try to find the part for the file
+                        foreach (PackagePart packagePart in package.GetParts())
                         {
-                            specPart.GetStream(FileMode.Open).CopyTo(partStream);
-                            file.SourceBytes = partStream.ToArray();
+                            if (packagePart.Uri == rel.TargetUri)
+                            {
+                                PackageSupplementaryFile file = new()
+                                {
+                                    Uri = rel.TargetUri,
+                                    Location = LocationType.InPackage,
+                                    Key = key
+                                };
+
+                                using (MemoryStream partStream = new())
+                                {
+                                    packagePart.GetStream(FileMode.Open).CopyTo(partStream);
+                                    file.SourceBytes = partStream.ToArray();
+                                }
+
+                                _files.Add(file);
+                                break;
+                            }
                         }
-
-                        _files.Add(file);
                     }
                 }
             }
@@ -513,17 +526,55 @@ namespace AdminShell
             packageStream.Close();
         }
 
-        private void AddFileToSpec(Package package, PackagePart specPart, string targetFile, Stream fileContent)
+        private void AddFileToSpec(Package package, PackagePart specPart, string targetFile, Stream fileContent, bool addAsThumbnail = false)
         {
-            // try to find an existing part for that file
-            PackagePart filePart = null;
             Uri targetUri = PackUriHelper.CreatePartUri(new Uri(targetFile, UriKind.RelativeOrAbsolute));
-            PackageRelationshipCollection relationships = specPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-suppl");
-            foreach (var relationship in relationships)
+
+            // try to find an existing relationship for the file
+            PackageRelationship existingRelationship = null;
+
+            PackageRelationshipCollection relationships;
+            if (addAsThumbnail)
+            {
+                relationships = package.GetRelationshipsByType("http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
+
+            }
+            else
+            {
+                relationships = specPart.GetRelationshipsByType("http://www.admin-shell.io/aasx/relationships/aas-suppl");
+            }
+
+            foreach (PackageRelationship relationship in relationships)
             {
                 if (relationship.TargetUri == targetUri)
                 {
-                    filePart = package.GetPart(relationship.TargetUri);
+                    // relatinship already exists
+                    existingRelationship = relationship;
+                    break;
+                }
+            }
+
+            if (existingRelationship == null)
+            {
+                if (addAsThumbnail)
+                {
+                    specPart.CreateRelationship(targetUri, TargetMode.Internal, "http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
+                }
+                else
+                {
+                    specPart.CreateRelationship(targetUri, TargetMode.Internal, "http://www.admin-shell.io/aasx/relationships/aas-suppl");
+                }
+            }
+
+            // try to find an existing part for the file
+            PackagePart filePart = null;
+            PackagePartCollection packages = package.GetParts();
+            foreach (PackagePart packagePart in packages)
+            {
+                if (packagePart.Uri == targetUri)
+                {
+                    // part already exists
+                    filePart = packagePart;
                     break;
                 }
             }
@@ -531,7 +582,6 @@ namespace AdminShell
             if (filePart == null)
             {
                 filePart = package.CreatePart(targetUri, MediaTypeNames.Application.Octet, CompressionOption.Maximum);
-                specPart.CreateRelationship(filePart.Uri, TargetMode.Internal, "http://www.admin-shell.io/aasx/relationships/aas-suppl");
             }
 
             using (Stream partStream = filePart.GetStream(FileMode.Create))
@@ -542,7 +592,7 @@ namespace AdminShell
 
         public void SaveAs(string key, AssetAdministrationShellEnvironment env)
         {
-            // approach is to utilize an existing package, if possible. If not, create from scratch
+            // utilize an existing package, if possible. If not, create from scratch
 
             MemoryStream packageStream = (MemoryStream)GetPackageStream(key);
             Package package = Package.Open(packageStream, FileMode.OpenOrCreate, FileAccess.ReadWrite);
@@ -632,7 +682,8 @@ namespace AdminShell
             {
                 if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("USE_JSON_SERIALIZATION")))
                 {
-                    string json = JsonConvert.SerializeObject(env);
+                    JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
+                    string json = JsonConvert.SerializeObject(env, settings);
                     s.Write(Encoding.UTF8.GetBytes(json));
                 }
                 else
@@ -652,7 +703,14 @@ namespace AdminShell
                     {
                         using (MemoryStream contents = new(file.SourceBytes))
                         {
-                            AddFileToSpec(package, specPart, file.Uri.ToString(), contents);
+                            if (file.SpecialHandling == SpecialHandlingType.EmbedAsThumbnail)
+                            {
+                                AddFileToSpec(package, specPart, file.Uri.ToString(), contents, true);
+                            }
+                            else
+                            {
+                                AddFileToSpec(package, specPart, file.Uri.ToString(), contents);
+                            }
                         }
                     }
                 }

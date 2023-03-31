@@ -11,8 +11,8 @@ namespace AdminShell
             ModelType = ModelTypes.SubmodelElementStruct;
         }
 
-        public SubmodelElementStruct(SubmodelElement src, bool shallowCopy = false)
-            : base(src, shallowCopy)
+        public SubmodelElementStruct(SubmodelElement src)
+            : base(src)
         {
             ModelType = ModelTypes.SubmodelElementStruct;
         }

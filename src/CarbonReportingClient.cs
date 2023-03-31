@@ -21,7 +21,8 @@ namespace AdminShell
             HttpResponseMessage response = client.GetAsync(path).GetAwaiter().GetResult();
             if (response.IsSuccessStatusCode)
             {
-                submodel = JsonConvert.DeserializeObject<Submodel>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
+                submodel = JsonConvert.DeserializeObject<Submodel>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult(), settings);
             }
 
             // access electrical energy
