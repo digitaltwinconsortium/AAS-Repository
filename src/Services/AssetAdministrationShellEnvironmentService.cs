@@ -88,19 +88,40 @@ namespace AdminShell
 
         public void UpdateAssetAdministrationShellById(AssetAdministrationShell body, string aasIdentifier)
         {
-            if (string.IsNullOrEmpty(body.Identification))
+            if (string.IsNullOrEmpty(body?.Identification?.Id))
             {
-                throw new Exception("Provided Asset Administration Shell is missing its ID!");
+                throw new Exception("Provided Asset Administration Shell Identifier is missing!");
             }
 
-            if (_packageService.Packages.ContainsKey(aasIdentifier))
+            if (aasIdentifier != body?.Identification?.Id)
             {
-                _packageService.Packages[aasIdentifier].AssetAdministrationShells.Remove(body);
-                _packageService.Packages[aasIdentifier].AssetAdministrationShells.Add(body);
-
-                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
+                throw new Exception("Provided Asset Administration Shell Identifier doesn't match the provided Identifier in the AAS body!");
             }
-            else
+
+            bool updated = false;
+            foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
+            {
+                foreach (AssetAdministrationShell shell in package.Value.AssetAdministrationShells)
+                {
+                    if (shell.Identification.Id == aasIdentifier)
+                    {
+                        _packageService.Packages[package.Key].AssetAdministrationShells.Remove(shell);
+                        _packageService.Packages[package.Key].AssetAdministrationShells.Add(body);
+
+                        updated = true;
+
+                        VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
+                        break;
+                    }
+                }
+
+                if (updated)
+                {
+                    break;
+                }
+            }
+
+            if (!updated)
             {
                 throw new Exception($"Asset Admin Shell with ID {aasIdentifier} not found!");
             }
