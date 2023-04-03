@@ -107,6 +107,7 @@ namespace AdminShell
                     {
                         _packageService.Packages[package.Key].AssetAdministrationShells.Remove(shell);
                         _packageService.Packages[package.Key].AssetAdministrationShells.Add(body);
+                        _packageService.Save(package.Key);
 
                         updated = true;
 
