@@ -16,7 +16,7 @@
 
         @UpdateVisibleTree(SelectedNode)
 
-        <TreeNode Nodes="Nodes" ChildSelector="@(item => item.Children)" @bind-SelectedNode="SelectedNode" @bind-ExpandedNodes="ExpandedNodes" HasChildNodes="@(item => item.Children?.Any() == true)">
+        <TreeNode Nodes="TreeNodes" ChildSelector="@(item => item.Children)" @bind-SelectedNode="SelectedNode" @bind-ExpandedNodes="ExpandedTreeNodes" HasChildNodes="@(item => item.Children?.Any() == true)">
             <TitleTemplate>
                 <span style="color:white;background-color:blue;">@ViewNodeType(context)</span>
                 @ViewNodeID(context)
@@ -92,9 +92,9 @@
         public string EnvKey { get; set; }
     }
 
-    List<TreeNodeData> Nodes = null;
+    List<TreeNodeData> TreeNodes = null;
 
-    IList<TreeNodeData> ExpandedNodes = new List<TreeNodeData>();
+    IList<TreeNodeData> ExpandedTreeNodes = new List<TreeNodeData>();
 
     TreeNodeData SelectedNode { get; set; }
 
@@ -119,24 +119,136 @@
         }
     }
 
-    string UpdateVisibleTree(TreeNodeData selectedNode)
+    List<string> getPath(TreeNodeData i)
     {
-        if (CurrentTreeUpdateMode == TreeUpdateMode.ValuesOnly)
+        if (i == null)
         {
-            return string.Empty;
+            return null;
         }
 
-        Nodes = _treeBuilder.BuildTree();
-
-        if (CurrentTreeUpdateMode == TreeUpdateMode.RebuildAndCollapse)
+        List<string> upPath = new List<string>();
+        upPath.Add(i.Text);
+        while (i.Parent != null)
         {
-            ExpandedNodes.Clear();
-            selectedNode = null;
+            i = (TreeNodeData)i.Parent;
+            upPath.Add(i.Text);
+        }
+
+        List<string> downPath = new List<string>();
+        int j = upPath.Count - 1;
+        while (j >= 0)
+        {
+            downPath.Add(upPath[j--]);
+        }
+
+        return downPath;
+    }
+
+    TreeNodeData findPath(List<string> path)
+    {
+        if (path != null && path.Count > 0)
+        {
+            TreeNodeData found = null;
+            int k = 0;
+            while (k < TreeNodes.Count)
+            {
+                TreeNodeData i = TreeNodes[k];
+                if (i.Text != path[0])
+                {
+                    k++;
+                    continue;
+                }
+
+                int j = 0;
+                found = i;
+                while (++j < path.Count)
+                {
+                    if (i.Children != null)
+                    {
+                        found = null;
+                        foreach (var c in i.Children)
+                        {
+                            if (c.Text == path[j])
+                            {
+                                found = c;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (found == null)
+                    {
+                        return null;
+                    }
+
+                    i = found;
+                }
+
+                if (found != null)
+                {
+                    return found;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    string UpdateVisibleTree(TreeNodeData selectedNode)
+    {
+        switch (CurrentTreeUpdateMode)
+        {
+            case TreeUpdateMode.ValuesOnly: break;
+            case TreeUpdateMode.Rebuild:
+            {
+                bool expandedNodesExist = ExpandedTreeNodes.Count != 0;
+
+                // capture existing expanded nodes
+                List<string>[] expandedNodesPath = new List<string>[ExpandedTreeNodes.Count + 1];
+                if (expandedNodesExist)
+                {
+                    for (int j = 0; j < ExpandedTreeNodes.Count; j++)
+                    {
+                        expandedNodesPath[j] = getPath(ExpandedTreeNodes[j]);
+                    }
+                }
+
+                // rebuild tree
+                TreeNodes = _treeBuilder.BuildTree();
+                ExpandedTreeNodes.Clear();
+
+                if (selectedNode != null)
+                {
+                    // make sure the selected node still exists in the new tree
+                    selectedNode = findPath(getPath(selectedNode));
+                }
+
+                // reassign previously expanded nodes, if they still exist
+                if (expandedNodesExist)
+                {
+                    foreach (List<string> path in expandedNodesPath)
+                    {
+                        TreeNodeData p = findPath(path);
+                        if (p != null)
+                        {
+                            ExpandedTreeNodes.Add(p);
+                        }
+                    }
+                }
+
+                break;
+            }
+            case TreeUpdateMode.RebuildAndCollapse:
+            {
+                TreeNodes = _treeBuilder.BuildTree();
+                ExpandedTreeNodes.Clear();
+                selectedNode = null;
+                break;
+            }
         }
 
         CurrentTreeUpdateMode = TreeUpdateMode.ValuesOnly;
         SelectedNode = selectedNode;
-
         return string.Empty;
     }
 

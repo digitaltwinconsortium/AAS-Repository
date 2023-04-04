@@ -14,6 +14,8 @@ namespace AdminShell
         private Timer _queryTimer;
         private ConcurrentDictionary<string, object> _values = new ConcurrentDictionary<string, object>();
 
+        private List<string> _dataPoints = new List<string>();
+
         private readonly ILogger _logger;
 
         public OPCUAPubSubService(ILoggerFactory logger, AASXPackageService packageService)
@@ -25,7 +27,7 @@ namespace AdminShell
             {
                 RunADXQuery("AdtPropertyEvents | where Key == 'equipmentID' | distinct tostring(Value)", _values, true);
 
-                CreateSMEValues(_values);
+                CreateSMEs(_values);
 
                 _values.Clear();
 
@@ -57,9 +59,9 @@ namespace AdminShell
         private void RunQuerys(object state)
         {
             // read the row from our OPC UA telemetry table
-            foreach (Property prop in _dataPoints)
+            foreach (string id in _dataPoints)
             {
-                RunADXQuery("let intermediateTable = AdtPropertyEvents | where Id == toscalar(GetDigitalTwinIdForUANode('', '', '" + prop.IdShort + "')); intermediateTable | where isnotnull(SourceTimeStamp) | join intermediateTable on $left.TimeStamp == $right.TimeStamp | where Key1 == 'equipmentID' | project SourceTimeStamp, OPCUANodeValue = tostring(Value), OPCUADisplayName = Value1 | top 1 by SourceTimeStamp desc", _values);
+                RunADXQuery("let intermediateTable = AdtPropertyEvents | where Id == toscalar(GetDigitalTwinIdForUANode('', '', '" + id + "')); intermediateTable | where isnotnull(SourceTimeStamp) | join intermediateTable on $left.TimeStamp == $right.TimeStamp | where Key1 == 'equipmentID' | project SourceTimeStamp, OPCUANodeValue = tostring(Value), OPCUADisplayName = Value1 | top 1 by SourceTimeStamp desc", _values);
 
                 UpdateSMEValues();
 
@@ -71,10 +73,10 @@ namespace AdminShell
                 _packageService.Save(package.Key);
             }
 
-            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
+            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
         }
 
-        private void CreateSMEValues(ConcurrentDictionary<string, object> values)
+        private void CreateSMEs(ConcurrentDictionary<string, object> values)
         {
             // retrieve our OperationalData Submodel
             foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
@@ -93,16 +95,6 @@ namespace AdminShell
                                 // create a wrapper and submodel element per data item
                                 string idShort = dataItem.Substring(dataItem.IndexOf(';') + 1).TrimEnd(';');
 
-                                Property sme = new()
-                                {
-                                    IdShort = idShort,
-                                    ValueType = "string"
-                                };
-
-                                SubmodelElementWrapper smew = new() { SubmodelElement = sme };
-
-                                _dataPoints.Add(sme);
-
                                 bool smeExists = false;
                                 foreach (SubmodelElementWrapper existingSMEW in sm.SubmodelElements)
                                 {
@@ -113,8 +105,18 @@ namespace AdminShell
                                     }
                                 }
 
+                                _dataPoints.Add(idShort);
+
                                 if (!smeExists)
                                 {
+                                    Property sme = new()
+                                    {
+                                        IdShort = idShort,
+                                        ValueType = "string"
+                                    };
+
+                                    SubmodelElementWrapper smew = new() { SubmodelElement = sme };
+
                                     sm.SubmodelElements.Add(smew);
                                 }
                             }
@@ -126,18 +128,101 @@ namespace AdminShell
 
         private void UpdateSMEValues()
         {
-            foreach (Property prop in _dataPoints)
+            foreach (AssetAdministrationShellEnvironment env in _packageService.Packages.Values)
             {
-                try
+                foreach (Submodel sm in env.Submodels)
                 {
-                    if (_values["OPCUADisplayName"].ToString().Contains(prop.IdShort))
+                    if (sm.IdShort == "OperationalData")
                     {
-                        prop.Value = _values["OPCUANodeValue"].ToString();
+                        foreach (SubmodelElementWrapper smew in sm.SubmodelElements)
+                        {
+                            try
+                            {
+                                Property prop = (Property)smew.SubmodelElement;
+
+                                if (_values["OPCUADisplayName"].ToString().Contains(prop.IdShort))
+                                {
+                                    prop.Value = _values["OPCUANodeValue"].ToString();
+
+                                    HandleHartingSmEC(prop);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine(ex.Message);
+                            }
+                        }
                     }
                 }
-                catch (Exception ex)
+            }
+        }
+
+        private void HandleHartingSmEC(Property prop)
+        {
+            // special case for Harting HMI demonstrator
+            if (prop.IdShort == "id_detected")
+            {
+                if (prop.Value == "Object")
                 {
-                    Debug.WriteLine(ex.Message);
+                    _logger.LogInformation("SmEC: Not plugged in!");
+
+                    foreach (Submodel sm in _packageService.Packages["/app/./gebhardt_agv.aasx"].Submodels)
+                    {
+                        if (sm.IdShort == "BOM")
+                        {
+                            foreach (SubmodelElementWrapper smew in ((Entity)sm.SubmodelElements[0].SubmodelElement).Statements)
+                            {
+                                if (smew.SubmodelElement.IdShort == "SmEC")
+                                {
+                                    ((Entity)sm.SubmodelElements[0].SubmodelElement).Statements.Remove(smew);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    _logger.LogInformation("SmEC: Plugged in to " + prop.Value + "!");
+
+                    bool found = false;
+                    foreach (Submodel sm in _packageService.Packages["/app/./gebhardt_agv.aasx"].Submodels)
+                    {
+                        if (sm.IdShort == "BOM")
+                        {
+                            foreach (SubmodelElementWrapper smew in ((Entity)sm.SubmodelElements[0].SubmodelElement).Statements)
+                            {
+                                if (smew.SubmodelElement.IdShort == "SmEC")
+                                {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        Entity sme = new()
+                        {
+                            IdShort = "SmEC",
+                            SemanticId = new SemanticId()
+                        };
+
+                        sme.SemanticId.Keys = new List<Key>();
+                        sme.SemanticId.Type = KeyElements.GlobalReference;
+                        sme.SemanticId.Keys.Add(new Key("GlobalReference", "https://admin-shell.io/idta/HierachicalStructures/Node/1/0"));
+
+                        SubmodelElementWrapper smew = new() { SubmodelElement = sme };
+
+                        foreach (Submodel sm in _packageService.Packages["/app/./gebhardt_agv.aasx"].Submodels)
+                        {
+                            if (sm.IdShort == "BOM")
+                            {
+                                ((Entity)sm.SubmodelElements[0].SubmodelElement).Statements.Add(smew);
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -78,16 +78,46 @@ namespace AdminShell
 
         private void UpdateSMEValues()
         {
-            foreach (SubmodelElement sme in _dataPoints)
+            // retrieve our ADX-tagged data points from all loaded AASes
+            foreach (AssetAdministrationShellEnvironment env in _packageService.Packages.Values)
             {
-                if (sme is Property prop)
+                foreach (Submodel sm in env.Submodels)
                 {
-                    prop.Value = GetCarbonReportingValue(sme).ToString();
+                    foreach (SubmodelElementWrapper smew in sm.SubmodelElements)
+                    {
+                        CheckForADXDataPointInSME(smew.SubmodelElement);
+                    }
                 }
+            }
+        }
 
-                if (sme is Blob blob)
+        protected void CheckForADXDataPointInSME(SubmodelElement sme)
+        {
+            // recurse if needed
+            if (sme is SubmodelElementCollection collection)
+            {
+                if (collection.Value != null)
                 {
-                    blob.Value = GetCarbonReportingValue(sme).ToString();
+                    foreach (SubmodelElementWrapper smew in collection.Value)
+                    {
+                        CheckForADXDataPointInSME(smew.SubmodelElement);
+                    }
+                }
+            }
+
+            foreach (Qualifier q in sme.Qualifiers)
+            {
+                if (q.Type == "ADX")
+                {
+                    if (sme is Property prop)
+                    {
+                        prop.Value = GetCarbonReportingValue(sme).ToString();
+                    }
+
+                    if (sme is Blob blob)
+                    {
+                        blob.Value = GetCarbonReportingValue(sme).ToString();
+                    }
                 }
             }
         }
