@@ -637,25 +637,24 @@ namespace AdminShell
         {
             if (string.IsNullOrEmpty(body.IdShort))
             {
-                throw new Exception("SubmodelElement");
+                throw new Exception("IdShort not valid!");
             }
 
             var submodelElement = GetSubmodelElementByPathSubmodelRepo(submodelIdentifier, idShortPath, out object smeParent);
             if (submodelElement != null && smeParent != null)
             {
+                DeleteSubmodelElementByPathSubmodelRepo(submodelIdentifier, idShortPath);
+
                 if (smeParent is SubmodelElementCollection collection)
                 {
-                    collection.Value.Remove(new SubmodelElementWrapper(submodelElement));
                     collection.Value.Add(new SubmodelElementWrapper(body));
                 }
                 else if (smeParent is SubmodelElementList list)
                 {
-                    list.Value.Remove(new SubmodelElementWrapper(submodelElement));
                     list.Value.Add(new SubmodelElementWrapper(body));
                 }
                 else if (smeParent is Submodel submodel)
                 {
-                    submodel.SubmodelElements.Remove(new SubmodelElementWrapper(submodelElement));
                     submodel.SubmodelElements.Add(new SubmodelElementWrapper(body));
                 }
 
@@ -1085,23 +1084,73 @@ namespace AdminShell
             {
                 if (smeParent is SubmodelElementCollection parentCollection)
                 {
-                    parentCollection.Value.Remove(new SubmodelElementWrapper(submodelElement));
+                    foreach (SubmodelElementWrapper smew in parentCollection.Value)
+                    {
+                        if (smew.SubmodelElement.IdShort == idShortPath)
+                        {
+                            if (!parentCollection.Value.Remove(smew))
+                            {
+                                throw new Exception("Cannot remove SubmodelElement " + idShortPath +"!");
+                            }
+                            break;
+                        }
+                    }
                 }
                 else if (smeParent is SubmodelElementList parentList)
                 {
-                    parentList.Value.Remove(new SubmodelElementWrapper(submodelElement));
+                    foreach (SubmodelElementWrapper smew in parentList.Value)
+                    {
+                        if (smew.SubmodelElement.IdShort == idShortPath)
+                        {
+                            if (!parentList.Value.Remove(smew))
+                            {
+                                throw new Exception("Cannot remove SubmodelElement " + idShortPath + "!");
+                            }
+                            break;
+                        }
+                    }
                 }
                 else if (smeParent is AnnotatedRelationshipElement annotatedRelationshipElement)
                 {
-                    annotatedRelationshipElement.Annotations.Remove((DataElement)submodelElement);
+                    foreach (DataElement de in annotatedRelationshipElement.Annotations)
+                    {
+                        if (de.IdShort == idShortPath)
+                        {
+                            if (!annotatedRelationshipElement.Annotations.Remove(de))
+                            {
+                                throw new Exception("Cannot remove DataElement " + idShortPath + "!");
+                            }
+                            break;
+                        }
+                    }
                 }
                 else if (smeParent is Entity entity)
                 {
-                    entity.Statements.Remove(new SubmodelElementWrapper(submodelElement));
+                    foreach (SubmodelElementWrapper smew in entity.Statements)
+                    {
+                        if (smew.SubmodelElement.IdShort == idShortPath)
+                        {
+                            if (!entity.Statements.Remove(smew))
+                            {
+                                throw new Exception("Cannot remove SubmodelElement " + idShortPath + "!");
+                            }
+                            break;
+                        }
+                    }
                 }
                 else if (smeParent is Submodel parentSubmodel)
                 {
-                    parentSubmodel.SubmodelElements.Remove(new SubmodelElementWrapper(submodelElement));
+                    foreach (SubmodelElementWrapper smew in parentSubmodel.SubmodelElements)
+                    {
+                        if (smew.SubmodelElement.IdShort == idShortPath)
+                        {
+                            if (!parentSubmodel.SubmodelElements.Remove(smew))
+                            {
+                                throw new Exception("Cannot remove SubmodelElement " + idShortPath + "!");
+                            }
+                            break;
+                        }
+                    }
                 }
 
                 VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
