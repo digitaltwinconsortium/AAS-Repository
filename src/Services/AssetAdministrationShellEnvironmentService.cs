@@ -643,26 +643,20 @@ namespace AdminShell
             var submodelElement = GetSubmodelElementByPathSubmodelRepo(submodelIdentifier, idShortPath, out object smeParent);
             if (submodelElement != null && smeParent != null)
             {
+                if (smeParent is SubmodelElementCollection collection)
                 {
-                    if (smeParent is SubmodelElementCollection collection)
-                    {
-                        var smeIndex = collection.Value.IndexOf(new SubmodelElementWrapper(submodelElement));
-                        collection.Value.Remove(new SubmodelElementWrapper(submodelElement));
-                        collection.Value.Insert(smeIndex, new SubmodelElementWrapper(body));
-                    }
-                    else if (smeParent is SubmodelElementList list)
-                    {
-                        var smeIndex = list.Value.IndexOf(new SubmodelElementWrapper(submodelElement));
-                        list.Value.Remove(new SubmodelElementWrapper(submodelElement));
-                        list.Value.Insert(smeIndex, new SubmodelElementWrapper(body));
-                    }
-                    //Added support for submodel here, as no other api found for this functionality
-                    else if (smeParent is Submodel submodel)
-                    {
-                        var smeIndex = submodel.SubmodelElements.IndexOf(new SubmodelElementWrapper(submodelElement));
-                        submodel.SubmodelElements.Remove(new SubmodelElementWrapper(submodelElement));
-                        submodel.SubmodelElements.Insert(smeIndex, new SubmodelElementWrapper(body));
-                    }
+                    collection.Value.Remove(new SubmodelElementWrapper(submodelElement));
+                    collection.Value.Add(new SubmodelElementWrapper(body));
+                }
+                else if (smeParent is SubmodelElementList list)
+                {
+                    list.Value.Remove(new SubmodelElementWrapper(submodelElement));
+                    list.Value.Add(new SubmodelElementWrapper(body));
+                }
+                else if (smeParent is Submodel submodel)
+                {
+                    submodel.SubmodelElements.Remove(new SubmodelElementWrapper(submodelElement));
+                    submodel.SubmodelElements.Add(new SubmodelElementWrapper(body));
                 }
 
                 VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
