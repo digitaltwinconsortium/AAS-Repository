@@ -66,7 +66,7 @@ namespace AdminShell
 
         private bool IsSubmodelPresentInAAS(AssetAdministrationShell aas, string submodelIdentifier)
         {
-            if (aas.Submodels.Any(s => s.ToString() == submodelIdentifier))
+            if (aas.Submodels.Any(s => s.Keys[0].Value == submodelIdentifier))
             {
                 return true;
             }
@@ -883,7 +883,6 @@ namespace AdminShell
 
                         output = submodels;
                     }
-
                 }
             }
 
@@ -949,10 +948,13 @@ namespace AdminShell
 
         private SubmodelElement FindSubmodelElementByIdShort(Submodel sm, string idShort)
         {
-                foreach (SubmodelElementWrapper smew in sm.SubmodelElements)
-                    if (smew.SubmodelElement.SemanticId != null)
-                        if (smew.SubmodelElement.SemanticId.Matches(new Identifier(idShort)))
-                            return smew.SubmodelElement;
+            foreach (SubmodelElementWrapper smew in sm.SubmodelElements)
+            {
+                if (smew.SubmodelElement.IdShort == idShort)
+                {
+                    return smew.SubmodelElement;
+                }
+            }
 
             return null;
         }
@@ -960,18 +962,22 @@ namespace AdminShell
         private SubmodelElement FindSubmodelElementByIdShort(SubmodelElementCollection smec, string idShort)
         {
             foreach (SubmodelElementWrapper smew in smec.Value)
-                if (smew.SubmodelElement.SemanticId != null)
-                    if (smew.SubmodelElement.SemanticId.Matches(new Identifier(idShort)))
-                        return smew.SubmodelElement;
+            {
+                if (smew.SubmodelElement.IdShort == idShort)
+                {
+                    return smew.SubmodelElement;
+                }
+            }
 
             return null;
         }
 
         private SubmodelElement FindSubmodelElementByIdShort(SubmodelElement sme, string idShort)
         {
-            if (sme.SemanticId != null)
-                if (sme.SemanticId.Matches(new Identifier(idShort)))
-                    return sme;
+            if (sme.IdShort == idShort)
+            {
+                return sme;
+            }
 
             return null;
         }
