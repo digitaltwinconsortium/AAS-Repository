@@ -40,8 +40,8 @@ namespace AdminShell
                 }
                 else
                 {
-                    // default to 30s interval
-                    _queryTimer.Change(3000, 30000);
+                    // default to 3s interval
+                    _queryTimer.Change(3000, 3000);
                 }
             }
         }
@@ -58,6 +58,9 @@ namespace AdminShell
 
         private void RunQuerys(object state)
         {
+            // stop timer while queries are executing
+            _queryTimer.Change(Timeout.Infinite, Timeout.Infinite);
+
             // read the row from our OPC UA telemetry table
             foreach (string id in _dataPoints)
             {
@@ -74,6 +77,18 @@ namespace AdminShell
             }
 
             VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
+
+            // restart the timer
+            string adxQueryInterval = Environment.GetEnvironmentVariable("ADX_QUERY_INTERVAL");
+            if (adxQueryInterval != null && int.TryParse(adxQueryInterval, out int interval))
+            {
+                _queryTimer.Change(interval, interval);
+            }
+            else
+            {
+                // default to 3s interval
+                _queryTimer.Change(3000, 3000);
+            }
         }
 
         private void CreateSMEs(ConcurrentDictionary<string, object> values)
