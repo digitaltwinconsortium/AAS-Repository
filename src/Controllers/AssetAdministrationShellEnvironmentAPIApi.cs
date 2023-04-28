@@ -26,48 +26,6 @@ namespace AdminShell
         }
 
         /// <summary>
-        /// Deletes an Asset Administration Shell
-        /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique Id (UTF8-BASE64-URL-encoded)</param>
-        /// <response code="204">Asset Administration Shell deleted successfully</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="0">Default error handling for unmentioned status codes</response>
-        [HttpDelete]
-        [Route("/shells/{aasIdentifier}")]
-        [SwaggerOperation("DeleteAssetAdministrationShellById")]
-        [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
-        [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
-        public virtual IActionResult DeleteAssetAdministrationShellById([FromRoute][Required] string aasIdentifier)
-        {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-
-            _aasEnvService.DeleteAssetAdministrationShellById(decodedAasId);
-
-            return NoContent();
-        }
-
-        /// <summary>
-        /// Deletes a Concept Description
-        /// </summary>
-        /// <param name="cdIdentifier">The Concept Description’s unique Id (UTF8-BASE64-URL-encoded)</param>
-        /// <response code="204">Concept Description deleted successfully</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="0">Default error handling for unmentioned status codes</response>
-        [HttpDelete]
-        [Route("/concept-descriptions/{cdIdentifier}")]
-        [SwaggerOperation("DeleteConceptDescriptionById")]
-        [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
-        [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
-        public virtual IActionResult DeleteConceptDescriptionById([FromRoute][Required] string cdIdentifier)
-        {
-            var decodedCdId = Encoding.UTF8.GetString(Convert.FromBase64String(cdIdentifier));
-
-            _aasEnvService.DeleteConceptDescriptionById(decodedCdId);
-
-            return NoContent();
-        }
-
-        /// <summary>
         /// Deletes a Submodel
         /// </summary>
         /// <param name="submodelIdentifier">The Submodel’s unique Id (UTF8-BASE64-URL-encoded)</param>
@@ -174,28 +132,6 @@ namespace AdminShell
         {
             var output = _aasEnvService.GetAllAssetAdministrationShells(assetIds, idShort);
 
-            return new ObjectResult(output);
-        }
-
-        /// <summary>
-        /// Returns all Concept Descriptions
-        /// </summary>
-        /// <param name="idShort">The Concept Description’s IdShort</param>
-        /// <param name="isCaseOf">IsCaseOf reference (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="dataSpecificationRef">DataSpecification reference (UTF8-BASE64-URL-encoded)</param>
-        /// <response code="200">Requested Concept Descriptions</response>
-        /// <response code="0">Default error handling for unmentioned status codes</response>
-        [HttpGet]
-        [Route("/concept-descriptions")]
-        [SwaggerOperation("GetAllConceptDescriptions")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<ConceptDescription>), description: "Requested Concept Descriptions")]
-        [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
-        public virtual IActionResult GetAllConceptDescriptions([FromQuery] string idShort, [FromQuery] string isCaseOf, [FromQuery] string dataSpecificationRef)
-        {
-            Reference reqIsCaseOf = JsonConvert.DeserializeObject<Reference>(isCaseOf);
-            Reference reqDataSpecificationRef = JsonConvert.DeserializeObject<Reference>(dataSpecificationRef);
-
-            var output = _aasEnvService.GetAllConceptDescriptions(idShort, reqIsCaseOf, reqDataSpecificationRef);
             return new ObjectResult(output);
         }
 
@@ -332,28 +268,6 @@ namespace AdminShell
             var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
 
             var output = _aasEnvService.GetAssetInformationFromAas(decodedAasId);
-
-            return new ObjectResult(output);
-        }
-
-        /// <summary>
-        /// Returns a specific Concept Description
-        /// </summary>
-        /// <param name="cdIdentifier">The Concept Description’s unique Id (UTF8-BASE64-URL-encoded)</param>
-        /// <response code="200">Requested Concept Description</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="0">Default error handling for unmentioned status codes</response>
-        [HttpGet]
-        [Route("/concept-descriptions/{cdIdentifier}")]
-        [SwaggerOperation("GetConceptDescriptionById")]
-        [SwaggerResponse(statusCode: 200, type: typeof(ConceptDescription), description: "Requested Concept Description")]
-        [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
-        [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
-        public virtual IActionResult GetConceptDescriptionById([FromRoute][Required] string cdIdentifier)
-        {
-            var decodedCdId = Encoding.UTF8.GetString(Convert.FromBase64String(cdIdentifier));
-
-            var output = _aasEnvService.GetConceptDescriptionById(decodedCdId, out _);
 
             return new ObjectResult(output);
         }
@@ -674,26 +588,6 @@ namespace AdminShell
         }
 
         /// <summary>
-        /// Creates a new Concept Description
-        /// </summary>
-        /// <param name="body">Concept Description object</param>
-        /// <response code="201">Concept Description created successfully</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="0">Default error handling for unmentioned status codes</response>
-        [HttpPost]
-        [Route("/concept-descriptions")]
-        [SwaggerOperation("PostConceptDescription")]
-        [SwaggerResponse(statusCode: 201, type: typeof(ConceptDescription), description: "Concept Description created successfully")]
-        [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
-        public virtual IActionResult PostConceptDescription([FromBody] ConceptDescription body)
-        {
-            var output = _aasEnvService.CreateConceptDescription(body);
-
-            return CreatedAtAction(nameof(PostConceptDescription), output);
-        }
-
-        /// <summary>
         /// Creates a new Submodel
         /// </summary>
         /// <param name="body">Submodel object</param>
@@ -892,30 +786,6 @@ namespace AdminShell
             var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
 
             _aasEnvService.UpdateAssetInformation(body, decodedAasId);
-
-            return NoContent();
-        }
-
-        /// <summary>
-        /// Updates an existing Concept Description
-        /// </summary>
-        /// <param name="body">Concept Description object</param>
-        /// <param name="cdIdentifier">The Concept Description’s unique Id (UTF8-BASE64-URL-encoded)</param>
-        /// <response code="204">Concept Description updated successfully</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="0">Default error handling for unmentioned status codes</response>
-        [HttpPut]
-        [Route("/concept-descriptions/{cdIdentifier}")]
-        [SwaggerOperation("PutConceptDescriptionById")]
-        [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
-        [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
-        public virtual IActionResult PutConceptDescriptionById([FromBody] ConceptDescription body, [FromRoute][Required] string cdIdentifier)
-        {
-            var decodedCdId = Encoding.UTF8.GetString(Convert.FromBase64String(cdIdentifier));
-
-            _aasEnvService.UpdateConceptDescriptionById(body, decodedCdId);
 
             return NoContent();
         }

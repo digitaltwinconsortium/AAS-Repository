@@ -2,7 +2,6 @@
 namespace AdminShell
 {
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
     using Swashbuckle.AspNetCore.Annotations;
     using System;
