@@ -2,25 +2,20 @@
 namespace AdminShell
 {
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
-    using Newtonsoft.Json;
     using Swashbuckle.AspNetCore.Annotations;
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.Dynamic;
     using System.Linq;
     using System.Text;
 
     [ApiController]
-    public class AssetAdministrationShellEnvironmentSerializationAPIController : ControllerBase
+    public class SerializationAPIApiController : ControllerBase
     {
-        private readonly ILogger _logger;
         private readonly AssetAdministrationShellEnvironmentService _aasEnvService;
 
-        public AssetAdministrationShellEnvironmentSerializationAPIController(ILoggerFactory logger, AssetAdministrationShellEnvironmentService aasEnvSerive)
+        public SerializationAPIApiController(AssetAdministrationShellEnvironmentService aasEnvSerive)
         {
-            _logger = logger.CreateLogger("AssetAdministrationShellEnvironmentSerializationAPIController");
             _aasEnvService = aasEnvSerive;
         }
 
@@ -31,13 +26,21 @@ namespace AdminShell
         /// <param name="submodelIds">The Submodels&#x27; unique ids (UTF8-BASE64-URL-encoded)</param>
         /// <param name="includeConceptDescriptions">Include Concept Descriptions?</param>
         /// <response code="200">Requested serialization based on SerializationFormat</response>
+        /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
+        /// <response code="401">Unauthorized, e.g. the server refused the authorization attempt.</response>
+        /// <response code="403">Forbidden</response>
+        /// <response code="500">Internal Server Error</response>
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
         [Route("/serialization")]
         [SwaggerOperation("GenerateSerializationByIds")]
         [SwaggerResponse(statusCode: 200, type: typeof(byte[]), description: "Requested serialization based on SerializationFormat")]
+        [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request, e.g. the request parameters of the format of the request body is wrong.")]
+        [SwaggerResponse(statusCode: 401, type: typeof(Result), description: "Unauthorized, e.g. the server refused the authorization attempt.")]
+        [SwaggerResponse(statusCode: 403, type: typeof(Result), description: "Forbidden")]
+        [SwaggerResponse(statusCode: 500, type: typeof(Result), description: "Internal Server Error")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
-        public virtual IActionResult GenerateSerializationByIds([FromQuery][Required()] List<string> aasIds, [FromQuery][Required()] List<string> submodelIds, [FromQuery][Required()] bool? includeConceptDescriptions)
+        public virtual IActionResult GenerateSerializationByIds([FromQuery]List<string> aasIds, [FromQuery]List<string> submodelIds, [FromQuery]bool? includeConceptDescriptions)
         {
             dynamic outputEnv = new ExpandoObject();
 
