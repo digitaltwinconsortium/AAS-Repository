@@ -7,6 +7,7 @@ namespace AdminShell
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Net.Mime;
     using System.Text;
 
     [ApiController]
@@ -70,7 +71,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult DeleteFileByPathAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -96,6 +97,10 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult DeleteSubmodelByIdAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier)
         {
+            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
+
+            _aasEnvService.DeleteSubmodelById(decodedSubmodelId);
+
             return NoContent();
         }
 
@@ -123,6 +128,11 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult DeleteSubmodelElementByPathAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath)
         {
+            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
+            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
+
+            _aasEnvService.DeleteSubmodelElementByPath(decodedAasId, decodedSubmodelId, idShortPath);
+
             return NoContent();
         }
 
@@ -149,6 +159,11 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult DeleteSubmodelReferenceByIdAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier)
         {
+            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
+            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
+
+            _aasEnvService.DeleteSubmodelReferenceById(decodedAasId, decodedSubmodelId);
+
             return NoContent();
         }
 
@@ -174,7 +189,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult DeleteThumbnailAasRepository([FromRoute][Required]string aasIdentifier)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -201,7 +216,9 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllAssetAdministrationShells([FromQuery]List<string> assetIds, [FromQuery]string idShort, [FromQuery]int? limit, [FromQuery]string cursor)
         {
-            return NoContent();
+            var output = _aasEnvService.GetAllAssetAdministrationShells(assetIds, idShort);
+
+            return new ObjectResult(output);
         }
 
         /// <summary>
@@ -228,7 +245,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllAssetAdministrationShellsReference([FromQuery]List<string> assetIds, [FromQuery]string idShort, [FromQuery]int? limit, [FromQuery]string cursor)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -259,7 +276,14 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllSubmodelElementsAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]int? limit, [FromQuery]string cursor, [FromQuery]string level, [FromQuery]string extent)
         {
-            return NoContent();
+            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
+            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
+
+            //Need to handle path here, as Submodel IdShort needs to be appended before every SME from the list
+
+            var output = _aasEnvService.GetAllSubmodelElements(decodedAasId, decodedSubmodelId);
+
+            return new ObjectResult(output);
         }
 
         /// <summary>
@@ -289,7 +313,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllSubmodelElementsMetadataAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]int? limit, [FromQuery]string cursor, [FromQuery]string level)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -320,7 +344,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllSubmodelElementsPathAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]int? limit, [FromQuery]string cursor, [FromQuery]string level, [FromQuery]string extent)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -350,7 +374,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllSubmodelElementsReferenceAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]int? limit, [FromQuery]string cursor, [FromQuery]string level)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -380,7 +404,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllSubmodelElementsValueOnlyAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]int? limit, [FromQuery]string cursor, [FromQuery]string level)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -408,7 +432,11 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllSubmodelReferencesAasRepository([FromRoute][Required]string aasIdentifier, [FromQuery]int? limit, [FromQuery]string cursor)
         {
-            return NoContent();
+            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
+
+            var output = _aasEnvService.GetAllSubmodelReferences(decodedAasId);
+
+            return new ObjectResult(output);
         }
 
         /// <summary>
@@ -434,7 +462,11 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAssetAdministrationShellById([FromRoute][Required]string aasIdentifier)
         {
-            return NoContent();
+            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
+
+            var output = _aasEnvService.GetAssetAdministrationShellById(decodedAasId, out _);
+
+            return new ObjectResult(output);
         }
 
         /// <summary>
@@ -460,7 +492,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAssetAdministrationShellByIdReferenceAasRepository([FromRoute][Required]string aasIdentifier)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -486,7 +518,11 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAssetInformationAasRepository([FromRoute][Required]string aasIdentifier)
         {
-            return NoContent();
+            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
+
+            var output = _aasEnvService.GetAssetInformationFromAas(decodedAasId);
+
+            return new ObjectResult(output);
         }
 
         /// <summary>
@@ -514,7 +550,22 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetFileByPathAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath)
         {
-            return NoContent();
+            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
+            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
+
+            var fileName = _aasEnvService.GetFileByPath(decodedAasId, decodedSubmodelId, idShortPath, out byte[] content, out long fileSize);
+
+            //content-disposition so that the aasx file can be doenloaded from the web browser.
+            ContentDisposition contentDisposition = new()
+            {
+                FileName = fileName
+            };
+
+            HttpContext.Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
+            HttpContext.Response.ContentLength = fileSize;
+            HttpContext.Response.Body.WriteAsync(content);
+
+            return new EmptyResult();
         }
 
         /// <summary>
@@ -543,7 +594,13 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetOperationAsyncResultAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath, [FromRoute][Required]string handleId)
         {
-            return NoContent();
+            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
+            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
+            var decodedHandleId = Encoding.UTF8.GetString(Convert.FromBase64String(handleId));
+
+            var output = _aasEnvService.GetOperationAsyncResult(decodedAasId, decodedSubmodelId, idShortPath, decodedHandleId);
+
+            return new ObjectResult(output);
         }
 
         /// <summary>
@@ -572,7 +629,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetOperationAsyncResultValueOnlyAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath, [FromRoute][Required]string handleId)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -602,7 +659,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetOperationAsyncStatusAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath, [FromRoute][Required]string handleId)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -631,7 +688,11 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetSubmodelByIdAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]string level, [FromQuery]string extent)
         {
-            return NoContent();
+            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
+
+            var output = _aasEnvService.GetSubmodelById(decodedSubmodelId, out _);
+
+            return new ObjectResult(output);
         }
 
         /// <summary>
@@ -659,7 +720,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetSubmodelByIdMetadataAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]string level)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -687,7 +748,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetSubmodelByIdPathAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]string level)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -715,7 +776,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetSubmodelByIdReferenceAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]string level)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -744,7 +805,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetSubmodelByIdValueOnlyAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]string level, [FromQuery]string extent)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -776,7 +837,12 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetSubmodelElementByPathAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath, [FromQuery]int? limit, [FromQuery]string cursor, [FromQuery]string level, [FromQuery]string extent)
         {
-            return NoContent();
+            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
+            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
+
+            var output = _aasEnvService.GetSubmodelElementByPath(decodedAasId, decodedSubmodelId, idShortPath);
+
+            return new ObjectResult(output);
         }
 
         /// <summary>
@@ -807,7 +873,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetSubmodelElementByPathMetadataAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath, [FromQuery]int? limit, [FromQuery]string cursor, [FromQuery]string level)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -836,7 +902,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetSubmodelElementByPathPathAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath, [FromQuery]string level)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -865,7 +931,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetSubmodelElementByPathReferenceAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath, [FromQuery]string level)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -897,7 +963,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetSubmodelElementByPathValueOnlyAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath, [FromQuery]int? limit, [FromQuery]string cursor, [FromQuery]string level, [FromQuery]string extent)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -923,7 +989,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetThumbnailAasRepository([FromRoute][Required]string aasIdentifier)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -952,7 +1018,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult InvokeOperationAasRepository([FromBody]OperationRequest body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -980,7 +1046,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult InvokeOperationAsyncAasRepository([FromBody]OperationRequest body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -1008,7 +1074,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult InvokeOperationAsyncValueOnlyAasRepository([FromBody]OperationRequest body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -1037,7 +1103,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult InvokeOperationValueOnlyAasRepository([FromBody]OperationRequest body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -1065,7 +1131,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PatchSubmodelAasRepository([FromBody]Submodel body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]string level)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -1093,7 +1159,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PatchSubmodelByIdMetadataAasRepository([FromBody]Submodel body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]string level)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -1121,7 +1187,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PatchSubmodelByIdValueOnlyAasRepository([FromBody]Submodel body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]string level)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -1150,7 +1216,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PatchSubmodelElementValueByPathAasRepository([FromBody]SubmodelElement body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath, [FromQuery]string level)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -1179,7 +1245,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PatchSubmodelElementValueByPathMetadata([FromBody]SubmodelElement body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath, [FromQuery]string level)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -1208,7 +1274,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PatchSubmodelElementValueByPathValueOnly([FromBody]SubmodelElement body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath, [FromQuery]string level)
         {
-            return NoContent();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -1234,7 +1300,9 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PostAssetAdministrationShell([FromBody]AssetAdministrationShell body)
         {
-            return NoContent();
+            var output = _aasEnvService.CreateAssetAdministrationShell(body);
+
+            return CreatedAtAction(nameof(PostAssetAdministrationShell), output);
         }
 
         /// <summary>
@@ -1266,7 +1334,12 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PostSubmodelElementAasRepository([FromBody]SubmodelElement body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]string level, [FromQuery]string extent)
         {
-            return NoContent();
+            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
+            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
+
+            var output = _aasEnvService.CreateSubmodelElement(body, decodedAasId, decodedSubmodelId);
+
+            return CreatedAtAction(nameof(PostSubmodelElementAasRepository), output);
         }
 
         /// <summary>
@@ -1297,7 +1370,12 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PostSubmodelElementByPathAasRepository([FromBody]SubmodelElement body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath)
         {
-            return NoContent();
+            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
+            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
+
+            var output = _aasEnvService.CreateSubmodelElementByPath(body, decodedAasId, decodedSubmodelId, idShortPath);
+
+            return CreatedAtAction(nameof(PostSubmodelElementByPathAasRepository), output);
         }
 
         /// <summary>
@@ -1326,7 +1404,11 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PostSubmodelReferenceAasRepository([FromBody]Reference body, [FromRoute][Required]string aasIdentifier)
         {
-            return NoContent();
+            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
+
+            var output = _aasEnvService.CreateSubmodelReference(body, decodedAasId);
+
+            return CreatedAtAction(nameof(PostSubmodelReferenceAasRepository), output);
         }
 
         /// <summary>
@@ -1352,6 +1434,10 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PutAssetAdministrationShellById([FromBody]AssetAdministrationShell body, [FromRoute][Required]string aasIdentifier)
         {
+            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
+
+            _aasEnvService.UpdateAssetAdministrationShellById(body, decodedAasId);
+
             return NoContent();
         }
 
@@ -1378,6 +1464,10 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PutAssetInformationAasRepository([FromBody]AssetInformation body, [FromRoute][Required]string aasIdentifier)
         {
+            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
+
+            _aasEnvService.UpdateAssetInformation(body, decodedAasId);
+
             return NoContent();
         }
 
@@ -1407,6 +1497,11 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PutSubmodelByIdAasRepository([FromBody]Submodel body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]string level)
         {
+            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
+            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
+
+            _aasEnvService.UpdateSubmodel(body, decodedAasId, decodedSubmodelId);
+
             return NoContent();
         }
 
@@ -1435,6 +1530,11 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PutSubmodelElementByPathAasRepository([FromBody]SubmodelElement body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath)
         {
+            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
+            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
+
+            _aasEnvService.UpdateSubmodelElementByPath(body, decodedAasId, decodedSubmodelId, idShortPath);
+
             return NoContent();
         }
     }
