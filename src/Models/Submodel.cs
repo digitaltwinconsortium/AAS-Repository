@@ -1,12 +1,15 @@
 ﻿
 namespace AdminShell
 {
+    using JsonSubTypes;
+    using Newtonsoft.Json;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
     using System.Xml;
     using System.Xml.Serialization;
 
     [DataContract]
+    [JsonConverter(typeof(JsonSubtypes), "modelType.name")]
     public class Submodel : Identifiable
     {
         [DataMember(Name = "embeddedDataSpecifications")]
