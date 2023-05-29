@@ -12,6 +12,7 @@ IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Ne
 1. Product Carbon Footprint (PCF) calculation (based on GHG Protocol specification) for the production line simulation which is part of the [DTC's Manufacturing Ontologies reference solution](https://github.com/digitaltwinconsortium/ManufacturingOntologies).
 1. WattTime integration
 1. OPC UA PubSub operational data integration
+1. UA Cloud Library integration
 1. Azure Data Explorer data source integration
 1. Integrated AAS browser
 1. Integrated OPC UA Nodeset file browser
