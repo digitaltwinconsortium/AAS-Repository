@@ -2,6 +2,7 @@
 namespace AdminShell
 {
     using Microsoft.Extensions.Logging;
+    using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
@@ -33,11 +34,6 @@ namespace AdminShell
             }
 
             base.Dispose();
-        }
-
-        private string GetADTHistoryTableName()
-        {
-            return "AdtPropertyEvents";
         }
 
         private void GeneratePCFAAS(object state)
@@ -185,25 +181,15 @@ namespace AdminShell
 
         private ConcurrentDictionary<string, object> ADXQueryForSpecificValue(string stationName, string productionLineName, string valueToQuery, double desiredValue)
         {
-            string query =
-                "let dataHistoryTable = " + GetADTHistoryTableName() + ";\r\n" +
-                "let dtId = toscalar(dataHistoryTable\r\n" +
-                "| where TimeStamp > now(-1h)\r\n" +
-                "| where Key == 'equipmentID'\r\n" +
-                "| where Value has \"" + stationName + "\"\r\n" +
-                "| where Value  has \"" + productionLineName + "\"\r\n" +
-                "| where Value has \"" + valueToQuery + "\"\r\n" +
-                "| project Id);\r\n" +
-                "let intermediateTable = dataHistoryTable\r\n" +
-                "| where TimeStamp > now(-1h)\r\n" +
-                "| where Id == dtId;\r\n" +
-                "intermediateTable\r\n" +
-                "| where isnotnull(SourceTimeStamp)\r\n" +
-                "| join kind=innerunique intermediateTable on $left.TimeStamp == $right.TimeStamp\r\n" +
-                "| where Key1 == \"OPCUADisplayName\"\r\n" +
-                "| distinct SourceTimeStamp, OPCUANodeValue = toint(Value)" +
-                "| where OPCUANodeValue == " + desiredValue.ToString() +
-                "| sort by SourceTimeStamp desc";
+            string query = "opcua_metadata_lkv\r\n"
+                         + "| where Name contains \"" + stationName + "\"\r\n"
+                         + "| where Name contains \"" + productionLineName + "\"\r\n"
+                         + "| join kind = inner(opcua_telemetry\r\n"
+                         + "    | where Name == \"" + valueToQuery + "\"\r\n"
+                         + "    | where Timestamp > now(- 1h)\r\n"
+                         + ") on DataSetWriterID\r\n"
+                         + "| distinct Timestamp, todouble(Value)\r\n"
+                         + "| sort by Timestamp desc";
 
             ConcurrentDictionary<string, object> values = new ConcurrentDictionary<string, object>();
             RunADXQuery(query, values);
@@ -213,25 +199,16 @@ namespace AdminShell
 
         private ConcurrentDictionary<string, object> ADXQueryForSpecificTime(string stationName, string productionLineName, string valueToQuery, string timeToQuery, int idealCycleTime)
         {
-            string query =
-                "let dataHistoryTable = " + GetADTHistoryTableName() + ";\r\n" +
-                "let dtId = toscalar(dataHistoryTable\r\n" +
-                "| where TimeStamp > now(-1h)\r\n" +
-                "| where Key == 'equipmentID'\r\n" +
-                "| where Value has \"" + stationName + "\"\r\n" +
-                "| where Value  has \"" + productionLineName + "\"\r\n" +
-                "| where Value has \"" + valueToQuery + "\"\r\n" +
-                "| project Id);\r\n" +
-                "let intermediateTable = dataHistoryTable\r\n" +
-                "| where TimeStamp > now(-1h)\r\n" +
-                "| where Id == dtId;\r\n" +
-                "intermediateTable\r\n" +
-                "| where isnotnull(SourceTimeStamp)\r\n" +
-                "| join kind=innerunique intermediateTable on $left.TimeStamp == $right.TimeStamp\r\n" +
-                "| where Key1 == \"OPCUADisplayName\"\r\n" +
-                "| distinct SourceTimeStamp, OPCUANodeValue = todouble(Value)" +
-                "| where around(SourceTimeStamp, datetime(" + timeToQuery + "), " + idealCycleTime.ToString() + "s)" +
-                "| sort by SourceTimeStamp desc";
+            string query = "opcua_metadata_lkv\r\n"
+                         + "| where Name contains \"" + stationName + "\"\r\n"
+                         + "| where Name contains \"" + productionLineName + "\"\r\n"
+                         + "| join kind = inner(opcua_telemetry\r\n"
+                         + "    | where Name == \"" + valueToQuery + "\"\r\n"
+                         + "    | where Timestamp > now(- 1h)\r\n"
+                         + ") on DataSetWriterID\r\n"
+                         + "| distinct Timestamp, todouble(Value)\r\n"
+                         + "| where around(Timestamp, datetime(" + timeToQuery + "), " + idealCycleTime.ToString() + "s)"
+                         + "| sort by Timestamp desc";
 
             ConcurrentDictionary<string, object> values = new ConcurrentDictionary<string, object>();
             RunADXQuery(query, values);
