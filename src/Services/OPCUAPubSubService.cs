@@ -64,7 +64,7 @@ namespace AdminShell
             // read the row from our OPC UA telemetry table
             foreach (string id in _dataPoints)
             {
-                RunADXQuery("let intermediateTable = AdtPropertyEvents | where Id == toscalar(GetDigitalTwinIdForUANode('', '', '" + id + "')); intermediateTable | where isnotnull(SourceTimeStamp) | join intermediateTable on $left.TimeStamp == $right.TimeStamp | where Key1 == 'equipmentID' | project SourceTimeStamp, OPCUANodeValue = tostring(Value), OPCUADisplayName = Value1 | top 1 by SourceTimeStamp desc", _values);
+                RunADXQuery("opcua_metadata_lkv | where Name contains '" + id + "' | join kind = inner(opcua_telemetry) on DataSetWriterID | project Timestamp, OPCUANodeValue = tostring(Value), OPCUADisplayName = Name | top 1 by Timestamp desc", _values);
 
                 UpdateSMEValues();
 
