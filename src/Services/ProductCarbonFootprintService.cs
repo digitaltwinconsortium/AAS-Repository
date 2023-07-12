@@ -207,7 +207,7 @@ namespace AdminShell
                          + "    | where Timestamp > now(- 1h)\r\n"
                          + ") on DataSetWriterID\r\n"
                          + "| distinct Timestamp, todouble(Value)\r\n"
-                         + "| where around(Timestamp, datetime(" + timeToQuery + "), " + idealCycleTime.ToString() + "s)"
+                         + "| where around(Timestamp, datetime(" + timeToQuery + "), " + idealCycleTime.ToString() + "s)\r\n"
                          + "| sort by Timestamp desc";
 
             ConcurrentDictionary<string, object> values = new ConcurrentDictionary<string, object>();
