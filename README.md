@@ -29,6 +29,8 @@ docker run -p 80:80 ghcr.io/digitaltwinconsortium/aas-repository:masterv3
 
 And then point your browser to http://localhost.
 
+Note: For a quickstart, the AAS Repository is integrated in the [Manufacturing Ontologies](https://github.com/digitaltwinconsortium/ManufacturingOntologies) reference solution.
+
 # Required Environment variables
 
 1. ServicePassword: Password to access the service via basic authentication header
