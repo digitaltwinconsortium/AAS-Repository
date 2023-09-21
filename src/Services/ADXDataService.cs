@@ -60,45 +60,48 @@ namespace AdminShell
 
             try
             {
-                using (IDataReader reader = _queryProvider.ExecuteQuery(query, clientRequestProperties))
+                if (_queryProvider != null)
                 {
-                    while (reader.Read())
+                    using (IDataReader reader = _queryProvider.ExecuteQuery(query, clientRequestProperties))
                     {
-                        for (int i = 0; i < reader.FieldCount; i++)
+                        while (reader.Read())
                         {
-                            try
+                            for (int i = 0; i < reader.FieldCount; i++)
                             {
-                                if (reader.GetValue(i) != null)
+                                try
                                 {
-                                    if (!allowMultiRow)
+                                    if (reader.GetValue(i) != null)
                                     {
-                                        if (values.ContainsKey(reader.GetName(i)))
+                                        if (!allowMultiRow)
                                         {
-                                            values[reader.GetName(i)] = reader.GetValue(i);
+                                            if (values.ContainsKey(reader.GetName(i)))
+                                            {
+                                                values[reader.GetName(i)] = reader.GetValue(i);
+                                            }
+                                            else
+                                            {
+                                                values.TryAdd(reader.GetName(i), reader.GetValue(i));
+                                            }
                                         }
                                         else
                                         {
-                                            values.TryAdd(reader.GetName(i), reader.GetValue(i));
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (values.ContainsKey(reader.GetValue(i).ToString()))
-                                        {
-                                            values[reader.GetValue(i).ToString()] = reader.GetValue(i);
-                                        }
-                                        else
-                                        {
-                                            values.TryAdd(reader.GetValue(i).ToString(), reader.GetValue(i));
+                                            if (values.ContainsKey(reader.GetValue(i).ToString()))
+                                            {
+                                                values[reader.GetValue(i).ToString()] = reader.GetValue(i);
+                                            }
+                                            else
+                                            {
+                                                values.TryAdd(reader.GetValue(i).ToString(), reader.GetValue(i));
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            catch (Exception ex)
-                            {
-                                Debug.WriteLine(ex.Message);
+                                catch (Exception ex)
+                                {
+                                    Debug.WriteLine(ex.Message);
 
-                                // ignore this field and move on
+                                    // ignore this field and move on
+                                }
                             }
                         }
                     }

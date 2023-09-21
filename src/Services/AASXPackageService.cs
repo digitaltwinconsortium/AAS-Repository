@@ -31,8 +31,6 @@ namespace AdminShell
             string[] fileNames = _storage.FindAllFilesAsync(".").GetAwaiter().GetResult();
             if (fileNames != null)
             {
-                _logger.LogInformation("Found " + fileNames.Length.ToString() + " AAS in storage.");
-
                 // load all AASX files
                 foreach (string filename in fileNames)
                 {
@@ -40,6 +38,8 @@ namespace AdminShell
                     {
                         if (filename.EndsWith(".aasx"))
                         {
+                            _logger.LogInformation("Found AASX file " + filename + " in storage.");
+
                             Load(filename);
                         }
                     }
