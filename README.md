@@ -51,7 +51,8 @@ Note: For a quickstart, the AAS Repository is integrated in the [Manufacturing O
 1. WATTTIME_PASSWORD: WattTime service password
 1. WATTTIME_LATITUDE: WattTime location to query
 1. WATTTIME_LONGITUDE: WattTime location to query
-1. CALCULATE_PCF: Set to "1" to enable PCF calculation
+1. CALCULATE_PCF: Set to "1" to enable PCF calculation for the DTC's Manufacturing Ontologies Reference Solution
+1. CALCULATE_PCF_SMIP: Set to "1" to enable PCF calculation for CESMII's Smart Manufacturing Innovation Platform
 1. CARBON_REPORTING: Set to "1" to enable carbon reporting
 1. OPCUA_REPORTING: Set to "1" to enable OPC UA PubSub operational data reporting
 1. USE_JSON_SERIALIZATION: Set "1" to enable saving AAS spec in JSON format (within AASX file)

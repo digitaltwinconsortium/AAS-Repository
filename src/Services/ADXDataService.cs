@@ -13,12 +13,8 @@ namespace AdminShell
     {
         private ICslQueryProvider _queryProvider = null;
 
-        protected readonly AASXPackageService _packageService;
-
-        public ADXDataService(AASXPackageService packageService)
+        public ADXDataService()
         {
-            _packageService = packageService;
-
             // connect to ADX cluster
             string adxClusterName = Environment.GetEnvironmentVariable("ADX_HOST");
             string adxDBName = Environment.GetEnvironmentVariable("ADX_DB");
@@ -51,7 +47,7 @@ namespace AdminShell
             }
         }
 
-        protected void RunADXQuery(string query, ConcurrentDictionary<string, object> values, bool allowMultiRow = false)
+        public void RunADXQuery(string query, ConcurrentDictionary<string, object> values, bool allowMultiRow = false)
         {
             ClientRequestProperties clientRequestProperties = new ClientRequestProperties()
             {

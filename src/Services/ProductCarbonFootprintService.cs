@@ -7,16 +7,25 @@ namespace AdminShell
     using System.Collections.Generic;
     using System.Threading;
 
-    public class ProductCarbonFootprintService : ADXDataService
+    public class ProductCarbonFootprintService : IDisposable
     {
         private Timer _timer;
 
         private readonly ILogger _logger;
 
-        public ProductCarbonFootprintService(ILoggerFactory logger, AASXPackageService packageService)
-        : base(packageService)
+        private readonly ADXDataService _adxDataService;
+        private readonly SMIPDataService _smipDataService;
+
+        private readonly AASXPackageService _packageService;
+
+        public ProductCarbonFootprintService(ILoggerFactory logger, AASXPackageService packageService, ADXDataService adxDataService, SMIPDataService smipDataService)
         {
             _logger = logger.CreateLogger("ProductCarbonFootprintService");
+
+            _adxDataService = adxDataService;
+            _smipDataService = smipDataService;
+
+            _packageService = packageService;
 
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF")))
             {
@@ -25,24 +34,43 @@ namespace AdminShell
             }
         }
 
-        public new void Dispose()
+        public void Dispose()
         {
             if (_timer != null)
             {
                 _timer.Dispose();
             }
-
-            base.Dispose();
         }
 
         private void GeneratePCFAAS(object state)
         {
-            // we have two production lines in the manufacturing ontologies production line simulation and they are connected like so:
-            // assembly -> test -> packaging
-            GeneratePCFAASForProductionLine("Munich", "48.1375", "11.575", 6);
-            GeneratePCFAASForProductionLine("Seattle", "47.609722", "-122.333056", 10);
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF_SMIP")))
+            {
+                // we have a single pulp & paper machine from North Carolina State Univeristy
+                GeneratePCFAASForNCSU("35.787222", "-78.670556", 6);
+            }
+
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF")))
+            {
+                // we have two production lines in the manufacturing ontologies production line simulation and they are connected like so:
+                // assembly -> test -> packaging
+                GeneratePCFAASForProductionLine("Munich", "48.1375", "11.575", 6);
+                GeneratePCFAASForProductionLine("Seattle", "47.609722", "-122.333056", 10);
+            }
 
             VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
+        }
+
+        private void GeneratePCFAASForNCSU(string latitude, string longitude, int idealCycleTime)
+        {
+            try
+            {
+                // TODO: calculate the PCF for the pulp & paper machine from North Carolina State Univeristy
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+            }
         }
 
         private void GeneratePCFAASForProductionLine(string productionLineName, string latitude, string longitude, int idealCycleTime)
@@ -72,22 +100,14 @@ namespace AdminShell
                     // calculate the total energy consumption for the product by summing up all the machines' energy consumptions (in KWh), divide by 3600 to get seconds and multiply by the ideal cycle time (which is in seconds)
                     double energyTotal = ((double)energyAssembly["OPCUANodeValue"] + (double)energyTest["OPCUANodeValue"] + (double)energyPackaging["OPCUANodeValue"]) / 3600 * idealCycleTime;
 
-                    // we set scope 1 emissions to a fixed quantity of 1gCO2
+                    // we set scope 1 emissions to a fixed quantity of 1 gCO2
                     float scope1Emissions = 1.0f;
 
                     // finally calculate the scope 2 product carbon footprint by multiplying the full energy consumption by the current carbon intensity
                     float scope2Emissions = (float)energyTotal * currentCarbonIntensity.data[0].intensity.actual;
 
-                    // get scope 3 emission data from our supply chain, in this case the Carbon Reporting AAS from GE
+                    // we set scope 3 emissions to 0 for now
                     float scope3Emissions = 0.0f;
-                    try
-                    {
-                        scope3Emissions = CarbonReportingClient.ReadCarbonReportFromRemoteAAS("https://carbonreportingge.azurewebsites.net/", "0", "Energy_model_harmonized") / 1000;
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, "Accessing Carbon Reporting AAS failed with: " + ex.Message);
-                    }
 
                     // finally calculate our PCF
                     float pcf = scope1Emissions + scope2Emissions + scope3Emissions;
@@ -191,7 +211,7 @@ namespace AdminShell
                          + "| sort by Timestamp desc";
 
             ConcurrentDictionary<string, object> values = new ConcurrentDictionary<string, object>();
-            RunADXQuery(query, values);
+            _adxDataService.RunADXQuery(query, values);
 
             return values;
         }
@@ -210,7 +230,7 @@ namespace AdminShell
                          + "| sort by Timestamp desc";
 
             ConcurrentDictionary<string, object> values = new ConcurrentDictionary<string, object>();
-            RunADXQuery(query, values);
+            _adxDataService.RunADXQuery(query, values);
 
             return values;
         }

@@ -7,7 +7,7 @@ namespace AdminShell
     using System.Diagnostics;
     using System.Threading;
 
-    public class CarbonReportingService : ADXDataService
+    public class CarbonReportingService : IDisposable
     {
         private Timer _queryTimer;
         private float _geCO2Footprint = 0.0f;
@@ -17,10 +17,17 @@ namespace AdminShell
 
         private readonly ILogger _logger;
 
-        public CarbonReportingService(ILoggerFactory logger, AASXPackageService packageService)
-        : base(packageService)
+        private readonly AASXPackageService _packageService;
+
+        private readonly ADXDataService _adxDataService;
+
+        public CarbonReportingService(ILoggerFactory logger, AASXPackageService packageService, ADXDataService adxDataService)
         {
             _logger = logger.CreateLogger("CarbonReportingService");
+
+            _packageService = packageService;
+
+            _adxDataService = adxDataService;
 
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CARBON_REPORTING")))
             {
@@ -39,23 +46,21 @@ namespace AdminShell
             }
         }
 
-        public new void Dispose()
+        public void Dispose()
         {
             if (_queryTimer != null)
             {
                 _queryTimer.Dispose();
             }
-
-            base.Dispose();
         }
 
         private async void RunQuerys(object state)
         {
             // read the row from our OPC UA telemetry table
-            RunADXQuery("opcua_telemetry | top 1 by creationTimeUtc desc", _values);
+            _adxDataService.RunADXQuery("opcua_telemetry | top 1 by creationTimeUtc desc", _values);
 
             // read the row from our OPC UA telemetry table
-            RunADXQuery("opcua_telemetry | where creationTimeUtc > (now() - 2m) | where creationTimeUtc < (now() - 1m) | top 1 by creationTimeUtc desc", _values1MinuteAgo);
+            _adxDataService.RunADXQuery("opcua_telemetry | where creationTimeUtc > (now() - 2m) | where creationTimeUtc < (now() - 1m) | top 1 by creationTimeUtc desc", _values1MinuteAgo);
 
             string latitude = Environment.GetEnvironmentVariable("WATTTIME_LATITUDE");
             string longitude = Environment.GetEnvironmentVariable("WATTTIME_LONGITUDE");

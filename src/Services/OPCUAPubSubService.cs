@@ -9,7 +9,7 @@ namespace AdminShell
     using System.Linq;
     using System.Threading;
 
-    public class OPCUAPubSubService : ADXDataService
+    public class OPCUAPubSubService : IDisposable
     {
         private Timer _queryTimer;
         private ConcurrentDictionary<string, object> _values = new ConcurrentDictionary<string, object>();
@@ -18,14 +18,21 @@ namespace AdminShell
 
         private readonly ILogger _logger;
 
-        public OPCUAPubSubService(ILoggerFactory logger, AASXPackageService packageService)
-        : base(packageService)
+        private readonly ADXDataService _adxDataService;
+
+        private readonly AASXPackageService _packageService;
+
+        public OPCUAPubSubService(ILoggerFactory logger, AASXPackageService packageService, ADXDataService adxDataService)
         {
             _logger = logger.CreateLogger("OPCUAPubSubService");
 
+            _adxDataService = adxDataService;
+
+            _packageService = packageService;
+
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("OPCUA_REPORTING")))
             {
-                RunADXQuery("AdtPropertyEvents | where Key == 'equipmentID' | distinct tostring(Value)", _values, true);
+                _adxDataService.RunADXQuery("AdtPropertyEvents | where Key == 'equipmentID' | distinct tostring(Value)", _values, true);
 
                 CreateSMEs(_values);
 
@@ -46,14 +53,12 @@ namespace AdminShell
             }
         }
 
-        public new void Dispose()
+        public void Dispose()
         {
             if (_queryTimer != null)
             {
                 _queryTimer.Dispose();
             }
-
-            base.Dispose();
         }
 
         private void RunQuerys(object state)
@@ -64,7 +69,7 @@ namespace AdminShell
             // read the row from our OPC UA telemetry table
             foreach (string id in _dataPoints)
             {
-                RunADXQuery("opcua_metadata_lkv | where Name contains '" + id + "' | join kind = inner(opcua_telemetry) on DataSetWriterID | project Timestamp, OPCUANodeValue = tostring(Value), OPCUADisplayName = Name | top 1 by Timestamp desc", _values);
+                _adxDataService.RunADXQuery("opcua_metadata_lkv | where Name contains '" + id + "' | join kind = inner(opcua_telemetry) on DataSetWriterID | project Timestamp, OPCUANodeValue = tostring(Value), OPCUADisplayName = Name | top 1 by Timestamp desc", _values);
 
                 UpdateSMEValues();
 
