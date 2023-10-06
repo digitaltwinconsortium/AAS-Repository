@@ -27,7 +27,8 @@ namespace AdminShell
 
             _packageService = packageService;
 
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF")))
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF"))
+             || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF_SMIP")))
             {
                 _timer = new Timer(GeneratePCFAAS);
                 _timer.Change(15000, 15000);
