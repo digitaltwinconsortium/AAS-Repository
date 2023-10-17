@@ -34,7 +34,7 @@ namespace AdminShell
              || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF_SMIP")))
             {
                 _timer = new Timer(GeneratePCFAAS);
-                _timer.Change(5000, Timeout.Infinite);
+                _timer.Change(15000, 15000);
             }
         }
 
@@ -51,7 +51,7 @@ namespace AdminShell
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF_SMIP")))
             {
                 // we have a single pulp & paper machine from North Carolina State Univeristy
-                GeneratePCFAASForNCSU("35.787222", "-78.670556", 6);
+                GeneratePCFAASForNCSU("35.787222", "-78.670556", "79078");
             }
 
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF")))
@@ -65,13 +65,10 @@ namespace AdminShell
             VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
         }
 
-        private void GeneratePCFAASForNCSU(string latitude, string longitude, int idealCycleTime)
+        private void GeneratePCFAASForNCSU(string latitude, string longitude, string productionLineID)
         {
             try
             {
-                // calculate the PCF for the pulp & paper machine from North Carolina State Univeristy (SMIP ID 79078)
-                string productionLineID = "79078";
-
                 string productionLineQuery = $@"{{
                   places(filter: {{partOfId: {{equalTo: ""{productionLineID}""}}}}) {{
                     id
