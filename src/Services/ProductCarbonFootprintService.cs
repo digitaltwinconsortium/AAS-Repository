@@ -51,7 +51,7 @@ namespace AdminShell
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF_SMIP")))
             {
                 // we have a single pulp & paper machine from North Carolina State Univeristy that produced a roll of paper over 3 days
-                GeneratePCFAASForNCSU("35.787222", "-78.670556", "79078", new DateTime(2023,10,12, 0, 0, 0), new DateTime(2023, 10, 14, 23, 59, 59));
+                GeneratePCFAASForSMIP("NCSU Pulp & Paper batch ", "35.787222", "-78.670556", "79078", new DateTime(2023,10,12, 0, 0, 0), new DateTime(2023, 10, 14, 23, 59, 59));
             }
 
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF")))
@@ -65,7 +65,7 @@ namespace AdminShell
             VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
         }
 
-        private void GeneratePCFAASForNCSU(string latitude, string longitude, string productionLineID, DateTime batchCycleStart, DateTime batchCycleEnd)
+        private void GeneratePCFAASForSMIP(string name, string latitude, string longitude, string productionLineID, DateTime batchCycleStart, DateTime batchCycleEnd)
         {
             try
             {
@@ -209,7 +209,7 @@ namespace AdminShell
                     Debug.WriteLine("Total carbon intensity of batch: " + pcf.ToString() + " gCO2");
 
                     // persist AAS with serial number and calculated PCF
-                    GenerateAASXFile("NCSU Pulp & Paper batch " + batchCycleStart.ToString(), pcf, scope1Emissions, scope2Emissions, scope3Emissions);
+                    GenerateAASXFile(name + batchCycleStart.ToString("yyyy-MM-dd"), pcf, scope1Emissions, scope2Emissions, scope3Emissions);
                 }
             }
             catch (Exception ex)
