@@ -189,6 +189,28 @@ namespace AdminShell
                 }
 
                 Debug.WriteLine("Total energy consumption of batch: " + totalEnergyConsumption.ToString() + " kWh.");
+
+                // first of all, retrieve carbon intensity for the location of the production line
+                CarbonIntensityQueryResult currentCarbonIntensity = WattTime.GetCarbonIntensity(latitude, longitude).GetAwaiter().GetResult();
+                if ((currentCarbonIntensity != null) && (currentCarbonIntensity.data.Length > 0))
+                {
+                    // we set scope 1 emissions to a fixed quantity of 1 gCO2
+                    float scope1Emissions = 1.0f;
+
+                    // finally calculate the scope 2 product carbon footprint by multiplying the full energy consumption by the current carbon intensity
+                    float scope2Emissions = (float)totalEnergyConsumption * currentCarbonIntensity.data[0].intensity.actual;
+
+                    // we set scope 3 emissions to 0 for now
+                    float scope3Emissions = 0.0f;
+
+                    // finally calculate our PCF
+                    float pcf = scope1Emissions + scope2Emissions + scope3Emissions;
+
+                    Debug.WriteLine("Total carbon intensity of batch: " + pcf.ToString() + " gCO2");
+
+                    // persist AAS with serial number and calculated PCF
+                    GenerateAASXFile("NCSU Pulp & Paper batch " + batchCycleStart.ToString(), pcf, scope1Emissions, scope2Emissions, scope3Emissions);
+                }
             }
             catch (Exception ex)
             {
@@ -220,7 +242,7 @@ namespace AdminShell
                     ConcurrentDictionary<string, object> timeItWasProducedAssembly = ADXQueryForSpecificValue("assembly", productionLineName, "ProductSerialNumber", serialNumber);
                     ConcurrentDictionary<string, object> energyAssembly = ADXQueryForSpecificTime("assembly", productionLineName, "EnergyConsumption", ((DateTime)timeItWasProducedAssembly["Timestamp"]).ToString("yyyy-MM-dd HH:mm:ss"), idealCycleTime);
 
-                    // calculate the total energy consumption for the product by summing up all the machines' energy consumptions (in KWh), divide by 3600 to get seconds and multiply by the ideal cycle time (which is in seconds)
+                    // calculate the total energy consumption for the product by summing up all the machines' energy consumptions (in Ws), divide by 3600 to get seconds and multiply by the ideal cycle time (which is in seconds)
                     double energyTotal = ((double)energyAssembly["OPCUANodeValue"] + (double)energyTest["OPCUANodeValue"] + (double)energyPackaging["OPCUANodeValue"]) / 3600 * idealCycleTime;
 
                     // we set scope 1 emissions to a fixed quantity of 1 gCO2
