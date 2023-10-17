@@ -50,8 +50,8 @@ namespace AdminShell
         {
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF_SMIP")))
             {
-                // we have a single pulp & paper machine from North Carolina State Univeristy
-                GeneratePCFAASForNCSU("35.787222", "-78.670556", "79078");
+                // we have a single pulp & paper machine from North Carolina State Univeristy that produced a roll of paper over 3 days
+                GeneratePCFAASForNCSU("35.787222", "-78.670556", "79078", new DateTime(2023,10,12, 0, 0, 0), new DateTime(2023, 10, 14, 23, 59, 59));
             }
 
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF")))
@@ -65,7 +65,7 @@ namespace AdminShell
             VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
         }
 
-        private void GeneratePCFAASForNCSU(string latitude, string longitude, string productionLineID)
+        private void GeneratePCFAASForNCSU(string latitude, string longitude, string productionLineID, DateTime batchCycleStart, DateTime batchCycleEnd)
         {
             try
             {
@@ -89,6 +89,7 @@ namespace AdminShell
                 AssetHierarchy assetHierarchy = JsonConvert.DeserializeObject<AssetHierarchy>(productionLineQueryResponse);
 
                 // extract all equipment with power consumption
+                double totalEnergyConsumption = 0.0f;
                 foreach (AssetHierarchy.Place place in assetHierarchy.places)
                 {
                     foreach (AssetHierarchy.Equipment equipment in place.equipment)
@@ -97,13 +98,13 @@ namespace AdminShell
                         {
                             if (attribute.displayName == "Power")
                             {
-                                // get time-series for last month
+                                // get time-series for the batch
                                 string timeseriesQuery = $@"{{
                                   getRawHistoryDataWithSampling(
                                     maxSamples: 0,
                                     ids: [""{attribute.id}""],
-                                    startTime: ""{DateTime.UtcNow.AddMonths(-1).ToString("yyyy-MM-dd HH:mm:ss+00")}"",
-                                    endTime: ""{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss+00")}""
+                                    startTime: ""{batchCycleStart.ToString("yyyy-MM-dd HH:mm:ss+00")}"",
+                                    endTime: ""{batchCycleEnd.ToString("yyyy-MM-dd HH:mm:ss+00")}""
                                   ) {{
     		                        id
                                     floatvalue
@@ -174,6 +175,7 @@ namespace AdminShell
                                         cycleEnergyConsumption = cycleEnergyConsumption / 3600 / 1000;
 
                                         Debug.WriteLine("Found cycle for equipment " + equipment.displayName + " from " + cycleStart.ToString() + " to " + cycleEnd.ToString() + ", energy consumption " + cycleEnergyConsumption.ToString() + " kWh.");
+                                        totalEnergyConsumption += cycleEnergyConsumption;
 
                                         // reset
                                         cycleStart = DateTime.MinValue;
@@ -185,6 +187,8 @@ namespace AdminShell
                         }
                     }
                 }
+
+                Debug.WriteLine("Total energy consumption of batch: " + totalEnergyConsumption.ToString() + " kWh.");
             }
             catch (Exception ex)
             {
