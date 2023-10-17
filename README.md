@@ -56,3 +56,9 @@ Note: For a quickstart, the AAS Repository is integrated in the [Manufacturing O
 1. CARBON_REPORTING: Set to "1" to enable carbon reporting
 1. OPCUA_REPORTING: Set to "1" to enable OPC UA PubSub operational data reporting
 1. USE_JSON_SERIALIZATION: Set "1" to enable saving AAS spec in JSON format (within AASX file)
+1. SMIP_GRAPHQL_ENDPOINT_URL: The CESMII SMIP GarphQL Endpoint URL, e.g. "https://demo.cesmii.net/graphql"
+1. SMIP_USERNAME: Your CESMII SMIP username
+1. SMIP_CLIENT_ID: The CESMII SMIP client ID of this AAS Repo
+1. SMIP_CLIENT_PASSWORD: The CESMII SMIP client password of this AAS Repo
+1. SMIP_CLIENT_ROLE: The CESMII SMIP client role of this AAS Repo
+1. SMIP_BEARER_TOKEN: The current CESMII SMIP bearer token. If blank, the other SMIP env variables are used to request a new token

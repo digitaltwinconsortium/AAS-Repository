@@ -2,9 +2,12 @@
 namespace AdminShell
 {
     using Microsoft.Extensions.Logging;
+    using Newtonsoft.Json;
+    using SMIP;
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Threading;
 
     public class ProductCarbonFootprintService : IDisposable
@@ -31,7 +34,7 @@ namespace AdminShell
              || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF_SMIP")))
             {
                 _timer = new Timer(GeneratePCFAAS);
-                _timer.Change(15000, 15000);
+                _timer.Change(5000, Timeout.Infinite);
             }
         }
 
@@ -66,7 +69,125 @@ namespace AdminShell
         {
             try
             {
-                // TODO: calculate the PCF for the pulp & paper machine from North Carolina State Univeristy
+                // calculate the PCF for the pulp & paper machine from North Carolina State Univeristy (SMIP ID 79078)
+                string productionLineID = "79078";
+
+                string productionLineQuery = $@"{{
+                  places(filter: {{partOfId: {{equalTo: ""{productionLineID}""}}}}) {{
+                    id
+                    displayName
+                    equipment {{
+                      displayName
+                      id
+                      attributes {{
+                        displayName
+                        id
+                        dataType
+                      }}
+                    }}
+                  }}
+                }}";
+
+                string productionLineQueryResponse = _smipDataService.RunSMIPQuery(productionLineQuery);
+                AssetHierarchy assetHierarchy = JsonConvert.DeserializeObject<AssetHierarchy>(productionLineQueryResponse);
+
+                // extract all equipment with power consumption
+                foreach (AssetHierarchy.Place place in assetHierarchy.places)
+                {
+                    foreach (AssetHierarchy.Equipment equipment in place.equipment)
+                    {
+                        foreach (AssetHierarchy.Attribute attribute in equipment.attributes)
+                        {
+                            if (attribute.displayName == "Power")
+                            {
+                                // get time-series for last month
+                                string timeseriesQuery = $@"{{
+                                  getRawHistoryDataWithSampling(
+                                    maxSamples: 0,
+                                    ids: [""{attribute.id}""],
+                                    startTime: ""{DateTime.UtcNow.AddMonths(-1).ToString("yyyy-MM-dd HH:mm:ss+00")}"",
+                                    endTime: ""{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss+00")}""
+                                  ) {{
+    		                        id
+                                    floatvalue
+                                    ts
+                                  }}
+                                }}";
+
+                                string timeseriesQueryResponse = _smipDataService.RunSMIPQuery(timeseriesQuery);
+                                TimeSeries equipmentHistory = JsonConvert.DeserializeObject<TimeSeries>(timeseriesQueryResponse);
+
+                                // capture cycle times (they are dynamic) and energy consumption during a cycle
+                                DateTime cycleStart = DateTime.MinValue;
+                                DateTime cycleEnd = DateTime.MinValue;
+                                DateTime previousSampleTimeStamp = DateTime.MinValue;
+                                double previousSamplePower = 0.0f;
+                                bool inCycle = false;
+                                double cycleEnergyConsumption = 0.0f;
+                                foreach (TimeSeries.GetRawHistoryDataWithSampling equipmentHistoryItem in equipmentHistory.getRawHistoryDataWithSampling)
+                                {
+                                    if (!inCycle && ((equipmentHistoryItem.floatvalue == 0) || (equipmentHistoryItem.floatvalue == null)))
+                                    {
+                                        // skip ahead until we find a value that is not zero
+                                        continue;
+                                    }
+
+                                    if (!inCycle && (equipmentHistoryItem.floatvalue != 0) && (equipmentHistoryItem.floatvalue != null))
+                                    {
+                                        // beginning of cycle
+                                        inCycle = true;
+                                        cycleStart = equipmentHistoryItem.ts;
+                                        previousSampleTimeStamp = equipmentHistoryItem.ts;
+                                    }
+
+                                    if (inCycle && ((equipmentHistoryItem.floatvalue == 0) || (equipmentHistoryItem.floatvalue == null)))
+                                    {
+                                        // end of cycle
+                                        inCycle = false;
+                                        cycleEnd = equipmentHistoryItem.ts;
+
+                                        // update energy consumption
+                                        double secondsSinceLastSample = (equipmentHistoryItem.ts - previousSampleTimeStamp).TotalSeconds;
+                                        cycleEnergyConsumption += (secondsSinceLastSample * previousSamplePower);
+
+                                        // reset
+                                        previousSampleTimeStamp = DateTime.MinValue;
+                                        previousSamplePower = 0.0f;
+                                    }
+
+                                    if (inCycle && (equipmentHistoryItem.floatvalue != 0) && (equipmentHistoryItem.floatvalue != null))
+                                    {
+                                        Debug.Assert(previousSampleTimeStamp != DateTime.MinValue);
+
+                                        // update energy consumption
+                                        double secondsSinceLastSample = (equipmentHistoryItem.ts - previousSampleTimeStamp).TotalSeconds;
+                                        cycleEnergyConsumption += (secondsSinceLastSample * previousSamplePower);
+
+                                        previousSampleTimeStamp = equipmentHistoryItem.ts;
+                                        previousSamplePower = (double)equipmentHistoryItem.floatvalue;
+
+                                        // skip ahead unitl we find a value that is zero
+                                        continue;
+                                    }
+
+                                    // check if we have both start and end and capture
+                                    if ((cycleStart != DateTime.MinValue) && (cycleEnd != DateTime.MinValue))
+                                    {
+                                        // convert from Ws to kWh
+                                        cycleEnergyConsumption = cycleEnergyConsumption / 3600 / 1000;
+
+                                        Debug.WriteLine("Found cycle for equipment " + equipment.displayName + " from " + cycleStart.ToString() + " to " + cycleEnd.ToString() + ", energy consumption " + cycleEnergyConsumption.ToString() + " kWh.");
+
+                                        // reset
+                                        cycleStart = DateTime.MinValue;
+                                        cycleEnd = DateTime.MinValue;
+                                        cycleEnergyConsumption = 0.0f;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
