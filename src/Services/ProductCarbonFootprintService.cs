@@ -194,14 +194,17 @@ namespace AdminShell
                 CarbonIntensityQueryResult currentCarbonIntensity = WattTime.GetCarbonIntensity(latitude, longitude).GetAwaiter().GetResult();
                 if ((currentCarbonIntensity != null) && (currentCarbonIntensity.data.Length > 0))
                 {
-                    // we set scope 1 emissions to a fixed quantity of 1 gCO2
-                    float scope1Emissions = 1.0f;
+                    // we set scope 1 emissions to a fixed quantity of 1000 gCO2-equivalent
+                    float scope1Emissions = 1000.0f;
 
                     // finally calculate the scope 2 product carbon footprint by multiplying the full energy consumption by the current carbon intensity
                     float scope2Emissions = (float)totalEnergyConsumption * currentCarbonIntensity.data[0].intensity.actual;
 
-                    // we set scope 3 emissions to 0 for now
-                    float scope3Emissions = 0.0f;
+                    // we calculate scope 3 emissions from published figures: https://pubs.acs.org/doi/full/10.1021/acssuschemeng.2c00840
+                    // 1Kg of wood-based fluff pulp produces 1102 gCO2-equivalent
+                    // NCSU uses 113 lbs of pulp in one batch, therefore:
+                    // 113 * 453,59 / 1000 * 1102 = 56483,75 gCO2-equivalent
+                    float scope3Emissions = 56483.75f;
 
                     // finally calculate our PCF
                     float pcf = scope1Emissions + scope2Emissions + scope3Emissions;
@@ -277,7 +280,14 @@ namespace AdminShell
             }
 
             // make a copy of our template
-            _packageService.Load("ProductCarbonFootprint.template", newKey);
+            if (serialNumber.StartsWith("NCSU"))
+            {
+                _packageService.Load("ProductCarbonFootprintNCSU.template", newKey);
+            }
+            else
+            {
+                _packageService.Load("ProductCarbonFootprint.template", newKey);
+            }
 
             // set serial number
             SubmodelElement serialNumberSME = FindSME(_packageService.Packages[newKey].Submodels[0].SubmodelElements, new Identifier("www.company.com/ids/cd/9544_4082_7091_8596"));
