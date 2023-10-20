@@ -34,7 +34,17 @@ namespace AdminShell
              || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF_SMIP")))
             {
                 _timer = new Timer(GeneratePCFAAS);
-                _timer.Change(15000, 15000);
+
+                string dataQueryInterval = Environment.GetEnvironmentVariable("DATA_QUERY_INTERVAL");
+                if (dataQueryInterval != null && int.TryParse(dataQueryInterval, out int interval))
+                {
+                    _timer.Change(interval, interval);
+                }
+                else
+                {
+                    // default to 15s interval
+                    _timer.Change(15000, 15000);
+                }
             }
         }
 

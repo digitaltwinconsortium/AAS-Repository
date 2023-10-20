@@ -33,8 +33,8 @@ namespace AdminShell
             {
                 _queryTimer = new Timer(RunQuerys);
 
-                string adxQueryInterval = Environment.GetEnvironmentVariable("ADX_QUERY_INTERVAL");
-                if (adxQueryInterval != null && int.TryParse(adxQueryInterval, out int interval))
+                string dataQueryInterval = Environment.GetEnvironmentVariable("DATA_QUERY_INTERVAL");
+                if (dataQueryInterval != null && int.TryParse(dataQueryInterval, out int interval))
                 {
                     _queryTimer.Change(interval, interval);
                 }
