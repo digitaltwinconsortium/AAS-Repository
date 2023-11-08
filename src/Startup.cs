@@ -24,7 +24,7 @@
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllersWithViews().AddNewtonsoftJson();
 
             services.AddRazorPages();
 
@@ -144,7 +144,9 @@
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Browser}/{action=Index}/{id?}");
 
                 endpoints.MapBlazorHub(options =>
                 {

@@ -24,6 +24,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
     <PackageReference Include="GraphQL.Client" Version="6.0.1" />
     <PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" Version="6.0.1" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="Url&quot;" /></VisualStudio></ProjectExtensions>
@@ -50,18 +51,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Browser\**" />
     <Compile Remove="erich-repo\**" />
     <Compile Remove="HARTING_SmEC_v005_SAP\**" />
     <Compile Remove="OPC Foundation\**" />
     <Compile Remove="temp\**" />
+    <Content Remove="Browser\**" />
     <Content Remove="erich-repo\**" />
     <Content Remove="HARTING_SmEC_v005_SAP\**" />
     <Content Remove="OPC Foundation\**" />
     <Content Remove="temp\**" />
+    <EmbeddedResource Remove="Browser\**" />
     <EmbeddedResource Remove="erich-repo\**" />
     <EmbeddedResource Remove="HARTING_SmEC_v005_SAP\**" />
     <EmbeddedResource Remove="OPC Foundation\**" />
     <EmbeddedResource Remove="temp\**" />
+    <None Remove="Browser\**" />
     <None Remove="erich-repo\**" />
     <None Remove="HARTING_SmEC_v005_SAP\**" />
     <None Remove="OPC Foundation\**" />
@@ -74,5 +79,9 @@
     <None Remove="ProductCarbonFootprint.template" />
     <None Remove="ProductCarbonFootprintNCSU.aasx" />
     <None Remove="ProductCarbonFootprintNCSU.template" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="NodeSets\" />
   </ItemGroup>
 </Project>

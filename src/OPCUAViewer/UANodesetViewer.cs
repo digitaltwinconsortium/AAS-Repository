@@ -1,6 +1,7 @@
 ﻿
 namespace AdminShell
 {
+    using Kusto.Cloud.Platform.Utils;
     using Newtonsoft.Json;
     using Opc.Ua;
     using Opc.Ua.Client;
@@ -16,21 +17,20 @@ namespace AdminShell
 
     public class UANodesetViewer
     {
-        public static List<string> _nodeSetFilenames = new List<string>();
+        public static List<string> _nodeSetFilenames = new();
 
         private HttpClient _client = new HttpClient();
 
-        private ApplicationInstance _application = new ApplicationInstance();
-
-        private string _sessionID = new Guid().ToString();
+        private Dictionary<string, ApplicationInstance> _applications = new();
 
         private bool _isRunning = false;
 
         private string _instanceUrl = string.Empty;
 
-        private Dictionary<string, string> _namespacesInCloudLibrary = new Dictionary<string, string>();
+        private Dictionary<string, string> _namespacesInCloudLibrary = new();
 
-        public void Login(string instanceUrl, string clientId, string secret)
+
+        public void Login(string instanceUrl, string clientId, string secret, string key)
         {
             if (!_isRunning
              && !string.IsNullOrEmpty(clientId)
@@ -72,16 +72,23 @@ namespace AdminShell
 
                 ValidateNamespacesAndModels(true);
 
-                // (re-)start the UA server
-                if (_application.Server != null)
-                {
-                    Disconnect();
-                }
-
-                StartServerAsync().GetAwaiter().GetResult();
+                // start the UA server
+                StartServerAsync(key).GetAwaiter().GetResult();
 
                 _isRunning = true;
             }
+        }
+
+        public void LoadLocalNodesetFile(string name, string key)
+        {
+            // fix the path to the local nodeset directory and add
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "Nodesets", name.Substring(name.LastIndexOf('/') + 1));
+            _nodeSetFilenames.Add(path);
+
+            ValidateNamespacesAndModels(true);
+
+            // start the UA server
+            StartServerAsync(key).GetAwaiter().GetResult();
         }
 
         private string ValidateNamespacesAndModels(bool autodownloadreferences)
@@ -196,21 +203,35 @@ namespace AdminShell
             return string.Empty; // no error
         }
 
-        private async Task StartServerAsync()
+        private async Task StartServerAsync(string key)
         {
-            // load the application configuration.
+            if (!_applications.ContainsKey(key))
+            {
+                // create new OPC UA app
+                ApplicationInstance app = new();
 
-            ApplicationConfiguration config = await _application.LoadApplicationConfiguration(Path.Combine(Directory.GetCurrentDirectory(), "Application.Config.xml"), false).ConfigureAwait(false);
+                // update server port
+                int currentPort = (4840 + _applications.Count - 1);
+                int newPort = (4840 + _applications.Count);
+                string configFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Application.Config.xml");
+                string configFileContent = System.IO.File.ReadAllText(configFilePath).Replace(currentPort.ToString(), newPort.ToString());
+                System.IO.File.WriteAllText(configFilePath, configFileContent);
 
-            // check the application certificate.
-            await _application.CheckApplicationInstanceCertificate(false, 0).ConfigureAwait(false);
+                // load the application configuration.
+                ApplicationConfiguration config = await app.LoadApplicationConfiguration(Path.Combine(Directory.GetCurrentDirectory(), "Application.Config.xml"), false).ConfigureAwait(false);
 
-            // create cert validator
-            config.CertificateValidator = new CertificateValidator();
-            config.CertificateValidator.CertificateValidation += new CertificateValidationEventHandler(CertificateValidator_CertificateValidation);
+                // check the application certificate.
+                await app.CheckApplicationInstanceCertificate(false, 0).ConfigureAwait(false);
 
-            // start the server.
-            await _application.Start(new SimpleServer()).ConfigureAwait(false);
+                // create cert validator
+                config.CertificateValidator = new CertificateValidator();
+                config.CertificateValidator.CertificateValidation += new CertificateValidationEventHandler(CertificateValidator_CertificateValidation);
+
+                // start the server.
+                await app.Start(new SimpleServer()).ConfigureAwait(false);
+
+                _applications.Add(key, app);
+            }
         }
 
         private static void CertificateValidator_CertificateValidation(CertificateValidator validator, CertificateValidationEventArgs e)
@@ -222,24 +243,7 @@ namespace AdminShell
             }
         }
 
-        private void Disconnect()
-        {
-            try
-            {
-                OpcSessionHelper.Instance.Disconnect(_sessionID);
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError(ex.Message);
-            }
-
-            if (_application.Server != null)
-            {
-                _application.Stop();
-            }
-        }
-
-        public async Task<NodesetViewerNode> GetRootNode()
+        public async Task<NodesetViewerNode> GetRootNode(string key)
         {
             ReferenceDescriptionCollection references;
             Byte[] continuationPoint;
@@ -248,11 +252,16 @@ namespace AdminShell
             bool lastRetry = false;
             string endpointURL = "opc.tcp://localhost:4840/";
             Session session = null;
+
+            // update server port
+            int port = 4840 + _applications.Keys.ToListIfNotAlready().IndexOf(key);
+            endpointURL = endpointURL.Replace("4840", port.ToString());
+
             while (!lastRetry)
             {
                 try
                 {
-                    session = await OpcSessionHelper.Instance.GetSessionAsync(_application.ApplicationConfiguration, _sessionID, endpointURL).ConfigureAwait(false);
+                    session = await OpcSessionHelper.Instance.GetSessionAsync(_applications[key].ApplicationConfiguration, key, endpointURL).ConfigureAwait(false);
 
                     session.Browse(
                         null,
@@ -283,7 +292,7 @@ namespace AdminShell
             return null;
         }
 
-        public async Task<List<NodesetViewerNode>> GetChildren(string jstreeNode)
+        public async Task<List<NodesetViewerNode>> GetChildren(string jstreeNode, string key)
         {
             string node = OpcSessionHelper.GetNodeIdFromJsTreeNode(jstreeNode);
 
@@ -294,9 +303,14 @@ namespace AdminShell
             // read the currently published nodes
             Session session = null;
             string endpointUrl = "opc.tcp://localhost:4840/";
+
+            // update server port
+            int port = 4840 + _applications.Keys.ToListIfNotAlready().IndexOf(key);
+            endpointUrl = endpointUrl.Replace("4840", port.ToString());
+
             try
             {
-                session = await OpcSessionHelper.Instance.GetSessionAsync(_application.ApplicationConfiguration, _sessionID, endpointUrl).ConfigureAwait(false);
+                session = await OpcSessionHelper.Instance.GetSessionAsync(_applications[key].ApplicationConfiguration, key, endpointUrl).ConfigureAwait(false);
                 endpointUrl = session.ConfiguredEndpoint.EndpointUrl.AbsoluteUri;
             }
             catch (Exception ex)

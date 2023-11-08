@@ -4,7 +4,8 @@ IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Ne
 
 # Features
 
-1. Loading of Asset Admin Shells V1, V2 and V3 (both XML and JSON), but always saving in V3 format, leveraging both JSON and XML)
+1. Loading of Asset Admin Shells V1, V2 and V3 (both XML and JSON encoding), but always saving in V3 format, leveraging both JSON and XML)
+1. Loading of OPC UA nodeset2 XML files as AAS models
 1. Standardized AAS REST interface (as specified in part 2 of the AAS spec)
 1. Swagger endpoint at /swagger
 1. IDTA AASX Package Explorer client interface support
@@ -20,6 +21,7 @@ IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Ne
 1. Basic authentication header support (use "admin" and ServicePassword environment variable to set password)
 1. Local storage of AASX package files (in the server's root directory)
 1. Cloud storage of AASX package files
+1. CESMII Smart Manufacturing Innovation Plattform (SMIP) imtegration
 
 # Usage
 

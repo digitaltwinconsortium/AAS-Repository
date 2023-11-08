@@ -52,28 +52,63 @@ namespace AdminShell
 
         private void CreateViewFromAASEnv(TreeNodeData root, string key, AssetAdministrationShellEnvironment aasEnv)
         {
-            List<TreeNodeData> subModelTreeNodeDataList = new List<TreeNodeData>();
-            foreach (Submodel subModel in aasEnv.Submodels)
+            List<TreeNodeData> treeNodeDataList = new List<TreeNodeData>();
+            if (key.Contains(".NodeSet2.xml.aasx"))
             {
-                if (subModel != null && subModel.IdShort != null)
+                TreeNodeData uaNodesetTreeNodeData = new()
                 {
-                    TreeNodeData subModelTreeNodeData = new()
-                    {
-                        EnvKey = key,
-                        Text = subModel.IdShort,
-                        Tag = subModel
-                    };
+                    EnvKey = key,
+                    Text = key,
+                    Type = "UANodeSet"
+                };
 
-                    subModelTreeNodeDataList.Add(subModelTreeNodeData);
-                    CreateViewFromSubModel(subModelTreeNodeData, key, subModel);
+                treeNodeDataList.Add(uaNodesetTreeNodeData);
+                CreateViewFromUANodesetAAS(uaNodesetTreeNodeData, key);
+            }
+            else
+            {
+                foreach (Submodel subModel in aasEnv.Submodels)
+                {
+                    if (subModel != null && subModel.IdShort != null)
+                    {
+                        TreeNodeData subModelTreeNodeData = new()
+                        {
+                            EnvKey = key,
+                            Text = subModel.IdShort,
+                            Tag = subModel
+                        };
+
+                        treeNodeDataList.Add(subModelTreeNodeData);
+                        CreateViewFromSubModel(subModelTreeNodeData, key, subModel);
+                    }
                 }
             }
 
-            root.Children = subModelTreeNodeDataList;
+            root.Children = treeNodeDataList;
 
-            foreach (TreeNodeData nodeData in subModelTreeNodeDataList)
+            foreach (TreeNodeData nodeData in treeNodeDataList)
             {
                 nodeData.Parent = root;
+            }
+        }
+
+        private void CreateViewFromUANodesetAAS(TreeNodeData rootItem, string key)
+        {
+            try
+            {
+                _packageService.ReadFile(key, out Uri uri);
+                _viewer.LoadLocalNodesetFile(uri.ToString(), key);
+
+                NodesetViewerNode rootNode = _viewer.GetRootNode(key).GetAwaiter().GetResult();
+                if (rootNode != null && rootNode.Children)
+                {
+                    CreateViewFromUANode(rootItem, _viewer, key, rootNode);
+                }
+            }
+            catch (Exception ex)
+            {
+                // ignore this part of the AAS
+                _logger.LogError(ex, ex.Message);
             }
         }
 
@@ -155,7 +190,7 @@ namespace AdminShell
                     if (smew.SubmodelElement.IdShort == "NODESET2_XML"
                     && Uri.IsWellFormedUriString(((File)smew.SubmodelElement).Value, UriKind.Absolute))
                     {
-                        CreateViewFromAdminShellNodeset(smeItem, key, new Uri(((File)smew.SubmodelElement).Value));
+                        CreateViewFromUACloudLibNodeset(smeItem, key, new Uri(((File)smew.SubmodelElement).Value));
                     }
 
                     if (smew.SubmodelElement.IdShort == "CAEX")
@@ -317,13 +352,13 @@ namespace AdminShell
             }
         }
 
-        private void CreateViewFromAdminShellNodeset(TreeNodeData rootItem, string key, Uri uri)
+        private void CreateViewFromUACloudLibNodeset(TreeNodeData rootItem, string key, Uri uri)
         {
             try
             {
-                _viewer.Login(uri.AbsoluteUri, Environment.GetEnvironmentVariable("UACLUsername"), Environment.GetEnvironmentVariable("UACLPassword"));
+                _viewer.Login(uri.AbsoluteUri, Environment.GetEnvironmentVariable("UACLUsername"), Environment.GetEnvironmentVariable("UACLPassword"), key);
 
-                NodesetViewerNode rootNode = _viewer.GetRootNode().GetAwaiter().GetResult();
+                NodesetViewerNode rootNode = _viewer.GetRootNode(key).GetAwaiter().GetResult();
                 if (rootNode != null && rootNode.Children)
                 {
                     CreateViewFromUANode(rootItem, _viewer, key, rootNode);
@@ -341,7 +376,7 @@ namespace AdminShell
             try
             {
                 List<TreeNodeData> treeNodeDataList = new List<TreeNodeData>();
-                List<NodesetViewerNode> children = viewer.GetChildren(rootNode.Id).GetAwaiter().GetResult();
+                List<NodesetViewerNode> children = viewer.GetChildren(rootNode.Id, key).GetAwaiter().GetResult();
                 foreach (NodesetViewerNode node in children)
                 {
                     TreeNodeData smeItem = new TreeNodeData

@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "Open OPC UA nodeset files";
+}
+<div class="top-row px-4" style="background-color:white">
+    <span align=left hspace=20 style="color:blue;font:xx-large"><strong>AAS Repository</strong></span>
+    <img align=left hspace=20 src="Icon_AASX_256x256_W.png" height="50" />
+    <img align=left hspace=20 src="DTC-logo.png" height="50" />
+    <img align=left hspace=20 src="Logo_IDTA.jpg" height="30" />
+    <img align=left hspace=20 src="opcf logo.jpg" height="50" />
+    <img align=left hspace=20 src="CESMII_Logo_Tag_RGB.png" height="50" />
+    <img align=left hspace=20 src="Plattform_Industrie_4_0_Logo_RGB-1030x147.jpg" height="40" />
+    <a href="~/">Back</a>
+</div>
+<hr />
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" enctype="multipart/form-data" asp-controller="Browser" asp-action="LocalFileOpen">
+    <div class="container-fluid browser_connect_container">
+        <p>
+            <input class="btn btn-primary" type="file" name="files" multiple>
+        </p>
+        <p>
+            <input class="btn btn-primary" type="submit" value="Open">
+        </p>
+    </div>
+</form>
+
+

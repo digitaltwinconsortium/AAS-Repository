@@ -28,6 +28,11 @@ namespace AdminShell
             _logger = logger.CreateLogger("AASXPackageService");
             _files = new();
 
+            Reload();
+        }
+
+        public void Reload()
+        {
             string[] fileNames = _storage.FindAllFilesAsync(".").GetAwaiter().GetResult();
             if (fileNames != null)
             {
@@ -60,6 +65,21 @@ namespace AdminShell
             }
 
             VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
+        }
+
+        public byte[] ReadFile(string key, out Uri uri)
+        {
+            foreach(PackageSupplementaryFile file in _files)
+            {
+                if (file.Key == key)
+                {
+                    uri = file.Uri;
+                    return file.SourceBytes;
+                }
+            }
+
+            uri = null;
+            return null;
         }
 
         private void SetSMEParent(Submodel sm)
@@ -192,6 +212,28 @@ namespace AdminShell
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(AssetAdministrationShellEnvironment), "http://www.admin-shell.io/aas/3/0");
                     aasenv = serializer.Deserialize(specStream) as AssetAdministrationShellEnvironment;
+                }
+
+                // read OPC UA nodeset
+                if (nsURI != null && nsURI.Trim() == "http://opcfoundation.org/UA/2011/03/UANodeSet.xsd")
+                {
+                    aasenv = new AssetAdministrationShellEnvironment();
+                    aasenv.AssetAdministrationShells.Add(new AssetAdministrationShell() { IdShort = specPart.Uri.ToString().Substring(specPart.Uri.ToString().LastIndexOf('/') + 1)});
+
+                    PackageSupplementaryFile file = new()
+                    {
+                        Uri = specPart.Uri,
+                        Location = LocationType.InPackage,
+                        Key = key
+                    };
+
+                    using (MemoryStream partStream = new())
+                    {
+                        specPart.GetStream(FileMode.Open).CopyTo(partStream);
+                        file.SourceBytes = partStream.ToArray();
+                    }
+
+                    _files.Add(file);
                 }
             }
             else
@@ -526,7 +568,7 @@ namespace AdminShell
             packageStream.Close();
         }
 
-        private void AddFileToSpec(Package package, PackagePart specPart, string targetFile, Stream fileContent, bool addAsThumbnail = false)
+        public void AddFileToSpec(Package package, PackagePart specPart, string targetFile, Stream fileContent, bool addAsThumbnail = false)
         {
             Uri targetUri = PackUriHelper.CreatePartUri(new Uri(targetFile, UriKind.RelativeOrAbsolute));
 
