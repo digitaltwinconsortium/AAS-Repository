@@ -2,6 +2,8 @@
 namespace AdminShell
 {
     using Kusto.Cloud.Platform.Utils;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using Opc.Ua;
     using Opc.Ua.Client;
@@ -278,8 +280,10 @@ namespace AdminShell
 
                     return node;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Trace.WriteLine(ex.Message);
+
                     if ((session != null) && session.Connected)
                     {
                         OpcSessionHelper.Instance.Disconnect(session.SessionId.ToString());
@@ -300,7 +304,6 @@ namespace AdminShell
             Byte[] continuationPoint;
             var nodes = new List<NodesetViewerNode>();
 
-            // read the currently published nodes
             Session session = null;
             string endpointUrl = "opc.tcp://localhost:4840/";
 
@@ -500,8 +503,10 @@ namespace AdminShell
 
                     return nodes;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Trace.WriteLine(ex.Message);
+
                     if ((session != null) && session.Connected)
                     {
                         OpcSessionHelper.Instance.Disconnect(session.SessionId.ToString());
@@ -512,6 +517,59 @@ namespace AdminShell
             }
 
             return null;
+        }
+
+        public async Task<string> VariableRead(string jstreeNode, string key)
+        {
+            var node = OpcSessionHelper.GetNodeIdFromJsTreeNode(jstreeNode);
+            bool lastRetry = false;
+
+            Session session = null;
+            string endpointUrl = "opc.tcp://localhost:4840/";
+
+            // update server port
+            int port = 4840 + _applications.Keys.ToListIfNotAlready().IndexOf(key);
+            endpointUrl = endpointUrl.Replace("4840", port.ToString());
+
+            while (!lastRetry)
+            {
+                try
+                {
+                    DataValueCollection values = null;
+                    DiagnosticInfoCollection diagnosticInfos = null;
+                    ReadValueIdCollection nodesToRead = new ReadValueIdCollection();
+                    ReadValueId valueId = new ReadValueId();
+                    valueId.NodeId = new NodeId(node);
+                    valueId.AttributeId = Attributes.Value;
+                    valueId.IndexRange = null;
+                    valueId.DataEncoding = null;
+                    nodesToRead.Add(valueId);
+
+                    session = await OpcSessionHelper.Instance.GetSessionAsync(_applications[key].ApplicationConfiguration, key, endpointUrl).ConfigureAwait(false);
+                    ResponseHeader responseHeader = session.Read(null, 0, TimestampsToReturn.Both, nodesToRead, out values, out diagnosticInfos);
+
+                    string actionResult = string.Empty;
+                    if ((values.Count > 0) && (values[0].Value != null))
+                    {
+                        actionResult = $"{values[0]}";
+                    }
+
+                    return actionResult;
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(ex.Message);
+
+                    if ((session != null) && session.Connected)
+                    {
+                        OpcSessionHelper.Instance.Disconnect(session.SessionId.ToString());
+                    }
+
+                    lastRetry = true;
+                }
+            }
+
+            return string.Empty;
         }
     }
 }

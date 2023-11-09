@@ -426,47 +426,47 @@
             return string.Empty;
         }
 
-        string ret = "NULL";
+        string ret = string.Empty;
 
         object o = item.Tag;
 
         if (o is AssetAdministrationShell)
         {
             var aas = o as AssetAdministrationShell;
-            ret = aas.IdShort;
+            ret = aas.IdShort + " " + aas.DisplayName;
         }
 
         if (o is Submodel)
         {
             var sm = o as Submodel;
             ret = string.Empty;
-            ret += sm.IdShort;
+            ret += sm.IdShort + " " + sm.DisplayName;
         }
 
         if (o is SubmodelElement)
         {
             var sme = o as SubmodelElement;
             ret = string.Empty;
-            ret += sme.IdShort;
+            ret += sme.IdShort + " " + sme.DisplayName;
         }
 
         if (o is File)
         {
             var f = o as File;
             ret = string.Empty;
-            ret += f.IdShort;
+            ret += f.IdShort + " " + f.DisplayName;
         }
         if (o is Blob)
         {
             var b = o as Blob;
             ret = string.Empty;
-            ret += b.IdShort;
+            ret += b.IdShort + " " + b.DisplayName;
         }
         if (o is MultiLanguageProperty)
         {
             var mlp = o as MultiLanguageProperty;
             ret = string.Empty;
-            ret += mlp.IdShort;
+            ret += mlp.IdShort + " " + mlp.DisplayName;
         }
         return (ret);
     }
@@ -569,7 +569,7 @@
             return string.Empty;
         }
 
-        string ret = "NULL";
+        string ret = string.Empty;
 
         object tag = item.Tag;
 
@@ -640,7 +640,7 @@
                     ret = "Semantic ID ";
                     if (col == 1)
                     {
-                        ret = "NULL";
+                        ret = string.Empty;
                         var k = sm.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
@@ -668,7 +668,7 @@
                     ret = "Semantic ID ";
                     if (col == 1)
                     {
-                        ret = "NULL";
+                        ret = string.Empty;
                         var k = prop.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
@@ -709,7 +709,7 @@
                     ret = "Semantic ID ";
                     if (col == 1)
                     {
-                        ret = "NULL";
+                        ret = string.Empty;
                         var k = e.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
@@ -745,7 +745,7 @@
                     ret = "Semantic ID ";
                     if (col == 1)
                     {
-                        ret = "NULL";
+                        ret = string.Empty;
                         var k = f.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
@@ -777,7 +777,7 @@
                     ret = "Semantic ID ";
                     if (col == 1)
                     {
-                        ret = "NULL";
+                        ret = string.Empty;
                         var k = b.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
@@ -815,7 +815,7 @@
                     ret = "Semantic ID ";
                     if (col == 1)
                     {
-                        ret = "NULL";
+                        ret = string.Empty;
                         var k = op.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
@@ -865,7 +865,7 @@
                     ret = "Semantic ID ";
                     if (col == 1)
                     {
-                        ret = "NULL";
+                        ret = string.Empty;
                         var k = r.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
@@ -877,7 +877,7 @@
                     ret = "First ";
                     if (col == 1)
                     {
-                        ret = "NULL";
+                        ret = string.Empty;
                         var k = r.First;
                         if (k != null)
                         {
@@ -889,7 +889,7 @@
                     ret = "Second ";
                     if (col == 1)
                     {
-                        ret = "NULL";
+                        ret = string.Empty;
                         var k = r.Second;
                         if (k != null)
                         {
@@ -917,7 +917,7 @@
                     ret = "Semantic ID ";
                     if (col == 1)
                     {
-                        ret = "NULL";
+                        ret = string.Empty;
                         var k = r.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
@@ -929,7 +929,7 @@
                     ret = "Value ";
                     if (col == 1)
                     {
-                        ret = "NULL";
+                        ret = string.Empty;
                     }
                     break;
                 case 2:
@@ -956,7 +956,7 @@
                     ret = "Semantic ID ";
                     if (col == 1)
                     {
-                        ret = "NULL";
+                        ret = string.Empty;
                         var k = mlp.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {
@@ -996,7 +996,7 @@
                     ret = "Semantic ID ";
                     if (col == 1)
                     {
-                        ret = "NULL";
+                        ret = string.Empty;
                         var k = sme.SemanticId?.GetAsExactlyOneKey();
                         if (k != null)
                         {

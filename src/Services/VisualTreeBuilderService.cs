@@ -384,7 +384,11 @@ namespace AdminShell
                         EnvKey = key,
                         Text = node.Text,
                         Type = "UANode",
-                        Tag = new SubmodelElement() { IdShort = node.Text }
+                        Tag = new SubmodelElement()
+                        {
+                            DisplayName = viewer.VariableRead(node.Id, key).GetAwaiter().GetResult(),
+                            IdShort = node.Text
+                        }
                     };
 
                     treeNodeDataList.Add(smeItem);
