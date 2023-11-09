@@ -36,6 +36,12 @@
     <Content Include="LICENSE.TXT">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="NodeSets\I4AAS.IRDI.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="OPCUA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="ProductCarbonFootprint.template">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -76,12 +82,10 @@
   <ItemGroup>
     <None Remove="Application.Config.xml" />
     <None Remove="LICENSE.TXT" />
+    <None Remove="NodeSets\I4AAS.IRDI.NodeSet2.xml" />
+    <None Remove="OPCUA.png" />
     <None Remove="ProductCarbonFootprint.template" />
     <None Remove="ProductCarbonFootprintNCSU.aasx" />
     <None Remove="ProductCarbonFootprintNCSU.template" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="NodeSets\" />
   </ItemGroup>
 </Project>
