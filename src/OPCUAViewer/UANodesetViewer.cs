@@ -449,7 +449,7 @@ namespace AdminShell
                             nodes.Add(new NodesetViewerNode()
                             {
                                 Id = ("__" + node + OpcSessionHelper.Delimiter + nodeReference.NodeId.ToString()),
-                                Text = nodeReference.DisplayName.ToString() + " (ns=" + session.NamespaceUris.ToArray()[nodeReference.NodeId.NamespaceIndex] + ";" + nodeReference.NodeId.ToString() + ")",
+                                Text = nodeReference.DisplayName.ToString(),
                                 Children = (childReferences.Count == 0) ? false : true
                             });
                             idList.Add(nodeReference.NodeId.ToString());
@@ -564,7 +564,7 @@ namespace AdminShell
                     string actionResult = string.Empty;
                     if ((values.Count > 0) && (values[0].Value != null))
                     {
-                        actionResult = $"{values[0]}";
+                        actionResult = $"= {values[0]}";
                     }
 
                     return actionResult;

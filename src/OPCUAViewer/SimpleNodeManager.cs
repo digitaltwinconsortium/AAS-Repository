@@ -37,6 +37,8 @@ namespace AdminShell
             }
 
             NamespaceUris = namespaces.ToArray();
+
+            Server.MessageContext.Factory.AddEncodeableTypes(typeof(SubmodelDataType).GetTypeInfo().Assembly);
         }
 
         public override void CreateAddressSpace(IDictionary<NodeId, IList<IReference>> externalReferences)
@@ -62,7 +64,7 @@ namespace AdminShell
                 }
 
                 AssetDescriptionFileDataType product = new();
-                var json = System.IO.File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "product_carbon_footprint.json"));
+                string json = System.IO.File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "product_carbon_footprint.json"));
                 using (var decoder = new JsonDecoder(json, Server.MessageContext))
                 {
                     product.Namespaces = decoder.ReadStringArray(nameof(product.Namespaces));
