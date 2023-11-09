@@ -23,7 +23,7 @@ namespace AdminShell
 
         private Dictionary<string, ApplicationInstance> _applications = new();
 
-        private bool _isRunning = false;
+        private Dictionary<string, bool> _isRunning = new();
 
         private string _instanceUrl = string.Empty;
 
@@ -32,7 +32,14 @@ namespace AdminShell
 
         public void Login(string instanceUrl, string clientId, string secret, string key)
         {
-            if (!_isRunning
+            _nodeSetFilenames.Clear();
+
+            if (!_isRunning.ContainsKey(key))
+            {
+                _isRunning.Add(key, false);
+            }
+
+            if (!_isRunning[key]
              && !string.IsNullOrEmpty(clientId)
              && !string.IsNullOrEmpty(secret)
              && !string.IsNullOrEmpty(instanceUrl)
@@ -75,20 +82,32 @@ namespace AdminShell
                 // start the UA server
                 StartServerAsync(key).GetAwaiter().GetResult();
 
-                _isRunning = true;
+                _isRunning[key] = true;
             }
         }
 
         public void LoadLocalNodesetFile(string name, string key)
         {
-            // fix the path to the local nodeset directory and add
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "NodeSets", name.Substring(name.LastIndexOf('/') + 1));
-            _nodeSetFilenames.Add(path);
+            _nodeSetFilenames.Clear();
 
-            ValidateNamespacesAndModels(true);
+            if (!_isRunning.ContainsKey(key))
+            {
+                _isRunning.Add(key, false);
+            }
 
-            // start the UA server
-            StartServerAsync(key).GetAwaiter().GetResult();
+            if (!_isRunning[key])
+            {
+                // fix the path to the local nodeset directory and add
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "NodeSets", name.Substring(name.LastIndexOf('/') + 1));
+                _nodeSetFilenames.Add(path);
+
+                ValidateNamespacesAndModels(true);
+
+                // start the UA server
+                StartServerAsync(key).GetAwaiter().GetResult();
+
+                _isRunning[key] = true;
+            }
         }
 
         private string ValidateNamespacesAndModels(bool autodownloadreferences)
