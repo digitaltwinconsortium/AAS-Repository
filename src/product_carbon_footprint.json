@@ -1,0 +1,56 @@
+{
+  "Namespaces": [
+    "http://opcfoundation.org/UA/I4AAS/"
+  ],
+  "ModelIdShort": "NCSU_ProductCarbonFootprint",
+  "Submodels": [
+    {
+      "TypeId": {
+        "Id": 77,
+        "Namespace": 1
+      },
+      "Body": {
+        "ModelId": "https://www.digitaltwinconsortium.org/id/instance/99920200616214522000018143",
+        "ModelIdShort": "Nameplate",
+        "ManufacturerName": {
+          "Text": "North Carolina State University"
+        },
+        "ManufacturerProductDesignation": {
+          "Text": "Southern Bleached Paper"
+        },
+        "ContactInformation": {
+          "Street": {
+            "Text": "111 Lampe Dr Ste 400"
+          },
+          "Zipcode": "27607",
+          "CityTown": {
+            "Text": "Raleigh, NC"
+          },
+          "NationalCode": "US"
+        },
+        "ManufacturerProductFamily": {
+          "Text": "Paper"
+        },
+        "SerialNumber": "NCSU Pulp & Paper batch 2023-10-12",
+        "YearOfConstruction": "2023",
+        "CountryOfOrigin": "US",
+        "CompanyLogo": "/aasx/files/ncsu.jpg"
+      }
+    },
+    {
+      "TypeId": {
+        "Id": 128,
+        "Namespace": 1
+      },
+      "Body": {
+        "ModelId": "0173-1#01-AHE712#001",
+        "ModelIdShort": "CarbonFootprint",
+        "PCFCalculationMethod": "GHG Protocol",
+        "PCFCO2eq": 234208.66,
+        "PCFReferenceValueForCalculation": "g",
+        "PCFQuantityOfMeasureForCalculation": 1000,
+        "PCFLiveCyclePhase": "A3 - production"
+      }
+    }
+  ]
+}

@@ -27,14 +27,14 @@ namespace UANodesetWebViewer.Controllers
             return View("Index");
         }
 
-        public void GenerateAAS(string name)
+        public void GenerateAASFromUANodeset(string name)
         {
             try
             {
                 MemoryStream aasxStream = new MemoryStream();
                 Package package = Package.Open(aasxStream, FileMode.Create);
 
-                // add package origin part
+                // add origin file
                 PackagePart origin = package.CreatePart(new Uri("/aasx/aasx-origin", UriKind.Relative), MediaTypeNames.Text.Plain);
                 using (Stream fileStream = origin.GetStream(FileMode.Create))
                 {
@@ -43,15 +43,21 @@ namespace UANodesetWebViewer.Controllers
                 }
                 package.CreateRelationship(origin.Uri, TargetMode.Internal, "http://www.admin-shell.io/aasx/relationships/aasx-origin");
 
-                // add package spec part
+                // add AAS spec file
                 PackagePart spec = package.CreatePart(new Uri("/aasx/" + name + "/" + name, UriKind.Relative), MediaTypeNames.Text.Xml);
                 using (FileStream fileStream = new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets", name), FileMode.Open, FileAccess.Read))
                 {
-                    CopyStream(fileStream, spec.GetStream());
+                    CopyStream(fileStream, spec.GetStream(FileMode.Create));
                 }
                 origin.CreateRelationship(spec.Uri, TargetMode.Internal, "http://www.admin-shell.io/aasx/relationships/aas-spec");
 
-                _packageService.AddFileToSpec(package, spec, "/OPCUA.png", new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "OPCUA.png"), FileMode.Open), true);
+                // add thumbnail file
+                PackagePart thumbnail = package.CreatePart(new Uri("/OPCUA.png", UriKind.Relative), MediaTypeNames.Application.Octet);
+                using (FileStream fileStream = new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "OPCUA.png"), FileMode.Open, FileAccess.Read))
+                {
+                    CopyStream(fileStream, thumbnail.GetStream(FileMode.Create));
+                }
+                package.CreateRelationship(thumbnail.Uri, TargetMode.Internal, "http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail");
 
                 package.Flush();
                 package.Close();
@@ -111,7 +117,7 @@ namespace UANodesetWebViewer.Controllers
                         await file.CopyToAsync(stream).ConfigureAwait(false);
                     }
 
-                    GenerateAAS(file.FileName);
+                    GenerateAASFromUANodeset(file.FileName);
                 }
             }
             catch (Exception ex)
