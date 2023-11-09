@@ -182,15 +182,30 @@ namespace AdminShell
                     {
                         try
                         {
-                            // try to auto-download the missing references from the UA Cloud Library
-                            string address = "https://uacloudlibrary.opcfoundation.org/infomodel/download/" + Uri.EscapeDataString(_namespacesInCloudLibrary[modelreference]);
-                            HttpResponseMessage response = _client.Send(new HttpRequestMessage(HttpMethod.Get, address));
-                            AddressSpace addressSpace = JsonConvert.DeserializeObject<AddressSpace>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+                            // check if the reference is already available locally
+                            bool refFound = false;
+                            foreach (string fileName in Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "Nodesets")))
+                            {
+                                if (System.IO.File.ReadAllText(fileName).Contains("<Model ModelUri=\"" + modelreference))
+                                {
+                                    _nodeSetFilenames.Add(fileName);
+                                    refFound = true;
+                                    break;
+                                }
+                            }
 
-                            // store the file on the webserver
-                            string filePath = Path.Combine(Directory.GetCurrentDirectory(), addressSpace.Category.Name + ".nodeset2.xml");
-                            System.IO.File.WriteAllText(filePath, addressSpace.Nodeset.NodesetXml);
-                            _nodeSetFilenames.Add(filePath);
+                            if (!refFound)
+                            {
+                                // try to auto-download the missing references from the UA Cloud Library
+                                string address = "https://uacloudlibrary.opcfoundation.org/infomodel/download/" + Uri.EscapeDataString(_namespacesInCloudLibrary[modelreference]);
+                                HttpResponseMessage response = _client.Send(new HttpRequestMessage(HttpMethod.Get, address));
+                                AddressSpace addressSpace = JsonConvert.DeserializeObject<AddressSpace>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
+
+                                // store the file on the webserver
+                                string filePath = Path.Combine(Directory.GetCurrentDirectory(), addressSpace.Category.Name + ".nodeset2.xml");
+                                System.IO.File.WriteAllText(filePath, addressSpace.Nodeset.NodesetXml);
+                                _nodeSetFilenames.Add(filePath);
+                            }
                         }
                         catch (Exception ex)
                         {
