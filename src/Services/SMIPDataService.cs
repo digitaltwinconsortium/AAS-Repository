@@ -30,7 +30,7 @@ namespace AdminShell
             _currentBearerToken = Environment.GetEnvironmentVariable("SMIP_BEARER_TOKEN");
 
             // optionally login
-            if (string.IsNullOrEmpty(_currentBearerToken))
+            if (!string.IsNullOrEmpty(_instanceGraphQLEndpoint) && string.IsNullOrEmpty(_currentBearerToken))
             {
                 string newToken = GetBearerToken(_instanceGraphQLEndpoint).GetAwaiter().GetResult();
                 if (newToken != null)
