@@ -82,7 +82,7 @@ namespace AdminShell
         public void LoadLocalNodesetFile(string name, string key)
         {
             // fix the path to the local nodeset directory and add
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "Nodesets", name.Substring(name.LastIndexOf('/') + 1));
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "NodeSets", name.Substring(name.LastIndexOf('/') + 1));
             _nodeSetFilenames.Add(path);
 
             ValidateNamespacesAndModels(true);
@@ -184,7 +184,7 @@ namespace AdminShell
                         {
                             // check if the reference is already available locally
                             bool refFound = false;
-                            foreach (string fileName in Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "Nodesets")))
+                            foreach (string fileName in Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets")))
                             {
                                 if (System.IO.File.ReadAllText(fileName).Contains("<Model ModelUri=\"" + modelreference))
                                 {
