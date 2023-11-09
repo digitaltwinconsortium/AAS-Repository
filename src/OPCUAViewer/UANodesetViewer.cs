@@ -2,8 +2,6 @@
 namespace AdminShell
 {
     using Kusto.Cloud.Platform.Utils;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using Opc.Ua;
     using Opc.Ua.Client;
