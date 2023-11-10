@@ -1,4 +1,3 @@
-using AdminShell;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,7 +8,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UANodesetWebViewer.Controllers
+namespace AdminShell
 {
     public class BrowserController : Controller
     {
@@ -24,7 +23,7 @@ namespace UANodesetWebViewer.Controllers
 
         public ActionResult Index()
         {
-            return View("Index");
+            return View("Index", new BrowserModel() { StatusMessage = string.Empty });
         }
 
         public void GenerateAASFromUANodeset(string name)
@@ -123,9 +122,10 @@ namespace UANodesetWebViewer.Controllers
             catch (Exception ex)
             {
                 Trace.TraceError(ex.Message);
+                return View("Index", new BrowserModel() { StatusMessage = ex.Message });
             }
 
-            return View("Index");
+            return View("Index", new BrowserModel() { StatusMessage = "Nodeset loaded successfully." });
         }
     }
 }

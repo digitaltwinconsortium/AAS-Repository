@@ -1,4 +1,8 @@
 ﻿
+@using AdminShell
+
+@model BrowserModel
+
 @{
     ViewData["Title"] = "Open OPC UA nodeset files";
 }
@@ -27,4 +31,9 @@
             </p>
         </div>
     </form>
+    <div>
+        <p>
+            <b>@Model.StatusMessage</b>
+        </p>
+    </div>
 </div>
