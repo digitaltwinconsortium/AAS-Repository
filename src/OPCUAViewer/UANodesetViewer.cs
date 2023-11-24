@@ -260,6 +260,7 @@ namespace AdminShell
                 // create cert validator
                 config.CertificateValidator = new CertificateValidator();
                 config.CertificateValidator.CertificateValidation += new CertificateValidationEventHandler(CertificateValidator_CertificateValidation);
+                config.CertificateValidator.Update(config.SecurityConfiguration).GetAwaiter().GetResult();
 
                 // start the server.
                 await app.Start(new SimpleServer()).ConfigureAwait(false);
