@@ -223,7 +223,7 @@
         return string.Empty;
     }
 
-    string GetLink(TreeNode item)
+    private string GetLink(TreeNode item)
     {
         if (item == null)
         {
@@ -269,7 +269,7 @@
         return string.Empty;
     }
 
-    string ViewNodeType(TreeNode item)
+    private string ViewNodeType(TreeNode item)
     {
         if (item == null)
         {
@@ -281,7 +281,7 @@
         }
     }
 
-    string ViewNodeInfo(TreeNode item)
+    private string ViewNodeInfo(TreeNode item)
     {
         if (item == null)
         {
@@ -330,7 +330,7 @@
         return info;
     }
 
-    AssetAdministrationShell FindAAS(AssetAdministrationShellEnvironment env, Identifier id)
+    private AssetAdministrationShell FindAAS(AssetAdministrationShellEnvironment env, Identifier id)
     {
         if (id == null)
         {
@@ -348,7 +348,7 @@
         return null;
     }
 
-    string ViewNodeDetails(TreeNode item, int line, int col)
+    private string ViewNodeDetails(TreeNode item, int line, int col)
     {
         if (item == null)
         {
@@ -803,7 +803,7 @@
         return (ret);
     }
 
-    static string getQualifiers(List<Qualifier> q, int col)
+    private string getQualifiers(List<Qualifier> q, int col)
     {
         string ret = string.Empty;
 
@@ -828,7 +828,7 @@
         return ret;
     }
 
-    public string getUnit(TreeNode item, SubmodelElement se, int col)
+    private string getUnit(TreeNode item, SubmodelElement se, int col)
     {
         string ret = string.Empty;
         if (se.SemanticId == null)
@@ -855,7 +855,7 @@
         return ret;
     }
 
-    public ConceptDescription FindConceptDescription(AssetAdministrationShellEnvironment env, List<Key> keys)
+    private ConceptDescription FindConceptDescription(AssetAdministrationShellEnvironment env, List<Key> keys)
     {
         if (keys == null)
         {
