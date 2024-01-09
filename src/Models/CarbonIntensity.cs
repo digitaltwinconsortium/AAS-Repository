@@ -28,23 +28,22 @@ namespace AdminShell
 
     public class RegionQueryResult
     {
-        public string abbrev { get; set; }
+        public string region { get; set; }
 
-        public int id { get; set; }
+        public string region_full_name { get; set; }
 
-        public string name { get; set; }
+        public string signal_type { get; set; }
     }
 
     public class WattTimeQueryResult
     {
-        public string freq { get; set; }
+        public WattTimeQueryResultEntry[] data { get; set; }
+    }
 
-        public string ba { get; set; }
-
-        public int percent { get; set; }
-
-        public float moer { get; set; }
-
+    public class WattTimeQueryResultEntry
+    {
         public DateTime point_time { get; set; }
+
+        public float value { get; set; }
     }
 }
