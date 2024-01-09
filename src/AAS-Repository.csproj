@@ -13,17 +13,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aml.Engine" Version="3.1.7" />
-    <PackageReference Include="Azure.Storage.Blobs" Version="12.18.0" />
+    <PackageReference Include="Aml.Engine" Version="3.2.1" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
     <PackageReference Include="JsonSubTypes" Version="2.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.23" />
-    <PackageReference Include="Microsoft.Azure.Kusto.Data" Version="11.3.4" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
-    <PackageReference Include="OPCFoundation.NetStandard.Opc.Ua" Version="1.4.372.56" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.25" />
+    <PackageReference Include="Microsoft.Azure.Kusto.Data" Version="12.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+    <PackageReference Include="OPCFoundation.NetStandard.Opc.Ua" Version="1.4.372.106" />
+    <PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Client.ComplexTypes" Version="1.4.372.106" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
-    <PackageReference Include="GraphQL.Client" Version="6.0.1" />
-    <PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" Version="6.0.1" />
+    <PackageReference Include="GraphQL.Client" Version="6.0.2" />
+    <PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" Version="6.0.2" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 

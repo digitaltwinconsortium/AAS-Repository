@@ -2,64 +2,44 @@
 
 @using AdminShell
 @using System
-@using System.Net;
-@using System.Drawing;
-
-@implements IDisposable
+@using System.Net
+@using System.Drawing
 
 @inject VisualTreeBuilderService _treeBuilder
 @inject AASXPackageService _packageService
 
 <div class="col-12 row">
-    <br />
-    <div class="col-8" style="border-style:solid;border-color:blue;border-radius:8px;word-wrap:break-word;word-break:break-all;position:sticky">
-
-        @UpdateVisibleTree(SelectedNode)
-
-        <TreeNode Nodes="TreeNodes" ChildSelector="@(item => item.Children)" @bind-SelectedNode="SelectedNode" @bind-ExpandedNodes="ExpandedTreeNodes" HasChildNodes="@(item => item.Children?.Any() == true)">
+    <p />
+    <div class="col-1"/>
+    <div class="col-6">
+        <Tree Nodes="TreeNodes" TNode="TreeNode" ChildSelector="@(node => node.Children)" SelectedNodeChanged="SelectedNodeChanged" OnNodeExpand="OnNodeExpand" HasChildNodes="HasChildNodes">
             <TitleTemplate>
-                <span style="color:white;background-color:blue;">@ViewNodeType(context)</span>
-                @ViewNodeID(context)
-                @ViewNodeInfo(context)
+                <span style="color:slategray">@ViewNodeType(context)</span> @ViewNodeInfo(context)
             </TitleTemplate>
-        </TreeNode>
+        </Tree>
     </div>
-    <div class="col-4" style="border-style:solid;border-color:blue;border-radius:8px;position:sticky">
-        <div class="sticky-top" style="word-wrap:break-word;word-break:break-all;">
-            @{
-                <span style="color:white;background-color:blue;">@ViewNodeType(SelectedNode)</span> @ViewNodeID(SelectedNode)<br>
-                for (int line = 0; line < 6; line++)
+    <div class="col-1" />
+    <div class="col-4">
+        @{
+            for (int line = 0; line < 6; line++)
+            {
+                string nodeDetailsName = ViewNodeDetails(SelectedNode, line, 0);
+                string nodeDetailsValue = ViewNodeDetails(SelectedNode, line, 1);
+                if (nodeDetailsName != string.Empty && nodeDetailsValue != string.Empty)
                 {
-                    string nodeDetails0 = ViewNodeDetails(SelectedNode, line, 0);
-                    string nodeDetails1 = ViewNodeDetails(SelectedNode, line, 1);
-                    if (nodeDetails0 != string.Empty && nodeDetails1 != string.Empty)
-                    {
-                        <span style="color:white;background-color:blue;">@nodeDetails0</span> @nodeDetails1<br>
-                    }
+                    <span style="color:slategray">@nodeDetailsName</span> @nodeDetailsValue<br />
                 }
+            }
 
-                bool externalLink = false;
-                string link = GetLink(SelectedNode, out externalLink);
-                if (SelectedNode != null && link != string.Empty)
+            if (SelectedNode != null)
+            {
+                string link = GetLink(SelectedNode);
+                if (link != string.Empty)
                 {
                     <a href="@link" target="_blank">@link</a><br>
                 }
-                if (SelectedNode != null && SelectedNode.Tag is Property)
-                {
-                    <input @bind="CurrentValue" /> <span style="color:white;background-color:blue;">@CurrentValue</span><br>
-                    @code { private string CurrentValue { get; set; } }
-                    if (CurrentValue != null && CurrentValue != string.Empty)
-                    {
-                        if (SelectedNode.Tag is Property)
-                        {
-                            (SelectedNode.Tag as Property).Value = CurrentValue;
-                            (SelectedNode.Tag as Property).setTimeStamp(DateTime.UtcNow);
-                            this.StateHasChanged();
-                        }
-                        CurrentValue = string.Empty;
-                    }
-                }
-                if (SelectedNode != null && (SelectedNode.Tag is AssetAdministrationShell || SelectedNode.Tag is File))
+
+                if (SelectedNode.Tag is AssetAdministrationShell || SelectedNode.Tag is File)
                 {
                     string detailsImage = CreateDetailsImage(SelectedNode);
                     if (detailsImage != string.Empty)
@@ -71,188 +51,129 @@
                     }
                 }
             }
-        </div>
+        }
     </div>
 </div>
 
 @code {
 
-    public class TreeNodeData
+    public class TreeNode
     {
-        public string Text { get; set; }
+        public string Text { get; set; } = string.Empty;
 
-        public IEnumerable<TreeNodeData> Children { get; set; }
+        public IEnumerable<TreeNode> Children { get; set; } = null;
 
-        public object Parent { get; set; }
+        public string Type { get; set; } = string.Empty;
 
-        public string Type { get; set; }
+        public object Tag { get; set; } = null;
 
-        public object Tag { get; set; }
-
-        public string EnvKey { get; set; }
+        public string EnvKey { get; set; } = string.Empty;
     }
 
-    List<TreeNodeData> TreeNodes = null;
+    List<TreeNode> TreeNodes = null;
 
-    IList<TreeNodeData> ExpandedTreeNodes = new List<TreeNodeData>();
-
-    TreeNodeData SelectedNode { get; set; }
+    TreeNode SelectedNode { get; set; }
 
     protected override void OnInitialized()
     {
-        VisualTreeBuilderService.NewDataAvailable += NewData;
+        TreeNodes = _treeBuilder.CreateViewFromPackages();
     }
 
-    public void Dispose()
+    private Task OnNodeExpand(TreeNode node)
     {
-        VisualTreeBuilderService.NewDataAvailable -= NewData;
-    }
-
-    TreeUpdateMode CurrentTreeUpdateMode = TreeUpdateMode.RebuildAndCollapse;
-
-    private void NewData(object source, EventArgs args)
-    {
-        if (CurrentTreeUpdateMode == TreeUpdateMode.ValuesOnly)
+        if (node.Children == null)
         {
-            CurrentTreeUpdateMode = (TreeUpdateMode) source;
-            InvokeAsync(() => this.StateHasChanged());
-        }
-    }
-
-    List<string> getPath(TreeNodeData i)
-    {
-        if (i == null)
-        {
-            return null;
-        }
-
-        List<string> upPath = new List<string>();
-        upPath.Add(i.Text);
-        while (i.Parent != null)
-        {
-            i = (TreeNodeData)i.Parent;
-            upPath.Add(i.Text);
-        }
-
-        List<string> downPath = new List<string>();
-        int j = upPath.Count - 1;
-        while (j >= 0)
-        {
-            downPath.Add(upPath[j--]);
-        }
-
-        return downPath;
-    }
-
-    TreeNodeData findPath(List<string> path)
-    {
-        if (path != null && path.Count > 0)
-        {
-            TreeNodeData found = null;
-            int k = 0;
-            while (k < TreeNodes.Count)
+            if (node.Tag is AssetAdministrationShellEnvironment)
             {
-                TreeNodeData i = TreeNodes[k];
-                if (i.Text != path[0])
+                AssetAdministrationShellEnvironment aasEnv = node.Tag as AssetAdministrationShellEnvironment;
+                node.Children = _treeBuilder.CreateViewFromAASEnv(node.EnvKey, aasEnv);
+                return Task.CompletedTask;
+            }
+
+            if (node.Tag is SubmodelElementCollection)
+            {
+                SubmodelElementCollection submodelElementCollection = node.Tag as SubmodelElementCollection;
+                node.Children = _treeBuilder.CreateViewFromAASSMECollection(node.EnvKey, submodelElementCollection);
+                return Task.CompletedTask;
+            }
+
+            if (node.Tag is Operation)
+            {
+                Operation operation = node.Tag as Operation;
+                node.Children = _treeBuilder.CreateViewFromAASOperation(node.EnvKey, operation);
+                return Task.CompletedTask;
+            }
+
+            if (node.Tag is Entity)
+            {
+                Entity entity = node.Tag as Entity;
+                node.Children = _treeBuilder.CreateViewFromAASEntity(node.EnvKey, entity);
+                return Task.CompletedTask;
+            }
+
+            if (node.Tag is Submodel)
+            {
+                Submodel submodel = node.Tag as Submodel;
+                node.Children = _treeBuilder.CreateViewFromAASSubModel(node.EnvKey, submodel);
+                return Task.CompletedTask;
+            }
+
+            if (node.Tag is SubmodelElementWrapper)
+            {
+                SubmodelElementWrapper smew = node.Tag as SubmodelElementWrapper;
+
+                if (smew.SubmodelElement.IdShort == "NODESET2_XML" && Uri.IsWellFormedUriString(((File)smew.SubmodelElement).Value, UriKind.Absolute))
                 {
-                    k++;
-                    continue;
+                    node.Children = _treeBuilder.CreateViewFromUACloudLibNodeset(node.EnvKey, new Uri(((File)smew.SubmodelElement).Value));
+                    return Task.CompletedTask;
                 }
 
-                int j = 0;
-                found = i;
-                while (++j < path.Count)
+                if (smew.SubmodelElement.IdShort == "CAEX")
                 {
-                    if (i.Children != null)
-                    {
-                        found = null;
-                        foreach (var c in i.Children)
-                        {
-                            if (c.Text == path[j])
-                            {
-                                found = c;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (found == null)
-                    {
-                        return null;
-                    }
-
-                    i = found;
+                    node.Children = _treeBuilder.CreateViewFromAMLCAEXFile(node.EnvKey, ((File)smew.SubmodelElement).Value);
+                    return Task.CompletedTask;
                 }
+            }
 
-                if (found != null)
-                {
-                    return found;
-                }
+            if (node.Type == "UANodeSet")
+            {
+                node.Children = _treeBuilder.CreateViewFromUANodesetFile(node.EnvKey);
+                return Task.CompletedTask;
+            }
+
+            if (node.Type == "UANode")
+            {
+                node.Children = _treeBuilder.CreateViewFromUANode(node.EnvKey, node.Tag as NodesetViewerNode);
+                return Task.CompletedTask;
             }
         }
 
-        return null;
+        node.Children = new List<TreeNode>();
+
+        return Task.CompletedTask;
     }
 
-    string UpdateVisibleTree(TreeNodeData selectedNode)
+    private void SelectedNodeChanged(TreeNode node)
     {
-        switch (CurrentTreeUpdateMode)
+        SelectedNode = node;
+    }
+
+    private bool HasChildNodes(TreeNode node)
+    {
+        if (node.Children == null)
         {
-            case TreeUpdateMode.ValuesOnly: break;
-            case TreeUpdateMode.Rebuild:
-            {
-                bool expandedNodesExist = ExpandedTreeNodes.Count != 0;
-
-                // capture existing expanded nodes
-                List<string>[] expandedNodesPath = new List<string>[ExpandedTreeNodes.Count + 1];
-                if (expandedNodesExist)
-                {
-                    for (int j = 0; j < ExpandedTreeNodes.Count; j++)
-                    {
-                        expandedNodesPath[j] = getPath(ExpandedTreeNodes[j]);
-                    }
-                }
-
-                // rebuild tree
-                TreeNodes = _treeBuilder.BuildTree();
-                ExpandedTreeNodes.Clear();
-
-                if (selectedNode != null)
-                {
-                    // make sure the selected node still exists in the new tree
-                    selectedNode = findPath(getPath(selectedNode));
-                }
-
-                // reassign previously expanded nodes, if they still exist
-                if (expandedNodesExist)
-                {
-                    foreach (List<string> path in expandedNodesPath)
-                    {
-                        TreeNodeData p = findPath(path);
-                        if (p != null)
-                        {
-                            ExpandedTreeNodes.Add(p);
-                        }
-                    }
-                }
-
-                break;
-            }
-            case TreeUpdateMode.RebuildAndCollapse:
-            {
-                TreeNodes = _treeBuilder.BuildTree();
-                ExpandedTreeNodes.Clear();
-                selectedNode = null;
-                break;
-            }
+            return true;
         }
 
-        CurrentTreeUpdateMode = TreeUpdateMode.ValuesOnly;
-        SelectedNode = selectedNode;
-        return string.Empty;
+        if (node.Children.Count() == 0)
+        {
+            return false;
+        }
+
+        return true;
     }
 
-    string CreateDetailsImage(TreeNodeData item)
+    private string CreateDetailsImage(TreeNode item)
     {
         if (item == null)
         {
@@ -302,39 +223,35 @@
         return string.Empty;
     }
 
-    string GetLink(TreeNodeData item, out bool external)
+    string GetLink(TreeNode item)
     {
-        external = false;
-
         if (item == null)
         {
             return string.Empty;
         }
 
-        object o = item.Tag;
-        if (o is AssetAdministrationShell)
+        if (item.Tag is AssetAdministrationShell)
         {
             return "/server/getaasx/" + Convert.ToString(SelectedNode.EnvKey);
         }
 
-        if (o is File || o is Property)
+        if (item.Tag is File || item.Tag is Property)
         {
             string value = string.Empty;
 
-            if (o is File)
+            if (item.Tag is File)
             {
-                value = (o as File).Value;
+                value = (item.Tag as File).Value;
             }
 
-            if (o is Property)
+            if (item.Tag is Property)
             {
-                value = (o as Property).Value;
+                value = (item.Tag as Property).Value;
             }
 
             string[] split = value.Split(new Char[] { ':' });
             if (split[0].ToLower() == "http" || split[0].ToLower() == "https")
             {
-                external = true;
                 return value;
             }
 
@@ -352,179 +269,65 @@
         return string.Empty;
     }
 
-    string ViewNodeType(TreeNodeData item)
+    string ViewNodeType(TreeNode item)
     {
         if (item == null)
         {
             return string.Empty;
         }
-
-        string ret = string.Empty;
-
-        if (item.Type != null)
+        else
         {
-            ret = item.Type + " ";
+            return item.Type;
         }
-
-        object o = item.Tag;
-
-        if (o is AssetAdministrationShell)
-        {
-            ret += "AAS ";
-        }
-        if (o is Submodel)
-        {
-            ret += "Sub ";
-        }
-        if (o is SubmodelElement)
-        {
-            if (o is SubmodelElementCollection)
-            {
-                ret += "Coll ";
-            }
-            if (o is Property)
-            {
-                ret += "Prop ";
-            }
-        }
-        if (o is Operation)
-        {
-            ret += "Opr ";
-        }
-        if (o is File)
-        {
-            ret += "File ";
-        }
-        if (o is Blob)
-        {
-            ret += "Blob ";
-        }
-        if (o is MultiLanguageProperty)
-        {
-            ret += "Lang ";
-        }
-        if (o is RelationshipElement)
-        {
-            ret += "Rel ";
-        }
-        if (o is ReferenceElement)
-        {
-            ret += "Ref ";
-        }
-        if (o is Entity)
-        {
-            ret += "Ent ";
-        }
-
-        return (ret);
     }
 
-    string ViewNodeID(TreeNodeData item)
+    string ViewNodeInfo(TreeNode item)
     {
         if (item == null)
         {
             return string.Empty;
         }
 
-        string ret = string.Empty;
+        string info = item.Text;
 
-        object o = item.Tag;
-
-        if (o is AssetAdministrationShell)
+        if (item.Tag is SubmodelElementCollection)
         {
-            var aas = o as AssetAdministrationShell;
-            ret = aas.IdShort + " " + aas.DisplayName;
-        }
-
-        if (o is Submodel)
-        {
-            var sm = o as Submodel;
-            ret = string.Empty;
-            ret += sm.IdShort + " " + sm.DisplayName;
-        }
-
-        if (o is SubmodelElement)
-        {
-            var sme = o as SubmodelElement;
-            ret = string.Empty;
-            ret += sme.IdShort + " " + sme.DisplayName;
-        }
-
-        if (o is File)
-        {
-            var f = o as File;
-            ret = string.Empty;
-            ret += f.IdShort + " " + f.DisplayName;
-        }
-        if (o is Blob)
-        {
-            var b = o as Blob;
-            ret = string.Empty;
-            ret += b.IdShort + " " + b.DisplayName;
-        }
-        if (o is MultiLanguageProperty)
-        {
-            var mlp = o as MultiLanguageProperty;
-            ret = string.Empty;
-            ret += mlp.IdShort + " " + mlp.DisplayName;
-        }
-        return (ret);
-    }
-
-    string ViewNodeInfo(TreeNodeData item)
-    {
-        if (item == null)
-        {
-            return string.Empty;
-        }
-
-        string ret = string.Empty;
-
-        object o = item.Tag;
-
-        if (o is AssetAdministrationShell)
-        {
-            var aas = o as AssetAdministrationShell;
-        }
-        if (o is Submodel)
-        {
-            var sm = o as Submodel;
-        }
-        if (o is SubmodelElementCollection)
-        {
-            var sme = o as SubmodelElementCollection;
+            var sme = item.Tag as SubmodelElementCollection;
             if (sme.Value.Count > 0)
             {
-                ret += " #" + sme.Value.Count;
+                info += " #" + sme.Value.Count;
             }
         }
-        if (o is SubmodelElement)
+
+        if (item.Tag is SubmodelElement)
         {
-            if (o is Property)
+            if (item.Tag is Property)
             {
-                var prop = o as Property;
+                var prop = item.Tag as Property;
                 if (prop.Value != string.Empty)
                 {
-                    ret = " = " + prop.Value;
+                    info += " = " + prop.Value;
                 }
             }
-            if (o is File)
+            if (item.Tag is File)
             {
-                var f = o as File;
-                ret = " = " + f.Value;
+                var f = item.Tag as File;
+                info += " = " + f.Value;
             }
         }
-        if (o is MultiLanguageProperty)
+
+        if (item.Tag is MultiLanguageProperty)
         {
-            var mlp = o as MultiLanguageProperty;
+            info += " = ";
+            var mlp = item.Tag as MultiLanguageProperty;
             var ls = mlp.Value;
-            ret = " = ";
             for (int i = 0; i < ls.Count; i++)
             {
-                ret += ls[i].Language + " ";
+                info += ls[i].Language + " ";
             }
         }
-        return (ret);
+
+        return info;
     }
 
     AssetAdministrationShell FindAAS(AssetAdministrationShellEnvironment env, Identifier id)
@@ -545,24 +348,7 @@
         return null;
     }
 
-    public EntityTypeEnum GetEntityType(Entity e)
-    {
-        EntityTypeEnum res = EntityTypeEnum.Undefined;
-
-        if (e.EntityType != null && e.EntityType.Trim().ToLower() == EntityTypeEnum.CoManagedEntity.ToString().ToLower())
-        {
-            res = EntityTypeEnum.CoManagedEntity;
-        }
-
-        if (e.EntityType != null && e.EntityType.Trim().ToLower() == EntityTypeEnum.SelfManagedEntity.ToString().ToLower())
-        {
-            res = EntityTypeEnum.SelfManagedEntity;
-        }
-
-        return res;
-    }
-
-    string ViewNodeDetails(TreeNodeData item, int line, int col)
+    string ViewNodeDetails(TreeNode item, int line, int col)
     {
         if (item == null)
         {
@@ -1042,7 +828,7 @@
         return ret;
     }
 
-    public string getUnit(TreeNodeData item, SubmodelElement se, int col)
+    public string getUnit(TreeNode item, SubmodelElement se, int col)
     {
         string ret = string.Empty;
         if (se.SemanticId == null)
