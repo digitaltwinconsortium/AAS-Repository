@@ -145,9 +145,10 @@
                 node.Children = _treeBuilder.CreateViewFromUANode(node.EnvKey, node.Tag as NodesetViewerNode);
                 return Task.CompletedTask;
             }
-        }
 
-        node.Children = new List<TreeNode>();
+            // default is to create an empty list
+            node.Children = new List<TreeNode>();
+        }
 
         return Task.CompletedTask;
     }
@@ -161,6 +162,7 @@
     {
         if (node.Children == null)
         {
+            // initially we want to show the plus sign so we can expand the node
             return true;
         }
 
