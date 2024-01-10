@@ -17,7 +17,7 @@
     <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
     <PackageReference Include="JsonSubTypes" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.25" />
-    <PackageReference Include="Microsoft.Azure.Kusto.Data" Version="12.0.0" />
+    <PackageReference Include="Microsoft.Azure.Kusto.Data" Version="12.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
     <PackageReference Include="OPCFoundation.NetStandard.Opc.Ua" Version="1.4.372.106" />
     <PackageReference Include="OPCFoundation.NetStandard.Opc.Ua.Client.ComplexTypes" Version="1.4.372.106" />

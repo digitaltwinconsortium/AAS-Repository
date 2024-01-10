@@ -28,7 +28,7 @@ namespace AdminShell
 
         public static void SignalNewData(TreeUpdateMode mode)
         {
-            // TODO
+            // intentionally left blank. Users should actively press refresh on their browser, which will cause the visual tree to be rebuilt.
         }
 
         public List<TreeNode> CreateViewFromPackages()

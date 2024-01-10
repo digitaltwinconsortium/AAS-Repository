@@ -58,21 +58,28 @@ namespace AdminShell
 
         private void GeneratePCFAAS(object state)
         {
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF_SMIP")))
+            try
             {
-                // we have a single pulp & paper machine from North Carolina State Univeristy that produced a roll of paper over 3 days
-                GeneratePCFAASForSMIP("NCSU Pulp & Paper batch ", "35.787222", "-78.670556", "79078", new DateTime(2023,10,12, 0, 0, 0), new DateTime(2023, 10, 14, 23, 59, 59));
-            }
+                if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF_SMIP")))
+                {
+                    // we have a single pulp & paper machine from North Carolina State Univeristy that produced a roll of paper over 3 days
+                    GeneratePCFAASForSMIP("NCSU Pulp & Paper batch ", "35.787222", "-78.670556", "79078", new DateTime(2023, 10, 12, 0, 0, 0), new DateTime(2023, 10, 14, 23, 59, 59));
+                }
 
-            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF")))
+                if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF")))
+                {
+                    // we have two production lines in the manufacturing ontologies production line simulation and they are connected like so:
+                    // assembly -> test -> packaging
+                    GeneratePCFAASForProductionLine("Munich", "48.1375", "11.575", 6);
+                    GeneratePCFAASForProductionLine("Seattle", "47.609722", "-122.333056", 10);
+                }
+
+                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
+            }
+            catch (Exception ex)
             {
-                // we have two production lines in the manufacturing ontologies production line simulation and they are connected like so:
-                // assembly -> test -> packaging
-                GeneratePCFAASForProductionLine("Munich", "48.1375", "11.575", 6);
-                GeneratePCFAASForProductionLine("Seattle", "47.609722", "-122.333056", 10);
+                _logger.LogError(ex, ex.Message);
             }
-
-            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
         }
 
         private void GeneratePCFAASForSMIP(string name, string latitude, string longitude, string productionLineID, DateTime batchCycleStart, DateTime batchCycleEnd)

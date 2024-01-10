@@ -18,8 +18,8 @@
             </TitleTemplate>
         </Tree>
     </div>
-    <div class="col-1" />
-    <div class="col-4">
+    <div class="col-5">
+        <p />
         @{
             for (int line = 0; line < 6; line++)
             {
@@ -44,7 +44,6 @@
                     string detailsImage = CreateDetailsImage(SelectedNode);
                     if (detailsImage != string.Empty)
                     {
-                        <br />
                         <div>
                             <img src=data:image;base64,@detailsImage style="max-width: 100%;" alt="Details Image" />
                         </div>
@@ -330,16 +329,16 @@
         return info;
     }
 
-    private AssetAdministrationShell FindAAS(AssetAdministrationShellEnvironment env, Identifier id)
+    private AssetAdministrationShell FindAAS(AssetAdministrationShellEnvironment env, string idShort)
     {
-        if (id == null)
+        if (string.IsNullOrEmpty(idShort))
         {
             return null;
         }
 
         foreach (var aas in env.AssetAdministrationShells)
         {
-            if (aas.Identification.Id != null && aas.Identification.Equals(id))
+            if (aas.IdShort == idShort)
             {
                 return aas;
             }
@@ -350,18 +349,17 @@
 
     private string ViewNodeDetails(TreeNode item, int line, int col)
     {
-        if (item == null)
-        {
-            return string.Empty;
-        }
-
         string ret = string.Empty;
 
-        object tag = item.Tag;
+        if (item == null)
+        {
+            return ret;
+        }
 
+        object tag = item.Tag;
         if (tag == null)
         {
-            return string.Empty;
+            return ret;
         }
 
         if (tag is AssetAdministrationShell)
@@ -369,46 +367,47 @@
             ret = string.Empty;
             var aas = tag as AssetAdministrationShell;
 
-            var asset = FindAAS(_packageService.Packages[item.EnvKey], aas.Identification.Id);
+            var asset = FindAAS(_packageService.Packages[item.EnvKey], aas.IdShort);
+            if (asset == null)
+            {
+                return ret;
+            }
 
             switch (line)
             {
                 case 0:
                     ret = "ID ";
                     if (col == 1)
-                        ret = aas.Identification.Id + string.Empty;
-                    break;
-                case 1:
-                    if (asset != null)
                     {
-                        ret = "ASSET ";
-                        if (col == 1)
-                            ret = asset.IdShort;
+                        ret = aas.Identification.Id;
                     }
                     break;
-                case 2:
-                    if (asset != null)
+                case 1:
+                    ret = "ASSET ";
+                    if (col == 1)
                     {
-                        ret = "ASSETID ";
-                        if (col == 1)
-                            ret = asset.Identification.Id + string.Empty;
+                        ret = asset.IdShort;
+                    }
+                break;
+                case 2:
+                    ret = "ASSETID ";
+                    if (col == 1)
+                    {
+                        ret = asset.Identification.Id;
                     }
                     break;
                 case 3:
-                    if (asset != null)
+                    ret = "ASSETID URLENCODED ";
+                    if (col == 1)
                     {
-                        ret = "ASSETID URLENCODED ";
-                        if (col == 1)
-                        {
-                            string url = WebUtility.UrlEncode(asset.Identification.Id);
-                            ret = url;
-                        }
+                        ret = WebUtility.UrlEncode(asset.Identification.Id);
                     }
                     break;
                 default:
                     ret = string.Empty;
                     break;
             }
+
             return ret;
         }
 
@@ -420,7 +419,9 @@
                 case 0:
                     ret = "ID ";
                     if (col == 1)
-                        ret = sm.Identification.Id + string.Empty;
+                    {
+                        ret = sm.Identification.Id;
+                    }
                     break;
                 case 1:
                     ret = "Semantic ID ";
@@ -465,12 +466,16 @@
                 case 1:
                     ret = "Value Type ";
                     if (col == 1)
-                        ret = prop.ValueType + string.Empty;
+                    {
+                        ret = prop.ValueType;
+                    }
                     break;
                 case 2:
                     ret = "Value ";
                     if (col == 1)
-                        ret = prop.Value + string.Empty;
+                    {
+                        ret = prop.Value;
+                    }
                     break;
                 case 3:
                     ret = getQualifiers(prop.Qualifiers, col);
@@ -506,7 +511,9 @@
                 case 1:
                     ret = "Entity Type ";
                     if (col == 1)
-                        ret = e.EntityType + string.Empty;
+                    {
+                        ret = e.EntityType;
+                    }
                     break;
                 case 2:
                     ret = string.Empty;
@@ -542,7 +549,9 @@
                 case 1:
                     ret = "Value ";
                     if (col == 1)
+                    {
                         ret = f.Value;
+                    }
                     break;
                 case 2:
                     ret = getQualifiers(f.Qualifiers, col);
@@ -574,12 +583,16 @@
                 case 1:
                     ret = "MimeType ";
                     if (col == 1)
+                    {
                         ret = b.MimeType;
+                    }
                     break;
                 case 2:
                     ret = "Value ";
                     if (col == 1)
+                    {
                         ret = b.Value;
+                    }
                     break;
                 case 3:
                     ret = getQualifiers(b.Qualifiers, col);
@@ -616,7 +629,7 @@
                         ret = "0";
                         if (op.InputVariables != null)
                         {
-                            ret = op.InputVariables.Count + string.Empty;
+                            ret = op.InputVariables.Count.ToString();
                         }
                     }
                     break;
@@ -627,7 +640,7 @@
                         ret = "0";
                         if (op.OutputVariables != null)
                         {
-                            ret = op.OutputVariables.Count + string.Empty;
+                            ret = op.OutputVariables.Count.ToString();
                         }
                     }
                     break;
@@ -759,7 +772,9 @@
                     {
                         ret = ls[line - 1].Language;
                         if (col == 1)
-                            ret = ls[line - 1].Text + string.Empty;
+                        {
+                            ret = ls[line - 1].Text;
+                        }
                     }
                     break;
                 case 5:
@@ -816,7 +831,10 @@
                 for (int i = 0; i < q.Count; i++)
                 {
                     if (i != 0)
+                    {
                         ret += ", ";
+                    }
+
                     ret += q[i].Type + " ";
                     if (q[i].Value != string.Empty)
                     {
@@ -847,7 +865,9 @@
                 {
                     ret = iec.Unit;
                     if (iec.UnitId != null && iec.UnitId.Keys != null && iec.UnitId.Keys.Count > 0)
+                    {
                         ret += " (UnitId = " + iec.UnitId.Keys[0].ToString() + ")";
+                    }
                 }
             }
         }
