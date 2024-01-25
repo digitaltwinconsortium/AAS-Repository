@@ -25,7 +25,7 @@ namespace AdminShell
             {
                 if (IsSubmodelPresentInAAS(aas, submodelIdentifier))
                 {
-                    UpdateFileByPathSubmodelRepo(submodelIdentifier, idShortPath, fileName, contentType, fileContent);
+                    UpdateFileByPathSubmodelRepo(aasIdentifier, submodelIdentifier, idShortPath, fileName, contentType, fileContent);
                 }
             }
         }
@@ -915,7 +915,7 @@ namespace AdminShell
             }
             else
             {
-                throw new Exception($"Requested submodel element {idShortPath} NOT found.");
+                return null;
             }
         }
 
@@ -1183,7 +1183,7 @@ namespace AdminShell
             return fileName;
         }
 
-        public void UpdateFileByPathSubmodelRepo(string submodelIdentifier, string idShortPath, string fileName, string contentType, Stream fileContent)
+        public void UpdateFileByPathSubmodelRepo(string aasIndentifier, string submodelIdentifier, string idShortPath, string fileName, string contentType, Stream fileContent)
         {
             _ = GetSubmodelById(submodelIdentifier, out string key);
 
@@ -1211,6 +1211,10 @@ namespace AdminShell
                 // add
                 File file = new();
                 file.Value = fileName;
+                file.IdShort = idShortPath;
+
+                CreateSubmodelElementByPath(file, aasIndentifier, submodelIdentifier, idShortPath);
+
                 _packageService.AddSupplementaryFileToPackage(key, file.Value, contentType, fileContent);
                 _packageService.Save(key);
 

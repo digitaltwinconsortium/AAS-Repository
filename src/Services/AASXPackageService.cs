@@ -229,7 +229,7 @@ namespace AdminShell
 
                     using (MemoryStream partStream = new())
                     {
-                        specPart.GetStream(FileMode.Open).CopyTo(partStream);
+                        specPart.GetStream(FileMode.Open).CopyToAsync(partStream).GetAwaiter().GetResult();
                         file.SourceBytes = partStream.ToArray();
                     }
 
@@ -299,7 +299,7 @@ namespace AdminShell
                 MemoryStream newStream = new();
                 using (MemoryStream contents = new(_storage.LoadFileAsync(key).GetAwaiter().GetResult()))
                 {
-                    contents.CopyTo(newStream);
+                    contents.CopyToAsync(newStream).GetAwaiter().GetResult();
                 }
 
                 return newStream;
@@ -323,7 +323,7 @@ namespace AdminShell
 
                 using (MemoryStream contents = new(System.IO.File.ReadAllBytes(key)))
                 {
-                    contents.CopyTo(newStream);
+                    contents.CopyToAsync(newStream).GetAwaiter().GetResult();
                 }
 
                 return newStream;
@@ -346,7 +346,7 @@ namespace AdminShell
 
             using (MemoryStream partStream = new())
             {
-                part.GetStream(FileMode.Open).CopyTo(partStream);
+                part.GetStream(FileMode.Open).CopyToAsync(partStream).GetAwaiter().GetResult();
                 package.Close();
 
                 return partStream.ToArray();
@@ -377,7 +377,7 @@ namespace AdminShell
 
             using (MemoryStream partStream = new())
             {
-                thumbPart.GetStream(FileMode.Open).CopyTo(partStream);
+                thumbPart.GetStream(FileMode.Open).CopyToAsync(partStream).GetAwaiter().GetResult();
                 package.Close();
 
                 return partStream.ToArray();
@@ -426,7 +426,7 @@ namespace AdminShell
 
             using (Stream dest = packagePart.GetStream())
             {
-                fileContent.CopyTo(dest);
+                fileContent.CopyToAsync(dest).GetAwaiter().GetResult();
             }
 
             package.Flush();
@@ -458,7 +458,7 @@ namespace AdminShell
 
                     using (MemoryStream partStream = new())
                     {
-                        thumbPart.GetStream(FileMode.Open).CopyTo(partStream);
+                        thumbPart.GetStream(FileMode.Open).CopyToAsync(partStream).GetAwaiter().GetResult();
                         file.SourceBytes = partStream.ToArray();
                     }
 
@@ -508,7 +508,7 @@ namespace AdminShell
 
                                 using (MemoryStream partStream = new())
                                 {
-                                    packagePart.GetStream(FileMode.Open).CopyTo(partStream);
+                                    packagePart.GetStream(FileMode.Open).CopyToAsync(partStream).GetAwaiter().GetResult();
                                     file.SourceBytes = partStream.ToArray();
                                 }
 
@@ -628,7 +628,7 @@ namespace AdminShell
 
             using (Stream partStream = filePart.GetStream(FileMode.Create))
             {
-                fileContent.CopyTo(partStream);
+                fileContent.CopyToAsync(partStream).GetAwaiter().GetResult();
             }
         }
 

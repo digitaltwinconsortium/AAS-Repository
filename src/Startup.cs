@@ -26,6 +26,8 @@
         {
             services.AddControllersWithViews().AddNewtonsoftJson();
 
+            services.AddMvc(options => options.InputFormatters.Insert(0, new RawRequestBodyFormatter()));
+
             services.AddRazorPages();
 
             services.AddServerSideBlazor();

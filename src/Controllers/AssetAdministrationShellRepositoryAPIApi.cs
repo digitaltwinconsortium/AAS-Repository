@@ -1,14 +1,15 @@
 
 namespace AdminShell
 {
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using Swashbuckle.AspNetCore.Annotations;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.IO;
     using System.Net.Mime;
-    using System.Text;
 
     [ApiController]
     public class AssetAdministrationShellRepositoryAPIApiController : ControllerBase
@@ -23,7 +24,7 @@ namespace AdminShell
         /// <summary>
         /// Deletes an Asset Administration Shell
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
         /// <response code="204">Asset Administration Shell deleted successfully</response>
         /// <response code="401">Unauthorized, e.g. the server refused the authorization attempt.</response>
         /// <response code="403">Forbidden</response>
@@ -40,9 +41,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult DeleteAssetAdministrationShellById([FromRoute][Required]string aasIdentifier)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-
-            _aasEnvService.DeleteAssetAdministrationShellById(decodedAasId);
+            _aasEnvService.DeleteAssetAdministrationShellById(aasIdentifier);
 
             return NoContent();
         }
@@ -50,8 +49,8 @@ namespace AdminShell
         /// <summary>
         /// Deletes file content of an existing submodel element at a specified path within submodel elements hierarchy
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <response code="200">Submodel element updated successfully</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
@@ -77,8 +76,8 @@ namespace AdminShell
         /// <summary>
         /// Deletes the submodel from the Asset Administration Shell and the Repository.
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <response code="204">Submodel deleted successfully</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
         /// <response code="401">Unauthorized, e.g. the server refused the authorization attempt.</response>
@@ -97,9 +96,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult DeleteSubmodelByIdAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier)
         {
-            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
-
-            _aasEnvService.DeleteSubmodelById(decodedSubmodelId);
+            _aasEnvService.DeleteSubmodelById(submodelIdentifier);
 
             return NoContent();
         }
@@ -107,8 +104,8 @@ namespace AdminShell
         /// <summary>
         /// Deletes a submodel element at a specified path within the submodel elements hierarchy
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <response code="204">Submodel element deleted successfully</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
@@ -128,10 +125,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult DeleteSubmodelElementByPathAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
-
-            _aasEnvService.DeleteSubmodelElementByPath(decodedAasId, decodedSubmodelId, idShortPath);
+            _aasEnvService.DeleteSubmodelElementByPath(aasIdentifier, submodelIdentifier, idShortPath);
 
             return NoContent();
         }
@@ -139,8 +133,8 @@ namespace AdminShell
         /// <summary>
         /// Deletes the submodel reference from the Asset Administration Shell. Does not delete the submodel itself!
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <response code="204">Submodel reference deleted successfully</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
         /// <response code="401">Unauthorized, e.g. the server refused the authorization attempt.</response>
@@ -159,10 +153,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult DeleteSubmodelReferenceByIdAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
-
-            _aasEnvService.DeleteSubmodelReferenceById(decodedAasId, decodedSubmodelId);
+            _aasEnvService.DeleteSubmodelReferenceById(aasIdentifier, submodelIdentifier);
 
             return NoContent();
         }
@@ -170,7 +161,7 @@ namespace AdminShell
         /// <summary>
         ///
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
         /// <response code="200">Thumbnail deletion successful</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
         /// <response code="401">Unauthorized, e.g. the server refused the authorization attempt.</response>
@@ -251,8 +242,8 @@ namespace AdminShell
         /// <summary>
         /// Returns all submodel elements including their hierarchy
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="limit">The maximum number of elements in the response array</param>
         /// <param name="cursor">A server-generated identifier retrieved from pagingMetadata that specifies from which position the result listing should continue</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
@@ -276,12 +267,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllSubmodelElementsAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]int? limit, [FromQuery]string cursor, [FromQuery]string level, [FromQuery]string extent)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
-
-            //Need to handle path here, as Submodel IdShort needs to be appended before every SME from the list
-
-            var output = _aasEnvService.GetAllSubmodelElements(decodedAasId, decodedSubmodelId);
+            var output = _aasEnvService.GetAllSubmodelElements(aasIdentifier, submodelIdentifier);
 
             return new ObjectResult(output);
         }
@@ -289,8 +275,8 @@ namespace AdminShell
         /// <summary>
         /// Returns all submodel elements including their hierarchy
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="limit">The maximum number of elements in the response array</param>
         /// <param name="cursor">A server-generated identifier retrieved from pagingMetadata that specifies from which position the result listing should continue</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
@@ -319,8 +305,8 @@ namespace AdminShell
         /// <summary>
         /// Returns all submodel elements including their hierarchy
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="limit">The maximum number of elements in the response array</param>
         /// <param name="cursor">A server-generated identifier retrieved from pagingMetadata that specifies from which position the result listing should continue</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
@@ -350,8 +336,8 @@ namespace AdminShell
         /// <summary>
         /// Returns all submodel elements as a list of References
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="limit">The maximum number of elements in the response array</param>
         /// <param name="cursor">A server-generated identifier retrieved from pagingMetadata that specifies from which position the result listing should continue</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
@@ -380,8 +366,8 @@ namespace AdminShell
         /// <summary>
         /// Returns all submodel elements including their hierarchy in the ValueOnly representation
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="limit">The maximum number of elements in the response array</param>
         /// <param name="cursor">A server-generated identifier retrieved from pagingMetadata that specifies from which position the result listing should continue</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
@@ -410,7 +396,7 @@ namespace AdminShell
         /// <summary>
         /// Returns all submodel references
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
         /// <param name="limit">The maximum number of elements in the response array</param>
         /// <param name="cursor">A server-generated identifier retrieved from pagingMetadata that specifies from which position the result listing should continue</param>
         /// <response code="200">Requested submodel references</response>
@@ -432,9 +418,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllSubmodelReferencesAasRepository([FromRoute][Required]string aasIdentifier, [FromQuery]int? limit, [FromQuery]string cursor)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-
-            var output = _aasEnvService.GetAllSubmodelReferences(decodedAasId);
+            var output = _aasEnvService.GetAllSubmodelReferences(aasIdentifier);
 
             return new ObjectResult(output);
         }
@@ -442,7 +426,7 @@ namespace AdminShell
         /// <summary>
         /// Returns a specific Asset Administration Shell
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
         /// <response code="200">Requested Asset Administration Shell</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
         /// <response code="401">Unauthorized, e.g. the server refused the authorization attempt.</response>
@@ -462,9 +446,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAssetAdministrationShellById([FromRoute][Required]string aasIdentifier)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-
-            var output = _aasEnvService.GetAssetAdministrationShellById(decodedAasId, out _);
+            var output = _aasEnvService.GetAssetAdministrationShellById(aasIdentifier, out _);
 
             return new ObjectResult(output);
         }
@@ -472,7 +454,7 @@ namespace AdminShell
         /// <summary>
         /// Returns a specific Asset Administration Shell as a Reference
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
         /// <response code="200">Requested Asset Administration Shell</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
         /// <response code="401">Unauthorized, e.g. the server refused the authorization attempt.</response>
@@ -498,7 +480,7 @@ namespace AdminShell
         /// <summary>
         /// Returns the Asset Information
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
         /// <response code="200">Requested Asset Information</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
         /// <response code="401">Unauthorized, e.g. the server refused the authorization attempt.</response>
@@ -518,9 +500,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAssetInformationAasRepository([FromRoute][Required]string aasIdentifier)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-
-            var output = _aasEnvService.GetAssetInformationFromAas(decodedAasId);
+            var output = _aasEnvService.GetAssetInformationFromAas(aasIdentifier);
 
             return new ObjectResult(output);
         }
@@ -528,8 +508,8 @@ namespace AdminShell
         /// <summary>
         /// Downloads file content from a specific submodel element from the Submodel at a specified path
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <response code="200">Requested file</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
@@ -550,10 +530,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetFileByPathAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
-
-            var fileName = _aasEnvService.GetFileByPath(decodedAasId, decodedSubmodelId, idShortPath, out byte[] content, out long fileSize);
+            var fileName = _aasEnvService.GetFileByPath(aasIdentifier, submodelIdentifier, idShortPath, out byte[] content, out long fileSize);
 
             //content-disposition so that the aasx file can be doenloaded from the web browser.
             ContentDisposition contentDisposition = new()
@@ -571,10 +548,10 @@ namespace AdminShell
         /// <summary>
         /// Returns the Operation result of an asynchronous invoked Operation
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
-        /// <param name="handleId">The returned handle id of an operation’s asynchronous invocation used to request the current state of the operation’s execution (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="handleId">The returned handle id of an operation’s asynchronous invocation used to request the current state of the operation’s execution</param>
         /// <response code="200">Operation result object</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
         /// <response code="401">Unauthorized, e.g. the server refused the authorization attempt.</response>
@@ -594,11 +571,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetOperationAsyncResultAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath, [FromRoute][Required]string handleId)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
-            var decodedHandleId = Encoding.UTF8.GetString(Convert.FromBase64String(handleId));
-
-            var output = _aasEnvService.GetOperationAsyncResult(decodedAasId, decodedSubmodelId, idShortPath, decodedHandleId);
+            var output = _aasEnvService.GetOperationAsyncResult(aasIdentifier, submodelIdentifier, idShortPath, handleId);
 
             return new ObjectResult(output);
         }
@@ -606,10 +579,10 @@ namespace AdminShell
         /// <summary>
         /// Returns the ValueOnly notation of the Operation result of an asynchronous invoked Operation
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
-        /// <param name="handleId">The returned handle id of an operation’s asynchronous invocation used to request the current state of the operation’s execution (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="handleId">The returned handle id of an operation’s asynchronous invocation used to request the current state of the operation’s execution</param>
         /// <response code="200">Operation result object</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
         /// <response code="401">Unauthorized, e.g. the server refused the authorization attempt.</response>
@@ -635,10 +608,10 @@ namespace AdminShell
         /// <summary>
         /// Returns the Operation status of an asynchronous invoked Operation
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
-        /// <param name="handleId">The returned handle id of an operation’s asynchronous invocation used to request the current state of the operation’s execution (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="handleId">The returned handle id of an operation’s asynchronous invocation used to request the current state of the operation’s execution</param>
         /// <response code="200">Operation result object containing information that the &#x27;executionState&#x27; is still &#x27;Running&#x27;</response>
         /// <response code="302">The target resource is available but at a different location.</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
@@ -665,8 +638,8 @@ namespace AdminShell
         /// <summary>
         /// Returns the Submodel
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
         /// <response code="200">Requested Submodel</response>
@@ -688,9 +661,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetSubmodelByIdAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]string level, [FromQuery]string extent)
         {
-            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
-
-            var output = _aasEnvService.GetSubmodelById(decodedSubmodelId, out _);
+            var output = _aasEnvService.GetSubmodelById(submodelIdentifier, out _);
 
             return new ObjectResult(output);
         }
@@ -698,8 +669,8 @@ namespace AdminShell
         /// <summary>
         /// Returns the Submodel&#x27;s metadata elements
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <response code="200">Requested Submodel</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
@@ -726,8 +697,8 @@ namespace AdminShell
         /// <summary>
         /// Returns the Submodel&#x27;s metadata elements
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <response code="200">Requested Submodel in Path notation</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
@@ -754,8 +725,8 @@ namespace AdminShell
         /// <summary>
         /// Returns the Submodel as a Reference
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <response code="200">Requested Submodel as a Reference</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
@@ -782,8 +753,8 @@ namespace AdminShell
         /// <summary>
         /// Returns the Submodel&#x27;s ValueOnly representation
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
         /// <response code="200">Requested Submodel</response>
@@ -811,8 +782,8 @@ namespace AdminShell
         /// <summary>
         /// Returns a specific submodel element from the Submodel at a specified path
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="limit">The maximum number of elements in the response array</param>
         /// <param name="cursor">A server-generated identifier retrieved from pagingMetadata that specifies from which position the result listing should continue</param>
@@ -837,10 +808,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetSubmodelElementByPathAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath, [FromQuery]int? limit, [FromQuery]string cursor, [FromQuery]string level, [FromQuery]string extent)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
-
-            var output = _aasEnvService.GetSubmodelElementByPath(decodedAasId, decodedSubmodelId, idShortPath);
+            var output = _aasEnvService.GetSubmodelElementByPath(aasIdentifier, submodelIdentifier, idShortPath);
 
             return new ObjectResult(output);
         }
@@ -848,8 +816,8 @@ namespace AdminShell
         /// <summary>
         /// Returns the metadata attributes if a specific submodel element from the Submodel at a specified path
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="limit">The maximum number of elements in the response array</param>
         /// <param name="cursor">A server-generated identifier retrieved from pagingMetadata that specifies from which position the result listing should continue</param>
@@ -879,8 +847,8 @@ namespace AdminShell
         /// <summary>
         /// Returns a specific submodel element from the Submodel at a specified path in the Path notation
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <response code="200">Requested submodel element in the Path notation</response>
@@ -908,8 +876,8 @@ namespace AdminShell
         /// <summary>
         /// Returns the Reference of a specific submodel element from the Submodel at a specified path
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <response code="200">Requested submodel element in its ValueOnly representation</response>
@@ -937,8 +905,8 @@ namespace AdminShell
         /// <summary>
         /// Returns a specific submodel element from the Submodel at a specified path in the ValueOnly representation
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="limit">The maximum number of elements in the response array</param>
         /// <param name="cursor">A server-generated identifier retrieved from pagingMetadata that specifies from which position the result listing should continue</param>
@@ -969,7 +937,7 @@ namespace AdminShell
         /// <summary>
         ///
         /// </summary>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
         /// <response code="200">The thumbnail of the Asset Information.</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
         /// <response code="401">Unauthorized, e.g. the server refused the authorization attempt.</response>
@@ -996,8 +964,8 @@ namespace AdminShell
         /// Synchronously invokes an Operation at a specified path
         /// </summary>
         /// <param name="body">Operation request object</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <response code="200">Operation result object</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
@@ -1025,8 +993,8 @@ namespace AdminShell
         /// Asynchronously invokes an Operation at a specified path
         /// </summary>
         /// <param name="body">Operation request object</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <response code="202">The server has accepted the request.</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
@@ -1053,8 +1021,8 @@ namespace AdminShell
         /// Asynchronously invokes an Operation at a specified path
         /// </summary>
         /// <param name="body">Operation request object</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <response code="202">The server has accepted the request.</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
@@ -1081,8 +1049,8 @@ namespace AdminShell
         /// Synchronously invokes an Operation at a specified path
         /// </summary>
         /// <param name="body">Operation request object</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <response code="200">Operation result object</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
@@ -1110,8 +1078,8 @@ namespace AdminShell
         /// Updates the Submodel
         /// </summary>
         /// <param name="body">Submodel object</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <response code="204">Submodel updated successfully</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
@@ -1138,8 +1106,8 @@ namespace AdminShell
         /// Updates the metadata attributes of the Submodel
         /// </summary>
         /// <param name="body">Submodel object</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <response code="204">Submodel updated successfully</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
@@ -1166,8 +1134,8 @@ namespace AdminShell
         /// Updates teh values of the Submodel
         /// </summary>
         /// <param name="body">Submodel object in the ValueOnly representation</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <response code="204">Submodel updated successfully</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
@@ -1194,8 +1162,8 @@ namespace AdminShell
         /// Updates an existing submodel element value at a specified path within submodel elements hierarchy
         /// </summary>
         /// <param name="body">The updated value of the submodel element</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <response code="204">Submodel element updated successfully</response>
@@ -1223,8 +1191,8 @@ namespace AdminShell
         /// Updates the metadata attributes of an existing submodel element value at a specified path within submodel elements hierarchy
         /// </summary>
         /// <param name="body">The updated metadata attributes of the submodel element</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <response code="204">Submodel element updated successfully</response>
@@ -1252,8 +1220,8 @@ namespace AdminShell
         /// Updates the value of an existing submodel element value at a specified path within submodel elements hierarchy
         /// </summary>
         /// <param name="body">The updated value of the submodel element</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <response code="204">Submodel element updated successfully</response>
@@ -1309,8 +1277,8 @@ namespace AdminShell
         /// Creates a new submodel element
         /// </summary>
         /// <param name="body">Requested submodel element</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <param name="extent">Determines to which extent the resource is being serialized</param>
         /// <response code="201">Submodel element created successfully</response>
@@ -1334,10 +1302,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PostSubmodelElementAasRepository([FromBody]SubmodelElement body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]string level, [FromQuery]string extent)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
-
-            var output = _aasEnvService.CreateSubmodelElement(body, decodedAasId, decodedSubmodelId);
+            var output = _aasEnvService.CreateSubmodelElement(body, aasIdentifier, submodelIdentifier);
 
             return CreatedAtAction(nameof(PostSubmodelElementAasRepository), output);
         }
@@ -1346,8 +1311,8 @@ namespace AdminShell
         /// Creates a new submodel element at a specified path within submodel elements hierarchy
         /// </summary>
         /// <param name="body">Requested submodel element</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <response code="201">Submodel element created successfully</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
@@ -1370,10 +1335,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PostSubmodelElementByPathAasRepository([FromBody]SubmodelElement body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
-
-            var output = _aasEnvService.CreateSubmodelElementByPath(body, decodedAasId, decodedSubmodelId, idShortPath);
+            var output = _aasEnvService.CreateSubmodelElementByPath(body, aasIdentifier, submodelIdentifier, idShortPath);
 
             return CreatedAtAction(nameof(PostSubmodelElementByPathAasRepository), output);
         }
@@ -1382,7 +1344,7 @@ namespace AdminShell
         /// Creates a submodel reference at the Asset Administration Shell
         /// </summary>
         /// <param name="body">Reference to the Submodel</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
         /// <response code="201">Submodel reference created successfully</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
         /// <response code="401">Unauthorized, e.g. the server refused the authorization attempt.</response>
@@ -1404,9 +1366,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PostSubmodelReferenceAasRepository([FromBody]Reference body, [FromRoute][Required]string aasIdentifier)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-
-            var output = _aasEnvService.CreateSubmodelReference(body, decodedAasId);
+            var output = _aasEnvService.CreateSubmodelReference(body, aasIdentifier);
 
             return CreatedAtAction(nameof(PostSubmodelReferenceAasRepository), output);
         }
@@ -1415,7 +1375,7 @@ namespace AdminShell
         /// Updates an existing Asset Administration Shell
         /// </summary>
         /// <param name="body">Asset Administration Shell object</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
         /// <response code="204">Asset Administration Shell updated successfully</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
         /// <response code="401">Unauthorized, e.g. the server refused the authorization attempt.</response>
@@ -1434,9 +1394,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PutAssetAdministrationShellById([FromBody]AssetAdministrationShell body, [FromRoute][Required]string aasIdentifier)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-
-            _aasEnvService.UpdateAssetAdministrationShellById(body, decodedAasId);
+            _aasEnvService.UpdateAssetAdministrationShellById(body, aasIdentifier);
 
             return NoContent();
         }
@@ -1445,7 +1403,7 @@ namespace AdminShell
         /// Updates the Asset Information
         /// </summary>
         /// <param name="body">Asset Information object</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
         /// <response code="204">Asset Information updated successfully</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
         /// <response code="401">Unauthorized, e.g. the server refused the authorization attempt.</response>
@@ -1464,9 +1422,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PutAssetInformationAasRepository([FromBody]AssetInformation body, [FromRoute][Required]string aasIdentifier)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-
-            _aasEnvService.UpdateAssetInformation(body, decodedAasId);
+            _aasEnvService.UpdateAssetInformation(body, aasIdentifier);
 
             return NoContent();
         }
@@ -1476,8 +1432,8 @@ namespace AdminShell
         /// Updates the Submodel
         /// </summary>
         /// <param name="body">Submodel object</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="level">Determines the structural depth of the respective resource content</param>
         /// <response code="204">Submodel updated successfully</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
@@ -1497,10 +1453,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PutSubmodelByIdAasRepository([FromBody]Submodel body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]string level)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
-
-            _aasEnvService.UpdateSubmodel(body, decodedAasId, decodedSubmodelId);
+            _aasEnvService.UpdateSubmodel(body, aasIdentifier, submodelIdentifier);
 
             return NoContent();
         }
@@ -1509,8 +1462,8 @@ namespace AdminShell
         /// Updates an existing submodel element at a specified path within submodel elements hierarchy
         /// </summary>
         /// <param name="body">Requested submodel element</param>
-        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
-        /// <param name="submodelIdentifier">The Submodel’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
         /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
         /// <response code="204">Submodel element updated successfully</response>
         /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
@@ -1530,10 +1483,37 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PutSubmodelElementByPathAasRepository([FromBody]SubmodelElement body, [FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath)
         {
-            var decodedAasId = Encoding.UTF8.GetString(Convert.FromBase64String(aasIdentifier));
-            var decodedSubmodelId = Encoding.UTF8.GetString(Convert.FromBase64String(submodelIdentifier));
+            _aasEnvService.UpdateSubmodelElementByPath(body, aasIdentifier, submodelIdentifier, idShortPath);
 
-            _aasEnvService.UpdateSubmodelElementByPath(body, decodedAasId, decodedSubmodelId, idShortPath);
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Updates an existing submodel element at a specified path within submodel elements hierarchy
+        /// </summary>
+        /// <param name="body">Requested submodel element</param>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id </param>
+        /// <param name="submodelIdentifier">The Submodel’s unique id</param>
+        /// <param name="idShortPath">IdShort path to the submodel element (dot-separated)</param>
+        /// <response code="204">Submodel element updated successfully</response>
+        /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
+        /// <response code="401">Unauthorized, e.g. the server refused the authorization attempt.</response>
+        /// <response code="403">Forbidden</response>
+        /// <response code="404">Not Found</response>
+        /// <response code="500">Internal Server Error</response>
+        /// <response code="0">Default error handling for unmentioned status codes</response>
+        [HttpPut]
+        [Route("/shells/{aasIdentifier}/submodels/{submodelIdentifier}/file-submodel-elements/{idShortPath}")]
+        [SwaggerOperation("PutFileSubmodelElementByPathAasRepository")]
+        [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request, e.g. the request parameters of the format of the request body is wrong.")]
+        [SwaggerResponse(statusCode: 401, type: typeof(Result), description: "Unauthorized, e.g. the server refused the authorization attempt.")]
+        [SwaggerResponse(statusCode: 403, type: typeof(Result), description: "Forbidden")]
+        [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
+        [SwaggerResponse(statusCode: 500, type: typeof(Result), description: "Internal Server Error")]
+        [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
+        public virtual IActionResult PutFileSubmodelElementByPathAasRepository([FromBody] Stream fileContent, [FromQuery][Required] string filename, [FromRoute][Required] string aasIdentifier, [FromRoute][Required] string submodelIdentifier, [FromRoute][Required] string idShortPath)
+        {
+            _aasEnvService.UpdateFileByPath(aasIdentifier, submodelIdentifier, idShortPath, filename, "application/octet-stream", fileContent);
 
             return NoContent();
         }

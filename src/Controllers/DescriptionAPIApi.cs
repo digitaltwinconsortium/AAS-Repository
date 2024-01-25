@@ -27,9 +27,7 @@ namespace AdminShell
                 {
                     ServiceDescription.ProfilesEnum.AasxFileServerServiceSpecificationV30Enum,
                     ServiceDescription.ProfilesEnum.AssetAdministrationShellRepositoryServiceSpecificationV30Enum,
-                    ServiceDescription.ProfilesEnum.RepositoryServiceSpecificationV30Enum,
-                    ServiceDescription.ProfilesEnum.SubmodelRepositoryServiceSpecificationV30Enum,
-                    ServiceDescription.ProfilesEnum.SubmodelServiceSpecificationV30Enum
+                    ServiceDescription.ProfilesEnum.RepositoryServiceSpecificationV30Enum
                 }
             });
         }
