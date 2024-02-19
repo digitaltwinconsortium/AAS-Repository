@@ -10,6 +10,7 @@ namespace AdminShell
     using System.ComponentModel.DataAnnotations;
     using System.IO;
     using System.Net.Mime;
+    using System.Web;
 
     [ApiController]
     public class AssetAdministrationShellRepositoryAPIApiController : ControllerBase
@@ -1513,7 +1514,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult PutFileSubmodelElementByPathAasRepository([FromBody] Stream fileContent, [FromQuery][Required] string filename, [FromRoute][Required] string aasIdentifier, [FromRoute][Required] string submodelIdentifier, [FromRoute][Required] string idShortPath)
         {
-            _aasEnvService.UpdateFileByPath(aasIdentifier, submodelIdentifier, idShortPath, filename, "application/octet-stream", fileContent);
+            _aasEnvService.UpdateFileByPath(HttpUtility.UrlDecode(aasIdentifier), HttpUtility.UrlDecode(submodelIdentifier), HttpUtility.UrlDecode(idShortPath), filename, "application/octet-stream", fileContent);
 
             return NoContent();
         }
