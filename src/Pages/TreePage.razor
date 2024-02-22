@@ -186,15 +186,15 @@
         if (o is AssetAdministrationShell)
         {
             var aas = o as AssetAdministrationShell;
-            byte[] conents = null;
+            byte[] contents = null;
             try
             {
-                conents = _packageService.GetThumbnailFromPackage(item.EnvKey);
+                contents = _packageService.GetThumbnailFromPackage(item.EnvKey, out string filename);
             }
             catch { }
-            if (conents != null)
+            if (contents != null)
             {
-                return System.Convert.ToBase64String(conents);
+                return System.Convert.ToBase64String(contents);
             }
         }
 

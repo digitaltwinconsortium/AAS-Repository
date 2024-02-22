@@ -88,7 +88,7 @@ namespace AdminShell
             Stream stream = _packageService.GetPackageStream(packageIDDecoded);
             if (stream != null)
             {
-                string fileName = _packageService.GetAASXFileName(packageIDDecoded);
+                string fileName = _packageService.GetAASXFileNameFromKey(packageIDDecoded);
 
                 // content-disposition is used to downloaded AASX files from the web browser
                 ContentDisposition contentDisposition = new()

@@ -353,7 +353,7 @@ namespace AdminShell
             }
         }
 
-        public byte[] GetThumbnailFromPackage(string key)
+        public byte[] GetThumbnailFromPackage(string key, out string filename)
         {
             Package package = Package.Open(GetPackageStream(key), FileMode.Open, FileAccess.Read);
 
@@ -372,11 +372,13 @@ namespace AdminShell
 
             if (thumbPart == null)
             {
+                filename = string.Empty;
                 return null;
             }
 
             using (MemoryStream partStream = new())
             {
+                filename = thumbPart.Uri.ToString().TrimStart('/');
                 thumbPart.GetStream(FileMode.Open).CopyToAsync(partStream).GetAwaiter().GetResult();
                 package.Close();
 
@@ -391,9 +393,25 @@ namespace AdminShell
             _storage.DeleteFileAsync(filename).GetAwaiter().GetResult();
         }
 
-        public string GetAASXFileName(string key)
+        public string GetAASXFileNameFromKey(string key)
         {
             return Path.GetFileNameWithoutExtension(key);
+        }
+
+        public string GetAASXFileNameFromAASIndentifier(string indentifier)
+        {
+            foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> packageEntry in Packages)
+            {
+                foreach(AssetAdministrationShell aas in packageEntry.Value.AssetAdministrationShells)
+                {
+                    if (aas.Identification.Id == indentifier)
+                    {
+                        return packageEntry.Key;
+                    }
+                }
+            }
+
+            return string.Empty;
         }
 
         public void Save(string filename, byte[] fileContent)

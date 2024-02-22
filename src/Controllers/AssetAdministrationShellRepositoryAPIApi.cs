@@ -16,10 +16,12 @@ namespace AdminShell
     public class AssetAdministrationShellRepositoryAPIApiController : ControllerBase
     {
         private readonly AssetAdministrationShellEnvironmentService _aasEnvService;
+        private readonly AASXPackageService _packageService;
 
-        public AssetAdministrationShellRepositoryAPIApiController(AssetAdministrationShellEnvironmentService aasEnvService)
+        public AssetAdministrationShellRepositoryAPIApiController(AssetAdministrationShellEnvironmentService aasEnvService, AASXPackageService packageService)
         {
             _aasEnvService = aasEnvService;
+            _packageService = packageService;
         }
 
         /// <summary>
@@ -958,7 +960,8 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetThumbnailAasRepository([FromRoute][Required]string aasIdentifier)
         {
-            throw new NotImplementedException();
+            byte[] content = _packageService.GetThumbnailFromPackage(_packageService.GetAASXFileNameFromAASIndentifier(HttpUtility.UrlDecode(aasIdentifier)), out string filename);
+            return File(content, "APPLICATION/octet-stream", filename);
         }
 
         /// <summary>
