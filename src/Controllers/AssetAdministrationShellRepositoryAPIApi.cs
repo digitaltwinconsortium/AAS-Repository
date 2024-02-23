@@ -270,7 +270,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllSubmodelElementsAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromQuery]int? limit, [FromQuery]string cursor, [FromQuery]string level, [FromQuery]string extent)
         {
-            var output = _aasEnvService.GetAllSubmodelElements(aasIdentifier, submodelIdentifier);
+            var output = _aasEnvService.GetAllSubmodelElements(HttpUtility.UrlDecode(aasIdentifier), HttpUtility.UrlDecode(submodelIdentifier));
 
             return new ObjectResult(output);
         }
@@ -533,7 +533,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetFileByPathAasRepository([FromRoute][Required]string aasIdentifier, [FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath)
         {
-            var fileName = _aasEnvService.GetFileByPath(aasIdentifier, submodelIdentifier, idShortPath, out byte[] content, out long fileSize);
+            var fileName = _aasEnvService.GetFileByPath(HttpUtility.UrlDecode(aasIdentifier), HttpUtility.UrlDecode(submodelIdentifier), HttpUtility.UrlDecode(idShortPath), out byte[] content, out long fileSize);
 
             //content-disposition so that the aasx file can be doenloaded from the web browser.
             ContentDisposition contentDisposition = new()
@@ -545,7 +545,7 @@ namespace AdminShell
             HttpContext.Response.ContentLength = fileSize;
             HttpContext.Response.Body.WriteAsync(content);
 
-            return new EmptyResult();
+            return File(content, "APPLICATION/octet-stream", fileName);
         }
 
         /// <summary>

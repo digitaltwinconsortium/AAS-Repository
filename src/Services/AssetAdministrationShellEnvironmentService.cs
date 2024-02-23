@@ -1172,7 +1172,8 @@ namespace AdminShell
                 if (fileElement is File file)
                 {
                     fileName = file.Value;
-                    fileSize = _packageService.GetPackageStream(fileName).Length;
+                    byteArray = _packageService.GetFileContentsFromPackagePart(key, fileName);
+                    fileSize = byteArray.Length;
                 }
                 else
                 {
