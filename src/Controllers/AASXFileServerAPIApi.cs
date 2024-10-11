@@ -2,6 +2,7 @@
 namespace AdminShell
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Primitives;
     using Newtonsoft.Json;
     using Swashbuckle.AspNetCore.Annotations;
     using System;
@@ -96,8 +97,8 @@ namespace AdminShell
                     FileName = fileName
                 };
 
-                HttpContext.Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
-                HttpContext.Response.Headers.Add("X-FileName", fileName);
+                HttpContext.Response.Headers.Append(new KeyValuePair<string, StringValues>("Content-Disposition", contentDisposition.ToString()));
+                HttpContext.Response.Headers.Append(new KeyValuePair<string, StringValues>("X-FileName", fileName));
                 HttpContext.Response.ContentLength = stream.Length;
                 HttpContext.Response.Body = stream;
 

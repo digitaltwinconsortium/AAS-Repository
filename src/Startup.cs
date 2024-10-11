@@ -102,17 +102,7 @@
             });
 
             // Setup file storage
-            switch (Configuration["HostingPlatform"])
-            {
-                case "Azure": services.AddSingleton<IFileStorage, AzureFileStorage>(); break;
-                default:
-                {
-                    services.AddSingleton<IFileStorage, LocalFileStorage>();
-                    Console.WriteLine("WARNING: Using local filesystem for storage as HostingPlatform environment variable not specified or invalid!");
-                    break;
-                }
-            }
-
+            services.AddSingleton<IFileStorage, LocalFileStorage>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

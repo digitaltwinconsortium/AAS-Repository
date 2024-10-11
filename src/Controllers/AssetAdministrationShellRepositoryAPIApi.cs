@@ -3,6 +3,7 @@ namespace AdminShell
 {
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Primitives;
     using Newtonsoft.Json;
     using Swashbuckle.AspNetCore.Annotations;
     using System;
@@ -541,7 +542,7 @@ namespace AdminShell
                 FileName = fileName
             };
 
-            HttpContext.Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
+            HttpContext.Response.Headers.Append("Content-Disposition", contentDisposition.ToString());
             HttpContext.Response.ContentLength = fileSize;
             HttpContext.Response.Body.WriteAsync(content);
 
