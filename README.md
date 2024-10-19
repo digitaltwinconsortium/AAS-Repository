@@ -22,6 +22,7 @@ IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Ne
 1. Local storage of AASX package files (in the server's root directory)
 1. Cloud storage of AASX package files
 1. CESMII Smart Manufacturing Innovation Plattform (SMIP) imtegration
+1. Loading AAS json/xml into OPC UA server using I4AAS mapping
 
 
 # Calculating the Product Carbon Footprint (PCF)
