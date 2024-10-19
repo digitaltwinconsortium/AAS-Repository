@@ -9,8 +9,11 @@ namespace AdminShell
     {
         protected override MasterNodeManager CreateMasterNodeManager(IServerInternal server, ApplicationConfiguration configuration)
         {
-            List<INodeManager> nodeManagers = new List<INodeManager>();
-            nodeManagers.Add(new SimpleNodeManager(server, configuration));
+            List<INodeManager> nodeManagers = new()
+            {
+                new NodesetFileNodeManager(server, configuration),
+                new I4AASNodeManager(server, configuration)
+            };
 
             return new MasterNodeManager(server, configuration, null, nodeManagers.ToArray());
         }

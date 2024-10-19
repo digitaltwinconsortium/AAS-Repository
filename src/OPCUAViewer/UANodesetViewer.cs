@@ -110,6 +110,22 @@ namespace AdminShell
             }
         }
 
+        public void StartServer(string key)
+        {
+            if (!_isRunning.ContainsKey(key))
+            {
+                _isRunning.Add(key, false);
+            }
+
+            if (!_isRunning[key])
+            {
+                // start the UA server
+                StartServerAsync(key).GetAwaiter().GetResult();
+
+                _isRunning[key] = true;
+            }
+        }
+
         private string ValidateNamespacesAndModels(bool autodownloadreferences)
         {
             // Collect all models as well as all required/referenced model namespace URIs listed in each file

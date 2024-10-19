@@ -312,6 +312,30 @@ namespace AdminShell
             return treeNodeDataList;
         }
 
+        public List<TreeNode> CreateViewFromPackage(string key)
+        {
+            try
+            {
+                _viewer.StartServer(key);
+
+                NodesetViewerNode rootNode = _viewer.GetRootNode(key).GetAwaiter().GetResult();
+                if (rootNode != null && rootNode.Children)
+                {
+                    return CreateViewFromUANode(key, rootNode);
+                }
+                else
+                {
+                    return new List<TreeNode>();
+                }
+            }
+            catch (Exception ex)
+            {
+                // ignore this part of the AAS
+                _logger.LogError(ex, ex.Message);
+                return new List<TreeNode>();
+            }
+        }
+
         public List<TreeNode> CreateViewFromUANodesetFile(string key)
         {
             try
