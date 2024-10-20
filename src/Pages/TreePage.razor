@@ -94,11 +94,61 @@
     {
         if (node.Children == null)
         {
-            if (node.Type == "Package")
+            if (node.Tag is AssetAdministrationShellEnvironment)
             {
-                CreateViewFromPackageLegacy(node);
-                node.Children = _treeBuilder.CreateViewFromPackage(node.EnvKey);
+                AssetAdministrationShellEnvironment aasEnv = node.Tag as AssetAdministrationShellEnvironment;
+
+                List<TreeNode> allChildren = new();
+                allChildren.AddRange(_treeBuilder.CreateViewFromAASEnv(node.EnvKey, aasEnv));
+                allChildren.AddRange(_treeBuilder.CreateViewFromPackage(node.EnvKey));
+                node.Children = allChildren;
+
                 return Task.CompletedTask;
+            }
+
+            if (node.Tag is SubmodelElementCollection)
+            {
+                SubmodelElementCollection submodelElementCollection = node.Tag as SubmodelElementCollection;
+                node.Children = _treeBuilder.CreateViewFromAASSMECollection(node.EnvKey, submodelElementCollection);
+                return Task.CompletedTask;
+            }
+
+            if (node.Tag is Operation)
+            {
+                Operation operation = node.Tag as Operation;
+                node.Children = _treeBuilder.CreateViewFromAASOperation(node.EnvKey, operation);
+                return Task.CompletedTask;
+            }
+
+            if (node.Tag is Entity)
+            {
+                Entity entity = node.Tag as Entity;
+                node.Children = _treeBuilder.CreateViewFromAASEntity(node.EnvKey, entity);
+                return Task.CompletedTask;
+            }
+
+            if (node.Tag is Submodel)
+            {
+                Submodel submodel = node.Tag as Submodel;
+                node.Children = _treeBuilder.CreateViewFromAASSubModel(node.EnvKey, submodel);
+                return Task.CompletedTask;
+            }
+
+            if (node.Tag is SubmodelElementWrapper)
+            {
+                SubmodelElementWrapper smew = node.Tag as SubmodelElementWrapper;
+
+                if (smew.SubmodelElement.IdShort == "NODESET2_XML" && Uri.IsWellFormedUriString(((File)smew.SubmodelElement).Value, UriKind.Absolute))
+                {
+                    node.Children = _treeBuilder.CreateViewFromUACloudLibNodeset(node.EnvKey, new Uri(((File)smew.SubmodelElement).Value));
+                    return Task.CompletedTask;
+                }
+
+                if (smew.SubmodelElement.IdShort == "CAEX")
+                {
+                    node.Children = _treeBuilder.CreateViewFromAMLCAEXFile(node.EnvKey, ((File)smew.SubmodelElement).Value);
+                    return Task.CompletedTask;
+                }
             }
 
             if (node.Type == "UANodeSet")
@@ -115,63 +165,6 @@
 
             // default is to create an empty list
             node.Children = new List<TreeNode>();
-        }
-
-        return Task.CompletedTask;
-    }
-
-    private Task CreateViewFromPackageLegacy(TreeNode node)
-    {
-        if (node.Tag is AssetAdministrationShellEnvironment)
-        {
-            AssetAdministrationShellEnvironment aasEnv = node.Tag as AssetAdministrationShellEnvironment;
-            node.Children = _treeBuilder.CreateViewFromAASEnv(node.EnvKey, aasEnv);
-            return Task.CompletedTask;
-        }
-
-        if (node.Tag is SubmodelElementCollection)
-        {
-            SubmodelElementCollection submodelElementCollection = node.Tag as SubmodelElementCollection;
-            node.Children = _treeBuilder.CreateViewFromAASSMECollection(node.EnvKey, submodelElementCollection);
-            return Task.CompletedTask;
-        }
-
-        if (node.Tag is Operation)
-        {
-            Operation operation = node.Tag as Operation;
-            node.Children = _treeBuilder.CreateViewFromAASOperation(node.EnvKey, operation);
-            return Task.CompletedTask;
-        }
-
-        if (node.Tag is Entity)
-        {
-            Entity entity = node.Tag as Entity;
-            node.Children = _treeBuilder.CreateViewFromAASEntity(node.EnvKey, entity);
-            return Task.CompletedTask;
-        }
-
-        if (node.Tag is Submodel)
-        {
-            Submodel submodel = node.Tag as Submodel;
-            node.Children = _treeBuilder.CreateViewFromAASSubModel(node.EnvKey, submodel);
-            return Task.CompletedTask;
-        }
-
-        if (node.Tag is SubmodelElementWrapper)
-        {
-            SubmodelElementWrapper smew = node.Tag as SubmodelElementWrapper;
-
-            if (smew.SubmodelElement.IdShort == "NODESET2_XML" && Uri.IsWellFormedUriString(((File)smew.SubmodelElement).Value, UriKind.Absolute))
-            {
-                node.Children = _treeBuilder.CreateViewFromUACloudLibNodeset(node.EnvKey, new Uri(((File)smew.SubmodelElement).Value));
-                return Task.CompletedTask;
-            }
-
-            if (smew.SubmodelElement.IdShort == "CAEX")
-            {
-                node.Children = _treeBuilder.CreateViewFromAMLCAEXFile(node.EnvKey, ((File)smew.SubmodelElement).Value);
-                return Task.CompletedTask;
-            }
         }
 
         return Task.CompletedTask;
