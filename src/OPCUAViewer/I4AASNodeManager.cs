@@ -32,27 +32,6 @@ namespace AdminShell
             }
         }
         
-        public class NodeLateAction
-        {
-            public NodeState UANode = null;
-        }
-        
-        public class NodeLateActionLinkToReference : NodeLateAction
-        {
-            public enum ActionType { None, SetAasReference, SetDictionaryEntry }
-
-            public Reference _targetReference = null;
-            public ActionType _actionType = ActionType.None;
-
-            public NodeLateActionLinkToReference(NodeState uanode, Reference targetReference,
-                ActionType actionType)
-            {
-                UANode = uanode;
-                _targetReference = targetReference;
-                _actionType = actionType;
-            }
-        }
-
         public class AasReference : IReference
         {
             private NodeId _referenceTypeId = null;
@@ -141,8 +120,6 @@ namespace AdminShell
         private Dictionary<Referable, NodeRecord> _nodeRecordFromReferable = new();
         private Dictionary<string, NodeRecord> _nodeRecordFromIdentificationHash = new();
 
-        private List<NodeLateAction> _noteLateActions = new List<NodeLateAction>();
-
         public I4AASNodeManager(IServerInternal server, ApplicationConfiguration configuration)
         : base(server, configuration)
         {
@@ -187,21 +164,26 @@ namespace AdminShell
         {
             lock (Lock)
             {
+                IList<IReference> objectsFolderReferences = null;
+                if (!externalReferences.TryGetValue(ObjectIds.ObjectsFolder, out objectsFolderReferences))
+                {
+                    externalReferences[ObjectIds.ObjectsFolder] = objectsFolderReferences = new List<IReference>();
+                }
+
                 AddNodesFromNodesetXml("./NodeSets/I4AAS.NodeSet2.xml");
 
-                _rootAAS = CreateAddFolder(null, "AASROOT");
+                _rootAAS = CreateFolder(null, "AASROOT");
+                objectsFolderReferences.Add(new NodeStateReference(ReferenceTypes.Organizes, false, _rootAAS.NodeId));
 
-                NodeState dictionaryFolderType = FindPredefinedNode(new NodeId(c_dictionaryFolderTypeNodeId, _namespaceIndex), typeof(NodeState));
-
-                _rootConceptDescriptions = CreateObjectType(
-                    dictionaryFolderType,
-                    "ConceptDescriptions",
+                _rootConceptDescriptions = CreateObject(
+                    _rootAAS,
+                    "Concept Descriptions",
                     ReferenceTypeIds.HasComponent,
                     c_dictionaryFolderTypeNodeId);
 
-                _rootMissingDictionaryEntries = CreateObjectType(
-                    dictionaryFolderType,
-                    "DictionaryEntries",
+                _rootMissingDictionaryEntries = CreateObject(
+                    _rootAAS,
+                    "Dictionary Entries",
                     ReferenceTypeIds.HasComponent,
                     c_dictionaryFolderTypeNodeId);
 
@@ -213,10 +195,9 @@ namespace AdminShell
                 try
                 {
                     NodeStateCollection nodesToExport = new();
-
-                    // apply filter criteria
                     foreach (NodeState node in PredefinedNodes.Values)
                     {
+                        // only export nodes belonging to the I4AAS namespace
                         if (node.NodeId.NamespaceIndex != _namespaceIndex)
                         {
                             continue;
@@ -225,20 +206,12 @@ namespace AdminShell
                         nodesToExport.Add(node);
                     }
 
-                    // export
+                    // export nodeset XML
                     Utils.Trace("Writing export file: " + c_exportFilename);
-                    var stream = new StreamWriter(c_exportFilename);
-
-                    SaveNodestateCollectionAsNodeSet2(SystemContext, nodesToExport, stream.BaseStream, false);
-
-                    try
+                    using (var stream = new StreamWriter(c_exportFilename))
                     {
-                        stream.Close();
-                    }
-                    catch (Exception)
-                    {
-                        // do nothing
-                    }
+                        SaveNodestateCollectionAsNodeSet2(SystemContext, nodesToExport, stream.BaseStream, false);
+                    }   
                 }
                 catch (Exception ex)
                 {
@@ -310,11 +283,6 @@ namespace AdminShell
             }
 
             return _nodeRecordFromIdentificationHash[hash];
-        }
-
-        public void AddNodeLateAction(NodeLateAction la)
-        {
-            _noteLateActions.Add(la);
         }
 
         public static Referable FindReferableByReference(AssetAdministrationShellEnvironment environment, Reference reference, int keyIndex = 0)
@@ -411,7 +379,7 @@ namespace AdminShell
             {
                 foreach (ConceptDescription cd in env.ConceptDescriptions)
                 {
-                    CreateProperty<string>(_rootConceptDescriptions, cd.Identification, c_conceptDescriptionNodeId, (cd.Description.Count > 0)? cd.Description[0]?.Text : string.Empty);
+                    CreateVariable<string>(_rootConceptDescriptions, cd.Identification.Id, c_conceptDescriptionNodeId, (cd.Description.Count > 0)? cd.Description[0]?.Text : string.Empty);
                 }
             }
 
@@ -420,92 +388,6 @@ namespace AdminShell
                 foreach (var aas in env.AssetAdministrationShells)
                 {
                     CreateObject(_rootAAS, env, aas);
-                }
-            }
-
-            foreach (var la in _noteLateActions)
-            {
-                var lax = la as NodeLateActionLinkToReference;
-
-                if ((lax != null)
-                 && (lax._actionType == NodeLateActionLinkToReference.ActionType.SetAasReference)
-                 && (lax.UANode != null))
-                {
-                    var targetReferable = FindReferableByReference(env, lax._targetReference);
-                    if (targetReferable == null)
-                    {
-                        continue;
-                    }
-
-                    var targetNodeRec = LookupNodeRecordFromReferable(targetReferable);
-                    if (targetNodeRec == null || targetNodeRec._uanode == null)
-                    {
-                        continue;
-                    }
-
-                    if (!lax.UANode.ReferenceExists(c_hasAasReferenceNodeId, false, targetNodeRec._uanode.NodeId))
-                    {
-                        lax.UANode.AddReference(c_hasAasReferenceNodeId, false, targetNodeRec._uanode.NodeId);
-                    }
-                }
-
-                if ((lax != null)
-                 && (lax._actionType == NodeLateActionLinkToReference.ActionType.SetDictionaryEntry)
-                 && (lax.UANode != null))
-                {
-                    var foundAtAll = false;
-
-                    var targetReferable = FindReferableByReference(env, lax._targetReference);
-                    if (targetReferable != null)
-                    {
-                        var targetNodeRec = LookupNodeRecordFromReferable(targetReferable);
-                        if (targetNodeRec != null && targetNodeRec._uanode != null)
-                        {
-                            if (lax.UANode.ReferenceExists(c_hasDictionaryEntryNodeId, false, targetNodeRec._uanode.NodeId))
-                            {
-                                lax.UANode.AddReference(c_hasDictionaryEntryNodeId, false, targetNodeRec._uanode.NodeId);
-                            }
-
-                            foundAtAll = true;
-                        }
-                    }
-
-                    if (!foundAtAll && lax._targetReference.Keys.Count == 1)
-                    {
-                        var targetId = lax._targetReference.Keys[0].Value;
-
-                        var nr = LookupNodeRecordFromIdentification(targetId);
-                        if (nr != null)
-                        {
-                            if (!lax.UANode.ReferenceExists(c_hasDictionaryEntryNodeId, false, nr._uanode?.NodeId))
-                            {
-                                lax.UANode.AddReference(c_hasDictionaryEntryNodeId, false, nr._uanode?.NodeId);
-                            }
-                        }
-                        else
-                        {
-                            if (_rootMissingDictionaryEntries != null)
-                            {
-                                var miss = CreateObjectType(
-                                    _rootMissingDictionaryEntries,
-                                    targetId,
-                                    ReferenceTypeIds.HasComponent,
-                                    c_conceptDescriptionNodeId);
-
-                                if (lax.UANode.ReferenceExists(c_hasDictionaryEntryNodeId, false, miss?.NodeId))
-                                {
-                                    lax.UANode.AddReference(c_hasDictionaryEntryNodeId, false, miss?.NodeId);
-                                }
-
-                                AddNodeRecord(new NodeRecord(miss, targetId));
-                            }
-                            else
-                            {
-                                var missingTarget = new ExpandedNodeId(targetId, 99);
-                                lax.UANode.AddReference(c_hasDictionaryEntryNodeId, false, missingTarget);
-                            }
-                        }
-                    }
                 }
             }
         }
@@ -525,34 +407,34 @@ namespace AdminShell
                 browseName = aas.IdShort;
             }
 
-            var o = CreateObjectType(parent, browseName, ReferenceTypeIds.HasComponent, c_administrationNodeId, extraName);
+            var o = CreateObject(parent, browseName, ReferenceTypeIds.HasComponent, c_administrationNodeId, extraName);
 
             AddNodeRecord(new NodeRecord(o, aas));
 
-            CreateProperty<string>(o, "Referable", c_referableTypeNodeId, aas.Identification.Value);
-            CreateProperty<string>(o, "Identification", c_identifiableTypeNodeId, aas.Id);
-            CreateProperty<string>(o, "Administration", c_administrationNodeId, aas.Administration?.ToString());
+            CreateVariable<string>(o, "Referable", c_referableTypeNodeId, aas.Identification.Value);
+            CreateVariable<string>(o, "Identification", c_identifiableTypeNodeId, aas.Id);
+            CreateVariable<string>(o, "Administration", c_administrationNodeId, aas.Administration?.ToString());
 
             if (aas.EmbeddedDataSpecifications != null && aas.EmbeddedDataSpecifications != null)
             {
                 foreach (var ds in aas.EmbeddedDataSpecifications)
                 {
-                    CreateProperty<string>(o, "DataSpecification", c_dataSpecificationNodeId, ds.DataSpecification.ToString());
+                    CreateVariable<string>(o, "DataSpecification", c_dataSpecificationNodeId, ds.DataSpecification.ToString());
                 }
             }
 
-            CreateProperty<string>(o, "DerivedFrom", c_referenceNodeId, aas.DerivedFrom.ToString());
+            CreateVariable<string>(o, "DerivedFrom", c_referenceNodeId, aas.DerivedFrom.ToString());
 
             if (aas.AssetInformation != null)
             {
-                CreateProperty<string>(o, "Asset", c_assetNodeId, aas.AssetInformation.ToString());
+                CreateVariable<string>(o, "Asset", c_assetNodeId, aas.AssetInformation.ToString());
             }
 
             if (aas.Submodels != null && aas.Submodels.Count > 0)
             {
                 foreach (var smr in aas.Submodels)
                 {
-                    CreateProperty<string>(o, "Submodel", c_submodelNodeId, smr.ToString());
+                    CreateVariable<string>(o, "Submodel", c_submodelNodeId, smr.ToString());
                 }
             }
 
@@ -596,7 +478,7 @@ namespace AdminShell
             }
         }
 
-        public FolderState CreateAddFolder(NodeState parent, string browseDisplayName)
+        public FolderState CreateFolder(NodeState parent, string browseDisplayName)
         {
             FolderState x = new(parent)
             {
@@ -632,7 +514,7 @@ namespace AdminShell
             return x;
         }
 
-        public BaseObjectState CreateObjectType(
+        public BaseObjectState CreateObject(
             NodeState parent,
             string browseDisplayName,
             NodeId referenceTypeFromParentId = null,
@@ -689,7 +571,7 @@ namespace AdminShell
             return x;
         }
 
-        public PropertyState<T> CreateProperty<T>(
+        public BaseDataVariableState<T> CreateVariable<T>(
             NodeState parent,
             string browseDisplayName,
             NodeId dataTypeId,
@@ -709,7 +591,7 @@ namespace AdminShell
                 }
             }
 
-            PropertyState<T> x = new(parent)
+            BaseDataVariableState<T> x = new(parent)
             {
                 BrowseName = browseDisplayName,
                 DisplayName = browseDisplayName,
@@ -764,97 +646,6 @@ namespace AdminShell
             return x;
         }
 
-        public MethodState CreateMethod(
-            NodeState parent,
-            string browseDisplayName,
-            Argument[] inputArgs = null,
-            Argument[] outputArgs = null,
-            NodeId referenceTypeFromParentId = null,
-            NodeId methodDeclarationId = null, GenericMethodCalledEventHandler onCalled = null)
-        {
-            // method node
-            MethodState m = new(parent)
-            {
-                BrowseName = browseDisplayName,
-                DisplayName = browseDisplayName,
-                Description = new Opc.Ua.LocalizedText("en", browseDisplayName),
-                NodeId = new NodeId(browseDisplayName, _namespaceIndex)
-            };
-
-            if (methodDeclarationId != null)
-            {
-                m.MethodDeclarationId = methodDeclarationId;
-            }
-
-            m.Executable = true;
-            m.UserExecutable = true;
-
-            AddPredefinedNode(SystemContext, m);
-
-            if (parent != null)
-            {
-                parent.AddChild(m);
-            }
-
-            if (referenceTypeFromParentId != null)
-            {
-                if (parent != null)
-                {
-                    parent.AddReference(referenceTypeFromParentId, false, m.NodeId);
-
-                    if (referenceTypeFromParentId == ReferenceTypeIds.HasComponent)
-                    {
-                        m.AddReference(referenceTypeFromParentId, true, parent.NodeId);
-                    }
-
-                    if (referenceTypeFromParentId == ReferenceTypeIds.HasProperty)
-                    {
-                        m.AddReference(referenceTypeFromParentId, true, parent.NodeId);
-                    }
-                }
-            }
-
-            // can have inputs, outputs
-            for (int i = 0; i < 2; i++)
-            {
-                // pretty argument list
-                var arguments = (i == 0) ? inputArgs : outputArgs;
-                if (arguments == null || arguments.Length < 1)
-                {
-                    continue;
-                }
-
-                // make a property for this
-                var prop = CreateProperty<Argument[]>(
-                    m,
-                    (i == 0) ? "InputArguments" : "OutputArguments",
-                    DataTypeIds.Argument,
-                    arguments,
-                    ReferenceTypeIds.HasProperty,
-                    VariableTypeIds.PropertyType,
-                    valueRank: 1);
-
-                // explicitely add arguments ass well?
-                if (i == 0)
-                {
-                    m.InputArguments = prop;
-                }
-
-                if (i == 1)
-                {
-                    m.OutputArguments = prop;
-                }
-            }
-
-            // event handler
-            if (onCalled != null)
-            {
-                m.OnCallMethod = onCalled;
-            }
-
-            return m;
-        }
-        
         public DataTypeState CreateUaNodeForPathType(uint preferredTypeNumId = 0)
         {
             return CreateDataType("AASPathType", DataTypeIds.String);
@@ -862,21 +653,21 @@ namespace AdminShell
 
         public void CreateUaNodeForIdentification(uint preferredTypeNumId = 0)
         {
-            NodeState node = CreateObjectType(null, "AASIdentifierType", ObjectTypeIds.BaseObjectType, preferredTypeNumId, "AAS:Identifier");
+            NodeState node = CreateObject(null, "AASIdentifierType", ObjectTypeIds.BaseObjectType, preferredTypeNumId, "AAS:Identifier");
 
-            CreateProperty<string>(node, "IdType", DataTypeIds.String, null);
+            CreateVariable<string>(node, "IdType", DataTypeIds.String, null);
 
-            CreateProperty<string>(node, "Id", DataTypeIds.String, null);
+            CreateVariable<string>(node, "Id", DataTypeIds.String, null);
         }
 
       
         public void CreateUaNodeForAdministration(uint preferredTypeNumId = 0)
         {
-            NodeState node = CreateObjectType(null, "AASAdministrativeInformationType", ObjectTypeIds.BaseObjectType, preferredTypeNumId, "AAS:AdministrativeInformation");
+            NodeState node = CreateObject(null, "AASAdministrativeInformationType", ObjectTypeIds.BaseObjectType, preferredTypeNumId, "AAS:AdministrativeInformation");
 
-            CreateProperty<string>(node, "Version", DataTypeIds.String, null);
+            CreateVariable<string>(node, "Version", DataTypeIds.String, null);
 
-            CreateProperty<string>(node, "Revision", DataTypeIds.String, null);
+            CreateVariable<string>(node, "Revision", DataTypeIds.String, null);
         }
 
         public NodeState CreateElements(NodeState parent, AdministrativeInformation administration = null)
@@ -891,24 +682,24 @@ namespace AdminShell
                 return null;
             }
 
-            var o = CreateObjectType(parent, "Administration", ReferenceTypeIds.HasComponent, c_administrationNodeId);
+            var o = CreateObject(parent, "Administration", ReferenceTypeIds.HasComponent, c_administrationNodeId);
 
-            CreateProperty<string>(o, "Version", DataTypeIds.String, administration.Version);
+            CreateVariable<string>(o, "Version", DataTypeIds.String, administration.Version);
 
-            CreateProperty<string>(o, "Revision", DataTypeIds.String, administration.Revision);
+            CreateVariable<string>(o, "Revision", DataTypeIds.String, administration.Revision);
 
             return o;
         }
       
         public void CreateUaNodeForQualifier(uint preferredTypeNumId = 0)
         {
-            NodeState node = CreateObjectType(null, "AASQualifierType", ObjectTypeIds.BaseObjectType, preferredTypeNumId, "AAS:Qualifier");
+            NodeState node = CreateObject(null, "AASQualifierType", ObjectTypeIds.BaseObjectType, preferredTypeNumId, "AAS:Qualifier");
 
             CreateObject(node, null, "SemanticId");
 
-            CreateProperty<string>(node, "Type", DataTypeIds.String, null);
+            CreateVariable<string>(node, "Type", DataTypeIds.String, null);
 
-            CreateProperty<string>(node, "Value", DataTypeIds.String, null);
+            CreateVariable<string>(node, "Value", DataTypeIds.String, null);
 
             CreateElements(node, new Qualifier(){ Value = "ValueId" } );
         }
@@ -937,13 +728,13 @@ namespace AdminShell
                 }
             }
 
-            NodeState node = CreateObjectType(parent, "Qualifier", ReferenceTypeIds.HasComponent, c_qualifierNodeId, extraName);
+            NodeState node = CreateObject(parent, "Qualifier", ReferenceTypeIds.HasComponent, c_qualifierNodeId, extraName);
 
             CreateObject(node, qualifier.SemanticId, "SemanticId");
 
-            CreateProperty<string>(node, "Type", DataTypeIds.String, qualifier.Type);
+            CreateVariable<string>(node, "Type", DataTypeIds.String, qualifier.Type);
 
-            CreateProperty<string>(node, "Value", DataTypeIds.String, qualifier.Value);
+            CreateVariable<string>(node, "Value", DataTypeIds.String, qualifier.Value);
 
             CreateElements(node, qualifier);
 
@@ -952,12 +743,12 @@ namespace AdminShell
 
         public NodeState CreateElements(NodeState parent, AssetKind kind = AssetKind.Type)
         {
-            return CreateProperty<string>(parent, "Kind", DataTypeIds.String, string.Empty);
+            return CreateVariable<string>(parent, "Kind", DataTypeIds.String, string.Empty);
         }
 
         public NodeState CreateElements(NodeState parent)
         {
-            return CreateProperty<string>(parent, "Kind", DataTypeIds.String, string.Empty);
+            return CreateVariable<string>(parent, "Kind", DataTypeIds.String, string.Empty);
         }
 
         public NodeState CreateElements(NodeState parent, Referable refdata = null)
@@ -984,7 +775,7 @@ namespace AdminShell
                 return;
             }
 
-            var keyo = CreateProperty<string[]>(parent, "Values", DataTypeIds.Structure, null);
+            var keyo = CreateVariable<string[]>(parent, "Values", DataTypeIds.Structure, null);
             if (keyo != null)
             {
                 Reference newRef = new Reference(){ Keys = keys };
@@ -1009,7 +800,7 @@ namespace AdminShell
                 }
             }
 
-            var keyo = CreateProperty<string[]>(parent, "Values", DataTypeIds.Structure, null);
+            var keyo = CreateVariable<string[]>(parent, "Values", DataTypeIds.Structure, null);
             if (keyo != null)
             {
                 Reference newRef = new Reference(){ Keys = keys };
@@ -1029,7 +820,7 @@ namespace AdminShell
                 return null;
             }
 
-            var o = CreateObjectType(parent, browseDisplayName ?? "SemanticId", ReferenceTypeIds.HasComponent, c_semanticIdNodeId);
+            var o = CreateObject(parent, browseDisplayName ?? "SemanticId", ReferenceTypeIds.HasComponent, c_semanticIdNodeId);
 
             CreateKeys(o, semid.Keys);
 

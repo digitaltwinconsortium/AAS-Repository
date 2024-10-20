@@ -12,6 +12,10 @@
 <p>
     For creating OPC UA-based Asset Admin Shells, you can use an OPC UA editor tool, like the one available for downloaded from the Siemens website (you may need to create an account first):<br />
     <a href="https://support.industry.siemens.com/cs/document/109755133/siemens-opc-ua-modeling-editor-(siome)?dti=0&lc=en-US">Siemens OPC UA Modeling Editor (SiOME)</a><br />
+    <br />
+    Alternatively, you can use the CESMII OPC UA online editor tool:<br/>
+    <a href="https://profiledesigner.cesmii.net/">CESMII Smart Manufacturing Profile (SM Profile) Designer</a><br />
+    <br />
     Export the nodeset XML file from the OPC UA editor tool and then import it into this AAS Repository via the <b>Add AAS</b> link above.<br />
 </p>
 </div>
@@ -92,7 +96,7 @@
         {
             if (node.Type == "Package")
             {
-                //return CreateViewFromPackageLegacy(node);
+                CreateViewFromPackageLegacy(node);
                 node.Children = _treeBuilder.CreateViewFromPackage(node.EnvKey);
                 return Task.CompletedTask;
             }
