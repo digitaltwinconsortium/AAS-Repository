@@ -11,53 +11,6 @@ namespace AdminShell
 
     public class I4AASNodeManager : CustomNodeManager2
     {
-        public class NodeRecord
-        {
-            public NodeState _uanode = null;
-            public Referable _referable = null;
-            public string _identification = null;
-
-            public NodeRecord() { }
-
-            public NodeRecord(NodeState uanode, Referable referable)
-            {
-                _uanode = uanode;
-                _referable = referable;
-            }
-
-            public NodeRecord(NodeState uanode, string identification)
-            {
-                _uanode = uanode;
-                _identification = identification;
-            }
-        }
-        
-        public class AasReference : IReference
-        {
-            private NodeId _referenceTypeId = null;
-
-            private bool _isInverse = false;
-            
-            private ExpandedNodeId _targetId = null;
-
-            public NodeId ReferenceTypeId { get { return _referenceTypeId; } }
-            
-            public bool IsInverse { get { return _isInverse; } }
-            
-            public ExpandedNodeId TargetId { get { return _targetId; } }
-
-            public AasReference()
-            {
-            }
-
-            public AasReference(NodeId referenceTypeId, bool isInverse, ExpandedNodeId targetId)
-            {
-                _referenceTypeId = referenceTypeId;
-                _isInverse = isInverse;
-                _targetId = targetId;
-            }
-        }
-
         const int c_baseInterfaceTypeNodeId = 17602;
         const int c_hasDictionaryEntryNodeId = 17597;
         const int c_hasInterfaceNodeId = 17603;
@@ -66,21 +19,16 @@ namespace AdminShell
         const int c_uriDictionaryEntryTypeNodeId = 17600;
         const int c_irdiDictionaryEntryTypeNodeId = 17598;
         const int c_dictionaryFolderTypeNodeId = 17591;
-
         const int c_referableNodeId = 1004;
         const int c_identificationNodeId = 1000;
         const int c_administrationNodeId = 1001;
-
         const int c_referableTypeNodeId = 2001;
         const int c_identifiableTypeNodeId = 2000;
-
         const int c_referenceNodeId = 1005;
         const int c_semanticIdNodeId = 1006;
         const int c_hasAasReferenceNodeId = 4000;
-
         const int c_dataSpecificationNodeId = 3000;
         const int c_dataSpecificationIEC61360NodeId = 3001;
-
         const int c_qualifierNodeId = 1002;
         const int c_assetKindNodeId = 1025;
         const int c_modelingKindNodeId = 1003;
@@ -99,10 +47,6 @@ namespace AdminShell
         const int c_assetNodeId = 1023;
         const int c_aasNodeId = 1024;
 
-        public enum ModellingRule { None, Optional, OptionalPlaceholder, Mandatory, MandatoryPlaceholder }
-
-        private Dictionary<NodeState, List<object>> _nodeStateAnnotations = new Dictionary<NodeState, List<object>>();
-
         private AASXPackageService _packageService = null;
 
         private ushort _namespaceIndex;
@@ -110,15 +54,9 @@ namespace AdminShell
 
         const string c_exportFilename = "I4AAS_Export.nodeset2.xml";
 
-        public IDictionary<NodeId, IList<IReference>> _nodeMgrExternalReferences = null;
-
         public NodeState _rootAAS = null;
         public NodeState _rootConceptDescriptions = null;
-        public NodeState _rootDataSpecifications = null;
         public NodeState _rootMissingDictionaryEntries = null;
-
-        private Dictionary<Referable, NodeRecord> _nodeRecordFromReferable = new();
-        private Dictionary<string, NodeRecord> _nodeRecordFromIdentificationHash = new();
 
         public I4AASNodeManager(IServerInternal server, ApplicationConfiguration configuration)
         : base(server, configuration)
