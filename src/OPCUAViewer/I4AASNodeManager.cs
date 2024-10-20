@@ -127,7 +127,7 @@ namespace AdminShell
 
                 foreach (AssetAdministrationShellEnvironment env in _packageService.Packages.Values)
                 {
-                    CreateInstanceObjects(env);
+                    CreateObjects(env);
                 }
 
                 try
@@ -268,7 +268,7 @@ namespace AdminShell
             return null;
         }
 
-        public void CreateInstanceObjects(AssetAdministrationShellEnvironment env)
+        public void CreateObjects(AssetAdministrationShellEnvironment env)
         {
             if (_rootAAS == null)
             {
@@ -340,11 +340,39 @@ namespace AdminShell
             {
                 for (int i = 0; i < env.Submodels.Count; i++)
                 {
-                    CreateVariable<string>(o, "Submodel Definition " + i.ToString(), c_submodelNodeId, env.Submodels[i].IdShort);
+                    NodeState sm = CreateVariable<string>(o, "Submodel Definition " + i.ToString(), c_submodelNodeId, env.Submodels[i].IdShort);
+
+                    if (env.Submodels[i].SubmodelElements.Count > 0)
+                    {
+                        foreach (SubmodelElementWrapper smew in env.Submodels[i].SubmodelElements)
+                        {
+                            CreateSubmodelElement(sm, smew.SubmodelElement);
+                        }
+                    }
                 }
             }
 
             return o;
+        }
+
+        private void CreateSubmodelElement(NodeState parent, SubmodelElement sme)
+        {
+            if (sme is SubmodelElementCollection collection)
+            {
+                if (collection.Value != null)
+                {
+                    NodeState collectionFolder = CreateFolder(parent, "Submodel Elements");
+
+                    foreach (SubmodelElementWrapper smew in collection.Value)
+                    {
+                        CreateSubmodelElement(collectionFolder, smew.SubmodelElement);
+                    }
+                }
+            }
+            else
+            {
+                CreateVariable<string>(parent, sme.DisplayName, c_submodelElementNodeId, sme.IdShort);
+            }
         }
 
         public FolderState CreateFolder(NodeState parent, string browseDisplayName)
