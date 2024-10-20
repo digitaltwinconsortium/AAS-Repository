@@ -375,7 +375,7 @@ namespace AdminShell
             CreateVariable<string>(o, "Identification", c_identifiableTypeNodeId, aas.Id);
             CreateVariable<string>(o, "Administration", c_administrationNodeId, aas.Administration?.ToString());
 
-            if (aas.EmbeddedDataSpecifications != null && aas.EmbeddedDataSpecifications != null)
+            if (aas.EmbeddedDataSpecifications != null)
             {
                 foreach (var ds in aas.EmbeddedDataSpecifications)
                 {
@@ -392,9 +392,9 @@ namespace AdminShell
 
             if (aas.Submodels != null && aas.Submodels.Count > 0)
             {
-                foreach (var smr in aas.Submodels)
+                for (int i = 0; i < aas.Submodels.Count; i++)
                 {
-                    CreateVariable<string>(o, "Submodel", c_submodelNodeId, smr.ToString());
+                    CreateVariable<string>(o, "Submodel_" + i.ToString(), c_submodelNodeId, aas.Submodels[i].Keys[0].Value);
                 }
             }
 
