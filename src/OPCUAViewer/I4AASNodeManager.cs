@@ -394,7 +394,15 @@ namespace AdminShell
             {
                 for (int i = 0; i < aas.Submodels.Count; i++)
                 {
-                    CreateVariable<string>(o, "Submodel_" + i.ToString(), c_submodelNodeId, aas.Submodels[i].Keys[0].Value);
+                    CreateVariable<string>(o, "Submodel Reference " + i.ToString(), c_submodelNodeId, aas.Submodels[i].Keys[0].Value);
+                }
+            }
+
+            if (env.Submodels != null && env.Submodels.Count > 0)
+            {
+                for (int i = 0; i < env.Submodels.Count; i++)
+                {
+                    CreateVariable<string>(o, "Submodel Definition " + i.ToString(), c_submodelNodeId, env.Submodels[i].IdShort);
                 }
             }
 
