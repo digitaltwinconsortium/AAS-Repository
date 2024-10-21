@@ -113,17 +113,8 @@ namespace AdminShell
                 _rootAAS = CreateFolder(null, "AASROOT");
                 objectsFolderReferences.Add(new NodeStateReference(ReferenceTypes.Organizes, false, _rootAAS.NodeId));
 
-                _rootConceptDescriptions = CreateObject(
-                    _rootAAS,
-                    "Concept Descriptions",
-                    ReferenceTypeIds.HasComponent,
-                    c_dictionaryFolderTypeNodeId);
-
-                _rootMissingDictionaryEntries = CreateObject(
-                    _rootAAS,
-                    "Dictionary Entries",
-                    ReferenceTypeIds.HasComponent,
-                    c_dictionaryFolderTypeNodeId);
+                _rootConceptDescriptions = CreateFolder(_rootAAS, "Concept Descriptions");
+                _rootMissingDictionaryEntries = CreateFolder(_rootAAS, "Dictionary Entries");
 
                 foreach (AssetAdministrationShellEnvironment env in _packageService.Packages.Values)
                 {
@@ -299,15 +290,7 @@ namespace AdminShell
                 return null;
             }
 
-            string extraName = null;
-            string browseName = "AssetAdministrationShell";
-            if (aas.IdShort != null && aas.IdShort.Trim().Length > 0)
-            {
-                extraName = "AssetAdministrationShell:" + aas.IdShort;
-                browseName = aas.IdShort;
-            }
-
-            var o = CreateObject(parent, browseName, ReferenceTypeIds.HasComponent, c_administrationNodeId, extraName);
+            var o = CreateFolder(parent, "AssetAdministrationShell_" + aas.IdShort);
 
             CreateVariable<string>(o, "Referable", c_referableTypeNodeId, aas.Identification.Value);
             CreateVariable<string>(o, "Identification", c_identifiableTypeNodeId, aas.Id);
@@ -340,7 +323,7 @@ namespace AdminShell
             {
                 for (int i = 0; i < env.Submodels.Count; i++)
                 {
-                    NodeState sm = CreateVariable<string>(o, "Submodel Definition " + i.ToString(), c_submodelNodeId, env.Submodels[i].IdShort);
+                    NodeState sm = CreateFolder(o, "Submodel Definition " + i.ToString() + "_" + env.Submodels[i].IdShort);
 
                     if (env.Submodels[i].SubmodelElements.Count > 0)
                     {
@@ -371,7 +354,7 @@ namespace AdminShell
             }
             else
             {
-                CreateVariable<string>(parent, sme.DisplayName, c_submodelElementNodeId, sme.IdShort);
+                CreateVariable<string>(parent, sme.IdShort, c_submodelElementNodeId, string.Empty);
             }
         }
 
@@ -390,63 +373,6 @@ namespace AdminShell
             if (parent != null)
             {
                 parent.AddChild(x);
-            }
-
-            return x;
-        }
-
-        public BaseObjectState CreateObject(
-            NodeState parent,
-            string browseDisplayName,
-            NodeId referenceTypeFromParentId = null,
-            NodeId typeDefinitionId = null,
-            string extraName = null)
-        {
-            BaseObjectState x = new(parent)
-            {
-                BrowseName = browseDisplayName,
-                DisplayName = browseDisplayName,
-                Description = new Opc.Ua.LocalizedText("en", browseDisplayName)
-            };
-
-            if (extraName != null)
-            {
-                x.DisplayName = extraName;
-            }
-
-            if (typeDefinitionId != null)
-            {
-                x.TypeDefinitionId = typeDefinitionId;
-            }
-
-            x.NodeId = new NodeId(browseDisplayName, _namespaceIndex);
-
-            AddPredefinedNode(SystemContext, x);
-
-            if (parent != null)
-            {
-                parent.AddChild(x);
-            }
-
-            if (referenceTypeFromParentId != null)
-            {
-                if (parent != null)
-                {
-                    if (!parent.ReferenceExists(referenceTypeFromParentId, false, x.NodeId))
-                    {
-                        parent.AddReference(referenceTypeFromParentId, false, x.NodeId);
-                    }
-
-                    if (referenceTypeFromParentId == ReferenceTypeIds.HasComponent)
-                    {
-                        x.AddReference(referenceTypeFromParentId, true, parent.NodeId);
-                    }
-
-                    if (referenceTypeFromParentId == ReferenceTypeIds.HasProperty)
-                    {
-                        x.AddReference(referenceTypeFromParentId, true, parent.NodeId);
-                    }
-                }
             }
 
             return x;
