@@ -57,6 +57,13 @@
 
             services.AddAuthorization();
 
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(3600);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v3", new OpenApiInfo
@@ -133,6 +140,8 @@
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

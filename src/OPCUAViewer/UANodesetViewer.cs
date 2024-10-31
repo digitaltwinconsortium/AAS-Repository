@@ -4,9 +4,9 @@ namespace AdminShell
     using Kusto.Cloud.Platform.Utils;
     using Newtonsoft.Json;
     using Opc.Ua;
-    using Opc.Ua.Client;
     using Opc.Ua.Configuration;
     using Opc.Ua.Export;
+    using Opc.Ua.Server;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -110,7 +110,7 @@ namespace AdminShell
             }
         }
 
-        public void StartServer(string key)
+        public StandardServer StartServer(string key)
         {
             if (!_isRunning.ContainsKey(key))
             {
@@ -124,6 +124,8 @@ namespace AdminShell
 
                 _isRunning[key] = true;
             }
+
+            return (StandardServer) _applications[key].Server;
         }
 
         private string ValidateNamespacesAndModels(bool autodownloadreferences)
@@ -294,20 +296,52 @@ namespace AdminShell
             }
         }
 
+        public async Task<Opc.Ua.Client.Session> GetSession(string key)
+        {
+            string endpointURL = "opc.tcp://localhost:4840/";
+            Opc.Ua.Client.Session session = null;
+
+            // update server port
+            int port = 4840 + _applications.Keys.ToListIfNotAlready().IndexOf(key);
+            endpointURL = endpointURL.Replace("4840", port.ToString());
+
+            bool lastRetry = false;
+            while (!lastRetry)
+            {
+                try
+                {
+                    return await OpcSessionHelper.Instance.GetSessionAsync(_applications[key].ApplicationConfiguration, key, endpointURL).ConfigureAwait(false);
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(ex.Message);
+
+                    if ((session != null) && session.Connected)
+                    {
+                        OpcSessionHelper.Instance.Disconnect(session.SessionId.ToString());
+                    }
+
+                    lastRetry = true;
+                }
+            }
+
+            return null;
+        }
+
         public async Task<NodesetViewerNode> GetRootNode(string key)
         {
             ReferenceDescriptionCollection references;
             Byte[] continuationPoint;
             NodesetViewerNode node;
 
-            bool lastRetry = false;
             string endpointURL = "opc.tcp://localhost:4840/";
-            Session session = null;
+            Opc.Ua.Client.Session session = null;
 
             // update server port
             int port = 4840 + _applications.Keys.ToListIfNotAlready().IndexOf(key);
             endpointURL = endpointURL.Replace("4840", port.ToString());
 
+            bool lastRetry = false;
             while (!lastRetry)
             {
                 try
@@ -353,7 +387,7 @@ namespace AdminShell
             Byte[] continuationPoint;
             var nodes = new List<NodesetViewerNode>();
 
-            Session session = null;
+            Opc.Ua.Client.Session session = null;
             string endpointUrl = "opc.tcp://localhost:4840/";
 
             // update server port
@@ -573,7 +607,7 @@ namespace AdminShell
             var node = OpcSessionHelper.GetNodeIdFromJsTreeNode(jstreeNode);
             bool lastRetry = false;
 
-            Session session = null;
+            Opc.Ua.Client.Session session = null;
             string endpointUrl = "opc.tcp://localhost:4840/";
 
             // update server port
