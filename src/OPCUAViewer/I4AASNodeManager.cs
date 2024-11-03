@@ -140,7 +140,7 @@ namespace AdminShell
                     using (var stream = new StreamWriter(c_exportFilename))
                     {
                         SaveNodestateCollectionAsNodeSet2(SystemContext, nodesToExport, stream.BaseStream, false);
-                    }   
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -241,7 +241,7 @@ namespace AdminShell
                     var submodel = environment.Submodels.Where(
                         description => description.IdShort.Equals(firstKeyId,
                         StringComparison.OrdinalIgnoreCase)).First();
-                    
+
                     if (submodel == null)
                     {
                         return null;
@@ -354,7 +354,22 @@ namespace AdminShell
             }
             else
             {
-                CreateVariable<string>(parent, sme.IdShort, c_submodelElementNodeId, string.Empty);
+                if (sme is Property)
+                {
+                    CreateVariable<string>(parent, sme.IdShort, c_submodelElementNodeId, ((Property)sme).Value);
+                }
+                else if (sme is Blob)
+                {
+                    CreateVariable<string>(parent, sme.IdShort, c_submodelElementNodeId, ((Blob)sme).Value);
+                }
+                else if (sme is File)
+                {
+                    CreateVariable<string>(parent, sme.IdShort, c_submodelElementNodeId, ((File)sme).Value);
+                }
+                else
+                {
+                    CreateVariable<string>(parent, sme.IdShort, c_submodelElementNodeId, string.Empty);
+                }
             }
         }
 
