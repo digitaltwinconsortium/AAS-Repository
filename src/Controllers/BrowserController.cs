@@ -69,6 +69,7 @@ namespace AdminShell
             catch (Exception ex)
             {
                 Trace.TraceError(ex.Message);
+                throw;
             }
         }
 
