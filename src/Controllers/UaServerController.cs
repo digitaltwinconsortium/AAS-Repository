@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 using Opc.Ua;
 using System;
 using System.Threading.Tasks;
@@ -20,9 +21,9 @@ namespace UaRestGateway.Server.Controllers
 
         private bool IsRequestCompressed()
         {
-            if (Request.Headers.TryGetValue("Content-Encoding", out var header))
+            if (Request.Headers.TryGetValue("Content-Encoding", out StringValues header))
             {
-                var token = String.Join(" ", header).Trim();
+                string token = string.Join(" ", header.ToArray()).Trim();
 
                 if (token.Equals("gzip", StringComparison.InvariantCultureIgnoreCase))
                 {

@@ -239,7 +239,7 @@ namespace AdminShell
             else
             {
                 byte[] bytes = new byte[specStream.Length];
-                specStream.Read(bytes);
+                specStream.ReadExactly(bytes);
                 JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
                 aasenv = JsonConvert.DeserializeObject<AssetAdministrationShellEnvironment>(Encoding.UTF8.GetString(bytes), settings);
             }
