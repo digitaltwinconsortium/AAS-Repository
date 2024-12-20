@@ -1,6 +1,6 @@
 # Asset Admin Shell Repository
 
-IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Net6.0.
+IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Net.
 
 # Features
 
@@ -46,7 +46,7 @@ These emissions come from the parts and raw materials used within the product be
 
 Docker containers are automatically built. Simply run the app on a Docker-enabled PC via:
 
-docker run -p 80:80 ghcr.io/digitaltwinconsortium/aas-repository:masterv3
+docker run -p 8080:8080 ghcr.io/digitaltwinconsortium/aas-repository:masterv3
 
 And then point your browser to http://localhost.
 
