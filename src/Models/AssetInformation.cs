@@ -6,14 +6,14 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    public class AssetInformation : IAasElement
+    public class AssetInformation
     {
         [XmlIgnore]
-        public IAasElement Parent { get; set; }
+        public Reference Parent { get; set; }
 
         [DataMember(Name = "globalAssetId")]
         [XmlElement(ElementName = "globalAssetId")]
-        public GlobalReference GlobalAssetId { get; set; }
+        public string GlobalAssetId { get; set; }
 
         [DataMember(Name = "specificAssetIds")]
         [XmlArray(ElementName = "specificAssetIds")]

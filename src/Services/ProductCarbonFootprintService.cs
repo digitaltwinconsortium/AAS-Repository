@@ -18,17 +18,15 @@ namespace AdminShell
 
         private readonly ADXDataService _adxDataService;
         private readonly SMIPDataService _smipDataService;
+        private readonly AssetAdministrationShellEnvironmentService _envService;
 
-        private readonly AASXPackageService _packageService;
-
-        public ProductCarbonFootprintService(ILoggerFactory logger, AASXPackageService packageService, ADXDataService adxDataService, SMIPDataService smipDataService)
+        public ProductCarbonFootprintService(ILoggerFactory logger, ADXDataService adxDataService, SMIPDataService smipDataService, AssetAdministrationShellEnvironmentService envService)
         {
             _logger = logger.CreateLogger("ProductCarbonFootprintService");
 
             _adxDataService = adxDataService;
             _smipDataService = smipDataService;
-
-            _packageService = packageService;
+            _envService = envService;
 
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF"))
              || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF_SMIP")))
@@ -73,8 +71,6 @@ namespace AdminShell
                     GeneratePCFAASForProductionLine("Munich", "48.1375", "11.575", 6);
                     GeneratePCFAASForProductionLine("Seattle", "47.609722", "-122.333056", 10);
                 }
-
-                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
             }
             catch (Exception ex)
             {
@@ -229,7 +225,7 @@ namespace AdminShell
                     Debug.WriteLine("Total carbon intensity of batch: " + pcf.ToString() + " gCO2");
 
                     // persist AAS with serial number and calculated PCF
-                    GenerateAASXFile(name + batchCycleStart.ToString("yyyy-MM-dd"), pcf, scope1Emissions, scope2Emissions, scope3Emissions);
+                    // TODO!
                 }
             }
             catch (Exception ex)
@@ -278,7 +274,7 @@ namespace AdminShell
                     float pcf = scope1Emissions + scope2Emissions + scope3Emissions;
 
                     // persist AAS with serial number and calculated PCF
-                    GenerateAASXFile(productionLineName + serialNumber.ToString(), pcf, scope1Emissions, scope2Emissions, scope3Emissions);
+                    // TODO!
                 }
             }
             catch (Exception ex)
@@ -287,53 +283,6 @@ namespace AdminShell
             }
         }
 
-        private void GenerateAASXFile(string serialNumber, float pcf, float scope1Emissions, float scope2Emissions, float scope3Emissions)
-        {
-            string newKey = "ProductCarbonFootprint" + "_" + serialNumber.ToString() + ".aasx";
-            if (_packageService.Packages.ContainsKey(newKey))
-            {
-                // AASX already exists
-                return;
-            }
-
-            // make a copy of our template
-            if (serialNumber.StartsWith("NCSU"))
-            {
-                _packageService.Load("ProductCarbonFootprintNCSU.template", newKey);
-            }
-            else
-            {
-                _packageService.Load("ProductCarbonFootprint.template", newKey);
-            }
-
-            // set serial number
-            SubmodelElement serialNumberSME = FindSME(_packageService.Packages[newKey].Submodels[0].SubmodelElements, new Identifier("www.company.com/ids/cd/9544_4082_7091_8596"));
-            ((Property)serialNumberSME).Value = serialNumber;
-
-            // access pcf Submodel Element Collection
-            SubmodelElement pcfSMEC = FindSME(_packageService.Packages[newKey].Submodels[1].SubmodelElements, new Identifier("0173-1#01-AHE716#001"));
-
-            // set pcfTotal
-            SubmodelElement pcfTotalSME = FindSME(pcfSMEC, new Identifier("0173-1#02-ABG855#001"));
-            ((Property)pcfTotalSME).Value = pcf.ToString();
-
-            // set scope 1
-            SubmodelElement scope1SME = FindSME(pcfSMEC, new Identifier("www.example.com/ids/sm/Scope1Emissions"));
-            ((Property)scope1SME).Value = scope1Emissions.ToString();
-
-            // set scope 2
-            SubmodelElement scope2SME = FindSME(pcfSMEC, new Identifier("www.example.com/ids/sm/Scope2Emissions"));
-            ((Property)scope2SME).Value = scope2Emissions.ToString();
-
-            // set scope 3
-            SubmodelElement scope3SME = FindSME(pcfSMEC, new Identifier("www.example.com/ids/sm/Scope3Emissions"));
-            ((Property)scope3SME).Value = scope3Emissions.ToString();
-
-            // persist
-            _packageService.Save(newKey);
-
-            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
-        }
 
         private SubmodelElement FindSME(SubmodelElement smeInput, Identifier semId)
         {

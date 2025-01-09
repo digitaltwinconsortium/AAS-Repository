@@ -5,14 +5,14 @@
   schemaLocation="./Schema/ApplicationConfiguration.xsd"
 >
   <!-- A human readable but not necessarily unique name for the application instance -->
-  <ApplicationName>UA NodeSet Viewer</ApplicationName>
+  <ApplicationName>AAS-Repository</ApplicationName>
 
   <!-- A globally unique identifier for the application instance.
        This is overridden with the value contained in the application certificate. -->
-  <ApplicationUri>urn:localhost:OPCFoundation:UANodeSetViewer</ApplicationUri>
+  <ApplicationUri>urn:localhost:OPCFoundation:AAS-Repository</ApplicationUri>
 
   <!-- A globally unique URI for the product (usually assigned by the product vendor) -->
-  <ProductUri>http://opcfoundation.org/UA/NodeSetViewer/</ProductUri>
+  <ProductUri>http://opcfoundation.org/UA/AAS-Repository/</ProductUri>
 
   <!-- Indicates the type of application (Client, Server or ClientServer). -->
   <ApplicationType>ClientAndServer_2</ApplicationType>

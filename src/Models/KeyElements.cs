@@ -112,5 +112,13 @@ namespace AdminShell
         [EnumMember(Value = "SubmodelElementCollection")]
         [XmlEnum(Name = "SubmodelElementCollection")]
         SubmodelElementCollection = 25,
+
+        [EnumMember(Value = "ModelReference")]
+        [XmlEnum(Name = "ModelReference")]
+        ModelReference = 26,
+
+        [EnumMember(Value = "ExternalReference")]
+        [XmlEnum(Name = "ExternalReference")]
+        ExternalReference = 27
     }
 }

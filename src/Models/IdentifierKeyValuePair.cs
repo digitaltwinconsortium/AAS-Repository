@@ -6,7 +6,7 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    public class IdentifierKeyValuePair : HasSemantics, IAasElement
+    public class IdentifierKeyValuePair : HasSemantics
     {
         [Required]
         [DataMember(Name = "key")]

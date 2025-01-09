@@ -18,8 +18,6 @@ namespace AdminShell
 
         private static SemaphoreSlim _trustedSessionCertificateValidation = null;
 
-        private static string _trustedSessionId { get; set; } = null;
-
         internal static string Delimiter { get; } = "__$__";
 
         public static OpcSessionHelper Instance
@@ -88,9 +86,9 @@ namespace AdminShell
         /// Checks if there is an active OPC UA session for the provided browser session. If the persisted OPC UA session does not exist,
         /// a new OPC UA session to the given endpoint URL is established.
         /// </summary>
-        public async Task<Session> GetSessionAsync(ApplicationConfiguration config, string sessionID, string endpointURL, bool enforceTrust = false)
+        public async Task<Session> GetSessionAsync(ApplicationConfiguration config, string sessionID, string endpointURL)
         {
-            if (string.IsNullOrEmpty(sessionID) || string.IsNullOrEmpty(endpointURL))
+            if (string.IsNullOrEmpty(endpointURL))
             {
                 return null;
             }
@@ -108,20 +106,15 @@ namespace AdminShell
                     try
                     {
                         entry.OPCSession.Close(500);
+                        entry.OPCSession = null;
+                        OpcSessionCache.TryRemove(sessionID, out entry);
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        // do nothing
+                        Trace.TraceError("Reason = {0}", e.Message);
+                        throw;
                     }
-
-                    entry.OPCSession = null;
                 }
-            }
-            else
-            {
-                // create a new entry
-                OpcSessionCacheData newEntry = new OpcSessionCacheData { EndpointURL = new Uri(endpointURL) };
-                OpcSessionCache.TryAdd(sessionID, newEntry);
             }
 
             Uri endpointURI = new Uri(endpointURL);
@@ -136,18 +129,12 @@ namespace AdminShell
                 // lock the session creation for the enforced trust case
                 await _trustedSessionCertificateValidation.WaitAsync().ConfigureAwait(false);
 
-                if (enforceTrust)
-                {
-                    // enforce trust in the certificate validator by setting the trusted session Id
-                    _trustedSessionId = sessionID;
-                }
-
-                session = await Session.Create(
+               session = await Session.Create(
                     config,
                     endpoint,
                     true,
                     false,
-                    sessionID,
+                    string.Empty,
                     60000,
                     new UserIdentity(new AnonymousIdentityToken()),
                     null).ConfigureAwait(false);
@@ -157,25 +144,16 @@ namespace AdminShell
                     session.KeepAlive += new KeepAliveEventHandler(StandardClient_KeepAlive);
 
                     // Update our cache data
-                    if (OpcSessionCache.TryGetValue(sessionID, out entry))
+                    OpcSessionCacheData newEntry = new OpcSessionCacheData
                     {
-                        if (string.Equals(entry.EndpointURL.AbsoluteUri, endpointURL, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            OpcSessionCacheData newValue = new OpcSessionCacheData
-                            {
-                                CertThumbprint = entry.CertThumbprint,
-                                EndpointURL = entry.EndpointURL,
-                                Trusted = entry.Trusted,
-                                OPCSession = session
-                            };
-                            OpcSessionCache.TryUpdate(sessionID, newValue, entry);
-                        }
-                    }
+                        EndpointURL = endpointURI,
+                        OPCSession = session
+                    };
+                    OpcSessionCache.TryAdd(session.SessionId.ToString(), newEntry);
                 }
             }
             finally
             {
-                _trustedSessionId = null;
                 _trustedSessionCertificateValidation.Release();
             }
 
@@ -227,28 +205,6 @@ namespace AdminShell
             }
 
             return bestEndpoint;
-        }
-
-        /// <summary>
-        /// Parsing JSTreeNode to read OPC UA Node ID
-        /// </summary>
-        /// <param name="nodeID"></param>
-        /// <returns></returns>
-        internal static string GetNodeIdFromJsTreeNode(string nodeID)
-        {
-            string[] delimiter = { Delimiter };
-            string[] nodeIDSplit = nodeID.Split(delimiter, 3, StringSplitOptions.None);
-
-            string node;
-            if (nodeIDSplit.Length == 1)
-            {
-                node = nodeIDSplit[0];
-            }
-            else
-            {
-                node = nodeIDSplit[1];
-            }
-            return node;
         }
 
         /// <summary>

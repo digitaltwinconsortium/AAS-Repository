@@ -7,7 +7,7 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    public class OperationVariable : IAasElement
+    public class OperationVariable
     {
         public enum Direction
         {

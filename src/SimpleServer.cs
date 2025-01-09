@@ -11,8 +11,7 @@ namespace AdminShell
         {
             List<INodeManager> nodeManagers = new()
             {
-                new NodesetFileNodeManager(server, configuration),
-                new I4AASNodeManager(server, configuration)
+                new NodesetFileNodeManager(server, configuration)
             };
 
             return new MasterNodeManager(server, configuration, null, nodeManagers.ToArray());
@@ -22,8 +21,8 @@ namespace AdminShell
         {
             ServerProperties properties = new ServerProperties
             {
-                ManufacturerName = "AASXServer",
-                ProductName = "UA NodeSet Viewer",
+                ManufacturerName = "Digital Twin Consortium",
+                ProductName = "AAS-Repository",
                 ProductUri = "",
                 SoftwareVersion = Utils.GetAssemblySoftwareVersion(),
                 BuildNumber = Utils.GetAssemblyBuildNumber(),

@@ -7,7 +7,7 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    public class Qualifier : IAasElement
+    public class Qualifier
     {
         [DataMember(Name = "value")]
         [XmlElement(ElementName = "value")]

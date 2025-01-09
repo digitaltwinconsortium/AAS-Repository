@@ -4,25 +4,19 @@ IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Ne
 
 # Features
 
-1. Loading of Asset Admin Shells V1, V2 and V3 (both XML and JSON encoding), but always saving in V3 format, leveraging both JSON and XML)
 1. Loading of OPC UA nodeset2 XML files as AAS models
-1. Standardized AAS REST interface (as specified in part 2 of the AAS spec)
+1. Standardized AAS REST interface (as specified in AAS spec)
+1. Standardized OPC UA REST interface (as specified in OPC UA spec)
 1. Swagger endpoint at /swagger
-1. IDTA AASX Package Explorer client interface support
 1. Joint CESMII/Plattform Industrie 4.0/IDTA/DTC Carbon Reporting Demonstrator integration
 1. Product Carbon Footprint (PCF) calculation (based on GHG Protocol specification) for the production line simulation which is part of the [DTC's Manufacturing Ontologies reference solution](https://github.com/digitaltwinconsortium/ManufacturingOntologies).
 1. WattTime integration
 1. OPC UA PubSub operational data integration
-1. UA Cloud Library integration
 1. Azure Data Explorer data source integration
-1. Integrated AAS browser
 1. Integrated OPC UA Nodeset file browser
-1. Integrated AutomationML file browser
 1. Basic authentication header support (use "admin" and ServicePassword environment variable to set password)
-1. Local storage of AASX package files (in the server's root directory)
-1. Cloud storage of AASX package files
 1. CESMII Smart Manufacturing Innovation Plattform (SMIP) imtegration
-1. Loading AAS json/xml into OPC UA server using I4AAS mapping
+1. Loading AAS nodeset XML into OPC UA server using I4AAS Companion Spec mapping
 
 
 # Calculating the Product Carbon Footprint (PCF)

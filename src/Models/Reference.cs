@@ -7,7 +7,7 @@ namespace AdminShell
 
     [DataContract]
     [XmlType(TypeName="reference")]
-    public class Reference : IAasElement
+    public class Reference
     {
         [XmlElement(ElementName="type")]
         [DataMember(Name="type")]

@@ -16,18 +16,14 @@ namespace AdminShell
         private CarbonIntensityQueryResult _currentIntensity = null;
 
         private readonly ILogger _logger;
-
-        private readonly AASXPackageService _packageService;
-
         private readonly ADXDataService _adxDataService;
+        private readonly AssetAdministrationShellEnvironmentService _envService;
 
-        public CarbonReportingService(ILoggerFactory logger, AASXPackageService packageService, ADXDataService adxDataService)
+        public CarbonReportingService(ILoggerFactory logger, ADXDataService adxDataService, AssetAdministrationShellEnvironmentService envService)
         {
             _logger = logger.CreateLogger("CarbonReportingService");
-
-            _packageService = packageService;
-
             _adxDataService = adxDataService;
+            _envService = envService;
 
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CARBON_REPORTING")))
             {
@@ -77,21 +73,16 @@ namespace AdminShell
             }
 
             UpdateSMEValues();
-
-            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
         }
 
         private void UpdateSMEValues()
         {
             // retrieve our ADX-tagged data points from all loaded AASes
-            foreach (AssetAdministrationShellEnvironment env in _packageService.Packages.Values)
+            foreach (Submodel sm in _envService.GetEnv().Submodels)
             {
-                foreach (Submodel sm in env.Submodels)
+                foreach (SubmodelElementWrapper smew in sm.SubmodelElements)
                 {
-                    foreach (SubmodelElementWrapper smew in sm.SubmodelElements)
-                    {
-                        CheckForADXDataPointInSME(smew.SubmodelElement);
-                    }
+                    CheckForADXDataPointInSME(smew.SubmodelElement);
                 }
             }
         }

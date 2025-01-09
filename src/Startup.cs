@@ -9,7 +9,10 @@
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
+    using Opc.Ua;
     using System;
+    using System.IO;
+    using System.Threading.Tasks;
 
     public class Startup
     {
@@ -26,13 +29,13 @@
         {
             services.AddControllersWithViews().AddNewtonsoftJson();
 
-            services.AddMvc(options => options.InputFormatters.Insert(0, new RawRequestBodyFormatter()));
+            services.AddMvc();
 
             services.AddRazorPages();
 
             services.AddServerSideBlazor();
 
-            services.AddScoped<AssetAdministrationShellEnvironmentService>();
+            services.AddSingleton<AssetAdministrationShellEnvironmentService>();
 
             services.AddSingleton<CarbonReportingService>();
 
@@ -43,10 +46,6 @@
             services.AddSingleton<SMIPDataService>();
 
             services.AddSingleton<OPCUAPubSubService>();
-
-            services.AddSingleton<VisualTreeBuilderService>();
-
-            services.AddSingleton<AASXPackageService>();
 
             services.AddSingleton<UANodesetViewer>();
 
@@ -159,6 +158,34 @@
 
                 endpoints.MapFallbackToPage("/_Host");
             });
+
+            StartServerAsync().GetAwaiter().GetResult();
+        }
+
+        private async Task StartServerAsync()
+        {
+            // load the application configuration.
+            ApplicationConfiguration config = await Program.App.LoadApplicationConfiguration(Path.Combine(Directory.GetCurrentDirectory(), "Application.Config.xml"), false).ConfigureAwait(false);
+
+            // check the application certificate.
+            await Program.App.CheckApplicationInstanceCertificate(false, 0).ConfigureAwait(false);
+
+            // create cert validator
+            config.CertificateValidator = new CertificateValidator();
+            config.CertificateValidator.CertificateValidation += new CertificateValidationEventHandler(CertificateValidator_CertificateValidation);
+            config.CertificateValidator.Update(config.SecurityConfiguration).GetAwaiter().GetResult();
+
+            // start the server.
+            await Program.App.Start(new SimpleServer()).ConfigureAwait(false);
+        }
+
+        private static void CertificateValidator_CertificateValidation(CertificateValidator validator, CertificateValidationEventArgs e)
+        {
+            if (e.Error.StatusCode == Opc.Ua.StatusCodes.BadCertificateUntrusted)
+            {
+                // accept all OPC UA client certificates
+                e.Accept = true;
+            }
         }
     }
 }

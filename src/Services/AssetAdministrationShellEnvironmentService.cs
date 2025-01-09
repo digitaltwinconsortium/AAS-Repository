@@ -4,64 +4,22 @@ namespace AdminShell
     using Microsoft.Extensions.Logging;
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
 
     public class AssetAdministrationShellEnvironmentService
     {
         private readonly ILogger _logger;
-        private readonly AASXPackageService _packageService;
 
-        public AssetAdministrationShellEnvironmentService(ILoggerFactory logger, AASXPackageService packageService)
+        private AssetAdministrationShellEnvironment _env = new();
+
+        public AssetAdministrationShellEnvironmentService(ILoggerFactory logger)
         {
             _logger = logger.CreateLogger("AssetAdministrationShellEnvironmentService");
-            _packageService = packageService;
         }
 
-        public void UpdateFileByPath(string aasIdentifier, string submodelIdentifier, string idShortPath, string fileName, string contentType, Stream fileContent)
+        public AssetAdministrationShellEnvironment GetEnv()
         {
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
-            if (aas != null)
-            {
-                if (IsSubmodelPresentInAAS(aas, submodelIdentifier))
-                {
-                    UpdateFileByPathSubmodelRepo(aasIdentifier, submodelIdentifier, idShortPath, fileName, contentType, fileContent);
-                }
-            }
-        }
-
-        public void UpdateSubmodelElementByPath(SubmodelElement body, string aasIdentifier, string submodelIdentifier, string idShortPath)
-        {
-            if (string.IsNullOrEmpty(body.IdShort))
-            {
-                throw new Exception("SubmodelElement");
-            }
-
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
-            if (aas != null)
-            {
-                if (IsSubmodelPresentInAAS(aas, submodelIdentifier))
-                {
-                    UpdateSubmodelElementByPathSubmodelRepo(body, submodelIdentifier, idShortPath);
-                }
-            }
-        }
-
-        public void UpdateSubmodel(Submodel body, string aasIdentifier, string submodelIdentifier)
-        {
-            if (string.IsNullOrEmpty(body.IdShort))
-            {
-                throw new Exception("Submodel");
-            }
-
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
-            if (aas != null)
-            {
-                if (IsSubmodelPresentInAAS(aas, submodelIdentifier))
-                {
-                    UpdateSubmodelById(body, submodelIdentifier);
-                }
-            }
+            return _env;
         }
 
         private bool IsSubmodelPresentInAAS(AssetAdministrationShell aas, string submodelIdentifier)
@@ -74,156 +32,6 @@ namespace AdminShell
             {
                 throw new Exception($"SubmodelReference with Id {submodelIdentifier} not found in AAS with Id {aas.Identification}");
             }
-        }
-
-        public void UpdateAssetInformation(AssetInformation body, string aasIdentifier)
-        {
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
-            if (aas != null)
-            {
-                aas.AssetInformation = body;
-                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
-            }
-        }
-
-        public void UpdateAssetAdministrationShellById(AssetAdministrationShell body, string aasIdentifier)
-        {
-            if (string.IsNullOrEmpty(body?.Identification?.Id))
-            {
-                throw new Exception("Provided Asset Administration Shell Identifier is missing!");
-            }
-
-            if (aasIdentifier != body?.Identification?.Id)
-            {
-                throw new Exception("Provided Asset Administration Shell Identifier doesn't match the provided Identifier in the AAS body!");
-            }
-
-            bool updated = false;
-            foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
-            {
-                foreach (AssetAdministrationShell shell in package.Value.AssetAdministrationShells)
-                {
-                    if (shell.Identification.Id == aasIdentifier)
-                    {
-                        _packageService.Packages[package.Key].AssetAdministrationShells.Remove(shell);
-                        _packageService.Packages[package.Key].AssetAdministrationShells.Add(body);
-                        _packageService.Save(package.Key);
-
-                        updated = true;
-
-                        VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
-                        break;
-                    }
-                }
-
-                if (updated)
-                {
-                    break;
-                }
-            }
-
-            if (!updated)
-            {
-                throw new Exception($"Asset Admin Shell with ID {aasIdentifier} not found!");
-            }
-        }
-
-        public Reference CreateSubmodelReference(Reference body, string aasIdentifier)
-        {
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
-
-            if (aas != null)
-            {
-                var found = aas.Submodels.Any(s => s.Matches(body));
-                if (found)
-                {
-                    throw new Exception($"Requested submodel reference already exists in AAS with Id {aasIdentifier}");
-                }
-                else
-                {
-                    aas.Submodels.Add((SubmodelReference)body);
-                    return body;
-                }
-            }
-
-            return null;
-        }
-
-        public SubmodelElement CreateSubmodelElementByPath(SubmodelElement body, string aasIdentifier, string submodelIdentifier, string idShortPath)
-        {
-            if (string.IsNullOrEmpty(body.IdShort))
-            {
-                throw new Exception("SubmodelElement");
-            }
-
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
-            if (aas != null)
-            {
-                if (IsSubmodelPresentInAAS(aas, submodelIdentifier))
-                {
-                    return CreateSubmodelElementByPathSubmodelRepo(body, submodelIdentifier, idShortPath);
-                }
-            }
-
-            return null;
-        }
-
-        public SubmodelElement CreateSubmodelElement(SubmodelElement body, string aasIdentifier, string submodelIdentifier)
-        {
-            if (string.IsNullOrEmpty(body.IdShort))
-            {
-                throw new Exception("SubmodelElement");
-            }
-
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
-            if (aas != null)
-            {
-                if (IsSubmodelPresentInAAS(aas, submodelIdentifier))
-                {
-                    return CreateSubmodelElementSubmodelRepo(body, submodelIdentifier);
-                }
-            }
-
-            return null;
-        }
-
-        public AssetAdministrationShell CreateAssetAdministrationShell(AssetAdministrationShell body)
-        {
-            if (string.IsNullOrEmpty(body.Identification))
-            {
-                throw new Exception("AssetAdministrationShell");
-            }
-
-            //Check if AAS exists
-            var found = IsAssetAdministrationShellPresent(body.Identification, out _, out _);
-            if (found)
-            {
-                throw new Exception($"AssetAdministrationShell with Id {body.Identification} already exists.");
-            }
-
-            AssetAdministrationShellEnvironment env = new();
-            env.AssetAdministrationShells.Add(body);
-            _packageService.SaveAs(body.Identification, env);
-
-            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
-
-            return body;
-        }
-
-
-
-        public OperationResult GetOperationAsyncResult(string aasIdentifier, string submodelIdentifier, string idShortPath, string handleId)
-        {
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
-            if (aas != null)
-            {
-                if (IsSubmodelPresentInAAS(aas, submodelIdentifier))
-                {
-                    return GetOperationAsyncResultSubmodelRepo(submodelIdentifier, idShortPath, handleId);
-                }
-            }
-
-            return null;
         }
 
         public string GetFileByPath(string aasIdentifier, string submodelIdentifier, string idShortPath, out byte[] content, out long fileSize)
@@ -242,18 +50,6 @@ namespace AdminShell
             return null;
         }
 
-        public void DeleteSubmodelElementByPath(string aasIdentifier, string submodelIdentifier, string idShortPath)
-        {
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
-            if (aas != null)
-            {
-                if (IsSubmodelPresentInAAS(aas, submodelIdentifier))
-                {
-                    DeleteSubmodelElementByPathSubmodelRepo(submodelIdentifier, idShortPath);
-                }
-            }
-        }
-
         public SubmodelElement GetSubmodelElementByPath(string aasIdentifier, string submodelIdentifier, string idShortPath)
         {
             var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
@@ -267,68 +63,6 @@ namespace AdminShell
             }
 
             return null;
-        }
-
-        public Submodel GetSubmodel(string aasIdentifier, string submodelIdentifier)
-        {
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
-            if (aas != null)
-            {
-                var submodelRefs = aas.Submodels.Where(s => s.Matches(submodelIdentifier));
-                if (submodelRefs.Any())
-                {
-                    return GetSubmodelById(submodelIdentifier, out _);
-                }
-                else
-                {
-                    throw new Exception($"SubmodelReference with Id {submodelIdentifier} not found in AAS with Id {aasIdentifier}");
-                }
-            }
-
-            return null;
-        }
-
-        public void DeleteSubmodelReferenceById(string aasIdentifier, string submodelIdentifier)
-        {
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
-            if (aas != null)
-            {
-                var submodelRefs = aas.Submodels.Where(s => s.Matches(submodelIdentifier));
-                if (submodelRefs.Any())
-                {
-                    aas.Submodels.Remove(submodelRefs.First());
-                    _packageService.Save(aasIdentifier);
-
-                    VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
-                }
-                else
-                {
-                    throw new Exception($"SubmodelReference with Id {submodelIdentifier} not found in AAS with Id {aasIdentifier}");
-                }
-            }
-        }
-
-        public void DeleteAssetAdministrationShellById(string aasIdentifier)
-        {
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out string key);
-            if ((aas != null) && !string.IsNullOrEmpty(key))
-            {
-                _packageService.Packages[key].AssetAdministrationShells.Remove(aas);
-                if (_packageService.Packages[key].AssetAdministrationShells.Count == 0)
-                {
-                    _packageService.Delete(key); // TODO: what about Submodels?
-                }
-                else
-                {
-                    _packageService.Save(key);
-                }
-
-                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
-            }
-            else
-            {
-                throw new Exception("Unexpected error occurred.");
-            }
         }
 
         public AssetInformation GetAssetInformationFromAas(string aasIdentifier)
@@ -364,15 +98,12 @@ namespace AdminShell
         {
             var output = new List<AssetAdministrationShell>();
 
-            //Get All AASs
-            foreach (var env in _packageService.Packages)
-            {
-                output.AddRange(env.Value.AssetAdministrationShells);
-            }
+            // Get All AASs
+            output.AddRange(_env.AssetAdministrationShells);
 
             if (output.Any())
             {
-                //Filter AASs based on IdShort
+                // Filter AASs based on IdShort
                 if (!string.IsNullOrEmpty(idShort))
                 {
                     output = output.Where(a => a.IdShort.Equals(idShort)).ToList();
@@ -382,7 +113,7 @@ namespace AdminShell
                     }
                 }
 
-                //Filter based on AssetId
+                // Filter based on AssetId
                 if (assetIds != null && assetIds.Count != 0)
                 {
                     var aasList = new List<AssetAdministrationShell>();
@@ -408,11 +139,12 @@ namespace AdminShell
         public object GetAllSubmodelElements(string aasIdentifier, string submodelIdentifier)
         {
             object output = null;
-            //Find AAS
+
+            // Find AAS
             var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
             if (aas != null)
             {
-                //Check if AAS consist the requested submodel
+                // Check if AAS consist the requested submodel
                 IEnumerable<Reference> references = aas.Submodels.Where(s => s.Matches(submodelIdentifier));
                 if ((references == null) || (references?.Count() == 0))
                 {
@@ -441,358 +173,17 @@ namespace AdminShell
 
         private bool IsAssetAdministrationShellPresent(string aasIdentifier, out AssetAdministrationShell output, out string key)
         {
-            foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
+            var aas = _env.AssetAdministrationShells.Where(a => a.Identification.Id.Equals(aasIdentifier));
+            if (aas.Any())
             {
-                var aas = package.Value.AssetAdministrationShells.Where(a => a.Identification.Id.Equals(aasIdentifier));
-                if (aas.Any())
-                {
-                    output = aas.First();
-                    key = package.Key;
-                    return true;
-                }
+                output = aas.First();
+                key = aasIdentifier;
+                return true;
             }
 
             output = null;
             key = null;
             return false;
-        }
-
-        public void UpdateConceptDescriptionById(ConceptDescription body, string cdIdentifier)
-        {
-            if (string.IsNullOrEmpty(body.Identification.Id))
-            {
-                throw new Exception("ConceptDescription");
-            }
-
-            var conceptDescription = GetConceptDescriptionById(cdIdentifier, out string key);
-            if (conceptDescription != null)
-            {
-                int cdIndex = _packageService.Packages[key].ConceptDescriptions.IndexOf(conceptDescription);
-                _packageService.Packages[key].ConceptDescriptions.Remove(conceptDescription);
-                _packageService.Packages[key].ConceptDescriptions.Insert(cdIndex, body);
-                _packageService.Save(key);
-
-                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.ValuesOnly);
-            }
-        }
-
-        public ConceptDescription CreateConceptDescription(ConceptDescription body)
-        {
-            if (string.IsNullOrEmpty(body.Identification.Id))
-            {
-                throw new Exception("ConceptDescription");
-            }
-
-            //Check if AAS exists
-            var found = IsConceptDescriptionPresent(body.Identification.Id, out _, out _);
-            if (found)
-            {
-                throw new Exception($"ConceptDescription with Id {body.Identification.Id} already exists.");
-            }
-
-            AssetAdministrationShellEnvironment env = new();
-            env.ConceptDescriptions.Add(body);
-            _packageService.SaveAs(body.Identification.Id, env);
-
-            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
-
-            return body;
-        }
-
-        public void DeleteConceptDescriptionById(string cdIdentifier)
-        {
-            var conceptDescription = GetConceptDescriptionById(cdIdentifier, out string key);
-            if ((conceptDescription != null) && !string.IsNullOrEmpty(key))
-            {
-                _packageService.Packages[key].ConceptDescriptions.Remove(conceptDescription);
-                _packageService.Save(key);
-
-                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
-            }
-            else
-            {
-                throw new Exception("Unexpected error occurred.");
-            }
-        }
-
-        public ConceptDescription GetConceptDescriptionById(string cdIdentifier, out string key)
-        {
-            bool found = IsConceptDescriptionPresent(cdIdentifier, out ConceptDescription output, out key);
-            if (found)
-            {
-                return output;
-            }
-            else
-            {
-                throw new Exception($"ConceptDescription with Id {cdIdentifier} not found.");
-            }
-        }
-
-        private bool IsConceptDescriptionPresent(string cdIdentifier, out ConceptDescription output, out string key)
-        {
-            foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
-            {
-                var conceptDescriptions = package.Value.ConceptDescriptions.Where(c => c.Identification.Id.Equals(cdIdentifier));
-                if (conceptDescriptions.Any())
-                {
-                    output = conceptDescriptions.First();
-                    key = package.Key;
-                    return true;
-                }
-            }
-
-            output = null;
-            key = null;
-            return false;
-        }
-
-        public List<ConceptDescription> GetAllConceptDescriptions(string idShort = null, Reference reqIsCaseOf = null, Reference reqDataSpecificationRef = null)
-        {
-            var output = new List<ConceptDescription>();
-
-            //Get All Concept descriptions
-            foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
-            {
-                    output.AddRange(package.Value.ConceptDescriptions);
-            }
-
-            if (output.Any())
-            {
-                //Filter AASs based on IdShort
-                if (!string.IsNullOrEmpty(idShort))
-                {
-                    var cdList = output.Where(cd => cd.IdShort.Equals(idShort)).ToList();
-                    if ((cdList == null) || cdList?.Count == 0)
-                    {
-                        throw new Exception($"Concept Description with IdShort {idShort} Not Found.");
-                    }
-                    else
-                    {
-                        output = cdList;
-                    }
-                }
-
-                //Filter based on IsCaseOf
-                if (reqIsCaseOf != null)
-                {
-                    var cdList = new List<ConceptDescription>();
-                    foreach (var conceptDescription in output)
-                    {
-                        if (conceptDescription.IsCaseOf?.Count > 0)
-                        {
-                            foreach (var reference in conceptDescription.IsCaseOf)
-                            {
-                                if (reference != null && reference.Matches(reqIsCaseOf))
-                                {
-                                    cdList.Add(conceptDescription);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if ((cdList == null) || cdList?.Count == 0)
-                    {
-                        throw new Exception($"Concept Description with requested IsCaseOf Not Found.");
-                    }
-                    else
-                    {
-                        output = cdList;
-                    }
-
-                }
-
-                //Filter based on DataSpecificationRef
-                if (reqDataSpecificationRef != null)
-                {
-                    var cdList = new List<ConceptDescription>();
-                    foreach (var conceptDescription in output)
-                    {
-                        if (conceptDescription.EmbeddedDataSpecifications?.Count > 0)
-                        {
-                            foreach (var reference in conceptDescription.EmbeddedDataSpecifications)
-                            {
-                                if (reference != null && reference.DataSpecification.Matches(reqDataSpecificationRef))
-                                {
-                                    cdList.Add(conceptDescription);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if ((cdList == null) || cdList?.Count == 0)
-                    {
-                        throw new Exception($"Concept Description with requested DataSpecificationReference Not Found.");
-                    }
-                    else
-                    {
-                        output = cdList;
-                    }
-                }
-            }
-
-            return output;
-        }
-
-        public void UpdateSubmodelElementByPathSubmodelRepo(SubmodelElement body, string submodelIdentifier, string idShortPath = null)
-        {
-            if (string.IsNullOrEmpty(body.IdShort))
-            {
-                throw new Exception("IdShort not valid!");
-            }
-
-            var submodelElement = GetSubmodelElementByPathSubmodelRepo(submodelIdentifier, idShortPath, out object smeParent);
-            if (submodelElement != null && smeParent != null)
-            {
-                DeleteSubmodelElementByPathSubmodelRepo(submodelIdentifier, idShortPath);
-
-                if (smeParent is SubmodelElementCollection collection)
-                {
-                    collection.Value.Add(new SubmodelElementWrapper(body));
-                }
-                else if (smeParent is SubmodelElementList list)
-                {
-                    list.Value.Add(new SubmodelElementWrapper(body));
-                }
-                else if (smeParent is Submodel submodel)
-                {
-                    submodel.SubmodelElements.Add(new SubmodelElementWrapper(body));
-                }
-
-                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
-            }
-        }
-
-        public void UpdateSubmodelById(Submodel body, string submodelIdentifier = null)
-        {
-            if (string.IsNullOrEmpty(body.Identification))
-            {
-               throw new Exception("Submodel");
-            }
-
-            var submodel = GetSubmodelById(submodelIdentifier, out string key);
-            if (submodel != null)
-            {
-                _packageService.Packages[key].Submodels.Remove(submodel);
-                _packageService.Packages[key].Submodels.Add(body);
-                _packageService.Save(key);
-
-                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
-            }
-        }
-
-        public SubmodelElement CreateSubmodelElementByPathSubmodelRepo(SubmodelElement body, string submodelIdentifier, string idShortPath)
-        {
-            if (string.IsNullOrEmpty(body.IdShort))
-            {
-                throw new Exception("SubmodelElement");
-            }
-
-            var newIdShortPath = idShortPath + "." + body.IdShort;
-            var found = IsSubmodelElementPresent(submodelIdentifier, newIdShortPath, out _, out object smeParent);
-            if (found)
-            {
-                throw new Exception($"SubmodelElement with IdShort {body.IdShort} already exists.");
-            }
-            else
-            {
-                if (smeParent != null && smeParent is Submodel submodel)
-                {
-                    submodel.SubmodelElements ??= new List<SubmodelElementWrapper>();
-
-                    submodel.SubmodelElements.Add(new SubmodelElementWrapper(body));
-
-                    body.Parent = submodel;
-                }
-                else if (smeParent != null && smeParent is SubmodelElementCollection collection)
-                {
-                    collection.Value ??= new List<SubmodelElementWrapper>();
-
-                    collection.Value.Add(new SubmodelElementWrapper(body));
-
-                    body.Parent = collection;
-                }
-                else if (smeParent != null && smeParent is SubmodelElementList list)
-                {
-                    list.Value ??= new List<SubmodelElementWrapper>();
-
-                    list.Value.Add(new SubmodelElementWrapper(body));
-
-                    body.Parent = list;
-                }
-                else if (smeParent != null && smeParent is Entity entity)
-                {
-                    entity.Statements = new List<SubmodelElementWrapper>();
-
-                    entity.Statements.Add(new SubmodelElementWrapper(body));
-                    body.Parent = entity;
-                }
-                else if (smeParent != null && smeParent is AnnotatedRelationshipElement annotatedRelationshipElement)
-                {
-                    annotatedRelationshipElement.Annotations ??= new List<DataElement>();
-
-                    annotatedRelationshipElement.Annotations.Add((DataElement)body);
-                    body.Parent = annotatedRelationshipElement;
-                }
-
-                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
-
-                return body;
-            }
-        }
-
-        public SubmodelElement CreateSubmodelElementSubmodelRepo(SubmodelElement body, string submodelIdentifier)
-        {
-            if (string.IsNullOrEmpty(body.IdShort))
-            {
-                throw new Exception("SubmodelElement");
-            }
-
-            var found = IsSubmodelElementPresent(submodelIdentifier, body.IdShort, out _, out object smeParent);
-            if (found)
-            {
-                throw new Exception($"SubmodelElement with IdShort {body.IdShort} already exists.");
-            }
-            else
-            {
-                if (smeParent != null && smeParent is Submodel submodel)
-                {
-                    submodel.SubmodelElements ??= new List<SubmodelElementWrapper>();
-
-                    submodel.SubmodelElements.Add(new SubmodelElementWrapper(body));
-
-                    body.Parent = submodel;
-
-                    VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
-
-                    return body;
-                }
-            }
-
-            return null;
-
-        }
-
-        public Submodel CreateSubmodel(Submodel body)
-        {
-            if (string.IsNullOrEmpty(body.Identification.Id))
-            {
-                throw new Exception("Submodel");
-            }
-
-            //Check if AAS exists
-            var found = IsSubmodelPresent(body.Identification.Id, out _, out _);
-            if (found)
-            {
-                throw new Exception($"Submodel with Id {body.Identification.Id} already exists.");
-            }
-
-            AssetAdministrationShellEnvironment env = new();
-            env.Submodels.Add(body);
-            _packageService.Packages.Add(body.Identification.Id, env);
-
-            VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
-
-            return body;
         }
 
         public Submodel GetSubmodelById(string submodelIdentifier, out string key)
@@ -810,15 +201,12 @@ namespace AdminShell
 
         private bool IsSubmodelPresent(string submodelIdentifier, out Submodel output, out string key)
         {
-            foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
+            var submodels = _env.Submodels.Where(a => a.Identification.Id.Equals(submodelIdentifier));
+            if (submodels.Any())
             {
-                var submodels = package.Value.Submodels.Where(a => a.Identification.Id.Equals(submodelIdentifier));
-                if (submodels.Any())
-                {
-                    output = submodels.First();
-                    key = package.Key;
-                    return true;
-                }
+                output = submodels.First();
+                key = submodelIdentifier;
+                return true;
             }
 
             output = null;
@@ -839,16 +227,13 @@ namespace AdminShell
         {
             List<Submodel> output = new List<Submodel>();
 
-            //Get All Submodels
-            foreach (KeyValuePair<string, AssetAdministrationShellEnvironment> package in _packageService.Packages)
+            // Get All Submodels
+            foreach (var s in _env.Submodels)
             {
-                foreach (var s in package.Value.Submodels)
-                {
-                    output.Add(s);
-                }
+                output.Add(s);
             }
 
-            //Apply filters
+            // Apply filters
             if (output.Any())
             {
                 //Filter w.r.t idShort
@@ -863,7 +248,7 @@ namespace AdminShell
                     output = submodels;
                 }
 
-                //Filter w.r.t. SemanticId
+                // Filter w.r.t. SemanticId
                 if (reqSemanticId != null)
                 {
                     if (output.Any())
@@ -880,29 +265,6 @@ namespace AdminShell
             }
 
             return output;
-        }
-
-        public void DeleteSubmodelById(string submodelIdentifier)
-        {
-            var submodel = GetSubmodelById(submodelIdentifier, out string key);
-            if ((submodel != null) && !string.IsNullOrEmpty(key))
-            {
-                _packageService.Packages[key].Submodels.Remove(submodel);
-
-                //Delete submodel reference from AAS
-                foreach (var aas in _packageService.Packages[key].AssetAdministrationShells)
-                {
-                    DeleteSubmodelReferenceById(aas.Identification.Id, submodelIdentifier);
-                }
-
-                _packageService.Save(key);
-
-                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
-            }
-            else
-            {
-                throw new Exception("Unexpected error occurred.");
-            }
         }
 
         public SubmodelElement GetSubmodelElementByPathSubmodelRepo(string submodelIdentifier, string idShortPath, out object smeParent)
@@ -1077,86 +439,6 @@ namespace AdminShell
             return null;
         }
 
-        public void DeleteSubmodelElementByPathSubmodelRepo(string submodelIdentifier, string idShortPath)
-        {
-            var submodelElement = GetSubmodelElementByPathSubmodelRepo(submodelIdentifier, idShortPath, out object smeParent);
-            if (submodelElement != null)
-            {
-                if (smeParent is SubmodelElementCollection parentCollection)
-                {
-                    foreach (SubmodelElementWrapper smew in parentCollection.Value)
-                    {
-                        if (smew.SubmodelElement.IdShort == idShortPath)
-                        {
-                            if (!parentCollection.Value.Remove(smew))
-                            {
-                                throw new Exception("Cannot remove SubmodelElement " + idShortPath +"!");
-                            }
-                            break;
-                        }
-                    }
-                }
-                else if (smeParent is SubmodelElementList parentList)
-                {
-                    foreach (SubmodelElementWrapper smew in parentList.Value)
-                    {
-                        if (smew.SubmodelElement.IdShort == idShortPath)
-                        {
-                            if (!parentList.Value.Remove(smew))
-                            {
-                                throw new Exception("Cannot remove SubmodelElement " + idShortPath + "!");
-                            }
-                            break;
-                        }
-                    }
-                }
-                else if (smeParent is AnnotatedRelationshipElement annotatedRelationshipElement)
-                {
-                    foreach (DataElement de in annotatedRelationshipElement.Annotations)
-                    {
-                        if (de.IdShort == idShortPath)
-                        {
-                            if (!annotatedRelationshipElement.Annotations.Remove(de))
-                            {
-                                throw new Exception("Cannot remove DataElement " + idShortPath + "!");
-                            }
-                            break;
-                        }
-                    }
-                }
-                else if (smeParent is Entity entity)
-                {
-                    foreach (SubmodelElementWrapper smew in entity.Statements)
-                    {
-                        if (smew.SubmodelElement.IdShort == idShortPath)
-                        {
-                            if (!entity.Statements.Remove(smew))
-                            {
-                                throw new Exception("Cannot remove SubmodelElement " + idShortPath + "!");
-                            }
-                            break;
-                        }
-                    }
-                }
-                else if (smeParent is Submodel parentSubmodel)
-                {
-                    foreach (SubmodelElementWrapper smew in parentSubmodel.SubmodelElements)
-                    {
-                        if (smew.SubmodelElement.IdShort == idShortPath)
-                        {
-                            if (!parentSubmodel.SubmodelElements.Remove(smew))
-                            {
-                                throw new Exception("Cannot remove SubmodelElement " + idShortPath + "!");
-                            }
-                            break;
-                        }
-                    }
-                }
-
-                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.Rebuild);
-            }
-        }
-
         public string GetFileByPathSubmodelRepo(string submodelIdentifier, string idShortPath, out byte[] byteArray, out long fileSize)
         {
             byteArray = null;
@@ -1172,7 +454,7 @@ namespace AdminShell
                 if (fileElement is File file)
                 {
                     fileName = file.Value;
-                    byteArray = _packageService.GetFileContentsFromPackagePart(key, fileName);
+                    byteArray = new byte[0]; // TODO: Get file content
                     fileSize = byteArray.Length;
                 }
                 else
@@ -1182,120 +464,6 @@ namespace AdminShell
             }
 
             return fileName;
-        }
-
-        public void UpdateFileByPathSubmodelRepo(string aasIndentifier, string submodelIdentifier, string idShortPath, string fileName, string contentType, Stream fileContent)
-        {
-            _ = GetSubmodelById(submodelIdentifier, out string key);
-
-            var fileElement = GetSubmodelElementByPathSubmodelRepo(submodelIdentifier, idShortPath, out _);
-            if (fileElement != null)
-            {
-                // update
-                if (fileElement is File file)
-                {
-                    var sourcePath = Path.GetDirectoryName(file.Value);
-                    var targetFile = Path.Combine(sourcePath, fileName);
-                    file.Value = targetFile.Replace("\\", "/");
-                    _packageService.ReplaceSupplementaryFileInPackage(key, file.Value, contentType, fileContent);
-                    _packageService.Save(key);
-
-                    VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
-                }
-                else
-                {
-                    throw new Exception($"Submodel element {fileElement.IdShort} is not of Type File.");
-                }
-            }
-            else
-            {
-                // add
-                File file = new();
-                file.Value = fileName;
-                file.IdShort = idShortPath;
-
-                CreateSubmodelElementByPath(file, aasIndentifier, submodelIdentifier, idShortPath);
-
-                _packageService.AddSupplementaryFileToPackage(key, file.Value, contentType, fileContent);
-                _packageService.Save(key);
-
-                VisualTreeBuilderService.SignalNewData(TreeUpdateMode.RebuildAndCollapse);
-            }
-        }
-
-        public OperationResult GetOperationAsyncResultSubmodelRepo(string decodedSubmodelId, string idShortPath, string handleId)
-        {
-            var operationElement = GetSubmodelElementByPathSubmodelRepo(decodedSubmodelId, idShortPath, out _);
-
-            if (operationElement != null)
-            {
-                if (operationElement is Operation)
-                {
-                    return new OperationResult();
-                }
-                else
-                {
-                    throw new Exception($"Submodel element {operationElement.IdShort} is not of Type Operation.");
-                }
-            }
-
-            return null;
-        }
-
-        public OperationResult InvokeOperationSubmodelRepo(string submodelIdentifier, string idShortPath, OperationRequest operationRequest)
-        {
-            var operationElement = GetSubmodelElementByPathSubmodelRepo(submodelIdentifier, idShortPath, out _);
-
-            if (operationElement != null)
-            {
-                if (operationElement is Operation operation)
-                {
-                    CheckOperationVariables(operation, operationRequest);
-                    OperationResult operationResult = new OperationResult();
-
-                    return operationResult;
-                }
-                else
-                {
-                    throw new Exception($"Submodel element {operationElement.IdShort} is not of Type Operation.");
-                }
-            }
-
-            return null;
-        }
-
-        private void CheckOperationVariables(Operation operation, OperationRequest operationRequest)
-        {
-            if (operation.InputVariables.Count != operationRequest.InputArguments.Count)
-            {
-                throw new Exception($"Incorrect number of InputVariables in OperationRequest.");
-            }
-            else if (operation.InoutputVariables.Count != operationRequest.InoutputArguments.Count)
-            {
-                throw new Exception($"Incorrect number of InOutputVariables in OperationRequest.");
-            }
-        }
-
-        public OperationResult InvokeOperationAsyncSubmodelRepo(string submodelIdentifier, string idShortPath, OperationRequest operationRequest)
-        {
-            var operationElement = GetSubmodelElementByPathSubmodelRepo(submodelIdentifier, idShortPath, out _);
-
-            if (operationElement != null)
-            {
-                if (operationElement is Operation operation)
-                {
-                    CheckOperationVariables(operation, operationRequest);
-                    OperationResult operationHandle = new OperationResult();
-
-                    return operationHandle;
-                }
-                else
-                {
-                    throw new Exception($"Submodel element {operationElement.IdShort} is not of Type Operation.");
-                }
-            }
-
-            return null;
         }
     }
 }

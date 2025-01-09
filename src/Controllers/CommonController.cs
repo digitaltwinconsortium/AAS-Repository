@@ -28,15 +28,6 @@ namespace UaRestGateway.Server.Controllers
         {
             lock (m_lock)
             {
-                _server = _viewer.StartServer(context.Session.Id);
-
-                var endpoints = _server.GetEndpoints();
-                if (endpoints == null || endpoints.Count == 0)
-                {
-                    var status = _server.GetStatus();
-                    throw new ApiResponseException(ErrorCodes.ServerNotRunning, $"{ErrorCodes.ServerNotRunning}. State={status.State}");
-                }
-
                 return _viewer.GetSession(context.Session.Id).GetAwaiter().GetResult();
             }
         }

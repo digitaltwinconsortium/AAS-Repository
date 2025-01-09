@@ -1,12 +1,24 @@
 ﻿
+using System;
+using System.Collections.Generic;
+
 namespace AdminShell
 {
-    public class NodesetViewerNode
+    public class NodesetViewerNode : IComparable<NodesetViewerNode>
     {
-        public string Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
-        public string Text { get; set; }
+        public string Text { get; set; } = string.Empty;
 
-        public bool Children { get; set; }
+        public List<NodesetViewerNode> Children { get; set; }
+
+        public string SessionId { get; set; } = string.Empty;
+
+        public string Value { get;set; } = string.Empty;
+
+        public int CompareTo(NodesetViewerNode other)
+        {
+            return string.Compare(Text, other.Text, StringComparison.Ordinal);
+        }
     }
 }

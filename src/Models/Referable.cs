@@ -9,7 +9,7 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    public class Referable : IAasElement
+    public class Referable
     {
         [DataMember(Name = "category")]
         [XmlElement(ElementName = "category")]
@@ -22,7 +22,7 @@ namespace AdminShell
 
         [DataMember(Name = "displayName")]
         [XmlElement(ElementName = "displayName")]
-        public string DisplayName { get; set; }
+        public List<LangString> DisplayName { get; set; }
 
         [Required]
         [DataMember(Name = "idShort")]
@@ -41,7 +41,7 @@ namespace AdminShell
         public string Checksum { get; set; } = string.Empty;
 
         [XmlIgnore]
-        public IAasElement Parent { get; set; }
+        public Referable Parent { get; set; }
 
         [XmlIgnore]
         public static string CONSTANT = "CONSTANT";
