@@ -7,6 +7,7 @@ namespace AdminShell
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
 
     public class NodesetFileNodeManager : CustomNodeManager2
     {
@@ -27,6 +28,16 @@ namespace AdminShell
             };
 
             LoadNamespaceUrisFromNodesetXml(namespaceUris, "I4AAS.NodeSet2.xml");
+
+            // check if we have existing nodesets in our nodesets directory
+            IEnumerable<string> nodesetFiles = Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "Nodesets"));
+            if (nodesetFiles.Count() > 0)
+            {
+                foreach (string file in nodesetFiles)
+                {
+                    LoadNamespaceUrisFromNodesetXml(namespaceUris, file);
+                }
+            }
 
             NamespaceUris = namespaceUris;
         }
@@ -76,6 +87,16 @@ namespace AdminShell
 
                 _rootConceptDescriptions = CreateFolder(null, "Concept Descriptions");
                 objectsFolderReferences.Add(new NodeStateReference(ReferenceTypes.Organizes, false, _rootConceptDescriptions.NodeId));
+
+                // check if we have existing nodesets in our nodesets directory
+                IEnumerable<string> nodesetFiles = Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "Nodesets"));
+                if (nodesetFiles.Count() > 0)
+                {
+                    foreach (string file in nodesetFiles)
+                    {
+                        AddNodesFromNodesetXml(file);
+                    }
+                }
 
                 AddReverseReferences(externalReferences);
                 base.CreateAddressSpace(externalReferences);
