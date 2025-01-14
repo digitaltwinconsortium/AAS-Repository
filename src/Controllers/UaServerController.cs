@@ -14,8 +14,7 @@ namespace UaRestGateway.Server.Controllers
     public class UaServerController : CommonController
     {
         public UaServerController(ILogger<UaServerController> logger, UANodesetViewer viewer)
-        :
-            base(logger, viewer)
+        : base(logger, viewer)
         {
         }
 

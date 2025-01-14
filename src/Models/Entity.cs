@@ -23,7 +23,7 @@ namespace AdminShell
         // So we have to first deserialize into a placeholder Json member and then copy the contents into the correct member
         [JsonIgnore]
         [XmlArray(ElementName = "statements")]
-        public List<SubmodelElementWrapper> Statements { get; set; } = new();
+        public List<SubmodelElement> Statements { get; set; } = new();
 
         [XmlIgnore]
         [DataMember(Name = "statements")]
@@ -33,9 +33,9 @@ namespace AdminShell
             {
                 var submodelElements = new List<SubmodelElement>();
 
-                foreach (SubmodelElementWrapper smew in Statements)
+                foreach (SubmodelElement smew in Statements)
                 {
-                    submodelElements.Add(smew.SubmodelElement);
+                    submodelElements.Add(smew);
                 }
 
                 return submodelElements.ToArray();
@@ -49,7 +49,7 @@ namespace AdminShell
 
                     foreach (SubmodelElement sme in value)
                     {
-                        Statements.Add(new SubmodelElementWrapper() { SubmodelElement = sme });
+                        Statements.Add(sme);
                     }
                 }
             }
@@ -70,7 +70,7 @@ namespace AdminShell
 
             if (ent.Statements != null)
             {
-                Statements = new List<SubmodelElementWrapper>();
+                Statements = new List<SubmodelElement>();
                 foreach (var smw in ent.Statements)
                 {
                     Statements.Add(smw);

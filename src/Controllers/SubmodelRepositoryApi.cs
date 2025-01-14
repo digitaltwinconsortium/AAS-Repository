@@ -2,14 +2,18 @@
 
 namespace AdminShell
 {
+    using IO.Swagger.Models;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.IdentityModel.Tokens;
     using Newtonsoft.Json;
     using Swashbuckle.AspNetCore.Annotations;
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
     using System.Net.Mime;
-    using System.Web;
+    using System.Threading.Tasks;
 
     [ApiController]
     public class SubmodelRepositoryApiController : ControllerBase
@@ -46,16 +50,28 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
         [SwaggerResponse(statusCode: 500, type: typeof(Result), description: "Internal Server Error")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
-        public virtual IActionResult GetAllSubmodelElements([FromRoute][Required]string submodelIdentifier, [FromQuery]int? limit, [FromQuery]string cursor, [FromQuery]string level, [FromQuery]string extent)
-        {
-            string exampleJson = null;
-            exampleJson = "\"\"";
+	    public virtual IActionResult GetAllSubmodelElements([FromRoute][Required] string submodelIdentifier, [FromQuery] int? limit, [FromQuery] string cursor, [FromQuery] string level, [FromQuery] string extent, [FromQuery] string diff)
+	    {
+            LevelEnum levelEnum = Enum.Parse<LevelEnum>(level, true);
+            ExtentEnum extentEnum = Enum.Parse<ExtentEnum>(extent, true);
 
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<List<SubmodelElement>>(exampleJson)
-                        : default(List<SubmodelElement>);            //TODO: Change the data returned
-            return new ObjectResult(example);
-        }
+            string decodedSubmodelIdentifier = Base64UrlEncoder.Decode(submodelIdentifier);
+
+		    if (decodedSubmodelIdentifier == null)
+		    {
+		        throw new ArgumentException($"Decoding {submodelIdentifier} returned null");
+		    }
+
+		    List<SubmodelElement> submodelElements = _aasEnvService.GetAllSubmodelElementsFromSubmodel(decodedSubmodelIdentifier);
+
+		    PagedResult<SubmodelElement> output = PagedResult<SubmodelElement>.ToPagedList(submodelElements, new PaginationParameters(cursor, limit));
+            for (int i = 0; i < output.Result.Count; i++)
+            {
+                output.Result[i] = LevelExtentTransformer.TransformSubmodelElement(output.Result[i], new LevelExtentModifierContext(levelEnum, extentEnum));
+            }
+
+		    return new ObjectResult(output);
+	    }
 
         /// <summary>
         /// Returns all Submodels
@@ -81,16 +97,24 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 403, type: typeof(Result), description: "Forbidden")]
         [SwaggerResponse(statusCode: 500, type: typeof(Result), description: "Internal Server Error")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
-        public virtual IActionResult GetAllSubmodels([FromQuery][StringLength(3072, MinimumLength=1)]string semanticId, [FromQuery]string idShort, [FromQuery]int? limit, [FromQuery]string cursor, [FromQuery]string level, [FromQuery]string extent)
+        public virtual IActionResult GetAllSubmodels([FromQuery][StringLength(3072, MinimumLength = 1)] string semanticId, [FromQuery] string idShort, [FromQuery] int? limit, [FromQuery] string cursor, [FromQuery] string level, [FromQuery] string extent)
         {
-            string exampleJson = null;
-            exampleJson = "\"\"";
+            LevelEnum levelEnum = Enum.Parse<LevelEnum>(level, true);
+            ExtentEnum extentEnum = Enum.Parse<ExtentEnum>(extent, true);
 
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<Submodel>(exampleJson)
-                        : default(Submodel);            //TODO: Change the data returned
-            return new ObjectResult(example);
-        }
+            string reqSemanticId = Base64UrlEncoder.Decode(semanticId);
+            Reference reference = new Reference { Keys = new List<Key> { new Key("Submodel", reqSemanticId) } };
+
+            List<Submodel> submodelList = _aasEnvService.GetAllSubmodels(reference, idShort);
+
+	        PagedResult<Submodel> output = PagedResult<Submodel>.ToPagedList(submodelList, new PaginationParameters(cursor, limit));
+            for (int i = 0; i < output.Result.Count; i++)
+            {
+                output.Result[i] = LevelExtentTransformer.TransformSubmodel(output.Result[i], new LevelExtentModifierContext(levelEnum, extentEnum));
+            }
+
+	        return new ObjectResult(output);
+		}
 
         /// <summary>
         /// Downloads file content from a specific submodel element from the Submodel at a specified path
@@ -116,22 +140,41 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 405, type: typeof(Result), description: "Method not allowed - Download only valid for File submodel element")]
         [SwaggerResponse(statusCode: 500, type: typeof(Result), description: "Internal Server Error")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
-        public virtual IActionResult GetFileByPath([FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath)
-        {
-            var fileName = _aasEnvService.GetFileByPath(HttpUtility.UrlDecode(submodelIdentifier), HttpUtility.UrlDecode(submodelIdentifier), HttpUtility.UrlDecode(idShortPath), out byte[] content, out long fileSize);
+        public virtual async Task<IActionResult> GetFileByPath([FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath)
+	    {
+	        string decodedSubmodelIdentifier = Base64UrlEncoder.Decode(submodelIdentifier);
 
-            //content-disposition so that the aasx file can be doenloaded from the web browser.
-            ContentDisposition contentDisposition = new()
-            {
-                FileName = fileName
-            };
+	        if (decodedSubmodelIdentifier == null)
+	        {
+	            throw new ArgumentException($"Cannot proceed as {nameof(decodedSubmodelIdentifier)} is null");
+	        }
 
-            HttpContext.Response.Headers.Append("Content-Disposition", contentDisposition.ToString());
-            HttpContext.Response.ContentLength = fileSize;
-            HttpContext.Response.Body.WriteAsync(content);
+	        string fileName = _aasEnvService.GetFileByPath(string.Empty, decodedSubmodelIdentifier, idShortPath, out byte[] content, out long fileSize);
 
-            return File(content, "APPLICATION/octet-stream", fileName);
-        }
+	        //content-disposition so that the aasx file can be downloaded from the web browser.
+	        ContentDisposition contentDisposition = new()
+	        {
+	            FileName = fileName ?? throw new ArgumentException(nameof(fileName)),
+	            Inline   = fileName.EndsWith(".pdf", StringComparison.InvariantCulture)
+	        };
+
+	        HttpContext.Response.Headers.Append("Content-Disposition", contentDisposition.ToString());
+	        HttpContext.Response.ContentLength = fileSize;
+	        if (fileName.EndsWith(".svg", StringComparison.InvariantCulture))
+	        {
+	            HttpContext.Response.ContentType = "image/svg+xml";
+	        }
+
+	        if (fileName.EndsWith(".pdf", StringComparison.InvariantCulture))
+	        {
+	            HttpContext.Response.ContentType = "application/pdf";
+	        }
+
+	        await HttpContext.Response.Body.WriteAsync(content);
+
+	        return new EmptyResult();
+	    }
+
 
         /// <summary>
         /// Returns a specific submodel element from the Submodel at a specified path
@@ -159,13 +202,20 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetSubmodelElementByPath([FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath, [FromQuery]string level, [FromQuery]string extent)
         {
-            string exampleJson = null;
-            exampleJson = "\"\"";
+            LevelEnum levelEnum = Enum.Parse<LevelEnum>(level, true);
+            ExtentEnum extentEnum = Enum.Parse<ExtentEnum>(extent, true);
 
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<SubmodelElement>(exampleJson)
-                        : default(SubmodelElement);            //TODO: Change the data returned
-            return new ObjectResult(example);
-        }
+            string decodedSubmodelIdentifier = Base64UrlEncoder.Decode(submodelIdentifier);
+
+	        if (decodedSubmodelIdentifier == null)
+	        {
+	            throw new ArgumentException($"Cannot proceed as {nameof(decodedSubmodelIdentifier)} is null");
+	        }
+
+	        SubmodelElement output = _aasEnvService.GetSubmodelElementByPath(string.Empty, decodedSubmodelIdentifier, idShortPath);
+            output = LevelExtentTransformer.TransformSubmodelElement(output, new LevelExtentModifierContext(levelEnum, extentEnum));
+
+	        return new ObjectResult(output);
+	    }
     }
 }

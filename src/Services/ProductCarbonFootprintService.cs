@@ -224,8 +224,7 @@ namespace AdminShell
 
                     Debug.WriteLine("Total carbon intensity of batch: " + pcf.ToString() + " gCO2");
 
-                    // persist AAS with serial number and calculated PCF
-                    // TODO!
+                    // TODO: persist AAS with serial number and calculated PCF
                 }
             }
             catch (Exception ex)
@@ -273,8 +272,7 @@ namespace AdminShell
                     // finally calculate our PCF
                     float pcf = scope1Emissions + scope2Emissions + scope3Emissions;
 
-                    // persist AAS with serial number and calculated PCF
-                    // TODO!
+                    // TODO: persist AAS with serial number and calculated PCF
                 }
             }
             catch (Exception ex)
@@ -286,15 +284,15 @@ namespace AdminShell
 
         private SubmodelElement FindSME(SubmodelElement smeInput, Identifier semId)
         {
-            if (smeInput is SubmodelElementCollection collection)
+            if (smeInput is SubmodelElementList collection)
             {
-                foreach (SubmodelElementWrapper smew in collection.Value)
+                foreach (SubmodelElement sme in collection.Value)
                 {
-                    if (smew.SubmodelElement.SemanticId != null)
+                    if (sme.SemanticId != null)
                     {
-                        if (smew.SubmodelElement.SemanticId.Matches(semId))
+                        if (sme.SemanticId.Matches(semId))
                         {
-                            return smew.SubmodelElement;
+                            return sme;
                         }
                     }
                 }
@@ -303,15 +301,15 @@ namespace AdminShell
             return null;
         }
 
-        private SubmodelElement FindSME(List<SubmodelElementWrapper> smewc, Identifier semId)
+        private SubmodelElement FindSME(List<SubmodelElement> smewc, Identifier semId)
         {
-            foreach (SubmodelElementWrapper smew in smewc)
+            foreach (SubmodelElement sme in smewc)
             {
-                if (smew.SubmodelElement.SemanticId != null)
+                if (sme.SemanticId != null)
                 {
-                    if (smew.SubmodelElement.SemanticId.Matches(semId))
+                    if (sme.SemanticId.Matches(semId))
                     {
-                        return smew.SubmodelElement;
+                        return sme;
                     }
                 }
             }

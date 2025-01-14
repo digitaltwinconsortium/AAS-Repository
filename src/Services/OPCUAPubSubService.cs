@@ -111,11 +111,11 @@ namespace AdminShell
 
                         if (aasIDLookup == aasID)
                         {
-                            // create a wrapper and submodel element per data item
+                            // create a submodel element per data item
                             bool smeExists = false;
-                            foreach (SubmodelElementWrapper existingSMEW in sm.SubmodelElements)
+                            foreach (SubmodelElement existingSME in sm.SubmodelElements)
                             {
-                                if (existingSMEW.SubmodelElement.IdShort == idShort)
+                                if (existingSME.IdShort == idShort)
                                 {
                                     smeExists = true;
                                     break;
@@ -132,9 +132,7 @@ namespace AdminShell
                                     ValueType = "string"
                                 };
 
-                                SubmodelElementWrapper smew = new() { SubmodelElement = sme };
-
-                                sm.SubmodelElements.Add(smew);
+                                sm.SubmodelElements.Add(sme);
                             }
                         }
                     }
@@ -150,7 +148,7 @@ namespace AdminShell
             {
                 if (sm.IdShort == "OperationalData")
                 {
-                    foreach (SubmodelElementWrapper smew in sm.SubmodelElements)
+                    foreach (SubmodelElement sme in sm.SubmodelElements)
                     {
                         try
                         {
@@ -166,7 +164,7 @@ namespace AdminShell
                             string aasID = valueParts[0];
                             string idShort = valueParts[1];
 
-                            Property prop = (Property)smew.SubmodelElement;
+                            Property prop = (Property)sme;
                             if ((prop.IdShort == idShort) && (aasIDLookup == aasID))
                             {
                                 prop.Value = _values["OPCUANodeValue"].ToString();
@@ -197,11 +195,11 @@ namespace AdminShell
                 {
                     if (sm.IdShort == "BOM")
                     {
-                        foreach (SubmodelElementWrapper smew in ((Entity)sm.SubmodelElements[0].SubmodelElement).Statements)
+                        foreach (SubmodelElement sme in ((Entity)sm.SubmodelElements[0]).Statements)
                         {
-                            if (smew.SubmodelElement.IdShort.StartsWith("SmEC_"))
+                            if (sme.IdShort.StartsWith("SmEC_"))
                             {
-                                ((Entity)sm.SubmodelElements[0].SubmodelElement).Statements.Remove(smew);
+                                ((Entity)sm.SubmodelElements[0]).Statements.Remove(sme);
                                 break;
                             }
                         }
@@ -217,9 +215,9 @@ namespace AdminShell
                 {
                     if (sm.IdShort == "BOM")
                     {
-                        foreach (SubmodelElementWrapper smew in ((Entity)sm.SubmodelElements[0].SubmodelElement).Statements)
+                        foreach (SubmodelElement sme in ((Entity)sm.SubmodelElements[0]).Statements)
                         {
-                            if (smew.SubmodelElement.IdShort == "SmEC")
+                            if (sme.IdShort == "SmEC")
                             {
                                 found = true;
                                 break;
@@ -240,13 +238,11 @@ namespace AdminShell
                     sme.SemanticId.Type = KeyElements.GlobalReference;
                     sme.SemanticId.Keys.Add(new Key("GlobalReference", "https://admin-shell.io/idta/HierachicalStructures/Node/1/0"));
 
-                    SubmodelElementWrapper smew = new() { SubmodelElement = sme };
-
                     foreach (Submodel sm in _envService.GetEnv().Submodels)
                     {
                         if (sm.IdShort == "BOM")
                         {
-                            ((Entity)sm.SubmodelElements[0].SubmodelElement).Statements.Add(smew);
+                            ((Entity)sm.SubmodelElements[0]).Statements.Add(sme);
                         }
                     }
                 }

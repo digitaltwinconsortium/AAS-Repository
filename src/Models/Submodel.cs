@@ -28,38 +28,34 @@ namespace AdminShell
         [XmlElement(ElementName = "kind")]
         public ModelingKind Kind { get; set; } = new();
 
-        // Important note: XML serialization uses Submodel Element Wrappers while JSON serialization does not!
-        // So we have to first deserialize into a placeholder Json member and then copy the contents into the correct member
         [XmlArray(ElementName = "submodelElements")]
-        public List<SubmodelElementWrapper> SubmodelElements { get; set; } = new();
+        public List<SubmodelElement> SubmodelElements { get; set; } = new();
 
-        [XmlIgnore]
-        [DataMember(Name = "submodelElements")]
-        public SubmodelElement[] JsonSubmodelElements
+        public Submodel(Submodel other)
+            : base()
         {
-            get
+            if (other == null)
             {
-                var submodelElements = new List<SubmodelElement>();
-
-                foreach (SubmodelElementWrapper smew in SubmodelElements)
-                {
-                    submodelElements.Add(smew.SubmodelElement);
-                }
-
-                return submodelElements.ToArray();
+                return;
             }
 
-            set
+            foreach (var ed in other.EmbeddedDataSpecifications)
             {
-                if (value != null)
-                {
-                    SubmodelElements.Clear();
+                EmbeddedDataSpecifications.Add(new EmbeddedDataSpecification(ed));
+            }
 
-                    foreach (SubmodelElement sme in value)
-                    {
-                        SubmodelElements.Add(new SubmodelElementWrapper() { SubmodelElement = sme });
-                    }
-                }
+            foreach (var q in other.Qualifiers)
+            {
+                Qualifiers.Add(new Qualifier(q));
+            }
+
+            SemanticId = new Reference(other.SemanticId);
+
+            Kind = other.Kind;
+
+            foreach (var sme in other.SubmodelElements)
+            {
+                SubmodelElements.Add(new SubmodelElement(sme));
             }
         }
     }

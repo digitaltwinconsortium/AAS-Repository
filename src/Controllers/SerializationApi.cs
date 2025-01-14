@@ -2,6 +2,7 @@
 namespace AdminShell
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.IdentityModel.Tokens;
     using Swashbuckle.AspNetCore.Annotations;
     using System;
     using System.Collections.Generic;
@@ -42,20 +43,10 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GenerateSerializationByIds([FromQuery]List<string> aasIds, [FromQuery]List<string> submodelIds, [FromQuery]bool? includeConceptDescriptions)
         {
+            IEnumerable<string> decodedAasIds = aasIds.Select(aasId => Base64UrlEncoder.Decode(aasId)).ToList();
+            IEnumerable<string> decodedSubmodelIds = aasIds.Select(submodelIds => Base64UrlEncoder.Decode(submodelIds)).ToList();
+
             dynamic outputEnv = new ExpandoObject();
-
-            var decodedAasIds = new List<string>();
-            foreach (var aasId in aasIds)
-            {
-                decodedAasIds.Add(Encoding.UTF8.GetString(Convert.FromBase64String(aasId)));
-            }
-
-            var decodedSubmodelIds = new List<string>();
-            foreach (var submodelId in submodelIds)
-            {
-                decodedSubmodelIds.Add(Encoding.UTF8.GetString(Convert.FromBase64String(submodelId)));
-            }
-
             outputEnv.AssetAdministrationShells = new List<AssetAdministrationShell>();
             outputEnv.Submodels = new List<Submodel>();
 

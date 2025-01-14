@@ -43,7 +43,7 @@ namespace AdminShell
             {
                 if (IsSubmodelPresentInAAS(aas, submodelIdentifier))
                 {
-                    return GetFileByPathSubmodelRepo(submodelIdentifier, idShortPath, out content, out fileSize);
+                    return GetFileByPath(submodelIdentifier, idShortPath, out content, out fileSize);
                 }
             }
 
@@ -57,7 +57,7 @@ namespace AdminShell
             {
                 if (IsSubmodelPresentInAAS(aas, submodelIdentifier))
                 {
-                    var output = GetSubmodelElementByPathSubmodelRepo(submodelIdentifier, idShortPath, out _);
+                    var output = GetSubmodelElementByPath(submodelIdentifier, idShortPath, out _);
                     return output;
                 }
             }
@@ -136,27 +136,6 @@ namespace AdminShell
             return output;
         }
 
-        public object GetAllSubmodelElements(string aasIdentifier, string submodelIdentifier)
-        {
-            object output = null;
-
-            // Find AAS
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
-            if (aas != null)
-            {
-                // Check if AAS consist the requested submodel
-                IEnumerable<Reference> references = aas.Submodels.Where(s => s.Matches(submodelIdentifier));
-                if ((references == null) || (references?.Count() == 0))
-                {
-                    throw new Exception($"Requested submodel: {submodelIdentifier} not found in AAS: {aasIdentifier}");
-                }
-
-                output = GetAllSubmodelElementsFromSubmodel(submodelIdentifier);
-            }
-
-            return output;
-        }
-
         public AssetAdministrationShell GetAssetAdministrationShellById(string aasIdentifier, out string key)
         {
             bool found = IsAssetAdministrationShellPresent(aasIdentifier, out AssetAdministrationShell output, out key);
@@ -214,7 +193,7 @@ namespace AdminShell
             return false;
         }
 
-        public object GetAllSubmodelElementsFromSubmodel(string submodelIdentifier = null)
+        public List<SubmodelElement> GetAllSubmodelElementsFromSubmodel(string submodelIdentifier = null)
         {
             var submodel = GetSubmodelById(submodelIdentifier, out _);
             if (submodel == null)
@@ -267,7 +246,7 @@ namespace AdminShell
             return output;
         }
 
-        public SubmodelElement GetSubmodelElementByPathSubmodelRepo(string submodelIdentifier, string idShortPath, out object smeParent)
+        public SubmodelElement GetSubmodelElementByPath(string submodelIdentifier, string idShortPath, out object smeParent)
         {
             bool found = IsSubmodelElementPresent(submodelIdentifier, idShortPath, out SubmodelElement output, out smeParent);
 
@@ -303,24 +282,24 @@ namespace AdminShell
 
         private SubmodelElement FindSubmodelElementByIdShort(Submodel sm, string idShort)
         {
-            foreach (SubmodelElementWrapper smew in sm.SubmodelElements)
+            foreach (SubmodelElement sme in sm.SubmodelElements)
             {
-                if (smew.SubmodelElement.IdShort == idShort)
+                if (sme.IdShort == idShort)
                 {
-                    return smew.SubmodelElement;
+                    return sme;
                 }
             }
 
             return null;
         }
 
-        private SubmodelElement FindSubmodelElementByIdShort(SubmodelElementCollection smec, string idShort)
+        private SubmodelElement FindSubmodelElementByIdShort(SubmodelElementList smec, string idShort)
         {
-            foreach (SubmodelElementWrapper smew in smec.Value)
+            foreach (SubmodelElement sme in smec.Value)
             {
-                if (smew.SubmodelElement.IdShort == idShort)
+                if (sme.IdShort == idShort)
                 {
-                    return smew.SubmodelElement;
+                    return sme;
                 }
             }
 
@@ -351,7 +330,7 @@ namespace AdminShell
                         return GetSubmodelElementByPath(submodelElement, idShorts[1], out outParent);
                     }
                 }
-                else if (parent is SubmodelElementCollection collection)
+                else if (parent is SubmodelElementList collection)
                 {
                     var submodelElement = FindSubmodelElementByIdShort(collection, idShorts[0]);
                     if (submodelElement != null)
@@ -398,7 +377,7 @@ namespace AdminShell
                         return submodelElement;
                     }
                 }
-                else if (parent is SubmodelElementCollection collection)
+                else if (parent is SubmodelElementList collection)
                 {
                     var submodelElement = FindSubmodelElementByIdShort(collection, idShortPath);
                     if (submodelElement != null)
@@ -439,7 +418,7 @@ namespace AdminShell
             return null;
         }
 
-        public string GetFileByPathSubmodelRepo(string submodelIdentifier, string idShortPath, out byte[] byteArray, out long fileSize)
+        public string GetFileByPath(string submodelIdentifier, string idShortPath, out byte[] byteArray, out long fileSize)
         {
             byteArray = null;
             string fileName = null;
@@ -447,7 +426,7 @@ namespace AdminShell
 
             var submodel = GetSubmodelById(submodelIdentifier, out string key);
 
-            var fileElement = GetSubmodelElementByPathSubmodelRepo(submodelIdentifier, idShortPath, out _);
+            var fileElement = GetSubmodelElementByPath(submodelIdentifier, idShortPath, out _);
 
             if (fileElement != null)
             {
@@ -464,6 +443,11 @@ namespace AdminShell
             }
 
             return fileName;
+        }
+
+        public string GetThumbnail(string decodedAasIdentifier, out byte[] content, out long fileSize)
+        {
+            throw new NotImplementedException();
         }
     }
 }

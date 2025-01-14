@@ -1,12 +1,17 @@
 ﻿
 namespace AdminShell
 {
+    using System.Collections.Generic;
     using System.Runtime.Serialization;
     using System.Xml.Serialization;
 
     [DataContract]
-    public class SubmodelElementList : SubmodelElementCollection
+    public class SubmodelElementList : SubmodelElement
     {
+        [DataMember(Name = "value")]
+        [XmlArray(ElementName = "value")]
+        public List<SubmodelElement> Value { get; set; } = new();
+
         [DataMember(Name = "semanticIdValues")]
         [XmlElement(ElementName = "semanticIdValues")]
         public Reference SemanticIdValues { get; set; } = new();
@@ -40,7 +45,7 @@ namespace AdminShell
             ModelType = ModelTypes.SubmodelElementList;
         }
 
-        public SubmodelElementList(SubmodelElement src)
+        public SubmodelElementList(SubmodelElementList src)
             : base(src)
         {
             if (!(src is SubmodelElementList sml))
@@ -48,6 +53,7 @@ namespace AdminShell
                 return;
             }
 
+            Value = sml.Value;
             OrderRelevant = sml.OrderRelevant;
             ModelType = ModelTypes.SubmodelElementList;
 

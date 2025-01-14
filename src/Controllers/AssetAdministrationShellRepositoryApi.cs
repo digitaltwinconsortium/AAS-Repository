@@ -1,12 +1,17 @@
 
 namespace AdminShell
 {
+    using IO.Swagger.Models;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.IdentityModel.Tokens;
     using Newtonsoft.Json;
     using Swashbuckle.AspNetCore.Annotations;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Net.Mime;
+    using System.Text.Json.Nodes;
 
     [ApiController]
     public class AssetAdministrationShellRepositoryApiController : ControllerBase
@@ -34,15 +39,29 @@ namespace AdminShell
         [HttpGet]
         [Route("/api/v3.0/shells")]
         [SwaggerOperation("GetAllAssetAdministrationShells")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<AssetAdministrationShell>), description: "Requested Asset Administration Shells")]
+        [SwaggerResponse(statusCode: 200, type: typeof(PagedResult<AssetAdministrationShell>), description: "Requested Asset Administration Shells")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request, e.g. the request parameters of the format of the request body is wrong.")]
         [SwaggerResponse(statusCode: 401, type: typeof(Result), description: "Unauthorized, e.g. the server refused the authorization attempt.")]
         [SwaggerResponse(statusCode: 403, type: typeof(Result), description: "Forbidden")]
         [SwaggerResponse(statusCode: 500, type: typeof(Result), description: "Internal Server Error")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
-        public virtual IActionResult GetAllAssetAdministrationShells([FromQuery]List<string> assetIds, [FromQuery]string idShort, [FromQuery]int? limit, [FromQuery]string cursor)
+        public virtual IActionResult GetAllAssetAdministrationShells([FromQuery]List<string> assetIds, [FromQuery]string idShort, [FromQuery]int limit, [FromQuery]string cursor)
         {
-            var output = _aasEnvService.GetAllAssetAdministrationShells(assetIds, idShort);
+            List<string> reqAssetIds = new();
+            foreach (string assetId in assetIds)
+            {
+                if (!string.IsNullOrEmpty(assetId))
+                {
+                    string decodedAssetIdString = Base64UrlEncoder.Decode(assetId);
+                    JsonNode assetJsonNode = JsonNode.Parse(decodedAssetIdString);
+                    string reqAssetId = assetJsonNode.ToString();
+                    reqAssetIds.Add(reqAssetId);
+                }
+            }
+
+            List<AssetAdministrationShell> aasList = _aasEnvService.GetAllAssetAdministrationShells(reqAssetIds, idShort);
+
+            PagedResult<AssetAdministrationShell> output = PagedResult<AssetAdministrationShell>.ToPagedList(aasList, new PaginationParameters(cursor, limit));
 
             return new ObjectResult(output);
         }
@@ -63,7 +82,7 @@ namespace AdminShell
         [HttpGet]
         [Route("/api/v3.0/shells/{aasIdentifier}/submodel-refs")]
         [SwaggerOperation("GetAllSubmodelReferences")]
-        [SwaggerResponse(statusCode: 200, type: typeof(List<Reference>), description: "Requested submodel references")]
+        [SwaggerResponse(statusCode: 200, type: typeof(PagedResult<Reference>), description: "Requested submodel references")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request, e.g. the request parameters of the format of the request body is wrong.")]
         [SwaggerResponse(statusCode: 401, type: typeof(Result), description: "Unauthorized, e.g. the server refused the authorization attempt.")]
         [SwaggerResponse(statusCode: 403, type: typeof(Result), description: "Forbidden")]
@@ -72,7 +91,15 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllSubmodelReferences([FromRoute][Required]string aasIdentifier, [FromQuery]int? limit, [FromQuery]string cursor)
         {
-            var output = _aasEnvService.GetAllSubmodelReferences(aasIdentifier);
+            var decodedAasIdentifier = Base64UrlEncoder.Decode(aasIdentifier);
+            if (decodedAasIdentifier == null)
+            {
+                throw new ArgumentException($"Cannot proceed as {nameof(decodedAasIdentifier)} is null");
+            }
+
+            List<Reference> submodels = _aasEnvService.GetAllSubmodelReferences(decodedAasIdentifier);
+
+            PagedResult<Reference> output = PagedResult<Reference>.ToPagedList(submodels, new PaginationParameters(cursor, limit));
 
             return new ObjectResult(output);
         }
@@ -98,9 +125,25 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
         [SwaggerResponse(statusCode: 500, type: typeof(Result), description: "Internal Server Error")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
-        public virtual IActionResult GetThumbnail([FromRoute][Required] string aasIdentifier)
+        public virtual IActionResult GetThumbnail([FromRoute][Required]string aasIdentifier)
         {
-            throw new NotImplementedException();
+            var decodedAasIdentifier = Base64UrlEncoder.Decode(aasIdentifier);
+
+            if (decodedAasIdentifier == null)
+            {
+                throw new ArgumentException($"Cannot proceed as {nameof(decodedAasIdentifier)} is null");
+            }
+
+            var fileName = _aasEnvService.GetThumbnail(decodedAasIdentifier, out byte[] content, out long fileSize);
+
+            //content-disposition so that the aasx file can be downloaded from the web browser.
+            ContentDisposition contentDisposition = new() { FileName = fileName };
+
+            HttpContext.Response.Headers.Append("Content-Disposition", contentDisposition.ToString());
+            HttpContext.Response.ContentLength = fileSize;
+            HttpContext.Response.Body.WriteAsync(content);
+
+            return new EmptyResult();
             //return File(content, "APPLICATION/octet-stream", filename);
         }
 
@@ -127,7 +170,14 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAssetInformation([FromRoute][Required]string aasIdentifier)
         {
-            var output = _aasEnvService.GetAssetInformationFromAas(aasIdentifier);
+            var decodedAasIdentifier = Base64UrlEncoder.Decode(aasIdentifier);
+
+            if (decodedAasIdentifier == null)
+            {
+                throw new ArgumentException($"Cannot proceed as {nameof(decodedAasIdentifier)} is null");
+            }
+
+            var output = _aasEnvService.GetAssetInformationFromAas(decodedAasIdentifier);
 
             return new ObjectResult(output);
         }

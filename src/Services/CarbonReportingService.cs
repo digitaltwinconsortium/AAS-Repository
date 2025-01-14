@@ -80,9 +80,9 @@ namespace AdminShell
             // retrieve our ADX-tagged data points from all loaded AASes
             foreach (Submodel sm in _envService.GetEnv().Submodels)
             {
-                foreach (SubmodelElementWrapper smew in sm.SubmodelElements)
+                foreach (SubmodelElement sme in sm.SubmodelElements)
                 {
-                    CheckForADXDataPointInSME(smew.SubmodelElement);
+                    CheckForADXDataPointInSME(sme);
                 }
             }
         }
@@ -90,13 +90,13 @@ namespace AdminShell
         protected void CheckForADXDataPointInSME(SubmodelElement sme)
         {
             // recurse if needed
-            if (sme is SubmodelElementCollection collection)
+            if (sme is SubmodelElementList collection)
             {
                 if (collection.Value != null)
                 {
-                    foreach (SubmodelElementWrapper smew in collection.Value)
+                    foreach (SubmodelElement child in collection.Value)
                     {
-                        CheckForADXDataPointInSME(smew.SubmodelElement);
+                        CheckForADXDataPointInSME(child);
                     }
                 }
             }
