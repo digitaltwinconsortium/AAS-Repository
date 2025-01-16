@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-16T13:38:56.1840257Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+  <NamespaceUris>
+    <Uri>http://opcfoundation.org/UA/DataModelforAssetLocationAAS/</Uri>
+    <Uri>http://opcfoundation.org/UA/I4AAS/</Uri>
+  </NamespaceUris>
+  <Models>
+    <Model ModelUri="http://opcfoundation.org/UA/DataModelforAssetLocationAAS/" Version="1.0.0" PublicationDate="2025-01-16T13:38:56Z">
+      <RequiredModel ModelUri="http://opcfoundation.org/UA/I4AAS/" Version="5.0.0" PublicationDate="2021-06-04T00:00:00Z"/>
+    </Model>
+  </Models>
+  <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
+    <DisplayName>Asset Admin Shells</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=4</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=4" BrowseName="DataModelforAssetLocationAAS" ParentNodeId="ns=1;i=1">
+    <DisplayName>DataModelforAssetLocationAAS</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=5</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=6</Reference>
+      <Reference ReferenceType="i=40">ns=2;i=1002</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/aas/DataModelforAssetLocation/1/0" ParentNodeId="ns=1;i=4">
+    <DisplayName>https://admin-shell.io/idta/aas/DataModelforAssetLocation/1/0</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1005</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/DataModelforAssetLocation/1/0" ParentNodeId="ns=1;i=4">
+    <DisplayName>https://admin-shell.io/idta/SubmodelTemplate/DataModelforAssetLocation/1/0</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1004</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=2" BrowseName="Submodels" ParentNodeId="i=85">
+    <DisplayName>Submodels</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=7</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=7" BrowseName="AssetLocation" ParentNodeId="ns=1;i=2">
+    <DisplayName>AssetLocation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=8</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=9</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=10</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=11</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=12</Reference>
+      <Reference ReferenceType="i=40">ns=2;i=1006</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=8" BrowseName="0:https://admin-shell.io/idta/sml/addresses/1/0" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/sml/addresses/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/sml/addresses/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">List with postal addresses where an object has been located</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=9" BrowseName="0:https://admin-shell.io/idta/sml/coordinatesystems/1/0" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/sml/coordinatesystems/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/sml/coordinatesystems/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">List with information about different coordinate systems that have been used to determine the location of an asset</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=10" BrowseName="0:https://admin-shell.io/idta/sml/visitedareas/1/0" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/sml/visitedareas/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/sml/visitedareas/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">List with areas (e.g., sites, buildings, field warehouses) where an asset has been located or is located</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=11" BrowseName="0:https://admin-shell.io/idta/smc/assettraces/1/0" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/smc/assettraces/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/smc/assettraces/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Collection of localization event records for sites, areas, fences and locations</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=12" BrowseName="0:https://admin-shell.io/idta/sml/assetlocatinginformation/1/0" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/sml/assetlocatinginformation/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/sml/assetlocatinginformation/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Collection with additional information concerning the localization of an asset</String>
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=3" BrowseName="Concept Descriptions" ParentNodeId="i=85">
+    <DisplayName>Concept Descriptions</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=13</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=14</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=15</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=16</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=17</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=18</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=19</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=20</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=21</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=22</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=23</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=24</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=25</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=26</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=27</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=28</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=29</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=30</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=31</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=32</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=33</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=34</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=35</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=36</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=37</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=38</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=39</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=40</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=13" BrowseName="0:https://admin-shell.io/idta/prop/coordinatesystemname/1/0;CoordinateSystemName" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/coordinatesystemname/1/0;CoordinateSystemName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=14" BrowseName="0:https://admin-shell.io/idta/prop/coordinatesystemid/1/0;CoordinateSystemId" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/coordinatesystemid/1/0;CoordinateSystemId</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15" BrowseName="0:https://admin-shell.io/idta/prop/z/1/0;Z" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/z/1/0;Z</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=16" BrowseName="0:https://admin-shell.io/idta/prop/coordinatesystemtype/1/0;CoordinateSystemType" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/coordinatesystemtype/1/0;CoordinateSystemType</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=17" BrowseName="0:https://admin-shell.io/idta/prop/elevationreference/1/0;ElevationReference" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/elevationreference/1/0;ElevationReference</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=18" BrowseName="0:https://admin-shell.io/idta/prop/sealevelofbaseheight/1/0;SeaLevelOfBaseHeight" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/sealevelofbaseheight/1/0;SeaLevelOfBaseHeight</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=19" BrowseName="0:https://admin-shell.io/idta/prop/x/1/0;X" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/x/1/0;X</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=20" BrowseName="0:https://admin-shell.io/idta/prop/y/1/0;Y" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/y/1/0;Y</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=21" BrowseName="0:https://admin-shell.io/idta/sml/regioncoordinates/1/0;" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/sml/regioncoordinates/1/0;</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=22" BrowseName="0:https://admin-shell.io/idta/sml/visitedsites/1/0;VisitedSites" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/sml/visitedsites/1/0;VisitedSites</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=23" BrowseName="0:https://admin-shell.io/idta/sml/visitedareas/1/0;" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/sml/visitedareas/1/0;</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=24" BrowseName="0:https://admin-shell.io/idta/prop/kindofarea/1/0;KindOfArea" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/kindofarea/1/0;KindOfArea</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=25" BrowseName="0:https://admin-shell.io/idta/sml/visitedlocalizationfences/1/0;VisitedFences" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/sml/visitedlocalizationfences/1/0;VisitedFences</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=26" BrowseName="0:https://admin-shell.io/idta/prop/eventtype/1/0;EventType" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/eventtype/1/0;EventType</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=27" BrowseName="0:https://admin-shell.io/idta/prop/providertype/1/0;ProviderType" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/providertype/1/0;ProviderType</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=28" BrowseName="0:https://admin-shell.io/idta/prop/accuracy/1/0;Accuracy" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/accuracy/1/0;Accuracy</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=29" BrowseName="0:https://admin-shell.io/idta/prop/magneticheading/1/0;MagneticHeading" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/magneticheading/1/0;MagneticHeading</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=30" BrowseName="0:https://admin-shell.io/idta/prop/headingaccuracy/1/0;HeadingAccuracy" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/headingaccuracy/1/0;HeadingAccuracy</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=31" BrowseName="0:https://admin-shell.io/idta/prop/course/1/0;Course" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/course/1/0;Course</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=32" BrowseName="0:https://admin-shell.io/idta/prop/referencepointid/1/0;ReferencePointId" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/referencepointid/1/0;ReferencePointId</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=33" BrowseName="0:https://admin-shell.io/idta/mlp/realtimecapabilityofaas/1/0;RealtimeCapabilityOfAAS" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/mlp/realtimecapabilityofaas/1/0;RealtimeCapabilityOfAAS</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=34" BrowseName="0:https://admin-shell.io/idta/mlp/realtimelocationsource/1/0;RealtimeLocationSource" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/mlp/realtimelocationsource/1/0;RealtimeLocationSource</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=35" BrowseName="0:https://admin-shell.io/idta/prop/localizable/1/0;Localizable" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/localizable/1/0;Localizable</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=36" BrowseName="0:https://admin-shell.io/idta/prop/realtimelocationsourcetype/1/0;RealtimeLocationSourceType" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/realtimelocationsourcetype/1/0;RealtimeLocationSourceType</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=37" BrowseName="0:https://admin-shell.io/idta/prop/trueheading/1/0;TrueHeading" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/trueheading/1/0;TrueHeading</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=38" BrowseName="0:https://admin-shell.io/idta/prop/transmissiontime/1/0;TransmissionTime" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/transmissiontime/1/0;TransmissionTime</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=39" BrowseName="0:https://admin-shell.io/idta/rel/islocatedin/1/0;isLocatedIn" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/rel/islocatedin/1/0;isLocatedIn</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=40" BrowseName="0:https://admin-shell.io/idta/prop/providerid/1/0;ProviderId" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/providerid/1/0;ProviderId</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+</UANodeSet>

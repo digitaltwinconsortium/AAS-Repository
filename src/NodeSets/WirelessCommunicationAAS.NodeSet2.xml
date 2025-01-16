@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-16T13:39:01.7936477Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+  <NamespaceUris>
+    <Uri>http://opcfoundation.org/UA/WirelessCommunicationAAS/</Uri>
+    <Uri>http://opcfoundation.org/UA/I4AAS/</Uri>
+  </NamespaceUris>
+  <Models>
+    <Model ModelUri="http://opcfoundation.org/UA/WirelessCommunicationAAS/" Version="1.0.0" PublicationDate="2025-01-16T13:39:01Z">
+      <RequiredModel ModelUri="http://opcfoundation.org/UA/I4AAS/" Version="5.0.0" PublicationDate="2021-06-04T00:00:00Z"/>
+    </Model>
+  </Models>
+  <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
+    <DisplayName>Asset Admin Shells</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=4</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=4" BrowseName="WirelessCommunicationAAS" ParentNodeId="ns=1;i=1">
+    <DisplayName>WirelessCommunicationAAS</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=5</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=6</Reference>
+      <Reference ReferenceType="i=40">ns=2;i=1002</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/aas/WirelessCommunication/1/0" ParentNodeId="ns=1;i=4">
+    <DisplayName>https://admin-shell.io/idta/aas/WirelessCommunication/1/0</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1005</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/WirelessCommunication/1/0" ParentNodeId="ns=1;i=4">
+    <DisplayName>https://admin-shell.io/idta/SubmodelTemplate/WirelessCommunication/1/0</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1004</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=2" BrowseName="Submodels" ParentNodeId="i=85">
+    <DisplayName>Submodels</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=7</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=7" BrowseName="WirelessCommunication" ParentNodeId="ns=1;i=2">
+    <DisplayName>WirelessCommunication</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=8</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=9</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=10</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=11</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=12</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=13</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=14</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=15</Reference>
+      <Reference ReferenceType="i=40">ns=2;i=1006</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=8" BrowseName="0:https://admin-shell.io/idta/WirelessCommunicationFunction/1/0" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunicationFunction/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunicationFunction/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">hardware and software implementation of algorithms for wireless communication (VDI/VDE 2185 Part-4, 2019).  Describes the parameters of the wireless communication function. This includes parameters of the transmitter and receiver. Moreover information about intances that implement the communication function (e.g. modules) can also be descrebed here.</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=9" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/ WirelessNetworkRole/1/0" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/ WirelessNetworkRole/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/ WirelessNetworkRole/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">It describes the role of the asset has in the network: accespoint, end node, repeater. It could also be an immaterial asset as an heatmap, or a wireless communication manager</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=10" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/ RadioFrequency/1/0" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/ RadioFrequency/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/ RadioFrequency/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">It describes the characteristics of radio channel as frequency, band, bandwidth.</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=11" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/ ReceptionQuality/1/0" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/ ReceptionQuality/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/ ReceptionQuality/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Set of parameters that describe the quality of reception. The availabitly of these parameter depends on the technology and implementations.</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=12" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/ OutputPower/1/0" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/ OutputPower/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/ OutputPower/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">The transmit power is determined by the RF schematic of the wireless module. Depending on the wireless technology, standard or implementation it is fixed, adjustable in steps or free configurable. (VID/VDE 2185 Part4)</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=13" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/ License/1/0" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/ License/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/ License/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=14" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/Hardware/1/0" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/Hardware/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/Hardware/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Set of parameters that describe hardware aspects of the asset such as antenna type, connectors and interfaces during different life cycle phases.</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/Authentication/1/0" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/Authentication/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/Authentication/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">It contains information needed for device authentication. It is required to verify the legitimacy of devices and ensuring secure network access. </String>
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=3" BrowseName="Concept Descriptions" ParentNodeId="i=85">
+    <DisplayName>Concept Descriptions</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=16</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=17</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=18</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=19</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=20</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=21</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=22</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=23</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=24</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=25</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=26</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=27</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=28</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=29</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=16" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/WirelessCommunicationFunction/CommunicationCycle/1/0;CommunicationCycle" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/WirelessCommunicationFunction/CommunicationCycle/1/0;CommunicationCycle</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=17" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/RadioFrequency/FrequencyBand/CenterFrequecy/1/0;CenterFrequecy" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/RadioFrequency/FrequencyBand/CenterFrequecy/1/0;CenterFrequecy</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=18" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/ReceptionQualityIndicator/Range/1/0;Range" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/ReceptionQualityIndicator/Range/1/0;Range</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=19" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication /ReceptionQualityIndicator/SpecifiedValue/1/0;SpecifiedValue" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication /ReceptionQualityIndicator/SpecifiedValue/1/0;SpecifiedValue</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=20" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/ ReceptionQualityIndicator/ReferenceValue/1/0;ReferenceValue" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/ ReceptionQualityIndicator/ReferenceValue/1/0;ReferenceValue</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=21" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/ ReceptionQualityIndicator/CurrentValue/1/0;CurrentValue" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/ ReceptionQualityIndicator/CurrentValue/1/0;CurrentValue</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=22" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/OutputPower/Range/1/0;Range" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/OutputPower/Range/1/0;Range</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=23" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/OutputPower/SpecifiedValue/1/0;SpecifiedValue" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/OutputPower/SpecifiedValue/1/0;SpecifiedValue</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=24" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/OutputPower/ReferenceValue/1/0;ReferenceValue" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/OutputPower/ReferenceValue/1/0;ReferenceValue</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=25" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/OutputPower/CurrentValue/1/0;CurrentValue" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/OutputPower/CurrentValue/1/0;CurrentValue</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=26" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/License/Frequency/1/0;Frequency" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/License/Frequency/1/0;Frequency</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=27" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/License/Frequencies/1/0;Frequencies" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/License/Frequencies/1/0;Frequencies</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=28" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/LicenseAcquisitionTechnicalData/Bandwidth/1/0;Bandwidth" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/LicenseAcquisitionTechnicalData/Bandwidth/1/0;Bandwidth</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=29" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/LicenseAcquisitionTechnicalData/TransmitterOutputPower/1/0;TransmiterOutputPower" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/LicenseAcquisitionTechnicalData/TransmitterOutputPower/1/0;TransmiterOutputPower</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+</UANodeSet>

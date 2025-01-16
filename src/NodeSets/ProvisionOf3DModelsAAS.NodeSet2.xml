@@ -1,0 +1,861 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-16T13:38:59.015581Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+  <NamespaceUris>
+    <Uri>http://opcfoundation.org/UA/ProvisionOf3DModelsAAS/</Uri>
+    <Uri>http://opcfoundation.org/UA/I4AAS/</Uri>
+  </NamespaceUris>
+  <Models>
+    <Model ModelUri="http://opcfoundation.org/UA/ProvisionOf3DModelsAAS/" Version="1.0.0" PublicationDate="2025-01-16T13:38:59Z">
+      <RequiredModel ModelUri="http://opcfoundation.org/UA/I4AAS/" Version="5.0.0" PublicationDate="2021-06-04T00:00:00Z"/>
+    </Model>
+  </Models>
+  <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
+    <DisplayName>Asset Admin Shells</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=4</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=4" BrowseName="ProvisionOf3DModelsAAS" ParentNodeId="ns=1;i=1">
+    <DisplayName>ProvisionOf3DModelsAAS</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=5</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=6</Reference>
+      <Reference ReferenceType="i=40">ns=2;i=1002</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/ProvisionOf3DModels/1/0" ParentNodeId="ns=1;i=4">
+    <DisplayName>https://admin-shell.io/idta/asset/ProvisionOf3DModels/1/0</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1005</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/ProvisionOf3DModels/1/0" ParentNodeId="ns=1;i=4">
+    <DisplayName>https://admin-shell.io/idta/SubmodelTemplate/ProvisionOf3DModels/1/0</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1004</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=2" BrowseName="Submodels" ParentNodeId="i=85">
+    <DisplayName>Submodels</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=7</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=7" BrowseName="Models3D" ParentNodeId="ns=1;i=2">
+    <DisplayName>Models3D</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=8</Reference>
+      <Reference ReferenceType="i=40">ns=2;i=1006</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=8" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/1/0" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/Models3D/Model3D/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=3" BrowseName="Concept Descriptions" ParentNodeId="i=85">
+    <DisplayName>Concept Descriptions</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=9</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=10</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=11</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=12</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=13</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=14</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=15</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=16</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=17</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=18</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=19</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=20</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=21</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=22</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=23</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=24</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=25</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=26</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=27</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=28</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=29</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=30</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=31</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=32</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=33</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=34</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=35</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=36</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=37</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=38</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=39</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=40</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=41</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=42</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=43</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=44</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=45</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=46</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=47</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=48</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=49</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=50</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=51</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=52</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=53</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=54</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=55</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=56</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=57</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=58</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=59</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=60</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=61</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=62</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=63</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=64</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=65</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=66</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=67</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=68</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=69</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=70</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=71</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=72</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=73</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=74</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=75</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=76</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=77</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=78</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=79</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=80</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=81</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=82</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=83</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=84</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=85</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=86</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=87</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=88</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=89</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=90</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=91</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=92</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=93</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=94</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=95</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=96</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=97</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=98</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=99</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=100</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=101</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=102</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=103</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=104</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=105</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=106</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=9" BrowseName="0:https://admin-shell.io/idta/Models3D/1/0;Models3D" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/1/0;Models3D</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=10" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/NormOrientationVector/Z/1/0;Z" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/NormOrientationVector/Z/1/0;Z</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=11" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/1/0;Model3D" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/1/0;Model3D</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=12" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/1/0;File" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/1/0;File</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=13" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileId/1/0;FileId" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileId/1/0;FileId</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=14" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileId/FileDomaniId/1/0;FileDomainId" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileId/FileDomaniId/1/0;FileDomainId</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileId/ValueId/1/0;ValueId" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileId/ValueId/1/0;ValueId</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=16" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileId/IsPrimary/1/0;IsPrimary" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileId/IsPrimary/1/0;IsPrimary</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=17" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/1/0;FileVersion" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/1/0;FileVersion</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=18" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/Title/1/0;Title" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/Title/1/0;Title</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=19" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/FileName/1/0;FileName" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/FileName/1/0;FileName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=20" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/FileVersionID/1/0;FileVersionId" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/FileVersionID/1/0;FileVersionId</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=21" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/StatusValue/1/0;StatusValue" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/StatusValue/1/0;StatusValue</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=22" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SetDate/1/0;SetDate" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SetDate/1/0;SetDate</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=23" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/BasedOn/1/0;BasedOn" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/BasedOn/1/0;BasedOn</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=24" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/RefersTo/1/0;RefersTo" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/RefersTo/1/0;RefersTo</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=25" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/PreviewFile/1/0;PreviewFile" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/PreviewFile/1/0;PreviewFile</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=26" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/DigitalFile/1/0;DigitalFile" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/DigitalFile/1/0;DigitalFile</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=27" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/1/0;ExternalFile" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/1/0;ExternalFile</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=28" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/ExternalUrl/1/0;ExternalUrl" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/ExternalUrl/1/0;ExternalUrl</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=29" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/FileIdentifier/1/0;FileIdentifier" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/FileIdentifier/1/0;FileIdentifier</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=30" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/HostOrganization/1/0;HostOrganization" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/HostOrganization/1/0;HostOrganization</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=31" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/HostOrganization/OrganizationName/1/0;OrganizationName" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/HostOrganization/OrganizationName/1/0;OrganizationName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=32" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/HostOrganization/OrganizationOfficialName/1/0;OrganizationOfficialName" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/HostOrganization/OrganizationOfficialName/1/0;OrganizationOfficialName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=33" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/Api/1/0;Api" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/Api/1/0;Api</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=34" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/Api/ApiVersion/1/0;ApiVersion" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/Api/ApiVersion/1/0;ApiVersion</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=35" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/Api/ApiDocumentationUrl/1/0;ApiDocumentationUrl" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/Api/ApiDocumentationUrl/1/0;ApiDocumentationUrl</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=36" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/Api/ApiSpecificationUrl/1/0;ApiSpecificationUrl" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ExternalFile/Api/ApiSpecificationUrl/1/0;ApiSpecificationUrl</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=37" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/FileFormat/1/0;FileFormat" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/FileFormat/1/0;FileFormat</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=38" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/FileFormat/FormatName/1/0;FormatName" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/FileFormat/FormatName/1/0;FormatName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=39" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/FileFormat/FormatVersion/1/0;FormatVersion" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/FileFormat/FormatVersion/1/0;FormatVersion</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=40" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/FileFormat/FormatQualifier/1/0;FormatQualifier" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/FileFormat/FormatQualifier/1/0;FormatQualifier</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=41" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/1/0;SourceApplication" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/1/0;SourceApplication</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=42" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/ApplicationName/1/0;ApplicationName" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/ApplicationName/1/0;ApplicationName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=43" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/ApplicationVersion/1/0;ApplicationVersion" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/ApplicationVersion/1/0;ApplicationVersion</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=44" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/ApplicationQualifier/1/0;ApplicationQualifier" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/ApplicationQualifier/1/0;ApplicationQualifier</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=45" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/Api/1/0;Api" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/Api/1/0;Api</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=46" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/Api/ApiVersion/1/0;ApiVersion" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/Api/ApiVersion/1/0;ApiVersion</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=47" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/Api/ApiDocumentationUrl/1/0;ApiDocumentationUrl" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/Api/ApiDocumentationUrl/1/0;ApiDocumentationUrl</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=48" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/Api/ApiSpecificationUrl/1/0;ApiSpecificationUrl" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/Api/ApiSpecificationUrl/1/0;ApiSpecificationUrl</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=49" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/VendorOrganization/1/0;VendorOrganization" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/VendorOrganization/1/0;VendorOrganization</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=50" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/VendorOrganization/OrganizationName/1/0;OrganizationName" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/VendorOrganization/OrganizationName/1/0;OrganizationName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=51" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/VendorOrganization/OrganizationOfficialName/1/0;OrganizationOfficialName" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/SourceApplication/VendorOrganization/OrganizationOfficialName/1/0;OrganizationOfficialName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=52" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ProvidingOrganization/1/0;ProvidingOrganization" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ProvidingOrganization/1/0;ProvidingOrganization</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=53" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ProvidingOrganization/OrganizationName/1/0;OrganizationName" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ProvidingOrganization/OrganizationName/1/0;OrganizationName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=54" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ProvidingOrganization//OrganizationOfficialName/1/0;OrganizationOfficialName" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileVersion/ProvidingOrganization//OrganizationOfficialName/1/0;OrganizationOfficialName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=55" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/1/0;ConsumingApplication" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/1/0;ConsumingApplication</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=56" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/ApplicationName/1/0;ApplicationName" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/ApplicationName/1/0;ApplicationName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=57" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/ApplicationVersion/1/0;ApplicationVersion" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/ApplicationVersion/1/0;ApplicationVersion</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=58" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/ApplicationQualifier1/0;ApplicationQualifier" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/ApplicationQualifier1/0;ApplicationQualifier</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=59" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/Api/1/0;Api" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/Api/1/0;Api</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=60" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/Api/ApiVersion/1/0;ApiVersion" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/Api/ApiVersion/1/0;ApiVersion</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=61" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/Api/ApiDocumentationUrl/1/0;ApiDocumentationUrl" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/Api/ApiDocumentationUrl/1/0;ApiDocumentationUrl</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=62" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/Api/ApiSpecificationUrl/1/0;ApiSpecificationUrl" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/Api/ApiSpecificationUrl/1/0;ApiSpecificationUrl</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=63" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/VendorOrganization/1/0;VendorOrganization" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/VendorOrganization/1/0;VendorOrganization</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=64" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/VendorOrganization/OrganizationName/1/0;OrganizationName" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/VendorOrganization/OrganizationName/1/0;OrganizationName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=65" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/VendorOrganization/OrganizationOfficialName/1/0;OrganizationOfficialName" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/ConsumingApplication/VendorOrganization/OrganizationOfficialName/1/0;OrganizationOfficialName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=66" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileClassification/1/0;FileClassification" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileClassification/1/0;FileClassification</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=67" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileClassification/ClassId/1/0;ClassId" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileClassification/ClassId/1/0;ClassId</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=68" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/FileClassification/ClassName/1/0;ClassName" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/FileClassification/ClassName/1/0;ClassName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=69" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/File/ClassificationSystem/1/0;ClassificationSystem" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/File/ClassificationSystem/1/0;ClassificationSystem</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=70" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Capability/1/0;Capability" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Capability/1/0;Capability</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=71" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Capability/PosModelPurpose/1/0;PosModelPurpose" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Capability/PosModelPurpose/1/0;PosModelPurpose</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=72" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Capability/NegModelPurpos/1/0;NegModelPurpose" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Capability/NegModelPurpos/1/0;NegModelPurpose</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=73" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Capability/EmbeddedInfo/1/0;EmbeddedInfo" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Capability/EmbeddedInfo/1/0;EmbeddedInfo</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=74" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Capability/State/1/0;State" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Capability/State/1/0;State</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=75" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Capability/ObjectType/1/0;ObjectType" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Capability/ObjectType/1/0;ObjectType</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=76" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Capability/Origin/1/0;Origin" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Capability/Origin/1/0;Origin</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=77" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Capability/Simplification/1/0;Simplification" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Capability/Simplification/1/0;Simplification</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=78" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Capability/Simplification/LevelDescription/1/0;Description" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Capability/Simplification/LevelDescription/1/0;Description</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=79" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Capability/Simplification/ReducedElements/1/0;ReducedElements" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Capability/Simplification/ReducedElements/1/0;ReducedElements</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=80" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Capability/Simplification/DerivedFrom/1/0;DerivedFrom" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Capability/Simplification/DerivedFrom/1/0;DerivedFrom</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=81" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/1/0;Geometry" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/1/0;Geometry</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=82" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/Representation/1/0;Representation" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/Representation/1/0;Representation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=83" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/LengthUnit/1/0;LengthUnit" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/LengthUnit/1/0;LengthUnit</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=84" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/1/0;CartBoundingBox" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/1/0;CartBoundingBox</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=85" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/BoundingBoxKind/1/0;BoundingBoxKind" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/BoundingBoxKind/1/0;BoundingBoxKind</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=86" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/1/0;CartRefSystem" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/1/0;CartRefSystem</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=87" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/CartOffsetVector/1/0;CartOffsetVector" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/CartOffsetVector/1/0;CartOffsetVector</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=88" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/CartOffsetVector/X/1/0;X" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/CartOffsetVector/X/1/0;X</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=89" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/CartOffsetVector/Y/1/0;Y" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/CartOffsetVector/Y/1/0;Y</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=90" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/CartOffsetVector/Z/1/0;Z" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/CartOffsetVector/Z/1/0;Z</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=91" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/NormOrientationVector/1/0;NormOrientationVector" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/NormOrientationVector/1/0;NormOrientationVector</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=92" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/NormOrientationVector/X/1/0;X" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/NormOrientationVector/X/1/0;X</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=93" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/NormOrientationVector/Y/1/0;Y" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/NormOrientationVector/Y/1/0;Y</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=94" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/NormOrientationVector/Z/1/0;Z" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartRefSystem/NormOrientationVector/Z/1/0;Z</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=95" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartBoundingVector/1/0;CartBoundingVector" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartBoundingVector/1/0;CartBoundingVector</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=96" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartBoundingVector/X/1/0;X" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartBoundingVector/X/1/0;X</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=97" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartBoundingVector/Y/1/0;Y" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartBoundingVector/Y/1/0;Y</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=98" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartBoundingVector/Z/1/0;Z" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartBoundingBox/CartBoundingVector/Z/1/0;Z</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=99" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/1/0;CartRefSystem" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/1/0;CartRefSystem</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=100" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/CartOffsetVector/1/0;CartOffsetVector" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/CartOffsetVector/1/0;CartOffsetVector</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=101" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/CartOffsetVector/X/1/0;X" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/CartOffsetVector/X/1/0;X</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=102" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/CartOffsetVector/Y/1/0;Y" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/CartOffsetVector/Y/1/0;Y</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=103" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/CartOffsetVector/Z/1/0;Z" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/CartOffsetVector/Z/1/0;Z</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=104" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/NormOrientationVector/1/0;NormOrientationVector" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/NormOrientationVector/1/0;NormOrientationVector</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=105" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/NormOrientationVector/X/1/0;X" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/NormOrientationVector/X/1/0;X</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=106" BrowseName="0:https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/NormOrientationVector/Y/1/0;Y" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/Models3D/Model3D/Geometry/CartRefSystem/NormOrientationVector/Y/1/0;Y</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+</UANodeSet>

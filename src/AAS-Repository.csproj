@@ -40,6 +40,87 @@
     <Content Include="I4AAS.NodeSet2.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="NodeSets\AssetInterfaceDescriptionAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\AssetInterfaceMappingConfigurationAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\BillofMaterialAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\CarbonFootprintAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\ContactInformationAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\ControlComponentInstanceAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\ControlComponentTypeAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\ControlConfigurationOfCNCMachines.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\DataModelforAssetLocationAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\DataRetentionPoliciesAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\DexpiAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\DigitalNameplateAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\FunctionalSafetyAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\HandoverDocumentationAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\ModuleTypePackageAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\PAMSpecificationSheetAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\ProvisionOf3DModelsAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\ProvisionofSimulationModelsAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\ReliabilityAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\SampleDigitalNameplateAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\ServiceRequestNotificationAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\SizingofPowerDriveTrainsAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\SoftwareNameplateAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\TechnicalDataAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\TimeSeriesDataAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\WirelessCommunicationAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\WorkstationMatchingAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="OPCUA.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -79,12 +160,36 @@
     <None Remove="gebhardt_agv.aasx" />
     <None Remove="I4AAS_Export.nodeset2.xml" />
     <None Remove="LICENSE.TXT" />
+    <None Remove="NodeSets\AASwithOPCUAExample.xml" />
+    <None Remove="NodeSets\AssetInterfaceDescriptionAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\AssetInterfaceMappingConfigurationAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\BillofMaterialAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\CarbonFootprintAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\ContactInformationAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\ControlComponentInstanceAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\ControlComponentTypeAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\ControlConfigurationOfCNCMachines.NodeSet2.xml" />
+    <None Remove="NodeSets\DataModelforAssetLocationAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\DataRetentionPoliciesAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\DexpiAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\DigitalNameplateAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\FunctionalSafetyAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\HandoverDocumentationAAS.NodeSet2.xml" />
     <None Remove="NodeSets\I4AAS.NodeSet2.xml" />
+    <None Remove="NodeSets\ModuleTypePackageAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\PAMSpecificationSheetAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\ProvisionOf3DModelsAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\ProvisionofSimulationModelsAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\ReliabilityAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\SampleDigitalNameplateAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\ServiceRequestNotificationAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\SizingofPowerDriveTrainsAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\SoftwareNameplateAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\TechnicalDataAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\TimeSeriesDataAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\WirelessCommunicationAAS.NodeSet2.xml" />
+    <None Remove="NodeSets\WorkstationMatchingAAS.NodeSet2.xml" />
     <None Remove="OPCUA.png" />
     <None Remove="ProductCarbonFootprintNCSU.aasx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="NodeSets\" />
   </ItemGroup>
 </Project>

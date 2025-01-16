@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-16T13:39:01.0990493Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+  <NamespaceUris>
+    <Uri>http://opcfoundation.org/UA/TechnicalDataAAS/</Uri>
+    <Uri>http://opcfoundation.org/UA/I4AAS/</Uri>
+  </NamespaceUris>
+  <Models>
+    <Model ModelUri="http://opcfoundation.org/UA/TechnicalDataAAS/" Version="1.0.0" PublicationDate="2025-01-16T13:39:01Z">
+      <RequiredModel ModelUri="http://opcfoundation.org/UA/I4AAS/" Version="5.0.0" PublicationDate="2021-06-04T00:00:00Z"/>
+    </Model>
+  </Models>
+  <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
+    <DisplayName>Asset Admin Shells</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=4</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=4" BrowseName="TechnicalDataAAS" ParentNodeId="ns=1;i=1">
+    <DisplayName>TechnicalDataAAS</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=5</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=6</Reference>
+      <Reference ReferenceType="i=40">ns=2;i=1002</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/asset/TechnicalData/1/2" ParentNodeId="ns=1;i=4">
+    <DisplayName>https://admin-shell.io/asset/TechnicalData/1/2</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1005</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/ZVEI/TechnicalData/Submodel/1/2" ParentNodeId="ns=1;i=4">
+    <DisplayName>https://admin-shell.io/ZVEI/TechnicalData/Submodel/1/2</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1004</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=2" BrowseName="Submodels" ParentNodeId="i=85">
+    <DisplayName>Submodels</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=7</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=7" BrowseName="TechnicalData" ParentNodeId="ns=1;i=2">
+    <DisplayName>TechnicalData</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=8</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=9</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=10</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=11</Reference>
+      <Reference ReferenceType="i=40">ns=2;i=1006</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=8" BrowseName="0:https://admin-shell.io/ZVEI/TechnicalData/GeneralInformation/1/1" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/ZVEI/TechnicalData/GeneralInformation/1/1</DisplayName>
+    <Description Locale="en">https://admin-shell.io/ZVEI/TechnicalData/GeneralInformation/1/1</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">General information, for example ordering and manufacturer information.</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=9" BrowseName="0:https://admin-shell.io/ZVEI/TechnicalData/ProductClassifications/1/1" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/ZVEI/TechnicalData/ProductClassifications/1/1</DisplayName>
+    <Description Locale="en">https://admin-shell.io/ZVEI/TechnicalData/ProductClassifications/1/1</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Product classifications by association of product classes with common classification systems.</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=10" BrowseName="0:https://admin-shell.io/ZVEI/TechnicalData/TechnicalProperties/1/1" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/ZVEI/TechnicalData/TechnicalProperties/1/1</DisplayName>
+    <Description Locale="en">https://admin-shell.io/ZVEI/TechnicalData/TechnicalProperties/1/1</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Individual characteristics that describe the product and its technical properties.</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=11" BrowseName="0:https://admin-shell.io/ZVEI/TechnicalData/FurtherInformation/1/1" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/ZVEI/TechnicalData/FurtherInformation/1/1</DisplayName>
+    <Description Locale="en">https://admin-shell.io/ZVEI/TechnicalData/FurtherInformation/1/1</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Further information on the product, the validity of the information provided and this data record.</String>
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=3" BrowseName="Concept Descriptions" ParentNodeId="i=85">
+    <DisplayName>Concept Descriptions</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+</UANodeSet>

@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-16T13:38:58.7879508Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+  <NamespaceUris>
+    <Uri>http://opcfoundation.org/UA/PAMSpecificationSheetAAS/</Uri>
+    <Uri>http://opcfoundation.org/UA/I4AAS/</Uri>
+  </NamespaceUris>
+  <Models>
+    <Model ModelUri="http://opcfoundation.org/UA/PAMSpecificationSheetAAS/" Version="1.0.0" PublicationDate="2025-01-16T13:38:58Z">
+      <RequiredModel ModelUri="http://opcfoundation.org/UA/I4AAS/" Version="5.0.0" PublicationDate="2021-06-04T00:00:00Z"/>
+    </Model>
+  </Models>
+  <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
+    <DisplayName>Asset Admin Shells</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=4</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=4" BrowseName="PAMSpecificationSheetAAS" ParentNodeId="ns=1;i=1">
+    <DisplayName>PAMSpecificationSheetAAS</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=5</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=6</Reference>
+      <Reference ReferenceType="i=40">ns=2;i=1002</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/PAMSpecificationSheet/1/0" ParentNodeId="ns=1;i=4">
+    <DisplayName>https://admin-shell.io/idta/asset/PAMSpecificationSheet/1/0</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1005</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/PAMSpecificationSheet/1/0" ParentNodeId="ns=1;i=4">
+    <DisplayName>https://admin-shell.io/idta/SubmodelTemplate/PAMSpecificationSheet/1/0</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1004</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=2" BrowseName="Submodels" ParentNodeId="i=85">
+    <DisplayName>Submodels</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=7</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=7" BrowseName="PAMSpecificationSheet" ParentNodeId="ns=1;i=2">
+    <DisplayName>PAMSpecificationSheet</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=8</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=9</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=10</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=11</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=12</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=13</Reference>
+      <Reference ReferenceType="i=40">ns=2;i=1006</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=8" BrowseName="0173-1#01-AGC974#002" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#01-AGC974#002</DisplayName>
+    <Description Locale="en">0173-1#01-AGC974#002</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Identifier for the asset type and associated PAM specification sheet.</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=9" BrowseName="0173-1#01-AGC975#002" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#01-AGC975#002</DisplayName>
+    <Description Locale="en">0173-1#01-AGC975#002</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Provides details about the specific asset.</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=10" BrowseName="0173-1#01-AGC979#001" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#01-AGC979#001</DisplayName>
+    <Description Locale="en">0173-1#01-AGC979#001</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Interconnected fields, incorporating status/fault profiles that apply to the entire asset rather than specific parts.</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=11" BrowseName="0173-1#01-AGC981#001" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#01-AGC981#001</DisplayName>
+    <Description Locale="en">0173-1#01-AGC981#001</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Properties of the subsystem.</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=12" BrowseName="0173-1#01-AGC983#002" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#01-AGC983#002</DisplayName>
+    <Description Locale="en">0173-1#01-AGC983#002</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Characteristics of the method used for state or fault detection.</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=13" BrowseName="173-1#02-AAW627#001" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>173-1#02-AAW627#001</DisplayName>
+    <Description Locale="en">173-1#02-AAW627#001</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Release information related to the complete PAM specification sheet.</String>
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=3" BrowseName="Concept Descriptions" ParentNodeId="i=85">
+    <DisplayName>Concept Descriptions</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=14</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=15</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=16</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=17</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=18</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=19</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=20</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=21</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=22</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=23</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=24</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=25</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=26</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=27</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=28</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=29</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=30</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=31</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=32</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=33</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=34</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=35</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=36</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=37</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=38</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=39</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=40</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=41</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=42</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=43</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=44</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=45</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=46</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=47</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=48</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=49</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=50</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=51</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=52</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=53</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=54</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=55</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=56</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=57</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=58</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=59</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=60</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=61</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=62</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=63</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=64</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=65</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=66</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=67</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=68</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=69</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=70</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=71</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=72</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=73</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=74</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=75</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=76</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=77</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=78</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=79</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=80</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=81</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=14" BrowseName="0173-1#01-AGC973#003;PAMSpecificationSheet" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#01-AGC973#003;PAMSpecificationSheet</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=15" BrowseName="0173-1#01-AGC974#002;DocumentHeader" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#01-AGC974#002;DocumentHeader</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=16" BrowseName="0173-1#02-AAV929#001;PAMSpecificationSheetIdentification" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV929#001;PAMSpecificationSheetIdentification</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=17" BrowseName="0173-1#02-AAV939#001;AssetTypeClass" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV939#001;AssetTypeClass</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=18" BrowseName="0173-1#02-AAV940#001;AssetTypeIdentification" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV940#001;AssetTypeIdentification</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=19" BrowseName="0173-1#01-AGC975#002;GeneralInformation" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#01-AGC975#002;GeneralInformation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=20" BrowseName="0173-1#02-AAV946#001;FunctionalLocation" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV946#001;FunctionalLocation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=21" BrowseName="0173-1#02-AAV947#001;TechnicalLocation" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV947#001;TechnicalLocation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=22" BrowseName="0173-1#02-AAV948#001;Description" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV948#001;Description</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=23" BrowseName="0173-1#02-AAV949#001;AssetSubtype" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV949#001;AssetSubtype</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=24" BrowseName="0173-1#02-AAV952#001;SpecificationSheetReference" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV952#001;SpecificationSheetReference</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=25" BrowseName="0173-1#02-AAV950#001;SafetyMeasure" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV950#001;SafetyMeasure</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=26" BrowseName="0173-1#02-AAV951#001;RedundantAssets" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV951#001;RedundantAssets</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=27" BrowseName="0173-1#02-AAV930#002;SILCategory" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV930#002;SILCategory</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=28" BrowseName="0173-1#02-AAV942#001;FailureProbability" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV942#001;FailureProbability</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=29" BrowseName="0173-1#02-AAV943#001;FailureSeverity" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV943#001;FailureSeverity</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=30" BrowseName="0173-1#02-AAV941#001;CriticalityCategory" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV941#001;CriticalityCategory</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=31" BrowseName="0173-1#02-AAW617#001;FurtherInformation" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAW617#001;FurtherInformation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=32" BrowseName="0:https://admin-shell.io/idta/prop/furtherinformationreference/1/0;FurtherInformationReference" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/prop/furtherinformationreference/1/0;FurtherInformationReference</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=33" BrowseName="0173-1#02-AAV956#001;GeneralTask" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV956#001;GeneralTask</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=34" BrowseName="0173-1#01-AGC979#001;CompleteSystem" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#01-AGC979#001;CompleteSystem</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=35" BrowseName="0173-1#01-AGC980#001;StatusCondition" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#01-AGC980#001;StatusCondition</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=36" BrowseName="0173-1#02-AAV958#001;StatusConditionName" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV958#001;StatusConditionName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=37" BrowseName="0173-1#02-AAV959#001;MonitoringRequired" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV959#001;MonitoringRequired</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=38" BrowseName="0173-1#02-AAV960#001;Description" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV960#001;Description</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=39" BrowseName="0173-1#02-AAV961#001;MethodAbbreviation" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV961#001;MethodAbbreviation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=40" BrowseName="0173-1#02-AAV962#001;NE107Status" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV962#001;NE107Status</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=41" BrowseName="0173-1#02-AAV963#001;NE129AlarmCategory" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV963#001;NE129AlarmCategory</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=42" BrowseName="0173-1#01-AGC981#001;SubSystem" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#01-AGC981#001;SubSystem</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=43" BrowseName="0173-1#02-AAV965#001;SubSystemName" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV965#001;SubSystemName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=44" BrowseName="0173-1#02-AAW622#001;SubSystemReference" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAW622#001;SubSystemReference</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=45" BrowseName="0173-1#02-AAV967#001;PAMSpecificationSheetReference" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV967#001;PAMSpecificationSheetReference</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=46" BrowseName="0173-1#01-AGC983#002;ApplicableMethod" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#01-AGC983#002;ApplicableMethod</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=47" BrowseName="0:https://admin-shell.io/idta/smc/methodheader/1/0;MethodHeader" ParentNodeId="ns=1;i=3">
+    <DisplayName>https://admin-shell.io/idta/smc/methodheader/1/0;MethodHeader</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=48" BrowseName="0173-1#02-AAV969#001;MethodName" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV969#001;MethodName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=49" BrowseName="0173-1#02-AAV970#001;MethodAbbreviation" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV970#001;MethodAbbreviation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=50" BrowseName="0173-1#02-AAV971#001;MethodDescription" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV971#001;MethodDescription</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=51" BrowseName="0173-1#02-AAV973#001;Required" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV973#001;Required</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=52" BrowseName="0173-1#02-AAV974#001;ContinuousOrScheduledMonitoring" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV974#001;ContinuousOrScheduledMonitoring</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=53" BrowseName="0173-1#02-AAV975#002;Interval" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV975#002;Interval</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=54" BrowseName="0173-1#02-AAV972#001;MethodSheetIdentification" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV972#001;MethodSheetIdentification</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=55" BrowseName="0173-1#02-AAV976#001;MethodSheetReference" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV976#001;MethodSheetReference</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=56" BrowseName="0173-1#01-AGC984#001;StaticParameters" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#01-AGC984#001;StaticParameters</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=57" BrowseName="0173-1#02-AAV978#001;ParameterName" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV978#001;ParameterName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=58" BrowseName="0173-1#02-AAV979#001;Description" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV979#001;Description</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=59" BrowseName="0173-1#02-AAV980#001;StaticParameterValue" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV980#001;StaticParameterValue</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=60" BrowseName="0173-1#02-AAV981#001;PhysicalUnit" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV981#001;PhysicalUnit</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=61" BrowseName="0173-1#01-AGC985#001;GeneratedSignals" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#01-AGC985#001;GeneratedSignals</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=62" BrowseName="0173-1#02-AAV983#001;SignalName" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV983#001;SignalName</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=63" BrowseName="0173-1#02-AAV984#001;Description" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV984#001;Description</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=64" BrowseName="0173-1#02-AAV985#001;ValueRange" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV985#001;ValueRange</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=65" BrowseName="0173-1#02-AAV986#001;RecordingRequired" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV986#001;RecordingRequired</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=66" BrowseName="0173-1#02-AAV987#001;SignalType" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV987#001;SignalType</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=67" BrowseName="0173-1#01-AGC986#001;RequiredInputSignals" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#01-AGC986#001;RequiredInputSignals</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=68" BrowseName="0173-1#02-AAV989#001;Name" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV989#001;Name</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=69" BrowseName="0173-1#02-AAV990#001;Description" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV990#001;Description</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=70" BrowseName="0173-1#02-AAV991#001;ValueRange" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV991#001;ValueRange</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=71" BrowseName="0173-1#02-AAV992#001;Required" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV992#001;Required</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=72" BrowseName="0173-1#02-AAV993#001;InputAvailable" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV993#001;InputAvailable</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=73" BrowseName="0173-1#02-AAV994#001;RecordingRequired" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV994#001;RecordingRequired</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=74" BrowseName="173-1#02-AAW627#001;DocumentFooter" ParentNodeId="ns=1;i=3">
+    <DisplayName>173-1#02-AAW627#001;DocumentFooter</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=75" BrowseName="0173-1#01-AGC988#001;DocumentConfirmation" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#01-AGC988#001;DocumentConfirmation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=76" BrowseName="0173-1#02-AAR969#002;Date" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAR969#002;Date</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=77" BrowseName="0173-1#02-AAV997#001;Author" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV997#001;Author</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=78" BrowseName="0173-1#02-AAV999#001;Checked" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV999#001;Checked</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=79" BrowseName="0173-1#02-AAV998#001;Released" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAV998#001;Released</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=80" BrowseName="0173-1#02-AAW000#001;DocumentVersion" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAW000#001;DocumentVersion</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=81" BrowseName="0173-1#02-AAW001#001;Company" ParentNodeId="ns=1;i=3">
+    <DisplayName>0173-1#02-AAW001#001;Company</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+  </UAObject>
+</UANodeSet>
