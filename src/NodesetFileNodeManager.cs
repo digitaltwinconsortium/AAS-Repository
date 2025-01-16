@@ -22,11 +22,7 @@ namespace AdminShell
         {
             SystemContext.NodeIdFactory = this;
 
-            List<string> namespaceUris = new()
-            {
-                "http://opcfoundation.org/UA/AAS-Repository/"
-            };
-
+            List<string> namespaceUris = new();
             LoadNamespaceUrisFromNodesetXml(namespaceUris, "I4AAS.NodeSet2.xml");
 
             // check if we have existing nodesets in our nodesets directory
@@ -64,7 +60,7 @@ namespace AdminShell
         public override NodeId New(ISystemContext context, NodeState node)
         {
             // for new nodes we create, pick our default namespace
-            return new NodeId(Utils.IncrementIdentifier(ref _lastUsedId), (ushort)Server.NamespaceUris.GetIndex("http://opcfoundation.org/UA/AAS-Repository/"));
+            return new NodeId(Utils.IncrementIdentifier(ref _lastUsedId), (ushort)Server.NamespaceUris.GetIndex("http://opcfoundation.org/UA/I4AAS/"));
         }
 
         public override void CreateAddressSpace(IDictionary<NodeId, IList<IReference>> externalReferences)
@@ -79,14 +75,9 @@ namespace AdminShell
 
                 AddNodesFromNodesetXml("I4AAS.NodeSet2.xml");
 
-                _rootAssetAdminShells = CreateFolder(null, "Asset Admin Shells");
-                objectsFolderReferences.Add(new NodeStateReference(ReferenceTypes.Organizes, false, _rootAssetAdminShells.NodeId));
-
-                _rootSubmodels = CreateFolder(null, "Submodels");
-                objectsFolderReferences.Add(new NodeStateReference(ReferenceTypes.Organizes, false, _rootSubmodels.NodeId));
-
-                _rootConceptDescriptions = CreateFolder(null, "Concept Descriptions");
-                objectsFolderReferences.Add(new NodeStateReference(ReferenceTypes.Organizes, false, _rootConceptDescriptions.NodeId));
+                _rootAssetAdminShells = CreateFolder(FindNodeInAddressSpace(ObjectIds.ObjectsFolder), "Asset Admin Shells");
+                _rootSubmodels = CreateFolder(FindNodeInAddressSpace(ObjectIds.ObjectsFolder), "Submodels");
+                _rootConceptDescriptions = CreateFolder(FindNodeInAddressSpace(ObjectIds.ObjectsFolder), "Concept Descriptions");
 
                 // check if we have existing nodesets in our nodesets directory
                 IEnumerable<string> nodesetFiles = Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "Nodesets"));
@@ -105,22 +96,23 @@ namespace AdminShell
 
         public FolderState CreateFolder(NodeState parent, string browseDisplayName)
         {
-            FolderState newFolder = new(parent)
+            FolderState folder = new(parent)
             {
                 BrowseName = browseDisplayName,
                 DisplayName = browseDisplayName,
-                NodeId = new NodeId(browseDisplayName, (ushort)Server.NamespaceUris.GetIndex("http://opcfoundation.org/UA/AAS-Repository/")),
                 TypeDefinitionId = ObjectTypeIds.FolderType
             };
 
-            AddPredefinedNode(SystemContext, newFolder);
+            folder.NodeId = New(SystemContext, folder);
+
+            AddPredefinedNode(SystemContext, folder);
 
             if (parent != null)
             {
-                parent.AddChild(newFolder);
+                parent.AddChild(folder);
             }
 
-            return newFolder;
+            return folder;
         }
 
         private void AddNodesFromNodesetXml(string nodesetFile)
@@ -128,9 +120,58 @@ namespace AdminShell
             using (Stream stream = new FileStream(nodesetFile, FileMode.Open))
             {
                 UANodeSet nodeSet = UANodeSet.Read(stream);
+                List<UANode> nodes = new();
 
+                // first fixup our nodeset by removing the "Asset Admin Shells", "Submodels" and "Concept Descriptions" top-level nodes
+                // and pointing the child nodes to our instance of these top-level nodes
+                foreach (UANode node in nodeSet.Items)
+                {
+                    if (nodesetFile != "I4AAS.NodeSet2.xml")
+                    {
+                        if ((node.DisplayName[0].Value == "Asset Admin Shells") || (node.DisplayName[0].Value == "Submodels") || (node.DisplayName[0].Value == "Concept Descriptions"))
+                        {
+                            continue;
+                        }
+
+                        // update the parent of the nodes pointing to top-level nodes from the nodeset file to our own top-level nodes
+                        if (node is UAObject uAObject)
+                        {
+                            List<Opc.Ua.Export.Reference> refList = uAObject.References.ToList();
+
+                            Opc.Ua.Export.Reference reference = new();
+                            reference.ReferenceType = ReferenceTypeIds.Organizes.ToString();
+                            reference.IsForward = false;
+
+                            if (uAObject.ParentNodeId == "ns=1;i=1")
+                            {
+                                uAObject.ParentNodeId = "ns=2;i=1";
+                                reference.Value = "ns=2;i=1";
+                                refList.Add(reference);
+                            }
+
+                            if (uAObject.ParentNodeId == "ns=1;i=2")
+                            {
+                                uAObject.ParentNodeId = "ns=2;i=2";
+                                reference.Value = "ns=2;i=2";
+                                refList.Add(reference);
+                            }
+
+                            if (uAObject.ParentNodeId == "ns=1;i=3")
+                            {
+                                uAObject.ParentNodeId = "ns=2;i=3";
+                                reference.Value = "ns=2;i=3";
+                                refList.Add(reference);
+                            }
+
+                            uAObject.References = refList.ToArray();
+                        }
+                    }
+
+                    nodes.Add(node);
+                }
+
+                nodeSet.Items = nodes.ToArray();
                 NodeStateCollection predefinedNodes = new NodeStateCollection();
-
                 nodeSet.Import(SystemContext, predefinedNodes);
 
                 for (int i = 0; i < predefinedNodes.Count; i++)
