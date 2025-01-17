@@ -89,7 +89,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
         [SwaggerResponse(statusCode: 500, type: typeof(Result), description: "Internal Server Error")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
-        public virtual IActionResult GetAllSubmodelReferences([FromRoute][Required]string aasIdentifier, [FromQuery]int? limit, [FromQuery]string cursor)
+        public virtual IActionResult GetAllSubmodelReferences([FromRoute][Required]string aasIdentifier, [FromQuery]int limit, [FromQuery]string cursor)
         {
             var decodedAasIdentifier = Base64UrlEncoder.Decode(aasIdentifier);
             if (decodedAasIdentifier == null)
@@ -136,7 +136,7 @@ namespace AdminShell
 
             var fileName = _aasEnvService.GetThumbnail(decodedAasIdentifier, out byte[] content, out long fileSize);
 
-            //content-disposition so that the aasx file can be downloaded from the web browser.
+            // content-disposition so that the file can be downloaded from the web browser
             ContentDisposition contentDisposition = new() { FileName = fileName };
 
             HttpContext.Response.Headers.Append("Content-Disposition", contentDisposition.ToString());
@@ -144,7 +144,6 @@ namespace AdminShell
             HttpContext.Response.Body.WriteAsync(content);
 
             return new EmptyResult();
-            //return File(content, "APPLICATION/octet-stream", filename);
         }
 
         /// <summary>

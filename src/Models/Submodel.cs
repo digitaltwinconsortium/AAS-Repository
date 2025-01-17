@@ -31,6 +31,11 @@ namespace AdminShell
         [XmlArray(ElementName = "submodelElements")]
         public List<SubmodelElement> SubmodelElements { get; set; } = new();
 
+        public Submodel()
+            : base()
+        {
+        }
+
         public Submodel(Submodel other)
             : base()
         {

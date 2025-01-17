@@ -50,17 +50,26 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
         [SwaggerResponse(statusCode: 500, type: typeof(Result), description: "Internal Server Error")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
-	    public virtual IActionResult GetAllSubmodelElements([FromRoute][Required] string submodelIdentifier, [FromQuery] int? limit, [FromQuery] string cursor, [FromQuery] string level, [FromQuery] string extent, [FromQuery] string diff)
+	    public virtual IActionResult GetAllSubmodelElements([FromRoute][Required] string submodelIdentifier, [FromQuery] int limit, [FromQuery] string cursor, [FromQuery] string level, [FromQuery] string extent, [FromQuery] string diff)
 	    {
+            if (level == null)
+            {
+                level = "Core";
+            }
+
+            if (extent == null)
+            {
+                extent = "WithoutBlobValue";
+            }
+
             LevelEnum levelEnum = Enum.Parse<LevelEnum>(level, true);
             ExtentEnum extentEnum = Enum.Parse<ExtentEnum>(extent, true);
 
-            string decodedSubmodelIdentifier = Base64UrlEncoder.Decode(submodelIdentifier);
-
-		    if (decodedSubmodelIdentifier == null)
-		    {
-		        throw new ArgumentException($"Decoding {submodelIdentifier} returned null");
-		    }
+            string decodedSubmodelIdentifier = null;
+            if (submodelIdentifier != null)
+            {
+                decodedSubmodelIdentifier = Base64UrlEncoder.Decode(submodelIdentifier);
+            }
 
 		    List<SubmodelElement> submodelElements = _aasEnvService.GetAllSubmodelElementsFromSubmodel(decodedSubmodelIdentifier);
 
@@ -97,12 +106,27 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 403, type: typeof(Result), description: "Forbidden")]
         [SwaggerResponse(statusCode: 500, type: typeof(Result), description: "Internal Server Error")]
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
-        public virtual IActionResult GetAllSubmodels([FromQuery][StringLength(3072, MinimumLength = 1)] string semanticId, [FromQuery] string idShort, [FromQuery] int? limit, [FromQuery] string cursor, [FromQuery] string level, [FromQuery] string extent)
+        public virtual IActionResult GetAllSubmodels([FromQuery][StringLength(3072, MinimumLength = 1)] string semanticId, [FromQuery] string idShort, [FromQuery] int limit, [FromQuery] string cursor, [FromQuery] string level, [FromQuery] string extent)
         {
+            if (level == null)
+            {
+                level = "Core";
+            }
+
+            if (extent == null)
+            {
+                extent = "WithoutBlobValue";
+            }
+
             LevelEnum levelEnum = Enum.Parse<LevelEnum>(level, true);
             ExtentEnum extentEnum = Enum.Parse<ExtentEnum>(extent, true);
 
-            string reqSemanticId = Base64UrlEncoder.Decode(semanticId);
+            string reqSemanticId = null;
+            if (semanticId != null)
+            {
+                reqSemanticId = Base64UrlEncoder.Decode(semanticId);
+            }
+
             Reference reference = new Reference { Keys = new List<Key> { new Key("Submodel", reqSemanticId) } };
 
             List<Submodel> submodelList = _aasEnvService.GetAllSubmodels(reference, idShort);
@@ -202,15 +226,24 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetSubmodelElementByPath([FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath, [FromQuery]string level, [FromQuery]string extent)
         {
+            if (level == null)
+            {
+                level = "Core";
+            }
+
+            if (extent == null)
+            {
+                extent = "WithoutBlobValue";
+            }
+
             LevelEnum levelEnum = Enum.Parse<LevelEnum>(level, true);
             ExtentEnum extentEnum = Enum.Parse<ExtentEnum>(extent, true);
 
-            string decodedSubmodelIdentifier = Base64UrlEncoder.Decode(submodelIdentifier);
-
-	        if (decodedSubmodelIdentifier == null)
-	        {
-	            throw new ArgumentException($"Cannot proceed as {nameof(decodedSubmodelIdentifier)} is null");
-	        }
+            string decodedSubmodelIdentifier = null;
+            if (submodelIdentifier != null)
+            {
+                decodedSubmodelIdentifier = Base64UrlEncoder.Decode(submodelIdentifier);
+            }
 
 	        SubmodelElement output = _aasEnvService.GetSubmodelElementByPath(string.Empty, decodedSubmodelIdentifier, idShortPath);
             output = LevelExtentTransformer.TransformSubmodelElement(output, new LevelExtentModifierContext(levelEnum, extentEnum));

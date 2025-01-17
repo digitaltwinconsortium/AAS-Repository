@@ -17,6 +17,10 @@ namespace AdminShell
         public NodeState _rootSubmodels = null;
         public NodeState _rootConceptDescriptions = null;
 
+        private const string c_aasRoot = "ns=2;i=1";
+        private const string c_submodelRoot = "ns=2;i=2";
+        private const string c_conceptDescriptionRoot = "ns=2;i=3";
+
         public NodesetFileNodeManager(IServerInternal server, ApplicationConfiguration configuration)
         : base(server, configuration)
         {
@@ -144,22 +148,22 @@ namespace AdminShell
 
                             if (uAObject.ParentNodeId == "ns=1;i=1")
                             {
-                                uAObject.ParentNodeId = "ns=2;i=1";
-                                reference.Value = "ns=2;i=1";
+                                uAObject.ParentNodeId = c_aasRoot;
+                                reference.Value = c_aasRoot;
                                 refList.Add(reference);
                             }
 
                             if (uAObject.ParentNodeId == "ns=1;i=2")
                             {
-                                uAObject.ParentNodeId = "ns=2;i=2";
-                                reference.Value = "ns=2;i=2";
+                                uAObject.ParentNodeId = c_submodelRoot;
+                                reference.Value = c_submodelRoot;
                                 refList.Add(reference);
                             }
 
                             if (uAObject.ParentNodeId == "ns=1;i=3")
                             {
-                                uAObject.ParentNodeId = "ns=2;i=3";
-                                reference.Value = "ns=2;i=3";
+                                uAObject.ParentNodeId = c_conceptDescriptionRoot;
+                                reference.Value = c_conceptDescriptionRoot;
                                 refList.Add(reference);
                             }
 

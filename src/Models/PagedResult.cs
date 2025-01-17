@@ -10,43 +10,25 @@ public class PagedResult<T>
 
     public static PagedResult<T> ToPagedList(List<T> sourceList, PaginationParameters paginationParameters)
     {
-        ArgumentNullException.ThrowIfNull(sourceList);
-        ArgumentNullException.ThrowIfNull(paginationParameters);
+        List<T> outputList = new();
 
-        List<T> outputList = GetPaginatedList(sourceList, paginationParameters);
-        int cursor = UpdateCursor(sourceList, paginationParameters, outputList);
-
-        return new PagedResult<T>(){ Result = outputList, Cursor = cursor };
-    }
-
-    private static List<T> GetPaginatedList(List<T> sourceList, PaginationParameters paginationParameters)
-    {
-        var startIndex = paginationParameters.Cursor;
-        var endIndex   = startIndex + paginationParameters.Limit - 1;
-
-        // Cap the endIndex to the last index of the sourceList
-        endIndex = Math.Min(endIndex, sourceList.Count - 1);
-
-        // Log a warning if startIndex is out of bounds
-        if (startIndex > sourceList.Count - 1)
+        if (sourceList.Count > 0)
         {
-            Console.WriteLine($"Warning: Requested pagination start index ({startIndex}) is greater than the size of the source list ({sourceList.Count}).");
+            int startIndex = paginationParameters.Cursor;
+            int endIndex = Math.Min(sourceList.Count - 1, paginationParameters.Limit - 1);
+
+            if (startIndex > endIndex)
+            {
+                throw new ArgumentException($"Requested pagination start index ({startIndex}) is greater than the size of the source list ({sourceList.Count}).");
+            }
+
+            // Build the outputList with the requested range
+            for (int i = startIndex; i <= endIndex; i++)
+            {
+                outputList.Add(sourceList[i]);
+            }
         }
 
-        // Build the outputList with the requested range
-        var outputList = new List<T>();
-        for (var i = startIndex; i <= endIndex; i++)
-        {
-            outputList.Add(sourceList[i]);
-        }
-
-        return outputList;
-    }
-
-    private static int UpdateCursor(List<T> sourceList, PaginationParameters paginationParameters, List<T> outputList)
-    {
-        var endIndex = paginationParameters.Cursor + paginationParameters.Limit - 1;
-
-        return endIndex < sourceList.Count - 1 ? endIndex + 1 : -1;
+        return new PagedResult<T>(){ Result = outputList, Cursor = paginationParameters.Cursor + outputList.Count - 1 };
     }
 }

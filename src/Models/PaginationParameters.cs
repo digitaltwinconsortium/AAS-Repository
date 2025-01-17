@@ -20,32 +20,29 @@ public class PaginationParameters
     private int _cursor;
     private int _limit;
 
-    public PaginationParameters(string cursor, int? limit)
+    public PaginationParameters(string cursor, int limit)
     {
-        // Initialize cursor with default value if null or empty or not a valid integer
         _cursor = string.IsNullOrEmpty(cursor) || !int.TryParse(cursor, out var parsedCursor) ? 0 : parsedCursor;
 
-        // Set limit to provided value or default to MaxResultSize
-        if(limit < 0)
+        if (limit < 0)
         {
             throw new ArgumentException("Limit");
         }
 
-        _limit = limit ?? MaxResultSize;
+        if (limit == 0)
+        {
+            limit = MaxResultSize;
+        }
+
+        _limit = limit;
     }
 
-    /// <summary>
-    /// The maximum size of the result list.
-    /// </summary>
     public int Limit
     {
         get => _limit;
         set => _limit = value;
     }
 
-    /// <summary>
-    /// The position from which to resume a result listing.
-    /// </summary>
     public int Cursor
     {
         get => _cursor;

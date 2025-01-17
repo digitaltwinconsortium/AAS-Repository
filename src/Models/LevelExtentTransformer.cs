@@ -18,10 +18,34 @@ namespace AdminShell
 {
     public class LevelExtentTransformer
     {
+        public static Submodel TransformSubmodel(Submodel that, LevelExtentModifierContext context)
+        {
+            Submodel output = new(that);
+            if (output != null)
+            {
+                context.IsRoot = false;
+                if (context.Level == LevelEnum.Core)
+                {
+                    context.IncludeChildren = false;
+                }
+
+                if (that.SubmodelElements != null)
+                {
+                    output.SubmodelElements = new List<SubmodelElement>();
+                    foreach (var child in that.SubmodelElements)
+                    {
+                        context.IncludeChildren = false;
+                        output.SubmodelElements.Add(TransformSubmodelElement(child, context));
+                    }
+                }
+            }
+
+            return output;
+        }
+
         public static SubmodelElement TransformSubmodelElement(SubmodelElement that, LevelExtentModifierContext context)
         {
             SubmodelElement output = new SubmodelElement(that);
-
             if (output != null)
             {
                 context.IsRoot = false;
@@ -32,43 +56,7 @@ namespace AdminShell
                         output = new SubmodelElementList((SubmodelElementList)that);
                         foreach (var child in ((SubmodelElementList)that).Value)
                         {
-                            context.IncludeChildren = false;
                             ((SubmodelElementList)output).Value.Add(TransformSubmodelElement(child, context));
-                        }
-                    }
-                }
-            }
-
-            return output;
-        }
-
-        public static Submodel TransformSubmodel(Submodel that, LevelExtentModifierContext context)
-        {
-            Submodel output = new(that);
-
-            if (output != null)
-            {
-                context.IsRoot = false;
-                if (context.Level == LevelEnum.Core)
-                {
-                    if (that.SubmodelElements != null)
-                    {
-                        output.SubmodelElements = new List<SubmodelElement>();
-                        foreach (var child in that.SubmodelElements)
-                        {
-                            context.IncludeChildren = false;
-                            output.SubmodelElements.Add(TransformSubmodelElement(child, context));
-                        }
-                    }
-                }
-                else
-                {
-                    if (that.SubmodelElements != null)
-                    {
-                        output.SubmodelElements = new List<SubmodelElement>();
-                        foreach (var child in that.SubmodelElements)
-                        {
-                            output.SubmodelElements.Add(TransformSubmodelElement(child, context));
                         }
                     }
                 }
@@ -87,25 +75,15 @@ namespace AdminShell
                 {
                     if (context.Level == LevelEnum.Core)
                     {
-                        if (that.Value != null)
-                        {
-                            output.Value = new List<SubmodelElement>();
-                            foreach (SubmodelElement child in that.Value)
-                            {
-                                context.IncludeChildren = false;
-                                output.Value.Add(TransformSubmodelElement(child, context));
-                            }
-                        }
+                        context.IncludeChildren = false;
                     }
-                    else
+
+                    if (that.Value != null)
                     {
-                        if (that.Value != null)
+                        output.Value = new List<SubmodelElement>();
+                        foreach (SubmodelElement child in that.Value)
                         {
-                            output.Value = new List<SubmodelElement>();
-                            foreach (SubmodelElement child in that.Value)
-                            {
-                                output.Value.Add(TransformSubmodelElement(child, context));
-                            }
+                            output.Value.Add(TransformSubmodelElement(child, context));
                         }
                     }
                 }
