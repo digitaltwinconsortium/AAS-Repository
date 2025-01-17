@@ -60,7 +60,7 @@ namespace AdminShell
 
             string latitude = Environment.GetEnvironmentVariable("WATTTIME_LATITUDE");
             string longitude = Environment.GetEnvironmentVariable("WATTTIME_LONGITUDE");
-            await WattTime.GetCarbonIntensity(latitude, longitude).ConfigureAwait(false);
+            await WattTimeClient.GetCarbonIntensity(latitude, longitude).ConfigureAwait(false);
 
             // get CO2 foot print data from our supply chain, in this case the GE machine's AAS
             try
@@ -78,7 +78,7 @@ namespace AdminShell
         private void UpdateSMEValues()
         {
             // retrieve our ADX-tagged data points from all loaded AASes
-            foreach (Submodel sm in _envService.GetEnv().Submodels)
+            foreach (Submodel sm in _envService.GetAllSubmodels())
             {
                 foreach (SubmodelElement sme in sm.SubmodelElements)
                 {

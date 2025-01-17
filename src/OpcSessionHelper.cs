@@ -1,6 +1,7 @@
 ﻿
 namespace AdminShell
 {
+    using Models;
     using Opc.Ua;
     using Opc.Ua.Client;
     using System;

@@ -8,7 +8,7 @@ namespace AdminShell
     using System.Diagnostics;
     using System.Threading.Tasks;
 
-    public class UANodesetViewer
+    public class UAClient
     {
         public async Task<Session> GetSession(string sessionId)
         {

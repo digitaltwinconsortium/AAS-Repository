@@ -47,7 +47,7 @@
 
             services.AddSingleton<OPCUAPubSubService>();
 
-            services.AddSingleton<UANodesetViewer>();
+            services.AddSingleton<UAClient>();
 
             services.AddLogging(builder => builder.AddConsole());
 

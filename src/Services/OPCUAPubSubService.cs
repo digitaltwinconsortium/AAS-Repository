@@ -87,9 +87,9 @@ namespace AdminShell
         private void CreateSMEs(ConcurrentDictionary<string, object> values)
         {
             // retrieve our OperationalData Submodel
-            string id = _envService.GetEnv().AssetAdministrationShells[0].Identification.Id;
+            string id = _envService.GetAllAssetAdministrationShells()[0].Identification.Id;
 
-            foreach (Submodel sm in _envService.GetEnv().Submodels)
+            foreach (Submodel sm in _envService.GetAllSubmodels())
             {
                 if (sm.IdShort == "OperationalData")
                 {
@@ -142,9 +142,9 @@ namespace AdminShell
 
         private void UpdateSMEValues()
         {
-            string id = _envService.GetEnv().AssetAdministrationShells[0].Identification.Id;
+            string id = _envService.GetAllAssetAdministrationShells()[0].Identification.Id;
 
-            foreach (Submodel sm in _envService.GetEnv().Submodels)
+            foreach (Submodel sm in _envService.GetAllSubmodels())
             {
                 if (sm.IdShort == "OperationalData")
                 {
@@ -191,7 +191,7 @@ namespace AdminShell
             {
                 _logger.LogInformation("SmEC: Not plugged in!");
 
-                foreach (Submodel sm in _envService.GetEnv().Submodels)
+                foreach (Submodel sm in _envService.GetAllSubmodels())
                 {
                     if (sm.IdShort == "BOM")
                     {
@@ -211,7 +211,7 @@ namespace AdminShell
                 _logger.LogInformation("SmEC: Plugged in to " + prop.Value + "!");
 
                 bool found = false;
-                foreach (Submodel sm in _envService.GetEnv().Submodels)
+                foreach (Submodel sm in _envService.GetAllSubmodels())
                 {
                     if (sm.IdShort == "BOM")
                     {
@@ -238,7 +238,7 @@ namespace AdminShell
                     sme.SemanticId.Type = KeyElements.GlobalReference;
                     sme.SemanticId.Keys.Add(new Key("GlobalReference", "https://admin-shell.io/idta/HierachicalStructures/Node/1/0"));
 
-                    foreach (Submodel sm in _envService.GetEnv().Submodels)
+                    foreach (Submodel sm in _envService.GetAllSubmodels())
                     {
                         if (sm.IdShort == "BOM")
                         {

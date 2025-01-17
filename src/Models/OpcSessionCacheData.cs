@@ -1,5 +1,4 @@
-﻿
-namespace AdminShell
+﻿namespace Models
 {
     using Opc.Ua.Client;
     using System;

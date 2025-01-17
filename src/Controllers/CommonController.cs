@@ -14,11 +14,11 @@ namespace UaRestGateway.Server.Controllers
 
         protected ILogger _logger { get; private set; }
 
-        private readonly UANodesetViewer _viewer;
+        private readonly UAClient _viewer;
 
         static protected StandardServer _server;
 
-        public CommonController(ILogger logger, UANodesetViewer viewer)
+        public CommonController(ILogger logger, UAClient viewer)
         {
             _viewer = viewer;
             _logger = logger;

@@ -6,7 +6,7 @@
 @using System.Drawing
 @using Opc.Ua
 
-@inject UANodesetViewer _viewer
+@inject UAClient _client
 
 <div>
     <p>
@@ -65,7 +65,7 @@
     {
         if (node.Children.Count == 0)
         {
-            node.Children = _viewer.GetChildren(node.Id, node.SessionId).GetAwaiter().GetResult();
+            node.Children = _client.GetChildren(node.Id, node.SessionId).GetAwaiter().GetResult();
 
             if (node.Children != null)
             {
@@ -78,7 +78,7 @@
 
     private void SelectedNodeChanged(NodesetViewerNode node)
     {
-        NodeValue = _viewer.VariableRead(node.Id, node.SessionId).GetAwaiter().GetResult();
+        NodeValue = _client.VariableRead(node.Id, node.SessionId).GetAwaiter().GetResult();
     }
 
     private bool HasChildNodes(NodesetViewerNode node)

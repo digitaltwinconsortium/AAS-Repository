@@ -11,15 +11,12 @@ namespace AdminShell
         private readonly ILogger _logger;
 
         private AssetAdministrationShellEnvironment _env = new();
+        private UAClient _client = new();
 
-        public AssetAdministrationShellEnvironmentService(ILoggerFactory logger)
+        public AssetAdministrationShellEnvironmentService(ILoggerFactory logger, UAClient client)
         {
             _logger = logger.CreateLogger("AssetAdministrationShellEnvironmentService");
-        }
-
-        public AssetAdministrationShellEnvironment GetEnv()
-        {
-            return _env;
+            _client = client;
         }
 
         private bool IsSubmodelPresentInAAS(AssetAdministrationShell aas, string submodelIdentifier)

@@ -121,9 +121,6 @@
     <Content Include="NodeSets\WorkstationMatchingAAS.NodeSet2.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="OPCUA.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -191,5 +188,11 @@
     <None Remove="NodeSets\WorkstationMatchingAAS.NodeSet2.xml" />
     <None Remove="OPCUA.png" />
     <None Remove="ProductCarbonFootprintNCSU.aasx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\OPCUA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

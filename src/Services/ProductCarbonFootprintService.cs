@@ -204,7 +204,7 @@ namespace AdminShell
                 Debug.WriteLine("Total energy consumption of batch: " + totalEnergyConsumption.ToString() + " kWh.");
 
                 // first of all, retrieve carbon intensity for the location of the production line
-                CarbonIntensityQueryResult currentCarbonIntensity = WattTime.GetCarbonIntensity(latitude, longitude).GetAwaiter().GetResult();
+                CarbonIntensityQueryResult currentCarbonIntensity = WattTimeClient.GetCarbonIntensity(latitude, longitude).GetAwaiter().GetResult();
                 if ((currentCarbonIntensity != null) && (currentCarbonIntensity.data.Length > 0))
                 {
                     // we set scope 1 emissions to a fixed quantity of 1000 gCO2-equivalent
@@ -238,7 +238,7 @@ namespace AdminShell
             try
             {
                 // first of all, retrieve carbon intensity for the location of the production line
-                CarbonIntensityQueryResult currentCarbonIntensity = WattTime.GetCarbonIntensity(latitude, longitude).GetAwaiter().GetResult();
+                CarbonIntensityQueryResult currentCarbonIntensity = WattTimeClient.GetCarbonIntensity(latitude, longitude).GetAwaiter().GetResult();
                 if ((currentCarbonIntensity != null) && (currentCarbonIntensity.data.Length > 0))
                 {
                     // check if a new product was produced (last machine in the production line, i.e. packaging, is in state 2 ("done") with a passed QA)

@@ -9,7 +9,7 @@ namespace AdminShell
     using System.Text;
     using System.Threading.Tasks;
 
-    public class WattTime
+    public class WattTimeClient
     {
         public static async Task<CarbonIntensityQueryResult> GetCarbonIntensity(string latitude, string longitude)
         {
