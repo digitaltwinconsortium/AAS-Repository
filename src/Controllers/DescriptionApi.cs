@@ -6,7 +6,7 @@ namespace AdminShell
     using System.Collections.Generic;
 
     [ApiController]
-    public class DescriptionAPIApiController : ControllerBase
+    public class DescriptionApiController : ControllerBase
     {
         /// <summary>
         /// Returns the self-describing information of a network resource (ServiceDescription)

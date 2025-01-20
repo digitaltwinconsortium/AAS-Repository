@@ -11,11 +11,11 @@ namespace AdminShell
     using System.Text;
 
     [ApiController]
-    public class SerializationAPIApiController : ControllerBase
+    public class SerializationApiController : ControllerBase
     {
         private readonly AssetAdministrationShellEnvironmentService _aasEnvService;
 
-        public SerializationAPIApiController(AssetAdministrationShellEnvironmentService aasEnvSerive)
+        public SerializationApiController(AssetAdministrationShellEnvironmentService aasEnvSerive)
         {
             _aasEnvService = aasEnvSerive;
         }

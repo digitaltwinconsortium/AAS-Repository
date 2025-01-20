@@ -14,6 +14,7 @@ namespace AdminShell
 
         private const string c_aasRoot = "ns=2;i=1";
         private const string c_submodelRoot = "ns=2;i=2";
+        private const string c_conceptDescriptionsRoot = "ns=2;i=3";
 
         public AssetAdministrationShellEnvironmentService(ILoggerFactory logger, UAClient client)
         {
@@ -23,7 +24,7 @@ namespace AdminShell
 
         public List<AssetAdministrationShell> GetAllAssetAdministrationShells(List<string> assetIds = null, string idShort = null)
         {
-            var output = new List<AssetAdministrationShell>();
+            List<AssetAdministrationShell> output = new();
 
             // get all AASes
             List<NodesetViewerNode> nodeList = _client.GetChildren(c_aasRoot, string.Empty).GetAwaiter().GetResult();
@@ -36,7 +37,7 @@ namespace AdminShell
                 };
 
                 // get all asset and submodel refs
-                List<NodesetViewerNode> assetsAndSubmodelRefs = _client.GetChildren(a.Id, string.Empty).GetAwaiter().GetResult();
+                List<NodesetViewerNode> assetsAndSubmodelRefs = _client.GetChildren(a.Id, a.SessionId).GetAwaiter().GetResult();
                 foreach (NodesetViewerNode s in assetsAndSubmodelRefs)
                 {
                     if (s.Text.ToLower().Contains("https://admin-shell.io/idta/asset/"))
@@ -90,7 +91,7 @@ namespace AdminShell
 
         public List<Submodel> GetAllSubmodels(Reference reqSemanticId = null, string idShort = null)
         {
-            List<Submodel> output = new List<Submodel>();
+            List<Submodel> output = new();
 
             // Get All Submodels
             List<NodesetViewerNode> nodeList = _client.GetChildren(c_submodelRoot, string.Empty).GetAwaiter().GetResult();
@@ -185,6 +186,50 @@ namespace AdminShell
             }
 
             return output;
+        }
+
+        internal List<ConceptDescription> GetAllConceptDescriptions(string idShort = null, string reqIsCaseOf = null, string reqDataSpecificationRef = null)
+        {
+            List<ConceptDescription> output = new();
+
+            // get all concept descriptions
+            List<NodesetViewerNode> nodeList = _client.GetChildren(c_conceptDescriptionsRoot, string.Empty).GetAwaiter().GetResult();
+            foreach (NodesetViewerNode a in nodeList)
+            {
+                ConceptDescription cd = new()
+                {
+                    Identification = new Identifier() { Id = a.Text, Value = a.Text },
+                    IdShort = a.Text
+                };
+
+                output.Add(cd);
+            }
+
+            if (output.Any())
+            {
+                // Filter AASs based on IdShort
+                if (!string.IsNullOrEmpty(idShort))
+                {
+                    output = output.Where(a => a.IdShort.Equals(idShort)).ToList();
+                    if ((output == null) || output?.Count == 0)
+                    {
+                        throw new Exception($"Concept Description with IdShort {idShort} Not Found.");
+                    }
+                }
+            }
+
+            return output;
+        }
+
+        internal ConceptDescription GetConceptDescriptionById(string cdIdentifier)
+        {
+            IEnumerable<ConceptDescription> cd = GetAllConceptDescriptions().Where(a => a.Identification.Id.Equals(cdIdentifier));
+            if (cd.Any())
+            {
+                return cd.First();
+            }
+
+            return null;
         }
 
         public AssetInformation GetAssetInformationFromAas(string aasIdentifier)

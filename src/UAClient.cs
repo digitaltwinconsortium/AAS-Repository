@@ -64,7 +64,7 @@ namespace AdminShell
                 }
             }
 
-            if (references.Count > 0)
+            if ((references != null) && (references.Count > 0))
             {
                 nodes = new List<NodesetViewerNode>();
 

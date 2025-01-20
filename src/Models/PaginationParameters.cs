@@ -15,7 +15,7 @@ using System;
 
 public class PaginationParameters
 {
-    private const int MaxResultSize = 500;
+    private const int MaxResultSize = 5000;
 
     private int _cursor;
     private int _limit;
