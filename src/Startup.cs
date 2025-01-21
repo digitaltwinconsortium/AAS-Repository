@@ -8,10 +8,13 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
+    using Microsoft.OpenApi.Any;
     using Microsoft.OpenApi.Models;
+    using Newtonsoft.Json;
     using Opc.Ua;
     using System;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class Startup
@@ -23,13 +26,15 @@
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddNewtonsoftJson();
 
-            services.AddMvc();
+            services.AddMvc().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
 
             services.AddRazorPages();
 
@@ -102,9 +107,16 @@
                     }
                 });
 
-                options.CustomSchemaIds(type => type.ToString());
+                options.CustomSchemaIds(type => type.FullName);
 
                 options.EnableAnnotations();
+
+                options.MapType<MessageTypeEnum>(() => new OpenApiSchema
+                {
+                    Type = "string",
+                    Enum = Enum.GetNames(typeof(MessageTypeEnum)).Select(enumName => new OpenApiString(enumName)).Cast<IOpenApiAny>().ToList(),
+                    Nullable = false
+                });
             });
 
             // Setup file storage
@@ -139,6 +151,8 @@
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseHsts();
 
             app.UseSession();
 
