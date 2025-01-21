@@ -8,9 +8,6 @@ namespace AdminShell
     [DataContract]
     public class AssetInformation
     {
-        [XmlIgnore]
-        public Reference Parent { get; set; }
-
         [DataMember(Name = "globalAssetId")]
         [XmlElement(ElementName = "globalAssetId")]
         public string GlobalAssetId { get; set; }

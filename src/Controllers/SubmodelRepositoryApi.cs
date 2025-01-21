@@ -2,7 +2,6 @@
 
 namespace AdminShell
 {
-    using IO.Swagger.Models;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.IdentityModel.Tokens;

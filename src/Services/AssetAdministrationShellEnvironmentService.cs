@@ -170,7 +170,7 @@ namespace AdminShell
                     {
                         SubmodelElementList smel = new()
                         {
-                            ModelType = ModelTypes.SubmodelElementList,
+                            ModelType = ModelTypes.SubmodelElementCollection,
                             DisplayName = new List<LangString>() { new LangString() { Text = smeNode.Text } },
                             IdShort = smeNode.Text,
                             SemanticId = new SemanticId() { Type = KeyElements.ExternalReference, Keys = new List<Key>() { new Key() { Value = smeNode.Text, Type = KeyElements.GlobalReference } } }
@@ -184,7 +184,7 @@ namespace AdminShell
                     {
                         SubmodelElement sme = new()
                         {
-                            ModelType = ModelTypes.SubmodelElement,
+                            ModelType = ModelTypes.Property,
                             DisplayName = new List<LangString>() { new LangString() { Text = smeNode.Text } },
                             IdShort = smeNode.Text,
                             SemanticId = new SemanticId() {Type = KeyElements.ExternalReference, Keys = new List<Key>() { new Key() { Value = smeNode.Text, Type = KeyElements.GlobalReference } } }
@@ -210,6 +210,7 @@ namespace AdminShell
                 {
                     ConceptDescription cd = new()
                     {
+                        ModelType = ModelTypes.ConceptDescription,
                         Identification = new Identifier() { Id = a.Text, Value = a.Text },
                         IdShort = a.Text
                     };
