@@ -1,12 +1,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
+[DataContract]
 public class PagedResult<T>
 {
+    [DataMember(Name = "result")]
     public List<T> Result { get; set; }
 
-    public int Cursor { get; set; }
+    [DataMember(Name = "paging_metadata")]
+    public PagedResultMetadata Metadata { get; set; }
 
     public static PagedResult<T> ToPagedList(List<T> sourceList, PaginationParameters paginationParameters)
     {
@@ -29,6 +33,6 @@ public class PagedResult<T>
             }
         }
 
-        return new PagedResult<T>(){ Result = outputList, Cursor = paginationParameters.Cursor + outputList.Count - 1 };
+        return new PagedResult<T>(){ Result = outputList, Metadata = new PagedResultMetadata() { Cursor = (paginationParameters.Cursor + outputList.Count - 1).ToString() } };
     }
 }

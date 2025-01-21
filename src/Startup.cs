@@ -11,14 +11,38 @@
     using Microsoft.OpenApi.Any;
     using Microsoft.OpenApi.Models;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
     using Opc.Ua;
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
 
     public class Startup
     {
+        public class ShouldSerializeContractResolver : DefaultContractResolver
+        {
+            public static readonly ShouldSerializeContractResolver Instance = new ShouldSerializeContractResolver();
+
+            protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+            {
+                JsonProperty property = base.CreateProperty(member, memberSerialization);
+
+                if (property.PropertyType != typeof(string))
+                {
+                    if (property.PropertyType.GetInterface(nameof(IEnumerable)) != null)
+                    {
+                        property.ShouldSerialize = instance => (instance?.GetType().GetProperty(property.UnderlyingName).GetValue(instance) as IEnumerable<object>)?.Count() > 0;
+                    }
+                }
+
+                return property;
+            }
+        }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -34,6 +58,7 @@
             {
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.ContractResolver = ShouldSerializeContractResolver.Instance;
             });
 
             services.AddRazorPages();
