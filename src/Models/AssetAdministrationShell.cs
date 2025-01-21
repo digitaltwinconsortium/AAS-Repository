@@ -16,10 +16,6 @@ namespace AdminShell
         [XmlArrayItem(ElementName="embeddedDataSpecification")]
         public List<EmbeddedDataSpecification> EmbeddedDataSpecifications { get; set; } = new();
 
-        [DataMember(Name="derivedFrom")]
-        [XmlElement(ElementName="derivedFrom")]
-        public Reference DerivedFrom { get; set; } = new();
-
         [DataMember(Name="assetInformation")]
         [XmlElement(ElementName="assetInformation")]
         public AssetInformation AssetInformation { get; set; } = new();
@@ -27,6 +23,6 @@ namespace AdminShell
         [DataMember(Name="submodels")]
         [XmlArray(ElementName="submodelRefs")]
         [XmlArrayItem(ElementName="submodelRef")]
-        public List<SubmodelReference> Submodels { get; set; } = new();
+        public List<ModelReference> Submodels { get; set; } = new();
     }
 }

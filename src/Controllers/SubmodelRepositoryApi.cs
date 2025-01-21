@@ -52,19 +52,6 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
 	    public virtual IActionResult GetAllSubmodelElements([FromRoute][Required] string submodelIdentifier, [FromQuery] int limit, [FromQuery] string cursor, [FromQuery] string level, [FromQuery] string extent, [FromQuery] string diff)
 	    {
-            if (level == null)
-            {
-                level = "Core";
-            }
-
-            if (extent == null)
-            {
-                extent = "WithoutBlobValue";
-            }
-
-            LevelEnum levelEnum = Enum.Parse<LevelEnum>(level, true);
-            ExtentEnum extentEnum = Enum.Parse<ExtentEnum>(extent, true);
-
             string decodedSubmodelIdentifier = null;
             if (submodelIdentifier != null)
             {
@@ -74,10 +61,6 @@ namespace AdminShell
 		    List<SubmodelElement> submodelElements = _aasEnvService.GetAllSubmodelElementsFromSubmodel(decodedSubmodelIdentifier);
 
 		    PagedResult<SubmodelElement> output = PagedResult<SubmodelElement>.ToPagedList(submodelElements, new PaginationParameters(cursor, limit));
-            for (int i = 0; i < output.Result.Count; i++)
-            {
-                output.Result[i] = LevelExtentTransformer.TransformSubmodelElement(output.Result[i], new LevelExtentModifierContext(levelEnum, extentEnum));
-            }
 
 		    return new ObjectResult(output);
 	    }
@@ -108,19 +91,6 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllSubmodels([FromQuery][StringLength(3072, MinimumLength = 1)] string semanticId, [FromQuery] string idShort, [FromQuery] int limit, [FromQuery] string cursor, [FromQuery] string level, [FromQuery] string extent)
         {
-            if (level == null)
-            {
-                level = "Core";
-            }
-
-            if (extent == null)
-            {
-                extent = "WithoutBlobValue";
-            }
-
-            LevelEnum levelEnum = Enum.Parse<LevelEnum>(level, true);
-            ExtentEnum extentEnum = Enum.Parse<ExtentEnum>(extent, true);
-
             string reqSemanticId = null;
             if (semanticId != null)
             {
@@ -132,12 +102,8 @@ namespace AdminShell
             List<Submodel> submodelList = _aasEnvService.GetAllSubmodels(reference, idShort);
 
 	        PagedResult<Submodel> output = PagedResult<Submodel>.ToPagedList(submodelList, new PaginationParameters(cursor, limit));
-            for (int i = 0; i < output.Result.Count; i++)
-            {
-                output.Result[i] = LevelExtentTransformer.TransformSubmodel(output.Result[i], new LevelExtentModifierContext(levelEnum, extentEnum));
-            }
 
-	        return new ObjectResult(output);
+            return new ObjectResult(output);
 		}
 
         /// <summary>
@@ -226,19 +192,6 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetSubmodelElementByPath([FromRoute][Required]string submodelIdentifier, [FromRoute][Required]string idShortPath, [FromQuery]string level, [FromQuery]string extent)
         {
-            if (level == null)
-            {
-                level = "Core";
-            }
-
-            if (extent == null)
-            {
-                extent = "WithoutBlobValue";
-            }
-
-            LevelEnum levelEnum = Enum.Parse<LevelEnum>(level, true);
-            ExtentEnum extentEnum = Enum.Parse<ExtentEnum>(extent, true);
-
             string decodedSubmodelIdentifier = null;
             if (submodelIdentifier != null)
             {
@@ -246,7 +199,6 @@ namespace AdminShell
             }
 
 	        SubmodelElement output = _aasEnvService.GetSubmodelElementByPath(string.Empty, decodedSubmodelIdentifier, idShortPath);
-            output = LevelExtentTransformer.TransformSubmodelElement(output, new LevelExtentModifierContext(levelEnum, extentEnum));
 
 	        return new ObjectResult(output);
 	    }

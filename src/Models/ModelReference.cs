@@ -11,18 +11,29 @@ namespace AdminShell
         [XmlElement(ElementName = "referredSemanticId")]
         public GlobalReference ReferredSemanticId { get; set; }
 
-        public ModelReference() { }
+        public ModelReference()
+        {
+            Type = KeyElements.ModelReference;
+        }
 
         public ModelReference(ModelReference src)
         {
+            Type = KeyElements.ModelReference;
+
             if (src == null)
+            {
                 return;
+            }
 
             if (src.ReferredSemanticId != null)
+            {
                 ReferredSemanticId = new GlobalReference(src.ReferredSemanticId);
+            }
 
             foreach (var k in src.Keys)
+            {
                 Keys.Add(new Key(k));
+            }
         }
     }
 }
