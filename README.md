@@ -54,10 +54,6 @@ Note: For a quickstart, the AAS Repository is integrated in the [Manufacturing O
 
 # Optional Environment variables
 
-1. HostingPlatform: The hosting platform of the repository. Current options are `Azure` (the default is to run it locally)
-1. BlobStorageConnectionString: The connection string to the Azure Blob storage when the hosting platform is set to Azure
-1. UACLUsername: OPC Foundation UA Cloud Library username
-1. UACLPassword: OPC Foundation UA Cloud Library password
 1. ADX_HOST: Azure Data Explorer host name
 1. ADX_DB: Azure Data Explorer database name
 1. AAD_TENANT: Azure Active Directory tenant ID of your Azure subscription (GUID)
@@ -72,7 +68,6 @@ Note: For a quickstart, the AAS Repository is integrated in the [Manufacturing O
 1. CALCULATE_PCF_SMIP: Set to "1" to enable PCF calculation for CESMII's Smart Manufacturing Innovation Platform
 1. CARBON_REPORTING: Set to "1" to enable carbon reporting
 1. OPCUA_REPORTING: Set to "1" to enable OPC UA PubSub operational data reporting
-1. USE_JSON_SERIALIZATION: Set "1" to enable saving AAS spec in JSON format (within AASX file)
 1. SMIP_GRAPHQL_ENDPOINT_URL: The CESMII SMIP GarphQL Endpoint URL, e.g. "https://demo.cesmii.net/graphql"
 1. SMIP_USERNAME: Your CESMII SMIP username
 1. SMIP_CLIENT_ID: The CESMII SMIP client ID of this AAS Repo
