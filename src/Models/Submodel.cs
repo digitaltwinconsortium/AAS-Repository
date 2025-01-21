@@ -28,6 +28,7 @@ namespace AdminShell
         [XmlElement(ElementName = "kind")]
         public ModelingKind Kind { get; set; } = new();
 
+        [DataMember(Name = "submodelElements")]
         [XmlArray(ElementName = "submodelElements")]
         public List<SubmodelElement> SubmodelElements { get; set; } = new();
 
