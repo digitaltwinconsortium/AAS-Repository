@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-16T13:38:57.7867212Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-22T15:43:04.7878763Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
   <NamespaceUris>
     <Uri>http://opcfoundation.org/UA/FunctionalSafetyAAS/</Uri>
     <Uri>http://opcfoundation.org/UA/I4AAS/</Uri>
   </NamespaceUris>
   <Models>
-    <Model ModelUri="http://opcfoundation.org/UA/FunctionalSafetyAAS/" Version="1.0.0" PublicationDate="2025-01-16T13:38:57Z">
+    <Model ModelUri="http://opcfoundation.org/UA/FunctionalSafetyAAS/" Version="1.0.0" PublicationDate="2025-01-22T15:43:04Z">
       <RequiredModel ModelUri="http://opcfoundation.org/UA/I4AAS/" Version="5.0.0" PublicationDate="2021-06-04T00:00:00Z"/>
     </Model>
   </Models>
@@ -53,47 +53,23 @@
     <References>
       <Reference ReferenceType="i=47">ns=1;i=8</Reference>
       <Reference ReferenceType="i=47">ns=1;i=9</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=10</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=19</Reference>
       <Reference ReferenceType="i=40">ns=2;i=1006</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
     </References>
   </UAObject>
-  <UAVariable NodeId="ns=1;i=8" BrowseName="0112/2///62683#ACE005#001" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
-    <DisplayName>0112/2///62683#ACE005#001</DisplayName>
-    <Description Locale="en">0112/2///62683#ACE005#001</Description>
+  <UAVariable NodeId="ns=1;i=8" BrowseName="NumberOfFunctionalSafetySetsOfCharacteristics" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>NumberOfFunctionalSafetySetsOfCharacteristics</DisplayName>
+    <Description Locale="en">NumberOfFunctionalSafetySetsOfCharacteristics</Description>
     <References>
       <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
     </References>
-    <Value>
-      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">number of functional safety sets of characteristics</String>
-    </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=9" BrowseName="0112/2///62683#ACG057#001" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
-    <DisplayName>0112/2///62683#ACG057#001</DisplayName>
-    <Description Locale="en">0112/2///62683#ACG057#001</Description>
+  <UAObject NodeId="ns=1;i=9" BrowseName="OperatingConditionsOfFunctionalSafetyCharacteristics" ParentNodeId="ns=1;i=7">
+    <DisplayName>OperatingConditionsOfFunctionalSafetyCharacteristics</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
-      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
-    </References>
-    <Value>
-      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">operating conditions of functional safety characteristics</String>
-    </Value>
-  </UAVariable>
-  <UAVariable NodeId="ns=1;i=10" BrowseName="0112/2///62683#ACG070#001" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
-    <DisplayName>0112/2///62683#ACG070#001</DisplayName>
-    <Description Locale="en">0112/2///62683#ACG070#001</Description>
-    <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
-      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
-    </References>
-    <Value>
-      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">safety device</String>
-    </Value>
-  </UAVariable>
-  <UAObject NodeId="ns=1;i=3" BrowseName="Concept Descriptions" ParentNodeId="i=85">
-    <DisplayName>Concept Descriptions</DisplayName>
-    <References>
+      <Reference ReferenceType="i=47">ns=1;i=10</Reference>
       <Reference ReferenceType="i=47">ns=1;i=11</Reference>
       <Reference ReferenceType="i=47">ns=1;i=12</Reference>
       <Reference ReferenceType="i=47">ns=1;i=13</Reference>
@@ -102,220 +78,481 @@
       <Reference ReferenceType="i=47">ns=1;i=16</Reference>
       <Reference ReferenceType="i=47">ns=1;i=17</Reference>
       <Reference ReferenceType="i=47">ns=1;i=18</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=19</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=10" BrowseName="TypeOfVoltage" ParentNodeId="ns=1;i=9" DataType="i=12" ValueRank="0">
+    <DisplayName>TypeOfVoltage</DisplayName>
+    <Description Locale="en">TypeOfVoltage</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=9</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=11" BrowseName="RatedVoltage" ParentNodeId="ns=1;i=9" DataType="i=12" ValueRank="0">
+    <DisplayName>RatedVoltage</DisplayName>
+    <Description Locale="en">RatedVoltage</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=9</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=12" BrowseName="MinimumRatedVoltage" ParentNodeId="ns=1;i=9" DataType="i=12" ValueRank="0">
+    <DisplayName>MinimumRatedVoltage</DisplayName>
+    <Description Locale="en">MinimumRatedVoltage</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=9</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=13" BrowseName="MaximumRatedVoltage" ParentNodeId="ns=1;i=9" DataType="i=12" ValueRank="0">
+    <DisplayName>MaximumRatedVoltage</DisplayName>
+    <Description Locale="en">MaximumRatedVoltage</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=9</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=14" BrowseName="RatedOperationalCurrent" ParentNodeId="ns=1;i=9" DataType="i=12" ValueRank="0">
+    <DisplayName>RatedOperationalCurrent</DisplayName>
+    <Description Locale="en">RatedOperationalCurrent</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=9</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15" BrowseName="TypeOfInterlockingDevice" ParentNodeId="ns=1;i=9" DataType="i=12" ValueRank="0">
+    <DisplayName>TypeOfInterlockingDevice</DisplayName>
+    <Description Locale="en">TypeOfInterlockingDevice</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=9</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=16" BrowseName="OtherOperatingConditions" ParentNodeId="ns=1;i=9" DataType="i=12" ValueRank="0">
+    <DisplayName>OtherOperatingConditions</DisplayName>
+    <Description Locale="en">OtherOperatingConditions</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=9</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=17" BrowseName="UsefulLifeInNumberOfOperations" ParentNodeId="ns=1;i=9" DataType="i=12" ValueRank="0">
+    <DisplayName>UsefulLifeInNumberOfOperations</DisplayName>
+    <Description Locale="en">UsefulLifeInNumberOfOperations</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=9</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=18" BrowseName="UsefulLifeInTimeInterval" ParentNodeId="ns=1;i=9" DataType="i=12" ValueRank="0">
+    <DisplayName>UsefulLifeInTimeInterval</DisplayName>
+    <Description Locale="en">UsefulLifeInTimeInterval</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=9</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=19" BrowseName="SafetyDeviceTypes" ParentNodeId="ns=1;i=7">
+    <DisplayName>SafetyDeviceTypes</DisplayName>
+    <References>
       <Reference ReferenceType="i=47">ns=1;i=20</Reference>
       <Reference ReferenceType="i=47">ns=1;i=21</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=27</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=31</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=34</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=20" BrowseName="FunctionalSafetyDeviceType" ParentNodeId="ns=1;i=19" DataType="i=12" ValueRank="0">
+    <DisplayName>FunctionalSafetyDeviceType</DisplayName>
+    <Description Locale="en">FunctionalSafetyDeviceType</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=19</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=21" BrowseName="SafetySubsystem" ParentNodeId="ns=1;i=19">
+    <DisplayName>SafetySubsystem</DisplayName>
+    <References>
       <Reference ReferenceType="i=47">ns=1;i=22</Reference>
       <Reference ReferenceType="i=47">ns=1;i=23</Reference>
       <Reference ReferenceType="i=47">ns=1;i=24</Reference>
       <Reference ReferenceType="i=47">ns=1;i=25</Reference>
       <Reference ReferenceType="i=47">ns=1;i=26</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=27</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=19</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=22" BrowseName="SIL" ParentNodeId="ns=1;i=21" DataType="i=12" ValueRank="0">
+    <DisplayName>SIL</DisplayName>
+    <Description Locale="en">SIL</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=21</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=23" BrowseName="PFH" ParentNodeId="ns=1;i=21" DataType="i=12" ValueRank="0">
+    <DisplayName>PFH</DisplayName>
+    <Description Locale="en">PFH</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=21</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=24" BrowseName="ProofTestInterval" ParentNodeId="ns=1;i=21" DataType="i=12" ValueRank="0">
+    <DisplayName>ProofTestInterval</DisplayName>
+    <Description Locale="en">ProofTestInterval</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=21</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=25" BrowseName="PL" ParentNodeId="ns=1;i=21" DataType="i=12" ValueRank="0">
+    <DisplayName>PL</DisplayName>
+    <Description Locale="en">PL</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=21</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=26" BrowseName="Category" ParentNodeId="ns=1;i=21" DataType="i=12" ValueRank="0">
+    <DisplayName>Category</DisplayName>
+    <Description Locale="en">Category</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=21</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=27" BrowseName="ElectronicElement" ParentNodeId="ns=1;i=19">
+    <DisplayName>ElectronicElement</DisplayName>
+    <References>
       <Reference ReferenceType="i=47">ns=1;i=28</Reference>
       <Reference ReferenceType="i=47">ns=1;i=29</Reference>
       <Reference ReferenceType="i=47">ns=1;i=30</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=31</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=19</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=28" BrowseName="MTTFD" ParentNodeId="ns=1;i=27" DataType="i=12" ValueRank="0">
+    <DisplayName>MTTFD</DisplayName>
+    <Description Locale="en">MTTFD</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=27</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=29" BrowseName="RDF" ParentNodeId="ns=1;i=27" DataType="i=12" ValueRank="0">
+    <DisplayName>RDF</DisplayName>
+    <Description Locale="en">RDF</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=27</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=30" BrowseName="ProofTestInterval" ParentNodeId="ns=1;i=27" DataType="i=12" ValueRank="0">
+    <DisplayName>ProofTestInterval</DisplayName>
+    <Description Locale="en">ProofTestInterval</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=27</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=31" BrowseName="ElectromechanicalElement" ParentNodeId="ns=1;i=19">
+    <DisplayName>ElectromechanicalElement</DisplayName>
+    <References>
       <Reference ReferenceType="i=47">ns=1;i=32</Reference>
       <Reference ReferenceType="i=47">ns=1;i=33</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=34</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=19</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=32" BrowseName="B10D" ParentNodeId="ns=1;i=31" DataType="i=12" ValueRank="0">
+    <DisplayName>B10D</DisplayName>
+    <Description Locale="en">B10D</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=31</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=33" BrowseName="ProofTestInterval" ParentNodeId="ns=1;i=31" DataType="i=12" ValueRank="0">
+    <DisplayName>ProofTestInterval</DisplayName>
+    <Description Locale="en">ProofTestInterval</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=31</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=34" BrowseName="InherentlySafeSubsystem" ParentNodeId="ns=1;i=19">
+    <DisplayName>InherentlySafeSubsystem</DisplayName>
+    <References>
       <Reference ReferenceType="i=47">ns=1;i=35</Reference>
       <Reference ReferenceType="i=47">ns=1;i=36</Reference>
       <Reference ReferenceType="i=47">ns=1;i=37</Reference>
       <Reference ReferenceType="i=47">ns=1;i=38</Reference>
       <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=19</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=35" BrowseName="SIL" ParentNodeId="ns=1;i=34" DataType="i=12" ValueRank="0">
+    <DisplayName>SIL</DisplayName>
+    <Description Locale="en">SIL</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=34</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=36" BrowseName="ProofTestInterval" ParentNodeId="ns=1;i=34" DataType="i=12" ValueRank="0">
+    <DisplayName>ProofTestInterval</DisplayName>
+    <Description Locale="en">ProofTestInterval</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=34</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=37" BrowseName="PL" ParentNodeId="ns=1;i=34" DataType="i=12" ValueRank="0">
+    <DisplayName>PL</DisplayName>
+    <Description Locale="en">PL</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=34</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=38" BrowseName="Category" ParentNodeId="ns=1;i=34" DataType="i=12" ValueRank="0">
+    <DisplayName>Category</DisplayName>
+    <Description Locale="en">Category</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=34</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=3" BrowseName="Concept Descriptions" ParentNodeId="i=85">
+    <DisplayName>Concept Descriptions</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=39</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=40</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=41</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=42</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=43</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=44</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=45</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=46</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=47</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=48</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=49</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=50</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=51</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=52</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=53</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=54</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=55</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=56</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=57</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=58</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=59</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=60</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=61</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=62</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=63</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=64</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=65</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=66</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=11" BrowseName="0112/2///62683#ACE005#001;NumberOfFunctionalSafetySetsOfCharacteristics" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=39" BrowseName="0112/2///62683#ACE005#001;NumberOfFunctionalSafetySetsOfCharacteristics" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACE005#001;NumberOfFunctionalSafetySetsOfCharacteristics</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=12" BrowseName="0112/2///62683#ACF057#001;OperatingConditionsOfFunctionalSafetyCharacteristics" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=40" BrowseName="0112/2///62683#ACF057#001;OperatingConditionsOfFunctionalSafetyCharacteristics" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACF057#001;OperatingConditionsOfFunctionalSafetyCharacteristics</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=13" BrowseName="0112/2///62683#ACG057#001;OperatingConditionsOfFunctionalSafetyCharacteristics" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=41" BrowseName="0112/2///62683#ACG057#001;OperatingConditionsOfFunctionalSafetyCharacteristics" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACG057#001;OperatingConditionsOfFunctionalSafetyCharacteristics</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=14" BrowseName="0112/2///62683#ACE455#002;RatedOperationalVoltage" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=42" BrowseName="0112/2///62683#ACE455#002;RatedOperationalVoltage" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACE455#002;RatedOperationalVoltage</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=15" BrowseName="0112/2///62683#ACE534#001;RatedOperationalCurrentDc" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=43" BrowseName="0112/2///62683#ACE534#001;RatedOperationalCurrentDc" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACE534#001;RatedOperationalCurrentDc</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=16" BrowseName="0112/2///62683#ACE053#001;TypeOfInterlockingDevice" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=44" BrowseName="0112/2///62683#ACE053#001;TypeOfInterlockingDevice" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACE053#001;TypeOfInterlockingDevice</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=17" BrowseName="0112/2///62683#ACE070#001;OtherOperatingConditions" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=45" BrowseName="0112/2///62683#ACE070#001;OtherOperatingConditions" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACE070#001;OtherOperatingConditions</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=18" BrowseName="0112/2///62683#ACE055#001;UsefulLifeInNumberOfOperations" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=46" BrowseName="0112/2///62683#ACE055#001;UsefulLifeInNumberOfOperations" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACE055#001;UsefulLifeInNumberOfOperations</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=19" BrowseName="0112/2///62683#ACE054#001;UsefulLifeInTimeInterval" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=47" BrowseName="0112/2///62683#ACE054#001;UsefulLifeInTimeInterval" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACE054#001;UsefulLifeInTimeInterval</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=20" BrowseName="0112/2///62683#ACG070#001;SafetyDeviceandTypes" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=48" BrowseName="0112/2///62683#ACG070#001;SafetyDeviceandTypes" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACG070#001;SafetyDeviceandTypes</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=21" BrowseName="0112/2///62683#ACE071#001;FunctionalSafetyDeviceType" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=49" BrowseName="0112/2///62683#ACE071#001;FunctionalSafetyDeviceType" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACE071#001;FunctionalSafetyDeviceType</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=22" BrowseName="0112/2///62683#ACG065#001;SafetySubsystem" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=50" BrowseName="0112/2///62683#ACG065#001;SafetySubsystem" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACG065#001;SafetySubsystem</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=23" BrowseName="0112/2///62683#ACE051#001;SafetyIntegrityLevel" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=51" BrowseName="0112/2///62683#ACE051#001;SafetyIntegrityLevel" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACE051#001;SafetyIntegrityLevel</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=24" BrowseName="0112/2///62683#ACE052#001;ProbabilityOfDangerousFailureWithinOneHour" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=52" BrowseName="0112/2///62683#ACE052#001;ProbabilityOfDangerousFailureWithinOneHour" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACE052#001;ProbabilityOfDangerousFailureWithinOneHour</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=25" BrowseName="0112/2///62683#ACE063#001;Category" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=53" BrowseName="0112/2///62683#ACE063#001;Category" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACE063#001;Category</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=26" BrowseName="0112/2///62683#ACG066#001;ElectronicElement" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=54" BrowseName="0112/2///62683#ACG066#001;ElectronicElement" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACG066#001;ElectronicElement</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=27" BrowseName="0112/2///62683#ACE057#001;MeanTimeToDangerousFailure" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=55" BrowseName="0112/2///62683#ACE057#001;MeanTimeToDangerousFailure" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACE057#001;MeanTimeToDangerousFailure</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=28" BrowseName="0112/2///62683#ACG067#001;ElectromechanicalElement" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=56" BrowseName="0112/2///62683#ACG067#001;ElectromechanicalElement" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACG067#001;ElectromechanicalElement</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=29" BrowseName="0112/2///62683#ACE056#001;NumberOfOperationsUntilTenPercentDangerousFailure" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=57" BrowseName="0112/2///62683#ACE056#001;NumberOfOperationsUntilTenPercentDangerousFailure" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACE056#001;NumberOfOperationsUntilTenPercentDangerousFailure</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=30" BrowseName="0112/2///62683#ACG069#001;InherentlySafeSubsystem" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=58" BrowseName="0112/2///62683#ACG069#001;InherentlySafeSubsystem" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACG069#001;InherentlySafeSubsystem</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=31" BrowseName="0112/2///62683#ACE058#001;ProofTestInterval" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=59" BrowseName="0112/2///62683#ACE058#001;ProofTestInterval" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACE058#001;ProofTestInterval</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=32" BrowseName="0112/2///62683#ACE060#001;PerformanceLevel" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=60" BrowseName="0112/2///62683#ACE060#001;PerformanceLevel" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///62683#ACE060#001;PerformanceLevel</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=33" BrowseName="0:https://admin-shell.io/idta/FunctionalSafety/RDF/1/0;RDF" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=61" BrowseName="0:https://admin-shell.io/idta/FunctionalSafety/RDF/1/0;RDF" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/FunctionalSafety/RDF/1/0;RDF</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=34" BrowseName="0112/2///61987#ABA969#007;TypeOfVoltage" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=62" BrowseName="0112/2///61987#ABA969#007;TypeOfVoltage" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///61987#ABA969#007;TypeOfVoltage</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=35" BrowseName="0112/2///61987#ABA588#004;RatedVoltage" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=63" BrowseName="0112/2///61987#ABA588#004;RatedVoltage" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///61987#ABA588#004;RatedVoltage</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=36" BrowseName="0112/2///61987#ABD461#004;MinimumRatedVoltage" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=64" BrowseName="0112/2///61987#ABD461#004;MinimumRatedVoltage" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///61987#ABD461#004;MinimumRatedVoltage</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=37" BrowseName="0112/2///61987#ABD462#004;MaximumRatedVoltage" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=65" BrowseName="0112/2///61987#ABD462#004;MaximumRatedVoltage" ParentNodeId="ns=1;i=3">
     <DisplayName>0112/2///61987#ABD462#004;MaximumRatedVoltage</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=38" BrowseName="0:https://admin-shell.io/idta/FunctionalSafety/RatedOperationalCurrent/1/0;RatedOperationalCurrent" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=66" BrowseName="0:https://admin-shell.io/idta/FunctionalSafety/RatedOperationalCurrent/1/0;RatedOperationalCurrent" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/FunctionalSafety/RatedOperationalCurrent/1/0;RatedOperationalCurrent</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>

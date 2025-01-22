@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-16T13:38:55.163924Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-22T15:43:02.1358107Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
   <NamespaceUris>
     <Uri>http://opcfoundation.org/UA/ControlComponentTypeAAS/</Uri>
     <Uri>http://opcfoundation.org/UA/I4AAS/</Uri>
   </NamespaceUris>
   <Models>
-    <Model ModelUri="http://opcfoundation.org/UA/ControlComponentTypeAAS/" Version="1.0.0" PublicationDate="2025-01-16T13:38:55Z">
+    <Model ModelUri="http://opcfoundation.org/UA/ControlComponentTypeAAS/" Version="1.0.0" PublicationDate="2025-01-22T15:43:02Z">
       <RequiredModel ModelUri="http://opcfoundation.org/UA/I4AAS/" Version="5.0.0" PublicationDate="2021-06-04T00:00:00Z"/>
     </Model>
   </Models>
@@ -52,64 +52,182 @@
     <DisplayName>ControlComponentType</DisplayName>
     <References>
       <Reference ReferenceType="i=47">ns=1;i=8</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=9</Reference>
       <Reference ReferenceType="i=47">ns=1;i=10</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=25</Reference>
       <Reference ReferenceType="i=40">ns=2;i=1006</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
     </References>
   </UAObject>
-  <UAVariable NodeId="ns=1;i=8" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Type/Interfaces/1/0" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
-    <DisplayName>https://admin-shell.io/idta/ControlComponent/Type/Interfaces/1/0</DisplayName>
-    <Description Locale="en">https://admin-shell.io/idta/ControlComponent/Type/Interfaces/1/0</Description>
+  <UAObject NodeId="ns=1;i=8" BrowseName="Interfaces" ParentNodeId="ns=1;i=7">
+    <DisplayName>Interfaces</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=9</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
     </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=9" BrowseName="Interface" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>Interface</DisplayName>
+    <Description Locale="en">Interface</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
     <Value>
-      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Collection of references to control interfaces supported by the component type, e.g. to elements of the Interface Metadata SMC of the Asset Interface Description submodel, the MTP submodel or OPC UA Server Datasheet submodel.</String>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/ControlComponent/Type/Interface/1/0</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=9" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skills/1/0" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
-    <DisplayName>https://admin-shell.io/idta/ControlComponent/Skills/1/0</DisplayName>
-    <Description Locale="en">https://admin-shell.io/idta/ControlComponent/Skills/1/0</Description>
+  <UAObject NodeId="ns=1;i=10" BrowseName="Skills" ParentNodeId="ns=1;i=7">
+    <DisplayName>Skills</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=11</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
     </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=11" BrowseName="Skill" ParentNodeId="ns=1;i=10">
+    <DisplayName>Skill</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=12</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=13</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=14</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=15</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=17</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=23</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=24</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=10</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=12" BrowseName="Name" ParentNodeId="ns=1;i=11" DataType="i=12" ValueRank="0">
+    <DisplayName>Name</DisplayName>
+    <Description Locale="en">Name</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=11</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=13" BrowseName="DisplayName" ParentNodeId="ns=1;i=11" DataType="i=12" ValueRank="0">
+    <DisplayName>DisplayName</DisplayName>
+    <Description Locale="en">DisplayName</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=11</Reference>
+    </References>
     <Value>
-      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Collection of skills offered by the component type</String>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/ControlComponent/Skill/DisplayName/1/0</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=10" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Type/Errors/1/0" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
-    <DisplayName>https://admin-shell.io/idta/ControlComponent/Type/Errors/1/0</DisplayName>
-    <Description Locale="en">https://admin-shell.io/idta/ControlComponent/Type/Errors/1/0</Description>
+  <UAVariable NodeId="ns=1;i=14" BrowseName="Disabled" ParentNodeId="ns=1;i=11" DataType="i=12" ValueRank="0">
+    <DisplayName>Disabled</DisplayName>
+    <Description Locale="en">Disabled</Description>
     <References>
       <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=11</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=15" BrowseName="Modes" ParentNodeId="ns=1;i=11">
+    <DisplayName>Modes</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=16</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=11</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=16" BrowseName="Mode" ParentNodeId="ns=1;i=15" DataType="i=12" ValueRank="0">
+    <DisplayName>Mode</DisplayName>
+    <Description Locale="en">Mode</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=15</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=17" BrowseName="Parameters" ParentNodeId="ns=1;i=11">
+    <DisplayName>Parameters</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=18</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=11</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=18" BrowseName="Parameter" ParentNodeId="ns=1;i=17">
+    <DisplayName>Parameter</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=19</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=20</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=21</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=22</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=17</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=19" BrowseName="Name" ParentNodeId="ns=1;i=18" DataType="i=12" ValueRank="0">
+    <DisplayName>Name</DisplayName>
+    <Description Locale="en">Name</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=18</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=20" BrowseName="Direction" ParentNodeId="ns=1;i=18" DataType="i=12" ValueRank="0">
+    <DisplayName>Direction</DisplayName>
+    <Description Locale="en">Direction</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=18</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=21" BrowseName="Type" ParentNodeId="ns=1;i=18" DataType="i=12" ValueRank="0">
+    <DisplayName>Type</DisplayName>
+    <Description Locale="en">Type</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=18</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=22" BrowseName="Values" ParentNodeId="ns=1;i=18">
+    <DisplayName>Values</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=18</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=23" BrowseName="Errors" ParentNodeId="ns=1;i=11">
+    <DisplayName>Errors</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=11</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=24" BrowseName="Uses" ParentNodeId="ns=1;i=11">
+    <DisplayName>Uses</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=11</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=25" BrowseName="Errors" ParentNodeId="ns=1;i=7">
+    <DisplayName>Errors</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=26</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
     </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=26" BrowseName="ErrorCode" ParentNodeId="ns=1;i=25" DataType="i=12" ValueRank="0">
+    <DisplayName>ErrorCode</DisplayName>
+    <Description Locale="en">ErrorCode</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=25</Reference>
+    </References>
     <Value>
-      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Collection of all possible error codes that may appear in components of this type.</String>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/ControlComponent/Type/ErrorCode/1/0</String>
     </Value>
   </UAVariable>
   <UAObject NodeId="ns=1;i=3" BrowseName="Concept Descriptions" ParentNodeId="i=85">
     <DisplayName>Concept Descriptions</DisplayName>
     <References>
-      <Reference ReferenceType="i=47">ns=1;i=11</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=12</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=13</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=14</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=15</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=16</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=17</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=18</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=19</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=20</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=21</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=22</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=23</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=24</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=25</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=26</Reference>
       <Reference ReferenceType="i=47">ns=1;i=27</Reference>
       <Reference ReferenceType="i=47">ns=1;i=28</Reference>
       <Reference ReferenceType="i=47">ns=1;i=29</Reference>
@@ -118,172 +236,188 @@
       <Reference ReferenceType="i=47">ns=1;i=32</Reference>
       <Reference ReferenceType="i=47">ns=1;i=33</Reference>
       <Reference ReferenceType="i=47">ns=1;i=34</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=35</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=36</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=37</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=38</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=39</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=40</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=41</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=42</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=43</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=44</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=45</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=46</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=47</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=48</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=49</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=50</Reference>
       <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=11" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skills/1/0;Skills" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=27" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skills/1/0;Skills" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Skills/1/0;Skills</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=12" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/1/0;Skill" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=28" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/1/0;Skill" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Skill/1/0;Skill</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=13" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Name/1/0;Name" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=29" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Name/1/0;Name" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Skill/Name/1/0;Name</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=14" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/DisplayName/1/0;DisplayName" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=30" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/DisplayName/1/0;DisplayName" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Skill/DisplayName/1/0;DisplayName</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=15" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Disabled/1/0;Disabled" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=31" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Disabled/1/0;Disabled" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Skill/Disabled/1/0;Disabled</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=16" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Modes/1/0;Modes" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=32" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Modes/1/0;Modes" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Skill/Modes/1/0;Modes</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=17" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Mode/1/0;Mode" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=33" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Mode/1/0;Mode" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Skill/Mode/1/0;Mode</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=18" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Parameters/1/0;Parameters" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=34" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Parameters/1/0;Parameters" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Skill/Parameters/1/0;Parameters</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=19" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Parameter/1/0;Parameter" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=35" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Parameter/1/0;Parameter" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Skill/Parameter/1/0;Parameter</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=20" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Parameter/Name/1/0;Name" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=36" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Parameter/Name/1/0;Name" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Skill/Parameter/Name/1/0;Name</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=21" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Parameter/Direction/1/0;Direction" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=37" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Parameter/Direction/1/0;Direction" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Skill/Parameter/Direction/1/0;Direction</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=22" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Parameter/Type/1/0;Type" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=38" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Parameter/Type/1/0;Type" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Skill/Parameter/Type/1/0;Type</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=23" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Parameter/Values/1/0;Values" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=39" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Parameter/Values/1/0;Values" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Skill/Parameter/Values/1/0;Values</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=24" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Errors/1/0;Errors" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=40" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Errors/1/0;Errors" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Skill/Errors/1/0;Errors</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=25" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Uses/1/0;Uses" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=41" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Skill/Uses/1/0;Uses" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Skill/Uses/1/0;Uses</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=26" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Type/1/0;Type" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=42" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Type/1/0;Type" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Type/1/0;Type</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=27" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Type/Interfaces/1/0;Interfaces" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=43" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Type/Interfaces/1/0;Interfaces" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Type/Interfaces/1/0;Interfaces</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=28" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Type/Interface/1/0;Interface" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=44" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Type/Interface/1/0;Interface" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Type/Interface/1/0;Interface</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=29" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Type/Errors/1/0;Errors" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=45" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Type/Errors/1/0;Errors" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Type/Errors/1/0;Errors</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=30" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Type/ErrorCode/1/0;ErrorCode" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=46" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Type/ErrorCode/1/0;ErrorCode" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Type/ErrorCode/1/0;ErrorCode</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=31" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Instance/1/0;Instance" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=47" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Instance/1/0;Instance" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Instance/1/0;Instance</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=32" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Instance/Endpoints/1/0;Endpoints" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=48" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Instance/Endpoints/1/0;Endpoints" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Instance/Endpoints/1/0;Endpoints</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=33" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Instance/Endpoint/1/0;Endpoint" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=49" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Instance/Endpoint/1/0;Endpoint" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Instance/Endpoint/1/0;Endpoint</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=34" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Instance/Type/1/0;Type" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=50" BrowseName="0:https://admin-shell.io/idta/ControlComponent/Instance/Type/1/0;Type" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/idta/ControlComponent/Instance/Type/1/0;Type</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>

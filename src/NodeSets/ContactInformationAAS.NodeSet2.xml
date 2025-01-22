@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-16T13:38:53.513032Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-22T15:43:00.1153978Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
   <NamespaceUris>
     <Uri>http://opcfoundation.org/UA/ContactInformationAAS/</Uri>
     <Uri>http://opcfoundation.org/UA/I4AAS/</Uri>
   </NamespaceUris>
   <Models>
-    <Model ModelUri="http://opcfoundation.org/UA/ContactInformationAAS/" Version="1.0.0" PublicationDate="2025-01-16T13:38:53Z">
+    <Model ModelUri="http://opcfoundation.org/UA/ContactInformationAAS/" Version="1.0.0" PublicationDate="2025-01-22T15:43:00Z">
       <RequiredModel ModelUri="http://opcfoundation.org/UA/I4AAS/" Version="5.0.0" PublicationDate="2021-06-04T00:00:00Z"/>
     </Model>
   </Models>
@@ -56,19 +56,8 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
     </References>
   </UAObject>
-  <UAVariable NodeId="ns=1;i=8" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation</DisplayName>
-    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation</Description>
-    <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
-      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
-    </References>
-    <Value>
-      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">The SMC “ContactInformation” contains information on how to contact the manufacturer or an authorised service provider, e.g. when a maintenance service is required</String>
-    </Value>
-  </UAVariable>
-  <UAObject NodeId="ns=1;i=3" BrowseName="Concept Descriptions" ParentNodeId="i=85">
-    <DisplayName>Concept Descriptions</DisplayName>
+  <UAObject NodeId="ns=1;i=8" BrowseName="ContactInformation" ParentNodeId="ns=1;i=7">
+    <DisplayName>ContactInformation</DisplayName>
     <References>
       <Reference ReferenceType="i=47">ns=1;i=9</Reference>
       <Reference ReferenceType="i=47">ns=1;i=10</Reference>
@@ -78,21 +67,9 @@
       <Reference ReferenceType="i=47">ns=1;i=14</Reference>
       <Reference ReferenceType="i=47">ns=1;i=15</Reference>
       <Reference ReferenceType="i=47">ns=1;i=16</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=17</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=18</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=19</Reference>
       <Reference ReferenceType="i=47">ns=1;i=20</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=21</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=22</Reference>
       <Reference ReferenceType="i=47">ns=1;i=23</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=24</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=25</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=26</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=27</Reference>
       <Reference ReferenceType="i=47">ns=1;i=28</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=29</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=30</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=31</Reference>
       <Reference ReferenceType="i=47">ns=1;i=32</Reference>
       <Reference ReferenceType="i=47">ns=1;i=33</Reference>
       <Reference ReferenceType="i=47">ns=1;i=34</Reference>
@@ -106,248 +83,665 @@
       <Reference ReferenceType="i=47">ns=1;i=42</Reference>
       <Reference ReferenceType="i=47">ns=1;i=43</Reference>
       <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=9" BrowseName="RoleOfContactPerson" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>RoleOfContactPerson</DisplayName>
+    <Description Locale="en">RoleOfContactPerson</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#07-AAS931#001</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=10" BrowseName="NationalCode" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>NationalCode</DisplayName>
+    <Description Locale="en">NationalCode</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO134#002</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=11" BrowseName="Language" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>Language</DisplayName>
+    <Description Locale="en">Language</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">de</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=12" BrowseName="TimeZone" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>TimeZone</DisplayName>
+    <Description Locale="en">TimeZone</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Z</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=13" BrowseName="CityTown" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>CityTown</DisplayName>
+    <Description Locale="en">CityTown</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO132#002</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=14" BrowseName="Company" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>Company</DisplayName>
+    <Description Locale="en">Company</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAW001#001</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15" BrowseName="Department" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>Department</DisplayName>
+    <Description Locale="en">Department</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO127#003</String>
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=16" BrowseName="Phone" ParentNodeId="ns=1;i=8">
+    <DisplayName>Phone</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=17</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=18</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=19</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=17" BrowseName="TelephoneNumber" ParentNodeId="ns=1;i=16" DataType="i=12" ValueRank="0">
+    <DisplayName>TelephoneNumber</DisplayName>
+    <Description Locale="en">TelephoneNumber</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=16</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO136#002</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=18" BrowseName="TypeOfTelephone" ParentNodeId="ns=1;i=16" DataType="i=12" ValueRank="0">
+    <DisplayName>TypeOfTelephone</DisplayName>
+    <Description Locale="en">TypeOfTelephone</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=16</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#07-AAS754#001</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=19" BrowseName="AvailableTime" ParentNodeId="ns=1;i=16" DataType="i=12" ValueRank="0">
+    <DisplayName>AvailableTime</DisplayName>
+    <Description Locale="en">AvailableTime</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=16</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/AvailableTime/</String>
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=20" BrowseName="Fax" ParentNodeId="ns=1;i=8">
+    <DisplayName>Fax</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=21</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=22</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=21" BrowseName="FaxNumber" ParentNodeId="ns=1;i=20" DataType="i=12" ValueRank="0">
+    <DisplayName>FaxNumber</DisplayName>
+    <Description Locale="en">FaxNumber</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=20</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO195#002</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=22" BrowseName="TypeOfFaxNumber" ParentNodeId="ns=1;i=20" DataType="i=12" ValueRank="0">
+    <DisplayName>TypeOfFaxNumber</DisplayName>
+    <Description Locale="en">TypeOfFaxNumber</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=20</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd"> 0173-1#07-AAS754#001</String>
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=23" BrowseName="Email" ParentNodeId="ns=1;i=8">
+    <DisplayName>Email</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=24</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=25</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=26</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=27</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=24" BrowseName="EmailAddress" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
+    <DisplayName>EmailAddress</DisplayName>
+    <Description Locale="en">EmailAddress</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">email@muster-ag.de</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=25" BrowseName="PublicKey" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
+    <DisplayName>PublicKey</DisplayName>
+    <Description Locale="en">PublicKey</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO200#002</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=26" BrowseName="TypeOfEmailAddress" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
+    <DisplayName>TypeOfEmailAddress</DisplayName>
+    <Description Locale="en">TypeOfEmailAddress</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#07-AAS754#001</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=27" BrowseName="TypeOfPublicKey" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
+    <DisplayName>TypeOfPublicKey</DisplayName>
+    <Description Locale="en">TypeOfPublicKey</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO201#002</String>
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=28" BrowseName="IPCommunication__00__" ParentNodeId="ns=1;i=8">
+    <DisplayName>IPCommunication__00__</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=29</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=30</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=31</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=29" BrowseName="AddressOfAdditionalLink" ParentNodeId="ns=1;i=28" DataType="i=12" ValueRank="0">
+    <DisplayName>AddressOfAdditionalLink</DisplayName>
+    <Description Locale="en">AddressOfAdditionalLink</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=28</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=30" BrowseName="TypeOfCommunication" ParentNodeId="ns=1;i=28" DataType="i=12" ValueRank="0">
+    <DisplayName>TypeOfCommunication</DisplayName>
+    <Description Locale="en">TypeOfCommunication</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=28</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Chat</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=31" BrowseName="AvailableTime" ParentNodeId="ns=1;i=28" DataType="i=12" ValueRank="0">
+    <DisplayName>AvailableTime</DisplayName>
+    <Description Locale="en">AvailableTime</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=28</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/AvailableTime/</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=32" BrowseName="Street" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>Street</DisplayName>
+    <Description Locale="en">Street</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO128#002</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=33" BrowseName="Zipcode" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>Zipcode</DisplayName>
+    <Description Locale="en">Zipcode</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO129#002</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=34" BrowseName="POBox" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>POBox</DisplayName>
+    <Description Locale="en">POBox</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO130#002</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=35" BrowseName="ZipCodeOfPOBox" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>ZipCodeOfPOBox</DisplayName>
+    <Description Locale="en">ZipCodeOfPOBox</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO131#002</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=36" BrowseName="StateCounty" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>StateCounty</DisplayName>
+    <Description Locale="en">StateCounty</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO133#002</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=37" BrowseName="NameOfContact" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>NameOfContact</DisplayName>
+    <Description Locale="en">NameOfContact</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO205#002</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=38" BrowseName="FirstName" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>FirstName</DisplayName>
+    <Description Locale="en">FirstName</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO206#002</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=39" BrowseName="MiddleNames" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>MiddleNames</DisplayName>
+    <Description Locale="en">MiddleNames</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO207#002</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=40" BrowseName="Title" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>Title</DisplayName>
+    <Description Locale="en">Title</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO208#003</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=41" BrowseName="AcademicTitle" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>AcademicTitle</DisplayName>
+    <Description Locale="en">AcademicTitle</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO209#003</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=42" BrowseName="FurtherDetailsOfContact" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>FurtherDetailsOfContact</DisplayName>
+    <Description Locale="en">FurtherDetailsOfContact</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-AAO210#002</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=43" BrowseName="AddressOfAdditionalLink" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>AddressOfAdditionalLink</DisplayName>
+    <Description Locale="en">AddressOfAdditionalLink</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=3" BrowseName="Concept Descriptions" ParentNodeId="i=85">
+    <DisplayName>Concept Descriptions</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=44</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=45</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=46</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=47</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=48</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=49</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=50</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=51</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=52</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=53</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=54</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=55</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=56</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=57</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=58</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=59</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=60</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=61</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=62</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=63</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=64</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=65</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=66</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=67</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=68</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=69</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=70</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=71</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=72</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=73</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=74</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=75</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=76</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=77</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=78</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=9" BrowseName="0173-1#02-AAO204#003;RoleOfContactPerson" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=44" BrowseName="0173-1#02-AAO204#003;RoleOfContactPerson" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO204#003;RoleOfContactPerson</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=10" BrowseName="0173-1#02-AAO134#002;NationalCode" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=45" BrowseName="0173-1#02-AAO134#002;NationalCode" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO134#002;NationalCode</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=11" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/Language;Language" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=46" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/Language;Language" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/Language;Language</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=12" BrowseName="0173-1#02-AAO132#002;CityTown" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=47" BrowseName="0173-1#02-AAO132#002;CityTown" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO132#002;CityTown</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=13" BrowseName="0173-1#02-AAW001#001;Company" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=48" BrowseName="0173-1#02-AAW001#001;Company" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAW001#001;Company</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=14" BrowseName="0173-1#02-AAO127#003;Department" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=49" BrowseName="0173-1#02-AAO127#003;Department" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO127#003;Department</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=15" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/Phone;Phone" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=50" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/Phone;Phone" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/Phone;Phone</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=16" BrowseName="0173-1#02-AAQ834#005;Fax" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=51" BrowseName="0173-1#02-AAQ834#005;Fax" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAQ834#005;Fax</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=17" BrowseName="0173-1#02-AAQ836#005;Email" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=52" BrowseName="0173-1#02-AAQ836#005;Email" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAQ836#005;Email</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=18" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/;IPCommunication__00__" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=53" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/;IPCommunication__00__" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/;IPCommunication__00__</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=19" BrowseName="0173-1#02-AAO128#002;Street" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=54" BrowseName="0173-1#02-AAO128#002;Street" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO128#002;Street</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=20" BrowseName="0173-1#02-AAO129#002;Zipcode" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=55" BrowseName="0173-1#02-AAO129#002;Zipcode" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO129#002;Zipcode</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=21" BrowseName="0173-1#02-AAO130#002;POBox" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=56" BrowseName="0173-1#02-AAO130#002;POBox" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO130#002;POBox</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=22" BrowseName="0173-1#02-AAO131#002;ZipCodeOfPOBox" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=57" BrowseName="0173-1#02-AAO131#002;ZipCodeOfPOBox" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO131#002;ZipCodeOfPOBox</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=23" BrowseName="0173-1#02-AAO133#002;StateCounty" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=58" BrowseName="0173-1#02-AAO133#002;StateCounty" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO133#002;StateCounty</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=24" BrowseName="0173-1#02-AAO205#002;NameOfContact" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=59" BrowseName="0173-1#02-AAO205#002;NameOfContact" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO205#002;NameOfContact</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=25" BrowseName="0173-1#02-AAO206#002;FirstName" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=60" BrowseName="0173-1#02-AAO206#002;FirstName" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO206#002;FirstName</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=26" BrowseName="0173-1#02-AAO207#002;MiddleNames" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=61" BrowseName="0173-1#02-AAO207#002;MiddleNames" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO207#002;MiddleNames</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=27" BrowseName="0173-1#02-AAO208#003;Title" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=62" BrowseName="0173-1#02-AAO208#003;Title" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO208#003;Title</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=28" BrowseName="0173-1#02-AAO209#003;AcademicTitle" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=63" BrowseName="0173-1#02-AAO209#003;AcademicTitle" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO209#003;AcademicTitle</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=29" BrowseName="0173-1#02-AAO210#002;FurtherDetailsOfContact" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=64" BrowseName="0173-1#02-AAO210#002;FurtherDetailsOfContact" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO210#002;FurtherDetailsOfContact</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=30" BrowseName="0173-1#02-AAQ326#002;AddressOfAdditionalLink" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=65" BrowseName="0173-1#02-AAQ326#002;AddressOfAdditionalLink" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAQ326#002;AddressOfAdditionalLink</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=31" BrowseName="0173-1#02-AAO136#002;TelephoneNumber" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=66" BrowseName="0173-1#02-AAO136#002;TelephoneNumber" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO136#002;TelephoneNumber</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=32" BrowseName="0173-1#02-AAO137#003;TypeOfTelephone" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=67" BrowseName="0173-1#02-AAO137#003;TypeOfTelephone" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO137#003;TypeOfTelephone</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=33" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/AvailableTime/;AvailableTime" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=68" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/AvailableTime/;AvailableTime" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/AvailableTime/;AvailableTime</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=34" BrowseName="0173-1#02-AAO195#002;FaxNumber" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=69" BrowseName="0173-1#02-AAO195#002;FaxNumber" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO195#002;FaxNumber</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=35" BrowseName="0173-1#02-AAO196#003;TypeOfFaxNumber" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=70" BrowseName="0173-1#02-AAO196#003;TypeOfFaxNumber" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO196#003;TypeOfFaxNumber</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=36" BrowseName="0173-1#02-AAO198#002;EmailAddress" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=71" BrowseName="0173-1#02-AAO198#002;EmailAddress" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO198#002;EmailAddress</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=37" BrowseName="0173-1#02-AAO200#002;PublicKey" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=72" BrowseName="0173-1#02-AAO200#002;PublicKey" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO200#002;PublicKey</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=38" BrowseName="0173-1#02-AAO199#003;TypeOfEmailAddress" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=73" BrowseName="0173-1#02-AAO199#003;TypeOfEmailAddress" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO199#003;TypeOfEmailAddress</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=39" BrowseName="0173-1#02-AAO201#002;TypeOfPublicKey" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=74" BrowseName="0173-1#02-AAO201#002;TypeOfPublicKey" ParentNodeId="ns=1;i=3">
     <DisplayName>0173-1#02-AAO201#002;TypeOfPublicKey</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=40" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/IPCommunication/TypeOfCommunication;TypeOfCommunication" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=75" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/IPCommunication/TypeOfCommunication;TypeOfCommunication" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/IPCommunication/TypeOfCommunication;TypeOfCommunication</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=41" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations;ContactInformations" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=76" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations;ContactInformations" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/ContactInformations;ContactInformations</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=42" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation;ContactInformation" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=77" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation;ContactInformation" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation;ContactInformation</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=43" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/TimeZone;TimeZone" ParentNodeId="ns=1;i=3">
+  <UAObject NodeId="ns=1;i=78" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/TimeZone;TimeZone" ParentNodeId="ns=1;i=3">
     <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation/TimeZone;TimeZone</DisplayName>
     <References>
       <Reference ReferenceType="i=40">ns=2;i=1007</Reference>

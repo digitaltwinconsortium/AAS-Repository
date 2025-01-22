@@ -6,7 +6,6 @@ namespace AdminShell
     using SMIP;
     using System;
     using System.Collections.Concurrent;
-    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Threading;
 
@@ -244,77 +243,44 @@ namespace AdminShell
                     // check if a new product was produced (last machine in the production line, i.e. packaging, is in state 2 ("done") with a passed QA)
                     // and get the products serial number and energy consumption at that time
                     ConcurrentDictionary<string, object> latestProductProduced = ADXQueryForSpecificValue("packaging", productionLineName, "Status", 2);
-                    ConcurrentDictionary<string, object> serialNumberResult = ADXQueryForSpecificTime("packaging", productionLineName, "ProductSerialNumber", ((DateTime)latestProductProduced["Timestamp"]).ToString("yyyy-MM-dd HH:mm:ss"), idealCycleTime);
-                    double serialNumber = (double)serialNumberResult["OPCUANodeValue"];
+                    if ((latestProductProduced != null) && (latestProductProduced.Count > 0))
+                    {
+                        ConcurrentDictionary<string, object> serialNumberResult = ADXQueryForSpecificTime("packaging", productionLineName, "ProductSerialNumber", ((DateTime)latestProductProduced["Timestamp"]).ToString("yyyy-MM-dd HH:mm:ss"), idealCycleTime);
+                        double serialNumber = (double)serialNumberResult["OPCUANodeValue"];
 
-                    ConcurrentDictionary<string, object> timeItWasProducedPackaging = ADXQueryForSpecificValue("packaging", productionLineName, "ProductSerialNumber", serialNumber);
-                    ConcurrentDictionary<string, object> energyPackaging = ADXQueryForSpecificTime("packaging", productionLineName, "EnergyConsumption", ((DateTime)timeItWasProducedPackaging["Timestamp"]).ToString("yyyy-MM-dd HH:mm:ss"), idealCycleTime);
+                        ConcurrentDictionary<string, object> timeItWasProducedPackaging = ADXQueryForSpecificValue("packaging", productionLineName, "ProductSerialNumber", serialNumber);
+                        ConcurrentDictionary<string, object> energyPackaging = ADXQueryForSpecificTime("packaging", productionLineName, "EnergyConsumption", ((DateTime)timeItWasProducedPackaging["Timestamp"]).ToString("yyyy-MM-dd HH:mm:ss"), idealCycleTime);
 
-                    // check each other machine for the time when the product with this serial number was in the machine and get its energy comsumption at that time
-                    ConcurrentDictionary<string, object> timeItWasProducedTest = ADXQueryForSpecificValue("test", productionLineName, "ProductSerialNumber", serialNumber);
-                    ConcurrentDictionary<string, object> energyTest = ADXQueryForSpecificTime("test", productionLineName, "EnergyConsumption", ((DateTime)timeItWasProducedTest["Timestamp"]).ToString("yyyy-MM-dd HH:mm:ss"), idealCycleTime);
+                        // check each other machine for the time when the product with this serial number was in the machine and get its energy comsumption at that time
+                        ConcurrentDictionary<string, object> timeItWasProducedTest = ADXQueryForSpecificValue("test", productionLineName, "ProductSerialNumber", serialNumber);
+                        ConcurrentDictionary<string, object> energyTest = ADXQueryForSpecificTime("test", productionLineName, "EnergyConsumption", ((DateTime)timeItWasProducedTest["Timestamp"]).ToString("yyyy-MM-dd HH:mm:ss"), idealCycleTime);
 
-                    ConcurrentDictionary<string, object> timeItWasProducedAssembly = ADXQueryForSpecificValue("assembly", productionLineName, "ProductSerialNumber", serialNumber);
-                    ConcurrentDictionary<string, object> energyAssembly = ADXQueryForSpecificTime("assembly", productionLineName, "EnergyConsumption", ((DateTime)timeItWasProducedAssembly["Timestamp"]).ToString("yyyy-MM-dd HH:mm:ss"), idealCycleTime);
+                        ConcurrentDictionary<string, object> timeItWasProducedAssembly = ADXQueryForSpecificValue("assembly", productionLineName, "ProductSerialNumber", serialNumber);
+                        ConcurrentDictionary<string, object> energyAssembly = ADXQueryForSpecificTime("assembly", productionLineName, "EnergyConsumption", ((DateTime)timeItWasProducedAssembly["Timestamp"]).ToString("yyyy-MM-dd HH:mm:ss"), idealCycleTime);
 
-                    // calculate the total energy consumption for the product by summing up all the machines' energy consumptions (in Ws), divide by 3600 to get seconds and multiply by the ideal cycle time (which is in seconds)
-                    double energyTotal = ((double)energyAssembly["OPCUANodeValue"] + (double)energyTest["OPCUANodeValue"] + (double)energyPackaging["OPCUANodeValue"]) / 3600 * idealCycleTime;
+                        // calculate the total energy consumption for the product by summing up all the machines' energy consumptions (in Ws), divide by 3600 to get seconds and multiply by the ideal cycle time (which is in seconds)
+                        double energyTotal = ((double)energyAssembly["OPCUANodeValue"] + (double)energyTest["OPCUANodeValue"] + (double)energyPackaging["OPCUANodeValue"]) / 3600 * idealCycleTime;
 
-                    // we set scope 1 emissions to a fixed quantity of 1 gCO2
-                    float scope1Emissions = 1.0f;
+                        // we set scope 1 emissions to 0
+                        float scope1Emissions = 0.0f;
 
-                    // finally calculate the scope 2 product carbon footprint by multiplying the full energy consumption by the current carbon intensity
-                    float scope2Emissions = (float)energyTotal * currentCarbonIntensity.data[0].intensity.actual;
+                        // finally calculate the scope 2 product carbon footprint by multiplying the full energy consumption by the current carbon intensity
+                        float scope2Emissions = (float)energyTotal * currentCarbonIntensity.data[0].intensity.actual;
 
-                    // we set scope 3 emissions to 0 for now
-                    float scope3Emissions = 0.0f;
+                        // we set scope 3 emissions to 0
+                        float scope3Emissions = 0.0f;
 
-                    // finally calculate our PCF
-                    float pcf = scope1Emissions + scope2Emissions + scope3Emissions;
+                        // finally calculate our PCF
+                        float pcf = scope1Emissions + scope2Emissions + scope3Emissions;
 
-                    // TODO: persist AAS with serial number and calculated PCF
+                        // TODO: persist AAS with serial number and calculated PCF
+                    }
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
             }
-        }
-
-
-        private SubmodelElement FindSME(SubmodelElement smeInput, Identifier semId)
-        {
-            if (smeInput is SubmodelElementList collection)
-            {
-                foreach (SubmodelElement sme in collection.Value)
-                {
-                    if (sme.SemanticId != null)
-                    {
-                        if (sme.SemanticId.Matches(semId))
-                        {
-                            return sme;
-                        }
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        private SubmodelElement FindSME(List<SubmodelElement> smewc, Identifier semId)
-        {
-            foreach (SubmodelElement sme in smewc)
-            {
-                if (sme.SemanticId != null)
-                {
-                    if (sme.SemanticId.Matches(semId))
-                    {
-                        return sme;
-                    }
-                }
-            }
-
-            return null;
         }
 
         private ConcurrentDictionary<string, object> ADXQueryForSpecificValue(string stationName, string productionLineName, string valueToQuery, double desiredValue)

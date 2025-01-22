@@ -67,15 +67,11 @@
 
             services.AddSingleton<AssetAdministrationShellEnvironmentService>();
 
-            services.AddSingleton<CarbonReportingService>();
-
             services.AddSingleton<ProductCarbonFootprintService>();
 
             services.AddSingleton<ADXDataService>();
 
             services.AddSingleton<SMIPDataService>();
-
-            services.AddSingleton<OPCUAPubSubService>();
 
             services.AddSingleton<UAClient>();
 
@@ -199,6 +195,8 @@
             });
 
             StartServerAsync().GetAwaiter().GetResult();
+
+            Program.PCFService = app.ApplicationServices.GetRequiredService<ProductCarbonFootprintService>();
         }
 
         private async Task StartServerAsync()

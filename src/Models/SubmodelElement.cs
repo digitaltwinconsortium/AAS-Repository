@@ -9,7 +9,7 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    [JsonConverter(typeof(JsonSubtypes), "modelType.name")]
+    [JsonConverter(typeof(JsonSubtypes), "ModelType")]
     public class SubmodelElement : Referable
     {
         public static Type[] PROP_MLP = new Type[]

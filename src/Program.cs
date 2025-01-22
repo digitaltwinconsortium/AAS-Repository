@@ -10,6 +10,7 @@ namespace AdminShell
         public static IHost AppHost { get; private set; }
 
         public static ApplicationInstance App = new();
+        public static ProductCarbonFootprintService PCFService;
 
         public static void Main(string[] args)
         {

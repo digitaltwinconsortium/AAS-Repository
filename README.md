@@ -4,14 +4,14 @@ IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Ne
 
 # Features
 
-1. Loading of OPC UA nodeset2 XML files as AAS models
+1. Loading of OPC UA nodeset2 XML files via UI
 1. Standardized AAS REST interface (as specified in AAS spec)
 1. Standardized OPC UA REST interface (as specified in OPC UA spec)
 1. Swagger endpoint at /swagger
 1. Joint CESMII/Plattform Industrie 4.0/IDTA/DTC Carbon Reporting Demonstrator integration
 1. Product Carbon Footprint (PCF) calculation (based on GHG Protocol specification) for the production line simulation which is part of the [DTC's Manufacturing Ontologies reference solution](https://github.com/digitaltwinconsortium/ManufacturingOntologies).
 1. WattTime integration
-1. OPC UA PubSub operational data integration
+1. Time-series database operational data integration
 1. Azure Data Explorer data source integration
 1. Integrated OPC UA Nodeset file browser
 1. Basic authentication header support (use "admin" and ServicePassword environment variable to set password)
@@ -59,15 +59,13 @@ Note: For a quickstart, the AAS Repository is integrated in the [Manufacturing O
 1. AAD_TENANT: Azure Active Directory tenant ID of your Azure subscription (GUID)
 1. AAD_APPLICATION_ID: Azure Active Directory application ID (GUID, set this up via an app registration in the Azure Portal)
 1. AAD_APPLICATION_KEY: Azure Active Directory application key (with data owner access to ADX cluster and database, create a secret within your AAD app registration)
-1. DATA_QUERY_INTERVAL: The query interval for the connected database
+1. DATA_QUERY_INTERVAL: The query interval for the connected database in milliseconds
 1. WATTTIME_USER: WattTime service username
 1. WATTTIME_PASSWORD: WattTime service password
 1. WATTTIME_LATITUDE: WattTime location to query
 1. WATTTIME_LONGITUDE: WattTime location to query
 1. CALCULATE_PCF: Set to "1" to enable PCF calculation for the DTC's Manufacturing Ontologies Reference Solution
 1. CALCULATE_PCF_SMIP: Set to "1" to enable PCF calculation for CESMII's Smart Manufacturing Innovation Platform
-1. CARBON_REPORTING: Set to "1" to enable carbon reporting
-1. OPCUA_REPORTING: Set to "1" to enable OPC UA PubSub operational data reporting
 1. SMIP_GRAPHQL_ENDPOINT_URL: The CESMII SMIP GarphQL Endpoint URL, e.g. "https://demo.cesmii.net/graphql"
 1. SMIP_USERNAME: Your CESMII SMIP username
 1. SMIP_CLIENT_ID: The CESMII SMIP client ID of this AAS Repo
