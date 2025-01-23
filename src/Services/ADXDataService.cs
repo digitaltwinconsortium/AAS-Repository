@@ -1,6 +1,7 @@
 ﻿
 namespace AdminShell
 {
+    using Azure.Identity;
     using Kusto.Data;
     using Kusto.Data.Common;
     using Kusto.Data.Net.Client;
@@ -18,20 +19,20 @@ namespace AdminShell
             // connect to ADX cluster
             string adxClusterName = Environment.GetEnvironmentVariable("ADX_HOST");
             string adxDBName = Environment.GetEnvironmentVariable("ADX_DB");
-            string aadAppKey = Environment.GetEnvironmentVariable("AAD_APPLICATION_KEY");
             string aadAppID = Environment.GetEnvironmentVariable("AAD_APPLICATION_ID");
-            string aadTenant = Environment.GetEnvironmentVariable("AAD_TENANT");
 
-            if (!string.IsNullOrEmpty(adxClusterName) && !string.IsNullOrEmpty(adxDBName) && !string.IsNullOrEmpty(aadAppID))
+            if (!string.IsNullOrEmpty(adxClusterName) && !string.IsNullOrEmpty(adxDBName))
             {
                 KustoConnectionStringBuilder connectionString;
-                if (!string.IsNullOrEmpty(aadAppKey) && !string.IsNullOrEmpty(aadTenant))
+                if (string.IsNullOrEmpty(aadAppID))
                 {
-                    connectionString = new KustoConnectionStringBuilder(adxClusterName.Replace("https://", string.Empty), adxDBName).WithAadApplicationKeyAuthentication(aadAppID, aadAppKey, aadTenant);
+                    connectionString = new KustoConnectionStringBuilder(adxClusterName, adxDBName)
+                        .WithAadAzureTokenCredentialsAuthentication(new DefaultAzureCredential());
                 }
                 else
                 {
-                    connectionString = new KustoConnectionStringBuilder(adxClusterName, adxDBName).WithAadUserManagedIdentity(aadAppID);
+                    connectionString = new KustoConnectionStringBuilder(adxClusterName, adxDBName)
+                        .WithAadUserManagedIdentity(aadAppID);
                 }
 
                 _queryProvider = KustoClientFactory.CreateCslQueryProvider(connectionString);

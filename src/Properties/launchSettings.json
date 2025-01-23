@@ -34,10 +34,8 @@
         "ServicePassword": "",
         "ADX_HOST": "",
         "ADX_DB": "",
-        "AAD_TENANT": "",
         "AAD_APPLICATION_ID": "",
-        "AAD_APPLICATION_KEY": "",
-        "ADX_QUERY_INTERVAL": "",
+        "DATA_QUERY_INTERVAL": "",
         "CALCULATE_PCF": "1",
         "CALCULATE_PCF_SMIP": "",
         "WATTTIME_USER": "",
@@ -47,8 +45,7 @@
         "SMIP_CLIENT_ID": "",
         "SMIP_CLIENT_PASSWORD": "",
         "SMIP_CLIENT_ROLE": "",
-        "SMIP_BEARER_TOKEN": "",
-        "DATA_QUERY_INTERVAL": ""
+        "SMIP_BEARER_TOKEN": ""
       }
     }
   }
