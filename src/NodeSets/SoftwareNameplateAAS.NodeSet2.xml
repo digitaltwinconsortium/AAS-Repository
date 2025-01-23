@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-22T15:43:06.9577902Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-23T10:39:24.8480649Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
   <NamespaceUris>
     <Uri>http://opcfoundation.org/UA/SoftwareNameplateAAS/</Uri>
-    <Uri>http://opcfoundation.org/UA/I4AAS/</Uri>
   </NamespaceUris>
   <Models>
-    <Model ModelUri="http://opcfoundation.org/UA/SoftwareNameplateAAS/" Version="1.0.0" PublicationDate="2025-01-22T15:43:07Z">
-      <RequiredModel ModelUri="http://opcfoundation.org/UA/I4AAS/" Version="5.0.0" PublicationDate="2021-06-04T00:00:00Z"/>
-    </Model>
+    <Model ModelUri="http://opcfoundation.org/UA/SoftwareNameplateAAS/" Version="1.0.0" PublicationDate="2025-01-23T10:39:24Z"/>
   </Models>
   <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
     <DisplayName>Asset Admin Shells</DisplayName>
@@ -22,24 +19,32 @@
     <References>
       <Reference ReferenceType="i=47">ns=1;i=5</Reference>
       <Reference ReferenceType="i=47">ns=1;i=6</Reference>
-      <Reference ReferenceType="i=40">ns=2;i=1002</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/SoftwareNameplate/1/0" ParentNodeId="ns=1;i=4">
+  <UAVariable NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/SoftwareNameplate/1/0" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
     <DisplayName>https://admin-shell.io/idta/asset/SoftwareNameplate/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/asset/SoftwareNameplate/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1005</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/SoftwareNameplate/1/0" ParentNodeId="ns=1;i=4">
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/SoftwareNameplate/1/0" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
     <DisplayName>https://admin-shell.io/idta/SubmodelTemplate/SoftwareNameplate/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SubmodelTemplate/SoftwareNameplate/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1004</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
-  </UAObject>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
   <UAObject NodeId="ns=1;i=2" BrowseName="Submodels" ParentNodeId="i=85">
     <DisplayName>Submodels</DisplayName>
     <References>
@@ -53,7 +58,7 @@
     <References>
       <Reference ReferenceType="i=47">ns=1;i=8</Reference>
       <Reference ReferenceType="i=47">ns=1;i=27</Reference>
-      <Reference ReferenceType="i=40">ns=2;i=1006</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
     </References>
   </UAObject>
@@ -920,263 +925,411 @@
       <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=81" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType;SoftwareNameplate_Type" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType;SoftwareNameplate_Type</DisplayName>
+  <UAVariable NodeId="ns=1;i=81" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=82" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance;SoftwareNameplate_Instance" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance;SoftwareNameplate_Instance</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SoftwareNameplate_Type</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=82" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=83" BrowseName="0173-1#02-AAY811#001;URIOfTheProduct" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAY811#001;URIOfTheProduct</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SoftwareNameplate_Instance</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=83" BrowseName="0173-1#02-AAY811#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAY811#001</DisplayName>
+    <Description Locale="en">0173-1#02-AAY811#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=84" BrowseName="0173-1#02-AAO677#002;ManufacturerName" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO677#002;ManufacturerName</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">URIOfTheProduct</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=84" BrowseName="0173-1#02-AAO677#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO677#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO677#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=85" BrowseName="0173-1#02-AAW338#001;ManufacturerProductDesignation" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAW338#001;ManufacturerProductDesignation</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ManufacturerName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=85" BrowseName="0173-1#02-AAW338#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAW338#001</DisplayName>
+    <Description Locale="en">0173-1#02-AAW338#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=86" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/ManufacturerProductDescription;ManufacturerProductDescription" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/ManufacturerProductDescription;ManufacturerProductDescription</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ManufacturerProductDesignation</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=86" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/ManufacturerProductDescription" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/ManufacturerProductDescription</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/ManufacturerProductDescription</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=87" BrowseName="0173-1#02-AAU731#001;ManufacturerProductFamily" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAU731#001;ManufacturerProductFamily</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ManufacturerProductDescription</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=87" BrowseName="0173-1#02-AAU731#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAU731#001</DisplayName>
+    <Description Locale="en">0173-1#02-AAU731#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=88" BrowseName="0173-1#02-AAO057#002;ManufacturerProductType" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO057#002;ManufacturerProductType</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ManufacturerProductFamily</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=88" BrowseName="0173-1#02-AAO057#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO057#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO057#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=89" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/SoftwareType;SoftwareType" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/SoftwareType;SoftwareType</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ManufacturerProductType</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=89" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/SoftwareType" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/SoftwareType</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/SoftwareType</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=90" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/Version;Version" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/Version;Version</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SoftwareType</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=90" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/Version" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/Version</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/Version</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=91" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/VersionName;VersionName" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/VersionName;VersionName</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Version</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=91" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/VersionName" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/VersionName</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/VersionName</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=92" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/VersionInfo;VersionInfo" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/VersionInfo;VersionInfo</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">VersionName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=92" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/VersionInfo" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/VersionInfo</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/VersionInfo</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=93" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/ReleaseDate;ReleaseDate" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/ReleaseDate;ReleaseDate</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">VersionInfo</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=93" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/ReleaseDate" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/ReleaseDate</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/ReleaseDate</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=94" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/ReleaseNotes;ReleaseNotes" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/ReleaseNotes;ReleaseNotes</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ReleaseDate</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=94" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/ReleaseNotes" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/ReleaseNotes</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/ReleaseNotes</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=95" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/BuildDate;BuildDate" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/BuildDate;BuildDate</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ReleaseNotes</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=95" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/BuildDate" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/BuildDate</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/BuildDate</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=96" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallationURI;InstallationURI" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallationURI;InstallationURI</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">BuildDate</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=96" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallationURI" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallationURI</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallationURI</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=97" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallationFile;InstallationFile" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallationFile;InstallationFile</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InstallationURI</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=97" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallationFile" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallationFile</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallationFile</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=98" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallerType;InstallerType" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallerType;InstallerType</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InstallationFile</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=98" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallerType" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallerType</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallerType</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=99" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallationChecksum;InstallationChecksum" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallationChecksum;InstallationChecksum</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InstallerType</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=99" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallationChecksum" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallationChecksum</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateType/InstallationChecksum</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=100" BrowseName="0173-1#02-AAM556#002;SerialNumber" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAM556#002;SerialNumber</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InstallationChecksum</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=100" BrowseName="0173-1#02-AAM556#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAM556#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAM556#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=101" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstanceName;instanceName" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstanceName;instanceName</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SerialNumber</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=101" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstanceName" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstanceName</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstanceName</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=102" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledVersion;InstalledVersion" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledVersion;InstalledVersion</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">instanceName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=102" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledVersion" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledVersion</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledVersion</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=103" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstallationDate;InstallationDate" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstallationDate;InstallationDate</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InstalledVersion</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=103" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstallationDate" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstallationDate</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstallationDate</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=104" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstallationPath;InstallationPath" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstallationPath;InstallationPath</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InstallationDate</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=104" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstallationPath" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstallationPath</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstallationPath</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=105" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstallationSource;InstallationSource" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstallationSource;InstallationSource</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InstallationPath</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=105" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstallationSource" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstallationSource</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstallationSource</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=106" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledOnArchitecture;InstalledOnArchitecture" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledOnArchitecture;InstalledOnArchitecture</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InstallationSource</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=106" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledOnArchitecture" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledOnArchitecture</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledOnArchitecture</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=107" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledOnOS;InstalledOnOS" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledOnOS;InstalledOnOS</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InstalledOnArchitecture</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=107" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledOnOS" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledOnOS</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledOnOS</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=108" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledOnHost;InstalledOnHost" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledOnHost;InstalledOnHost</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InstalledOnOS</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=108" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledOnHost" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledOnHost</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledOnHost</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=109" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledModules;InstalledModules" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledModules;InstalledModules</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InstalledOnHost</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=109" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledModules" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledModules</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledModules</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=110" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledModule;InstalledModule" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledModule;InstalledModule</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InstalledModules</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=110" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledModule" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledModule</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InstalledModule</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=111" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationPaths;ConfigurationPaths" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationPaths;ConfigurationPaths</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InstalledModule</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=111" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationPaths" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationPaths</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationPaths</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=112" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationPath;ConfigurationPath" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationPath;ConfigurationPath</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ConfigurationPaths</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=112" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationPath" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationPath</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationPath</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=113" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationURI;ConfigurationURI" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationURI;ConfigurationURI</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ConfigurationPath</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=113" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationURI" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationURI</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationURI</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=114" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationType;ConfigurationType" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationType;ConfigurationType</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ConfigurationURI</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=114" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationType" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationType</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/ConfigurationType</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=115" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InventoryTag;InventoryTag" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InventoryTag;InventoryTag</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ConfigurationType</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=115" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InventoryTag" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InventoryTag</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/InventoryTag</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=116" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/SLAInformation;SLAInformation" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/SLAInformation;SLAInformation</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InventoryTag</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=116" BrowseName="0:https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/SLAInformation" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/SLAInformation</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SoftwareNameplate/1/0/SoftwareNameplate/SoftwareNameplateInstance/SLAInformation</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=117" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation;ContactInformation" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation;ContactInformation</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SLAInformation</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=117" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ContactInformation</String>
+    </Value>
+  </UAVariable>
 </UANodeSet>

@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-22T15:43:08.8246241Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-23T10:39:26.5489014Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
   <NamespaceUris>
     <Uri>http://opcfoundation.org/UA/WorkstationMatchingAAS/</Uri>
-    <Uri>http://opcfoundation.org/UA/I4AAS/</Uri>
   </NamespaceUris>
   <Models>
-    <Model ModelUri="http://opcfoundation.org/UA/WorkstationMatchingAAS/" Version="1.0.0" PublicationDate="2025-01-22T15:43:08Z">
-      <RequiredModel ModelUri="http://opcfoundation.org/UA/I4AAS/" Version="5.0.0" PublicationDate="2021-06-04T00:00:00Z"/>
-    </Model>
+    <Model ModelUri="http://opcfoundation.org/UA/WorkstationMatchingAAS/" Version="1.0.0" PublicationDate="2025-01-23T10:39:26Z"/>
   </Models>
   <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
     <DisplayName>Asset Admin Shells</DisplayName>
@@ -22,24 +19,32 @@
     <References>
       <Reference ReferenceType="i=47">ns=1;i=5</Reference>
       <Reference ReferenceType="i=47">ns=1;i=6</Reference>
-      <Reference ReferenceType="i=40">ns=2;i=1002</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/workstationMatching/1/0" ParentNodeId="ns=1;i=4">
+  <UAVariable NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/workstationMatching/1/0" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
     <DisplayName>https://admin-shell.io/idta/asset/workstationMatching/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/asset/workstationMatching/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1005</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/workstationMatching/1/0" ParentNodeId="ns=1;i=4">
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/workstationMatching/1/0" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
     <DisplayName>https://admin-shell.io/idta/SubmodelTemplate/workstationMatching/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SubmodelTemplate/workstationMatching/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1004</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
-  </UAObject>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
   <UAObject NodeId="ns=1;i=2" BrowseName="Submodels" ParentNodeId="i=85">
     <DisplayName>Submodels</DisplayName>
     <References>
@@ -56,7 +61,7 @@
       <Reference ReferenceType="i=47">ns=1;i=39</Reference>
       <Reference ReferenceType="i=47">ns=1;i=49</Reference>
       <Reference ReferenceType="i=47">ns=1;i=63</Reference>
-      <Reference ReferenceType="i=40">ns=2;i=1006</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
     </References>
   </UAObject>
@@ -199,8 +204,8 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=21" BrowseName="" ParentNodeId="ns=1;i=20">
-    <DisplayName />
+  <UAObject NodeId="ns=1;i=21" BrowseName="0:https://admin-shell.io/idta/smc/generalqualificationdemandrecord/1/0" ParentNodeId="ns=1;i=20">
+    <DisplayName>https://admin-shell.io/idta/smc/generalqualificationdemandrecord/1/0</DisplayName>
     <References>
       <Reference ReferenceType="i=47">ns=1;i=22</Reference>
       <Reference ReferenceType="i=47">ns=1;i=23</Reference>
@@ -244,8 +249,8 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=26" BrowseName="" ParentNodeId="ns=1;i=25">
-    <DisplayName />
+  <UAObject NodeId="ns=1;i=26" BrowseName="0:https://admin-shell.io/idta/smc/generalskilldemandrecord/1/0" ParentNodeId="ns=1;i=25">
+    <DisplayName>https://admin-shell.io/idta/smc/generalskilldemandrecord/1/0</DisplayName>
     <References>
       <Reference ReferenceType="i=47">ns=1;i=27</Reference>
       <Reference ReferenceType="i=47">ns=1;i=28</Reference>
@@ -333,8 +338,8 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=32</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=36" BrowseName="" ParentNodeId="ns=1;i=35">
-    <DisplayName />
+  <UAObject NodeId="ns=1;i=36" BrowseName="0:https://admin-shell.io/idta/smc/allowedpersonallimitationsrecord/1/0" ParentNodeId="ns=1;i=35">
+    <DisplayName>https://admin-shell.io/idta/smc/allowedpersonallimitationsrecord/1/0</DisplayName>
     <References>
       <Reference ReferenceType="i=47">ns=1;i=37</Reference>
       <Reference ReferenceType="i=47">ns=1;i=38</Reference>
@@ -366,8 +371,8 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=40" BrowseName="" ParentNodeId="ns=1;i=39">
-    <DisplayName />
+  <UAObject NodeId="ns=1;i=40" BrowseName="0:https://admin-shell.io/idta/smc/workstationconfigurationrecord/1/0" ParentNodeId="ns=1;i=39">
+    <DisplayName>https://admin-shell.io/idta/smc/workstationconfigurationrecord/1/0</DisplayName>
     <References>
       <Reference ReferenceType="i=47">ns=1;i=41</Reference>
       <Reference ReferenceType="i=47">ns=1;i=42</Reference>
@@ -418,8 +423,8 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=40</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=46" BrowseName="" ParentNodeId="ns=1;i=45">
-    <DisplayName />
+  <UAObject NodeId="ns=1;i=46" BrowseName="0:https://admin-shell.io/idta/smc/proprietaryconfigurationsrecord/1/0" ParentNodeId="ns=1;i=45">
+    <DisplayName>https://admin-shell.io/idta/smc/proprietaryconfigurationsrecord/1/0</DisplayName>
     <References>
       <Reference ReferenceType="i=47">ns=1;i=47</Reference>
       <Reference ReferenceType="i=47">ns=1;i=48</Reference>
@@ -451,8 +456,8 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=50" BrowseName="" ParentNodeId="ns=1;i=49">
-    <DisplayName />
+  <UAObject NodeId="ns=1;i=50" BrowseName="0:https://admin-shell.io/idta/smc/plannedqualificationdemandrecord/1/0" ParentNodeId="ns=1;i=49">
+    <DisplayName>https://admin-shell.io/idta/smc/plannedqualificationdemandrecord/1/0</DisplayName>
     <References>
       <Reference ReferenceType="i=47">ns=1;i=51</Reference>
       <Reference ReferenceType="i=47">ns=1;i=52</Reference>
@@ -497,8 +502,8 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=50</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=55" BrowseName="" ParentNodeId="ns=1;i=54">
-    <DisplayName />
+  <UAObject NodeId="ns=1;i=55" BrowseName="0:https://admin-shell.io/idta/smc/qualificationdemandrecord/1/0" ParentNodeId="ns=1;i=54">
+    <DisplayName>https://admin-shell.io/idta/smc/qualificationdemandrecord/1/0</DisplayName>
     <References>
       <Reference ReferenceType="i=47">ns=1;i=56</Reference>
       <Reference ReferenceType="i=47">ns=1;i=57</Reference>
@@ -578,8 +583,8 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=64" BrowseName="" ParentNodeId="ns=1;i=63">
-    <DisplayName />
+  <UAObject NodeId="ns=1;i=64" BrowseName="0:https://admin-shell.io/idta/smc/plannedskilldemandrecord/1/0" ParentNodeId="ns=1;i=63">
+    <DisplayName>https://admin-shell.io/idta/smc/plannedskilldemandrecord/1/0</DisplayName>
     <References>
       <Reference ReferenceType="i=47">ns=1;i=65</Reference>
       <Reference ReferenceType="i=47">ns=1;i=66</Reference>
@@ -624,8 +629,8 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=64</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=69" BrowseName="" ParentNodeId="ns=1;i=68">
-    <DisplayName />
+  <UAObject NodeId="ns=1;i=69" BrowseName="0:https://admin-shell.io/idta/smc/skilldemandrecord/1/0" ParentNodeId="ns=1;i=68">
+    <DisplayName>https://admin-shell.io/idta/smc/skilldemandrecord/1/0</DisplayName>
     <References>
       <Reference ReferenceType="i=47">ns=1;i=70</Reference>
       <Reference ReferenceType="i=47">ns=1;i=71</Reference>
@@ -759,263 +764,411 @@
       <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=79" BrowseName="0:https://admin-shell.io/idta/enum/adhocdemand;AdHocDemand" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/enum/adhocdemand;AdHocDemand</DisplayName>
+  <UAVariable NodeId="ns=1;i=79" BrowseName="0:https://admin-shell.io/idta/enum/adhocdemand" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/enum/adhocdemand</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/enum/adhocdemand</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=80" BrowseName="0:https://admin-shell.io/idta/enum/generaldemand;GeneralDemand" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/enum/generaldemand;GeneralDemand</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AdHocDemand</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=80" BrowseName="0:https://admin-shell.io/idta/enum/generaldemand" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/enum/generaldemand</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/enum/generaldemand</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=81" BrowseName="0:https://admin-shell.io/idta/enum/orderdependingdemand;OrderDependingDemand" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/enum/orderdependingdemand;OrderDependingDemand</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">GeneralDemand</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=81" BrowseName="0:https://admin-shell.io/idta/enum/orderdependingdemand" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/enum/orderdependingdemand</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/enum/orderdependingdemand</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=82" BrowseName="0:https://admin-shell.io/idta/prop/workstationname;WorkstationName" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/workstationname;WorkstationName</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">OrderDependingDemand</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=82" BrowseName="0:https://admin-shell.io/idta/prop/workstationname" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/workstationname</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/workstationname</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=83" BrowseName="0:https://admin-shell.io/idta/mlp/orgname;OrgName" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/mlp/orgname;OrgName</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">WorkstationName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=83" BrowseName="0:https://admin-shell.io/idta/mlp/orgname" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/mlp/orgname</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/mlp/orgname</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=84" BrowseName="0:https://admin-shell.io/idta/mlp/typeofworkstation;TypeOfWorkstation" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/mlp/typeofworkstation;TypeOfWorkstation</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">OrgName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=84" BrowseName="0:https://admin-shell.io/idta/mlp/typeofworkstation" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/mlp/typeofworkstation</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/mlp/typeofworkstation</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=85" BrowseName="0:https://admin-shell.io/idta/mlp/workerassistanceeinformation;WorkerAssistanceInformation" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/mlp/workerassistanceeinformation;WorkerAssistanceInformation</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TypeOfWorkstation</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=85" BrowseName="0:https://admin-shell.io/idta/mlp/workerassistanceeinformation" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/mlp/workerassistanceeinformation</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/mlp/workerassistanceeinformation</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=86" BrowseName="0:https://admin-shell.io/idta/mlp/necessarypersonaltools;NecessaryPersonalTools" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/mlp/necessarypersonaltools;NecessaryPersonalTools</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">WorkerAssistanceInformation</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=86" BrowseName="0:https://admin-shell.io/idta/mlp/necessarypersonaltools" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/mlp/necessarypersonaltools</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/mlp/necessarypersonaltools</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=87" BrowseName="0:https://admin-shell.io/idta/mlp/locationdescription;LocationDescription" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/mlp/locationdescription;LocationDescription</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">NecessaryPersonalTools</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=87" BrowseName="0:https://admin-shell.io/idta/mlp/locationdescription" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/mlp/locationdescription</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/mlp/locationdescription</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=88" BrowseName="0:https://admin-shell.io/idta/mlp/directions;Directions" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/mlp/directions;Directions</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">LocationDescription</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=88" BrowseName="0:https://admin-shell.io/idta/mlp/directions" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/mlp/directions</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/mlp/directions</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=89" BrowseName="0:https://admin-shell.io/idta/prop/qualificationclassificationid;QualificationClassificationId" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/qualificationclassificationid;QualificationClassificationId</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Directions</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=89" BrowseName="0:https://admin-shell.io/idta/prop/qualificationclassificationid" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/qualificationclassificationid</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/qualificationclassificationid</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=90" BrowseName="0:https://admin-shell.io/idta/prop/qualificationid;QualificationId" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/qualificationid;QualificationId</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">QualificationClassificationId</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=90" BrowseName="0:https://admin-shell.io/idta/prop/qualificationid" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/qualificationid</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/qualificationid</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=91" BrowseName="0:https://admin-shell.io/idta/mlp/exceptionrules;ExceptionRules" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/mlp/exceptionrules;ExceptionRules</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">QualificationId</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=91" BrowseName="0:https://admin-shell.io/idta/mlp/exceptionrules" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/mlp/exceptionrules</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/mlp/exceptionrules</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=92" BrowseName="0:https://admin-shell.io/idta/prop/skillclassificationid;SkillClassificationId" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/skillclassificationid;SkillClassificationId</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ExceptionRules</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=92" BrowseName="0:https://admin-shell.io/idta/prop/skillclassificationid" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/skillclassificationid</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/skillclassificationid</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=93" BrowseName="0:https://admin-shell.io/idta/prop/skilllevelclassificationid;SkillLevelClassificationId" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/skilllevelclassificationid;SkillLevelClassificationId</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SkillClassificationId</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=93" BrowseName="0:https://admin-shell.io/idta/prop/skilllevelclassificationid" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/skilllevelclassificationid</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/skilllevelclassificationid</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=94" BrowseName="0:https://admin-shell.io/idta/prop/skilllevelid;SkillLevelId" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/skilllevelid;SkillLevelId</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SkillLevelClassificationId</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=94" BrowseName="0:https://admin-shell.io/idta/prop/skilllevelid" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/skilllevelid</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/skilllevelid</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=95" BrowseName="0:https://admin-shell.io/idta/prop/skillid;SkillId" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/skillid;SkillId</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SkillLevelId</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=95" BrowseName="0:https://admin-shell.io/idta/prop/skillid" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/skillid</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/skillid</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=96" BrowseName="0:https://admin-shell.io/idta/mlp/requiredpersonalsafetyequipment;RequiredPersonalSafetyEquipment" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/mlp/requiredpersonalsafetyequipment;RequiredPersonalSafetyEquipment</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SkillId</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=96" BrowseName="0:https://admin-shell.io/idta/mlp/requiredpersonalsafetyequipment" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/mlp/requiredpersonalsafetyequipment</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/mlp/requiredpersonalsafetyequipment</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=97" BrowseName="0:https://admin-shell.io/idta/prop/maxliftingweight;MaxLiftingWeight" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/maxliftingweight;MaxLiftingWeight</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">RequiredPersonalSafetyEquipment</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=97" BrowseName="0:https://admin-shell.io/idta/prop/maxliftingweight" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/maxliftingweight</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/maxliftingweight</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=98" BrowseName="0:https://admin-shell.io/idta/prop/minworkerheight;MinWorkerHeight" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/minworkerheight;MinWorkerHeight</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MaxLiftingWeight</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=98" BrowseName="0:https://admin-shell.io/idta/prop/minworkerheight" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/minworkerheight</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/minworkerheight</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=99" BrowseName="0:https://admin-shell.io/idta/prop/limitationclassificationid;LimitationClassificationId" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/limitationclassificationid;LimitationClassificationId</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MinWorkerHeight</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=99" BrowseName="0:https://admin-shell.io/idta/prop/limitationclassificationid" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/limitationclassificationid</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/limitationclassificationid</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=100" BrowseName="0:https://admin-shell.io/idta/prop/personallimitationid;PersonalLimitationId" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/personallimitationid;PersonalLimitationId</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">LimitationClassificationId</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=100" BrowseName="0:https://admin-shell.io/idta/prop/personallimitationid" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/personallimitationid</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/personallimitationid</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=101" BrowseName="0:https://admin-shell.io/idta/prop/workerid;WorkerId" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/workerid;WorkerId</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PersonalLimitationId</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=101" BrowseName="0:https://admin-shell.io/idta/prop/workerid" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/workerid</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/workerid</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=102" BrowseName="0:https://admin-shell.io/idta/prop/accessstart;AccessStart" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/accessstart;AccessStart</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">WorkerId</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=102" BrowseName="0:https://admin-shell.io/idta/prop/accessstart" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/accessstart</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/accessstart</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=103" BrowseName="0:https://admin-shell.io/idta/prop/accessend;AccessEnd" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/accessend;AccessEnd</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AccessStart</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=103" BrowseName="0:https://admin-shell.io/idta/prop/accessend" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/accessend</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/accessend</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=104" BrowseName="0:https://admin-shell.io/idta/prop/preferredheight;PreferredHeight" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/preferredheight;PreferredHeight</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AccessEnd</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=104" BrowseName="0:https://admin-shell.io/idta/prop/preferredheight" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/preferredheight</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/preferredheight</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=105" BrowseName="0:https://admin-shell.io/idta/prop/configurationname;ConfigurationName" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/configurationname;ConfigurationName</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PreferredHeight</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=105" BrowseName="0:https://admin-shell.io/idta/prop/configurationname" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/configurationname</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/configurationname</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=106" BrowseName="0:https://admin-shell.io/idta/prop/configurationvalue;ConfigurationValue" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/configurationvalue;ConfigurationValue</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ConfigurationName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=106" BrowseName="0:https://admin-shell.io/idta/prop/configurationvalue" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/configurationvalue</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/configurationvalue</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=107" BrowseName="0:https://admin-shell.io/idta/mlp/intervaldescription;IntervalDescription" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/mlp/intervaldescription;IntervalDescription</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ConfigurationValue</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=107" BrowseName="0:https://admin-shell.io/idta/mlp/intervaldescription" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/mlp/intervaldescription</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/mlp/intervaldescription</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=108" BrowseName="0:https://admin-shell.io/idta/prop/intervalstart;IntervalStart" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/intervalstart;IntervalStart</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">IntervalDescription</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=108" BrowseName="0:https://admin-shell.io/idta/prop/intervalstart" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/intervalstart</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/intervalstart</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=109" BrowseName="0:https://admin-shell.io/idta/prop/intervalend;IntervalEnd" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/intervalend;IntervalEnd</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">IntervalStart</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=109" BrowseName="0:https://admin-shell.io/idta/prop/intervalend" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/intervalend</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/intervalend</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=110" BrowseName="0:https://admin-shell.io/idta/prop/demandkind;DemandKind" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/demandkind;DemandKind</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">IntervalEnd</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=110" BrowseName="0:https://admin-shell.io/idta/prop/demandkind" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/demandkind</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/demandkind</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=111" BrowseName="0:https://admin-shell.io/idta/prop/starttime;StartTime" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/starttime;StartTime</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">DemandKind</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=111" BrowseName="0:https://admin-shell.io/idta/prop/starttime" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/starttime</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/starttime</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=112" BrowseName="0:https://admin-shell.io/idta/prop/endtime;EndTime" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/endtime;EndTime</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">StartTime</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=112" BrowseName="0:https://admin-shell.io/idta/prop/endtime" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/endtime</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/endtime</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=113" BrowseName="0:https://admin-shell.io/idta/prop/processtime;ProcessTime" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/processtime;ProcessTime</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">EndTime</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=113" BrowseName="0:https://admin-shell.io/idta/prop/processtime" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/processtime</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/processtime</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=114" BrowseName="0:https://admin-shell.io/idta/prop/workstationid;WorkstationId" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/prop/workstationid;WorkstationId</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ProcessTime</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=114" BrowseName="0:https://admin-shell.io/idta/prop/workstationid" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/prop/workstationid</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/prop/workstationid</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=115" BrowseName="0:https://admin-shell.io/idta/mlp/personaldataprocessing;PersonalDataProcessing" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/mlp/personaldataprocessing;PersonalDataProcessing</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">WorkstationId</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=115" BrowseName="0:https://admin-shell.io/idta/mlp/personaldataprocessing" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/mlp/personaldataprocessing</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/mlp/personaldataprocessing</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PersonalDataProcessing</String>
+    </Value>
+  </UAVariable>
 </UANodeSet>

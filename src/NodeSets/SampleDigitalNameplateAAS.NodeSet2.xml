@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-22T15:43:09.5371631Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-23T10:39:27.1640485Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
   <NamespaceUris>
     <Uri>http://opcfoundation.org/UA/SampleDigitalNameplateAAS/</Uri>
-    <Uri>http://opcfoundation.org/UA/I4AAS/</Uri>
   </NamespaceUris>
   <Models>
-    <Model ModelUri="http://opcfoundation.org/UA/SampleDigitalNameplateAAS/" Version="1.0.0" PublicationDate="2025-01-22T15:43:09Z">
-      <RequiredModel ModelUri="http://opcfoundation.org/UA/I4AAS/" Version="5.0.0" PublicationDate="2021-06-04T00:00:00Z"/>
-    </Model>
+    <Model ModelUri="http://opcfoundation.org/UA/SampleDigitalNameplateAAS/" Version="1.0.0" PublicationDate="2025-01-23T10:39:27Z"/>
   </Models>
   <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
     <DisplayName>Asset Admin Shells</DisplayName>
@@ -22,24 +19,32 @@
     <References>
       <Reference ReferenceType="i=47">ns=1;i=5</Reference>
       <Reference ReferenceType="i=47">ns=1;i=6</Reference>
-      <Reference ReferenceType="i=40">ns=2;i=1002</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/DigitalNameplate/1/0" ParentNodeId="ns=1;i=4">
+  <UAVariable NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/DigitalNameplate/1/0" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
     <DisplayName>https://admin-shell.io/idta/asset/DigitalNameplate/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/asset/DigitalNameplate/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1005</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/DigitalNameplate/1/0" ParentNodeId="ns=1;i=4">
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/DigitalNameplate/1/0" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
     <DisplayName>https://admin-shell.io/idta/SubmodelTemplate/DigitalNameplate/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SubmodelTemplate/DigitalNameplate/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1004</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
-  </UAObject>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
   <UAObject NodeId="ns=1;i=2" BrowseName="Submodels" ParentNodeId="i=85">
     <DisplayName>Submodels</DisplayName>
     <References>
@@ -59,7 +64,7 @@
       <Reference ReferenceType="i=47">ns=1;i=35</Reference>
       <Reference ReferenceType="i=47">ns=1;i=36</Reference>
       <Reference ReferenceType="i=47">ns=1;i=41</Reference>
-      <Reference ReferenceType="i=40">ns=2;i=1006</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
     </References>
   </UAObject>
@@ -466,263 +471,300 @@
       <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=44" BrowseName="0173-1#02-AAO677#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO677#002;</DisplayName>
+  <UAVariable NodeId="ns=1;i=44" BrowseName="0173-1#02-AAO677#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO677#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO677#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=45" BrowseName="0173-1#02-AAW338#001;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAW338#001;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=45" BrowseName="0173-1#02-AAW338#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAW338#001</DisplayName>
+    <Description Locale="en">0173-1#02-AAW338#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=46" BrowseName="0173-1#02-AAU731#001;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAU731#001;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=46" BrowseName="0173-1#02-AAU731#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAU731#001</DisplayName>
+    <Description Locale="en">0173-1#02-AAU731#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=47" BrowseName="0173-1#02-AAP906#001;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAP906#001;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=47" BrowseName="0173-1#02-AAP906#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAP906#001</DisplayName>
+    <Description Locale="en">0173-1#02-AAP906#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=48" BrowseName="0173-1#02-AAQ832#005;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAQ832#005;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=48" BrowseName="0173-1#02-AAQ832#005" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAQ832#005</DisplayName>
+    <Description Locale="en">0173-1#02-AAQ832#005</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=49" BrowseName="0173-1#02-AAO127#003;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO127#003;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=49" BrowseName="0173-1#02-AAO127#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO127#003</DisplayName>
+    <Description Locale="en">0173-1#02-AAO127#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=50" BrowseName="0173-1#02-AAO128#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO128#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=50" BrowseName="0173-1#02-AAO128#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO128#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO128#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=51" BrowseName="0173-1#02-AAO129#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO129#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=51" BrowseName="0173-1#02-AAO129#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO129#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO129#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=52" BrowseName="0173-1#02-AAO130#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO130#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=52" BrowseName="0173-1#02-AAO130#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO130#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO130#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=53" BrowseName="0173-1#02-AAO131#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO131#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=53" BrowseName="0173-1#02-AAO131#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO131#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO131#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=54" BrowseName="0173-1#02-AAO132#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO132#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=54" BrowseName="0173-1#02-AAO132#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO132#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO132#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=55" BrowseName="0173-1#02-AAO133#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO133#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=55" BrowseName="0173-1#02-AAO133#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO133#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO133#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=56" BrowseName="0173-1#02-AAO134#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO134#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=56" BrowseName="0173-1#02-AAO134#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO134#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO134#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=57" BrowseName="0173-1#02-AAO135#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO135#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=57" BrowseName="0173-1#02-AAO135#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO135#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO135#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=58" BrowseName="0173-1#02-AAO202#003;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO202#003;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=58" BrowseName="0173-1#02-AAO202#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO202#003</DisplayName>
+    <Description Locale="en">0173-1#02-AAO202#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=59" BrowseName="0173-1#02-AAQ326#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAQ326#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=59" BrowseName="0173-1#02-AAQ326#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAQ326#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAQ326#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=60" BrowseName="0173-1#02-AAQ833#005;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAQ833#005;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=60" BrowseName="0173-1#02-AAQ833#005" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAQ833#005</DisplayName>
+    <Description Locale="en">0173-1#02-AAQ833#005</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=61" BrowseName="0173-1#02-AAO136#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO136#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=61" BrowseName="0173-1#02-AAO136#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO136#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO136#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=62" BrowseName="0173-1#02-AAO137#003;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO137#003;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=62" BrowseName="0173-1#02-AAO137#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO137#003</DisplayName>
+    <Description Locale="en">0173-1#02-AAO137#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=63" BrowseName="0173-1#02-AAQ834#005;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAQ834#005;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=63" BrowseName="0173-1#02-AAQ834#005" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAQ834#005</DisplayName>
+    <Description Locale="en">0173-1#02-AAQ834#005</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=64" BrowseName="0173-1#02-AAO195#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO195#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=64" BrowseName="0173-1#02-AAO195#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO195#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO195#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=65" BrowseName="0173-1#02-AAO196#003;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO196#003;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=65" BrowseName="0173-1#02-AAO196#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO196#003</DisplayName>
+    <Description Locale="en">0173-1#02-AAO196#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=66" BrowseName="0173-1#02-AAQ836#005;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAQ836#005;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=66" BrowseName="0173-1#02-AAQ836#005" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAQ836#005</DisplayName>
+    <Description Locale="en">0173-1#02-AAQ836#005</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=67" BrowseName="0173-1#02-AAO198#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO198#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=67" BrowseName="0173-1#02-AAO198#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO198#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO198#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=68" BrowseName="0173-1#02-AAO200#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO200#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=68" BrowseName="0173-1#02-AAO200#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO200#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO200#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=69" BrowseName="0173-1#02-AAO199#003;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO199#003;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=69" BrowseName="0173-1#02-AAO199#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO199#003</DisplayName>
+    <Description Locale="en">0173-1#02-AAO199#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=70" BrowseName="0173-1#02-AAO201#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO201#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=70" BrowseName="0173-1#02-AAO201#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO201#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO201#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=71" BrowseName="0173-1#02-AAM556#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAM556#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=71" BrowseName="0173-1#02-AAM556#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAM556#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAM556#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=72" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings;" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=72" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=73" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking;" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=73" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=74" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingName;" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingName;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=74" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingName" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingName</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingName</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=75" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingFile;" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingFile;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=75" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingFile" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingFile</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingFile</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=76" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingAdditionalText;" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingAdditionalText;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=76" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingAdditionalText" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingAdditionalText</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingAdditionalText</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=77" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties;" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=77" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=78" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties/GuidelineSpecificProperties;" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties/GuidelineSpecificProperties;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=78" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties/GuidelineSpecificProperties" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties/GuidelineSpecificProperties</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties/GuidelineSpecificProperties</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=79" BrowseName="0173-1#02-AAO856#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO856#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=79" BrowseName="0173-1#02-AAO856#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO856#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO856#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=80" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate;" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=80" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/Nameplate</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
+  </UAVariable>
 </UANodeSet>

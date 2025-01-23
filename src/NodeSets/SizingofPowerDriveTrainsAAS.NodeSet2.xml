@@ -1,0 +1,2280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-23T10:39:24.6340209Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+  <NamespaceUris>
+    <Uri>http://opcfoundation.org/UA/SizingofPowerDriveTrainsAAS/</Uri>
+  </NamespaceUris>
+  <Models>
+    <Model ModelUri="http://opcfoundation.org/UA/SizingofPowerDriveTrainsAAS/" Version="1.0.0" PublicationDate="2025-01-23T10:39:24Z"/>
+  </Models>
+  <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
+    <DisplayName>Asset Admin Shells</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=4</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=4" BrowseName="SizingofPowerDriveTrainsAAS" ParentNodeId="ns=1;i=1">
+    <DisplayName>SizingofPowerDriveTrainsAAS</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=5</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=6</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/SizingofPowerDriveTrains/1/0" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/asset/SizingofPowerDriveTrains/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/asset/SizingofPowerDriveTrains/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/SizingofPowerDriveTrains/1/0" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SubmodelTemplate/SizingofPowerDriveTrains/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SubmodelTemplate/SizingofPowerDriveTrains/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=2" BrowseName="Submodels" ParentNodeId="i=85">
+    <DisplayName>Submodels</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=7</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=7" BrowseName="PowerDriveTrainSizing" ParentNodeId="ns=1;i=2">
+    <DisplayName>PowerDriveTrainSizing</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=8</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=19</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=78</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=89</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=8" BrowseName="SizingProjectInformation" ParentNodeId="ns=1;i=7">
+    <DisplayName>SizingProjectInformation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=9</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=10</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=11</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=12</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=13</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=14</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=15</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=16</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=17</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=18</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=9" BrowseName="ClientName" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>ClientName</DisplayName>
+    <Description Locale="en">ClientName</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=10" BrowseName="SizingProjectName" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>SizingProjectName</DisplayName>
+    <Description Locale="en">SizingProjectName</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=11" BrowseName="SizingProjectAxisReference" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>SizingProjectAxisReference</DisplayName>
+    <Description Locale="en">SizingProjectAxisReference</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=12" BrowseName="SizingProjectDescription" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>SizingProjectDescription</DisplayName>
+    <Description Locale="en">SizingProjectDescription</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/SizingProjectDescription/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=13" BrowseName="SizingProjectLink" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>SizingProjectLink</DisplayName>
+    <Description Locale="en">SizingProjectLink</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=14" BrowseName="SizingToolName" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>SizingToolName</DisplayName>
+    <Description Locale="en">SizingToolName</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15" BrowseName="DateCreated" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>DateCreated</DisplayName>
+    <Description Locale="en">DateCreated</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=16" BrowseName="DateChanged" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>DateChanged</DisplayName>
+    <Description Locale="en">DateChanged</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=17" BrowseName="ContactInformation" ParentNodeId="ns=1;i=8">
+    <DisplayName>ContactInformation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=18" BrowseName="AmlDriveConfigVersion" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
+    <DisplayName>AmlDriveConfigVersion</DisplayName>
+    <Description Locale="en">AmlDriveConfigVersion</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=19" BrowseName="ApplicationRequirements" ParentNodeId="ns=1;i=7">
+    <DisplayName>ApplicationRequirements</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=20</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=58</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=64</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=74</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=20" BrowseName="MotionPattern" ParentNodeId="ns=1;i=19">
+    <DisplayName>MotionPattern</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=21</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=22</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=19</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=21" BrowseName="MotionPatternName" ParentNodeId="ns=1;i=20" DataType="i=12" ValueRank="0">
+    <DisplayName>MotionPatternName</DisplayName>
+    <Description Locale="en">MotionPatternName</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=20</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=22" BrowseName="MotionPatternSections" ParentNodeId="ns=1;i=20">
+    <DisplayName>MotionPatternSections</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=23</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=42</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=20</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=23" BrowseName="RotativeSection" ParentNodeId="ns=1;i=22">
+    <DisplayName>RotativeSection</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=24</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=25</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=26</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=27</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=28</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=29</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=30</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=31</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=41</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=22</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=24" BrowseName="FrictionTorque" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
+    <DisplayName>FrictionTorque</DisplayName>
+    <Description Locale="en">FrictionTorque</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=25" BrowseName="LeverArmAxialForce" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
+    <DisplayName>LeverArmAxialForce</DisplayName>
+    <Description Locale="en">LeverArmAxialForce</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=26" BrowseName="AxialForce" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
+    <DisplayName>AxialForce</DisplayName>
+    <Description Locale="en">AxialForce</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=27" BrowseName="LeverArmRadialForce" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
+    <DisplayName>LeverArmRadialForce</DisplayName>
+    <Description Locale="en">LeverArmRadialForce</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=28" BrowseName="RadialForce" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
+    <DisplayName>RadialForce</DisplayName>
+    <Description Locale="en">RadialForce</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=29" BrowseName="MomentOfInertiaOfLoad" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
+    <DisplayName>MomentOfInertiaOfLoad</DisplayName>
+    <Description Locale="en">MomentOfInertiaOfLoad</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=30" BrowseName="LoadTorque" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
+    <DisplayName>LoadTorque</DisplayName>
+    <Description Locale="en">LoadTorque</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=31" BrowseName="MetadataRotativeMotionFile" ParentNodeId="ns=1;i=23">
+    <DisplayName>MetadataRotativeMotionFile</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=32</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=33</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=34</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=35</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=36</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=37</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=38</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=39</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=40</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=32" BrowseName="Time" ParentNodeId="ns=1;i=31" DataType="i=12" ValueRank="0">
+    <DisplayName>Time</DisplayName>
+    <Description Locale="en">Time</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=31</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=33" BrowseName="AngularPosition" ParentNodeId="ns=1;i=31" DataType="i=12" ValueRank="0">
+    <DisplayName>AngularPosition</DisplayName>
+    <Description Locale="en">AngularPosition</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=31</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=34" BrowseName="AngularVelocity" ParentNodeId="ns=1;i=31" DataType="i=12" ValueRank="0">
+    <DisplayName>AngularVelocity</DisplayName>
+    <Description Locale="en">AngularVelocity</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=31</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=35" BrowseName="AngularAcceleration" ParentNodeId="ns=1;i=31" DataType="i=12" ValueRank="0">
+    <DisplayName>AngularAcceleration</DisplayName>
+    <Description Locale="en">AngularAcceleration</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=31</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=36" BrowseName="AngularJerk" ParentNodeId="ns=1;i=31" DataType="i=12" ValueRank="0">
+    <DisplayName>AngularJerk</DisplayName>
+    <Description Locale="en">AngularJerk</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=31</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=37" BrowseName="FrictionTorque" ParentNodeId="ns=1;i=31" DataType="i=12" ValueRank="0">
+    <DisplayName>FrictionTorque</DisplayName>
+    <Description Locale="en">FrictionTorque</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=31</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=38" BrowseName="AxialForce" ParentNodeId="ns=1;i=31" DataType="i=12" ValueRank="0">
+    <DisplayName>AxialForce</DisplayName>
+    <Description Locale="en">AxialForce</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=31</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=39" BrowseName="RadialForce" ParentNodeId="ns=1;i=31" DataType="i=12" ValueRank="0">
+    <DisplayName>RadialForce</DisplayName>
+    <Description Locale="en">RadialForce</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=31</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=40" BrowseName="LoadTorque" ParentNodeId="ns=1;i=31" DataType="i=12" ValueRank="0">
+    <DisplayName>LoadTorque</DisplayName>
+    <Description Locale="en">LoadTorque</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=31</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=41" BrowseName="MotionSectionFile" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
+    <DisplayName>MotionSectionFile</DisplayName>
+    <Description Locale="en">MotionSectionFile</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=42" BrowseName="LinearSection" ParentNodeId="ns=1;i=22">
+    <DisplayName>LinearSection</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=43</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=44</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=45</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=46</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=47</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=48</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=49</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=57</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=22</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=43" BrowseName="FrictionCoefficient" ParentNodeId="ns=1;i=42" DataType="i=12" ValueRank="0">
+    <DisplayName>FrictionCoefficient</DisplayName>
+    <Description Locale="en">FrictionCoefficient</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=42</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=44" BrowseName="FrictionForce" ParentNodeId="ns=1;i=42" DataType="i=12" ValueRank="0">
+    <DisplayName>FrictionForce</DisplayName>
+    <Description Locale="en">FrictionForce</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=42</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=45" BrowseName="CompensationForce" ParentNodeId="ns=1;i=42" DataType="i=12" ValueRank="0">
+    <DisplayName>CompensationForce</DisplayName>
+    <Description Locale="en">CompensationForce</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=42</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=46" BrowseName="LoadMass" ParentNodeId="ns=1;i=42" DataType="i=12" ValueRank="0">
+    <DisplayName>LoadMass</DisplayName>
+    <Description Locale="en">LoadMass</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=42</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=47" BrowseName="LoadSideForce" ParentNodeId="ns=1;i=42" DataType="i=12" ValueRank="0">
+    <DisplayName>LoadSideForce</DisplayName>
+    <Description Locale="en">LoadSideForce</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=42</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=48" BrowseName="CounterMass" ParentNodeId="ns=1;i=42" DataType="i=12" ValueRank="0">
+    <DisplayName>CounterMass</DisplayName>
+    <Description Locale="en">CounterMass</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=42</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=49" BrowseName="MetadataLinearMotionFile" ParentNodeId="ns=1;i=42">
+    <DisplayName>MetadataLinearMotionFile</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=50</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=51</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=52</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=53</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=54</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=55</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=56</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=42</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=50" BrowseName="Time" ParentNodeId="ns=1;i=49" DataType="i=12" ValueRank="0">
+    <DisplayName>Time</DisplayName>
+    <Description Locale="en">Time</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=49</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=51" BrowseName="Position" ParentNodeId="ns=1;i=49" DataType="i=12" ValueRank="0">
+    <DisplayName>Position</DisplayName>
+    <Description Locale="en">Position</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=49</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=52" BrowseName="LinearVelocity" ParentNodeId="ns=1;i=49" DataType="i=12" ValueRank="0">
+    <DisplayName>LinearVelocity</DisplayName>
+    <Description Locale="en">LinearVelocity</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=49</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=53" BrowseName="LinearAcceleration" ParentNodeId="ns=1;i=49" DataType="i=12" ValueRank="0">
+    <DisplayName>LinearAcceleration</DisplayName>
+    <Description Locale="en">LinearAcceleration</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=49</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=54" BrowseName="LinearJerk" ParentNodeId="ns=1;i=49" DataType="i=12" ValueRank="0">
+    <DisplayName>LinearJerk</DisplayName>
+    <Description Locale="en">LinearJerk</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=49</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=55" BrowseName="FrictionForce" ParentNodeId="ns=1;i=49" DataType="i=12" ValueRank="0">
+    <DisplayName>FrictionForce</DisplayName>
+    <Description Locale="en">FrictionForce</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=49</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=56" BrowseName="LoadSideForce" ParentNodeId="ns=1;i=49" DataType="i=12" ValueRank="0">
+    <DisplayName>LoadSideForce</DisplayName>
+    <Description Locale="en">LoadSideForce</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=49</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=57" BrowseName="MotionSectionFile" ParentNodeId="ns=1;i=42" DataType="i=12" ValueRank="0">
+    <DisplayName>MotionSectionFile</DisplayName>
+    <Description Locale="en">MotionSectionFile</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=42</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=58" BrowseName="Environmental" ParentNodeId="ns=1;i=19">
+    <DisplayName>Environmental</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=59</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=60</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=61</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=62</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=63</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=19</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=59" BrowseName="InstallationAltitude" ParentNodeId="ns=1;i=58" DataType="i=12" ValueRank="0">
+    <DisplayName>InstallationAltitude</DisplayName>
+    <Description Locale="en">InstallationAltitude</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=58</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=60" BrowseName="Atex2Gas" ParentNodeId="ns=1;i=58" DataType="i=12" ValueRank="0">
+    <DisplayName>Atex2Gas</DisplayName>
+    <Description Locale="en">Atex2Gas</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=58</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=61" BrowseName="Atex2Dust" ParentNodeId="ns=1;i=58" DataType="i=12" ValueRank="0">
+    <DisplayName>Atex2Dust</DisplayName>
+    <Description Locale="en">Atex2Dust</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=58</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=62" BrowseName="AmbientTemperatureController" ParentNodeId="ns=1;i=58" DataType="i=12" ValueRank="0">
+    <DisplayName>AmbientTemperatureController</DisplayName>
+    <Description Locale="en">AmbientTemperatureController</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=58</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/AmbientTemperatureController/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=63" BrowseName="AmbientTemperatureMotor" ParentNodeId="ns=1;i=58" DataType="i=12" ValueRank="0">
+    <DisplayName>AmbientTemperatureMotor</DisplayName>
+    <Description Locale="en">AmbientTemperatureMotor</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=58</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/AmbientTemperatureMotor/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=64" BrowseName="OverallSystemRequirements" ParentNodeId="ns=1;i=19">
+    <DisplayName>OverallSystemRequirements</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=65</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=66</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=67</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=68</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=69</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=70</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=71</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=72</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=73</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=19</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=65" BrowseName="DcLinkCoupling" ParentNodeId="ns=1;i=64" DataType="i=12" ValueRank="0">
+    <DisplayName>DcLinkCoupling</DisplayName>
+    <Description Locale="en">DcLinkCoupling</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=64</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">false</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=66" BrowseName="BrakePresent" ParentNodeId="ns=1;i=64" DataType="i=12" ValueRank="0">
+    <DisplayName>BrakePresent</DisplayName>
+    <Description Locale="en">BrakePresent</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=64</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">true</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=67" BrowseName="MainsConnection" ParentNodeId="ns=1;i=64" DataType="i=12" ValueRank="0">
+    <DisplayName>MainsConnection</DisplayName>
+    <Description Locale="en">MainsConnection</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=64</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">230 VAC</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=68" BrowseName="MountingType" ParentNodeId="ns=1;i=64" DataType="i=12" ValueRank="0">
+    <DisplayName>MountingType</DisplayName>
+    <Description Locale="en">MountingType</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=64</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Flansch</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=69" BrowseName="MinSwitchingFrequency" ParentNodeId="ns=1;i=64" DataType="i=12" ValueRank="0">
+    <DisplayName>MinSwitchingFrequency</DisplayName>
+    <Description Locale="en">MinSwitchingFrequency</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=64</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=70" BrowseName="CoolingType" ParentNodeId="ns=1;i=64" DataType="i=12" ValueRank="0">
+    <DisplayName>CoolingType</DisplayName>
+    <Description Locale="en">CoolingType</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=64</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Air-air heat exchanger</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=71" BrowseName="ProtectionType" ParentNodeId="ns=1;i=64" DataType="i=12" ValueRank="0">
+    <DisplayName>ProtectionType</DisplayName>
+    <Description Locale="en">ProtectionType</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=64</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">IP67</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=72" BrowseName="CertificateApproval" ParentNodeId="ns=1;i=64" DataType="i=12" ValueRank="0">
+    <DisplayName>CertificateApproval</DisplayName>
+    <Description Locale="en">CertificateApproval</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=64</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=73" BrowseName="SafetyIntegrityLevel" ParentNodeId="ns=1;i=64" DataType="i=12" ValueRank="0">
+    <DisplayName>SafetyIntegrityLevel</DisplayName>
+    <Description Locale="en">SafetyIntegrityLevel</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=64</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=74" BrowseName="UsageProfile" ParentNodeId="ns=1;i=19">
+    <DisplayName>UsageProfile</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=75</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=76</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=77</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=19</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=75" BrowseName="CyclesPerMinute" ParentNodeId="ns=1;i=74" DataType="i=12" ValueRank="0">
+    <DisplayName>CyclesPerMinute</DisplayName>
+    <Description Locale="en">CyclesPerMinute</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=74</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=76" BrowseName="OperatingHoursPerDay" ParentNodeId="ns=1;i=74" DataType="i=12" ValueRank="0">
+    <DisplayName>OperatingHoursPerDay</DisplayName>
+    <Description Locale="en">OperatingHoursPerDay</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=74</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=77" BrowseName="OperatingDaysPerYear" ParentNodeId="ns=1;i=74" DataType="i=12" ValueRank="0">
+    <DisplayName>OperatingDaysPerYear</DisplayName>
+    <Description Locale="en">OperatingDaysPerYear</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=74</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=78" BrowseName="TransformationMechanism" ParentNodeId="ns=1;i=7">
+    <DisplayName>TransformationMechanism</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=79</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=80</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=81</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=82</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=83</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=84</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=85</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=86</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=87</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=88</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=79" BrowseName="Fan" ParentNodeId="ns=1;i=78" DataType="i=12" ValueRank="0">
+    <DisplayName>Fan</DisplayName>
+    <Description Locale="en">Fan</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=78</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/Fan/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=80" BrowseName="Pump" ParentNodeId="ns=1;i=78" DataType="i=12" ValueRank="0">
+    <DisplayName>Pump</DisplayName>
+    <Description Locale="en">Pump</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=78</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/Pump/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=81" BrowseName="RotraryTable" ParentNodeId="ns=1;i=78" DataType="i=12" ValueRank="0">
+    <DisplayName>RotraryTable</DisplayName>
+    <Description Locale="en">RotraryTable</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=78</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/RotraryTable/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=82" BrowseName="ChainConveyor" ParentNodeId="ns=1;i=78" DataType="i=12" ValueRank="0">
+    <DisplayName>ChainConveyor</DisplayName>
+    <Description Locale="en">ChainConveyor</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=78</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/ChainConveyor/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=83" BrowseName="BeltConveyor" ParentNodeId="ns=1;i=78" DataType="i=12" ValueRank="0">
+    <DisplayName>BeltConveyor</DisplayName>
+    <Description Locale="en">BeltConveyor</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=78</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/BeltConveyor/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=84" BrowseName="RollerConveyor" ParentNodeId="ns=1;i=78" DataType="i=12" ValueRank="0">
+    <DisplayName>RollerConveyor</DisplayName>
+    <Description Locale="en">RollerConveyor</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=78</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/RollerConveyor/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=85" BrowseName="BeltDrive" ParentNodeId="ns=1;i=78" DataType="i=12" ValueRank="0">
+    <DisplayName>BeltDrive</DisplayName>
+    <Description Locale="en">BeltDrive</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=78</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/BeltDrive/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=86" BrowseName="TravelingDrive" ParentNodeId="ns=1;i=78" DataType="i=12" ValueRank="0">
+    <DisplayName>TravelingDrive</DisplayName>
+    <Description Locale="en">TravelingDrive</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=78</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/TravelingDrive/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=87" BrowseName="RackDrive" ParentNodeId="ns=1;i=78" DataType="i=12" ValueRank="0">
+    <DisplayName>RackDrive</DisplayName>
+    <Description Locale="en">RackDrive</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=78</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/RackDrive/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=88" BrowseName="SpindleDrive" ParentNodeId="ns=1;i=78" DataType="i=12" ValueRank="0">
+    <DisplayName>SpindleDrive</DisplayName>
+    <Description Locale="en">SpindleDrive</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=78</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/SpindleDrive/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=89" BrowseName="SizingResult" ParentNodeId="ns=1;i=7">
+    <DisplayName>SizingResult</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=90</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=91</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=92</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=93</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=97</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=90" BrowseName="OverallSystem" ParentNodeId="ns=1;i=89" DataType="i=12" ValueRank="0">
+    <DisplayName>OverallSystem</DisplayName>
+    <Description Locale="en">OverallSystem</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=89</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/OverallSystem/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=91" BrowseName="MainComponent" ParentNodeId="ns=1;i=89" DataType="i=12" ValueRank="0">
+    <DisplayName>MainComponent</DisplayName>
+    <Description Locale="en">MainComponent</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=89</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/MainComponent/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=92" BrowseName="OtherComponent" ParentNodeId="ns=1;i=89" DataType="i=12" ValueRank="0">
+    <DisplayName>OtherComponent</DisplayName>
+    <Description Locale="en">OtherComponent</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=89</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/OtherComponent/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=93" BrowseName="Messages" ParentNodeId="ns=1;i=89">
+    <DisplayName>Messages</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=94</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=89</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=94" BrowseName="Message" ParentNodeId="ns=1;i=93">
+    <DisplayName>Message</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=95</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=96</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=93</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=95" BrowseName="CriticalityOfMessage" ParentNodeId="ns=1;i=94" DataType="i=12" ValueRank="0">
+    <DisplayName>CriticalityOfMessage</DisplayName>
+    <Description Locale="en">CriticalityOfMessage</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=94</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=96" BrowseName="MessageText" ParentNodeId="ns=1;i=94" DataType="i=12" ValueRank="0">
+    <DisplayName>MessageText</DisplayName>
+    <Description Locale="en">MessageText</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=94</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/MessageText/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=97" BrowseName="TextStatement" ParentNodeId="ns=1;i=89" DataType="i=12" ValueRank="0">
+    <DisplayName>TextStatement</DisplayName>
+    <Description Locale="en">TextStatement</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=89</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/PowerDriveTrainSizing/TextStatement/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=3" BrowseName="Concept Descriptions" ParentNodeId="i=85">
+    <DisplayName>Concept Descriptions</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=98</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=99</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=100</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=101</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=102</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=103</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=104</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=105</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=106</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=107</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=108</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=109</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=110</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=111</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=112</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=113</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=114</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=115</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=116</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=117</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=118</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=119</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=120</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=121</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=122</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=123</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=124</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=125</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=126</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=127</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=128</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=129</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=130</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=131</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=132</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=133</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=134</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=135</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=136</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=137</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=138</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=139</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=140</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=141</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=142</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=143</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=144</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=145</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=146</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=147</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=148</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=149</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=150</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=151</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=152</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=153</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=154</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=155</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=156</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=157</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=158</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=159</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=160</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=161</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=162</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=163</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=164</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=165</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=166</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=167</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=168</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=169</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=170</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=171</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=172</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=173</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=174</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=175</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=176</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=177</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=178</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=179</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=180</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=181</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=182</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=183</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=184</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=185</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=186</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=187</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=188</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=189</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=190</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=191</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=192</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=193</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=194</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=195</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=196</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=197</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=198</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=199</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=200</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=201</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=202</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=203</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=204</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=205</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=206</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=207</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=208</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=209</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=98" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/SizingProjectInformation1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/SizingProjectInformation1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/SizingProjectInformation1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SizingProjectInformation</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=99" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/ClientName/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/ClientName/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/ClientName/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ClientName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=100" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/SizingProjectName/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/SizingProjectName/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/SizingProjectName/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ProjectName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=101" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/SizingProjectDescription/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/SizingProjectDescription/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/SizingProjectDescription/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SizingProjectDescription</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=102" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/SizingProjectLink/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/SizingProjectLink/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/SizingProjectLink/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SizingProjectLink</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=103" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/SizingToolName/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/SizingToolName/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/SizingToolName/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SizingToolName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=104" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/AmlDriveConfigVersion/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/AmlDriveConfigVersion/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/AmlDriveConfigVersion/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AmlDriveConfigVersion</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=105" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/ApplicationRequirements/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/ApplicationRequirements/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/ApplicationRequirements/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ApplicationRequirements</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=106" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MotionPattern/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MotionPattern/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MotionPattern/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MotionPattern</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=107" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MotionPatternName/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MotionPatternName/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MotionPatternName/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MotionProfileName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=108" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/SizingResult/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/SizingResult/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/SizingResult/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SizingResult</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=109" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/ExternalMomentOfInertia/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/ExternalMomentOfInertia/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/ExternalMomentOfInertia/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ExternalMomentOfInertia</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=110" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/InternalMomentOfInertia/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/InternalMomentOfInertia/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/InternalMomentOfInertia/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InternalMomentOfIntertia</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=111" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MassInertiaRatio/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MassInertiaRatio/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MassInertiaRatio/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MassInertiaRatio</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=112" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/DecelerationForEmergencyStop/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/DecelerationForEmergencyStop/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/DecelerationForEmergencyStop/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">DecelerationForEmergencyStop</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=113" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/DisplacementDuringEmergencyStop/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/DisplacementDuringEmergencyStop/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/DisplacementDuringEmergencyStop/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">DisplacementDuringEmergencyStop</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=114" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/CurrentForEmergencyStop/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/CurrentForEmergencyStop/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/CurrentForEmergencyStop/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CurrentForEmergencyStop</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=115" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/UsageProfile/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/UsageProfile/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/UsageProfile/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">UsageProfile</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=116" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/CyclesPerMinute/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/CyclesPerMinute/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/CyclesPerMinute/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CyclesPerMinute</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=117" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/OperatingHoursPerDay/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/OperatingHoursPerDay/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/OperatingHoursPerDay/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">OperatingHoursPerDay</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=118" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/OperatingDaysPerYear/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/OperatingDaysPerYear/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/OperatingDaysPerYear/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">OperatingDaysPerYear</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=119" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/EnergyCostsPerKwh/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/EnergyCostsPerKwh/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/EnergyCostsPerKwh/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">EnergyCostsPerKwh</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=120" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/CO2EmissionsPerkwh/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/CO2EmissionsPerkwh/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/CO2EmissionsPerkwh/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CO2EmissionsPerkwh</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=121" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/RmsOfPower/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/RmsOfPower/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/RmsOfPower/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">RmsOfPower</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=122" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/RmsOfMotorTorque/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/RmsOfMotorTorque/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/RmsOfMotorTorque/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">RmsOfMotorTorque</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=123" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/FrequencyAtMaxSpeed/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/FrequencyAtMaxSpeed/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/FrequencyAtMaxSpeed/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">FrequencyAtMaxSpeed</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=124" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/ContinuousCurrent/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/ContinuousCurrent/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/ContinuousCurrent/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ContinuousCurrent</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=125" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/PowerInRegenerativeOperation/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/PowerInRegenerativeOperation/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/PowerInRegenerativeOperation/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PowerInRegenerativeOperation</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=126" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/PowerInMotorOperation/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/PowerInMotorOperation/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/PowerInMotorOperation/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PowerInMotorOperation</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=127" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/QuantityOfParts/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/QuantityOfParts/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/QuantityOfParts/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">QuantityOfParts</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=128" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/TextStatement/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/TextStatement/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/TextStatement/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TextStatement</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=129" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/Messages/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/Messages/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/Messages/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Messages</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=130" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/Message/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/Message/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/Message/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Message</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=131" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/CriticalityOfMessage/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/CriticalityOfMessage/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/CriticalityOfMessage/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CriticalityOfMessage</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=132" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/DateCreated/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/DateCreated/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/DateCreated/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">DateCreated</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=133" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/DateChanged/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/DateChanged/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/DateChanged/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">DateChanged</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=134" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/EnvironmentalRequirements/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/EnvironmentalRequirements/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/EnvironmentalRequirements/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Environmental</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=135" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/OverallSystemRequirements/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/OverallSystemRequirements/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/OverallSystemRequirements/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">OverallSystemRequirements</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=136" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/TransformationMechanism/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/TransformationMechanism/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/TransformationMechanism/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TransformationMechanism</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=137" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MotionPatternSections/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MotionPatternSections/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MotionPatternSections/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MotionPatternSections</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=138" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/RotativeMotionPatternSection/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/RotativeMotionPatternSection/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/RotativeMotionPatternSection/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">RotativeSection</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=139" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/LinearMotionPatternSection/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/LinearMotionPatternSection/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/LinearMotionPatternSection/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">LinearSection</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=140" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/FrictionTorque/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/FrictionTorque/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/FrictionTorque/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">FrictionTorque</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=141" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/LeverArmAxialForce/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/LeverArmAxialForce/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/LeverArmAxialForce/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">LeverArmAxialForce</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=142" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/AxialForce/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/AxialForce/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/AxialForce/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AxialForce</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=143" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/LeverArmRadialForce/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/LeverArmRadialForce/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/LeverArmRadialForce/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">LeverArmRadialForce</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=144" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/RadialForce/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/RadialForce/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/RadialForce/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">RadialForce</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=145" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MomentOfInertiaOfLoad/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MomentOfInertiaOfLoad/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MomentOfInertiaOfLoad/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MomentOfInertiaOfLoad</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=146" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/LoadTorque/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/LoadTorque/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/LoadTorque/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">LoadTorque</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=147" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MetadataRotativeMotionFile/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MetadataRotativeMotionFile/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MetadataRotativeMotionFile/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MetadataRotativeMotionFile</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=148" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MetadataLinearMotionFile/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MetadataLinearMotionFile/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MetadataLinearMotionFile/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MetadataLinearMotionFile</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=149" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MotionSectionFile/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MotionSectionFile/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MotionSectionFile/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MotionSectionFile</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=150" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/FrictionCoefficient/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/FrictionCoefficient/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/FrictionCoefficient/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">FrictionCoefficient</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=151" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/FrictionForce/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/FrictionForce/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/FrictionForce/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">FrictionForce</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=152" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/CompensationForce/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/CompensationForce/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/CompensationForce/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CompensationForce</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=153" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/LoadMass/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/LoadMass/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/LoadMass/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">LoadMass</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=154" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/LoadSideForce/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/LoadSideForce/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/LoadSideForce/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">LoadSideForce</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=155" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/CounterMass/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/CounterMass/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/CounterMass/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CounterMass</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=156" BrowseName="0:https://admin-shell.io/idta/TimeSeries/RelativePointInTime/1/1" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/TimeSeries/RelativePointInTime/1/1</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/TimeSeries/RelativePointInTime/1/1</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Time</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=157" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/AngularPosition/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/AngularPosition/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/AngularPosition/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AngularPosition</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=158" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/AngularVelocity/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/AngularVelocity/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/AngularVelocity/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AngularVelocity</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=159" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/AngularAcceleration/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/AngularAcceleration/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/AngularAcceleration/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AngularAcceleration</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=160" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/AngularJerk/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/AngularJerk/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/AngularJerk/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AngularJerk</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=161" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/Position/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/Position/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/Position/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Position</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=162" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/LinearVelocity/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/LinearVelocity/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/LinearVelocity/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Velocity</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=163" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/LinearAcceleration/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/LinearAcceleration/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/LinearAcceleration/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Acceleration</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=164" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/LinearJerk/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/LinearJerk/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/LinearJerk/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">LinearJerk</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=165" BrowseName="0173-1#02-AAZ614#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAZ614#003</DisplayName>
+    <Description Locale="en">0173-1#02-AAZ614#003</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InstallationAltitude</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=166" BrowseName="0173-1#02-AAR865#004" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAR865#004</DisplayName>
+    <Description Locale="en">0173-1#02-AAR865#004</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Atex2Gas</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=167" BrowseName="0173-1#02-AAR866#004" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAR866#004</DisplayName>
+    <Description Locale="en">0173-1#02-AAR866#004</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Atex2Dust</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=168" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/AmbientTemperatureMotor/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/AmbientTemperatureMotor/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/AmbientTemperatureMotor/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AmbientTemperatureMotor</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=169" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/AmbientTemperatureController/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/AmbientTemperatureController/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/AmbientTemperatureController/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AmbientTemperatureController</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=170" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/DcLinkCoupling/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/DcLinkCoupling/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/DcLinkCoupling/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">DcLinkCoupling</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=171" BrowseName="0173-1#02-AAH167#006" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAH167#006</DisplayName>
+    <Description Locale="en">0173-1#02-AAH167#006</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MountingType</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=172" BrowseName="0173-1#02-AAN329#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAN329#003</DisplayName>
+    <Description Locale="en">0173-1#02-AAN329#003</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MinSwitchingFrequency</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=173" BrowseName="0173-1#02-BAE122#006" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-BAE122#006</DisplayName>
+    <Description Locale="en">0173-1#02-BAE122#006</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CoolingType</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=174" BrowseName="0173-1#02-BAG342#007" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-BAG342#007</DisplayName>
+    <Description Locale="en">0173-1#02-BAG342#007</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ProtectionType</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=175" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/OverallSystem/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/OverallSystem/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/OverallSystem/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">OverallSystem</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=176" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MainComponent/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MainComponent/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MainComponent/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MainComponent</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=177" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/OtherComponent/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/OtherComponent/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/OtherComponent/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">OtherComponent</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=178" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MaxCurrentUtilizationPercentage/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MaxCurrentUtilizationPercentage/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MaxCurrentUtilizationPercentage/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MaxCurrentUtilizationPercentage</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=179" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MaxCurrentUtilization/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MaxCurrentUtilization/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MaxCurrentUtilization/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MaxCurrentUtilization</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=180" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MaxThermalUtilizationPercentage/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MaxThermalUtilizationPercentage/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MaxThermalUtilizationPercentage/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MaxThermalUtilizationPercentage</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=181" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MaxThermalUtilization/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MaxThermalUtilization/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MaxThermalUtilization/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MaxThermalUtilization</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=182" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/AveragePowerLosses/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/AveragePowerLosses/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/AveragePowerLosses/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AveragePowerLosses</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=183" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/AverageRegenerativePowerDcLink/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/AverageRegenerativePowerDcLink/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/AverageRegenerativePowerDcLink/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AverageRegenerativePowerDcLink</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=184" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MaxRegenerativePowerDcLink/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MaxRegenerativePowerDcLink/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MaxRegenerativePowerDcLink/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MaxRegenerativePowerDcLink</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=185" BrowseName="0:http://admin-shell.io/tmp/AKDrive/PowerDriveTrainSizing/AverageFeedInPowerDcLink/1/0---59A43D93" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>http://admin-shell.io/tmp/AKDrive/PowerDriveTrainSizing/AverageFeedInPowerDcLink/1/0---59A43D93</DisplayName>
+    <Description Locale="en">http://admin-shell.io/tmp/AKDrive/PowerDriveTrainSizing/AverageFeedInPowerDcLink/1/0---59A43D93</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AverageFeedInPowerDcLink</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=186" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/AverageFeedInPowerMains/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/AverageFeedInPowerMains/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/AverageFeedInPowerMains/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AverageFeedInPowerMains</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=187" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MaxFeedInPowerMains/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MaxFeedInPowerMains/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MaxFeedInPowerMains/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MaxFeedInPowerMains</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=188" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MaxTorqueUtilizationPercentage/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MaxTorqueUtilizationPercentage/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MaxTorqueUtilizationPercentage/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MaxTorqueUtilizationPercentage</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=189" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MaxTorqueUtilization/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MaxTorqueUtilization/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MaxTorqueUtilization/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MaxTorqueUtilization</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=190" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MaxRotationSpeedUtilizationPercentage/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MaxRotationSpeedUtilizationPercentage/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MaxRotationSpeedUtilizationPercentage/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MaxRotationSpeedUtilizationPercentage</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=191" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MaxRotationSpeedUtilization/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MaxRotationSpeedUtilization/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MaxRotationSpeedUtilization/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MaxRotationSpeedUtilization</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=192" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/EffectiveUtilization/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/EffectiveUtilization/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/EffectiveUtilization/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">EffectiveUtilization</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=193" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/CalculatedServiceLife/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/CalculatedServiceLife/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/CalculatedServiceLife/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CalculatedServiceLife</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=194" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MessageText/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MessageText/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MessageText/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MessageText</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=195" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/InertiaMotorSide/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/InertiaMotorSide/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/InertiaMotorSide/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InertiaMotorSide</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=196" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/Efficiency/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/Efficiency/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/Efficiency/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Efficiency</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=197" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/NoLoadTorque/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/NoLoadTorque/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/NoLoadTorque/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">NoLoadTorque</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=198" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/GenericLinearApplication/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/GenericLinearApplication/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/GenericLinearApplication/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">GenericLinearApplication</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=199" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/GenericRotativeApplication/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/GenericRotativeApplication/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/GenericRotativeApplication/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">RotativeApplication</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=200" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/FeedConstant/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/FeedConstant/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/FeedConstant/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">FeedConstant</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=201" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/InclinationAngle/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/InclinationAngle/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/InclinationAngle/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InclinationAngle</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=202" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/MainComponentType/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/MainComponentType/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/MainComponentType/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MainComponentType</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=203" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/StaticEccentricity/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/StaticEccentricity/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/StaticEccentricity/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">StaticEccentricity</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=204" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/CentroidAngle/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/CentroidAngle/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/CentroidAngle/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CentroidAngle</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=205" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/DiameterPinion/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/DiameterPinion/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/DiameterPinion/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">DiameterPinion</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=206" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/HelixAngle/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/HelixAngle/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/HelixAngle/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">HelixAngle</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=207" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/RackMovingPart/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/RackMovingPart/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/RackMovingPart/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MovingPart</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=208" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/EnergyConsumtionPerCycle/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/EnergyConsumtionPerCycle/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/EnergyConsumtionPerCycle/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">EnergyConsumtionPerCycle</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=209" BrowseName="0:https://admin-shell.io/idta/PowerDriveTrainSizing/SizingProjectAxisReference/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/PowerDriveTrainSizing/SizingProjectAxisReference/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/PowerDriveTrainSizing/SizingProjectAxisReference/1/0</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SizingProjectAxisReference</String>
+    </Value>
+  </UAVariable>
+</UANodeSet>

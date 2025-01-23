@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-23T10:39:20.8246267Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+  <NamespaceUris>
+    <Uri>http://opcfoundation.org/UA/https___example.com_ids_sm_8251_4151_4042_0268/</Uri>
+  </NamespaceUris>
+  <Models>
+    <Model ModelUri="http://opcfoundation.org/UA/https___example.com_ids_sm_8251_4151_4042_0268/" Version="1.0.0" PublicationDate="2025-01-23T10:39:20Z"/>
+  </Models>
+  <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
+    <DisplayName>Asset Admin Shells</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=4</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=4" BrowseName="0:https://example.com/ids/sm/8251_4151_4042_0268" ParentNodeId="ns=1;i=1">
+    <DisplayName>https://example.com/ids/sm/8251_4151_4042_0268</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=5</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=5" BrowseName="0:https://example.com/ids/sm/8251_4151_4042_6668" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
+    <DisplayName>https://example.com/ids/sm/8251_4151_4042_6668</DisplayName>
+    <Description Locale="en">https://example.com/ids/sm/8251_4151_4042_6668</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=2" BrowseName="Submodels" ParentNodeId="i=85">
+    <DisplayName>Submodels</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=6</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=6" BrowseName="BackendSpecificMaterialInformation" ParentNodeId="ns=1;i=2">
+    <DisplayName>BackendSpecificMaterialInformation</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=7</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=7" BrowseName="MaterialSystemProperties" ParentNodeId="ns=1;i=6">
+    <DisplayName>MaterialSystemProperties</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=8</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=9</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=10</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=11</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=12</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=13</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=14</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=15</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=6</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=8" BrowseName="MaterialType" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>MaterialType</DisplayName>
+    <Description Locale="en">MaterialType</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=9" BrowseName="BaseUnitOfMeasure" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>BaseUnitOfMeasure</DisplayName>
+    <Description Locale="en">BaseUnitOfMeasure</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/BackendSpecificMaterialInformation/MaterialSystemProperties/BaseUnitOfMeasure/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=10" BrowseName="MaterialStatus" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>MaterialStatus</DisplayName>
+    <Description Locale="en">MaterialStatus</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=11" BrowseName="Industry" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>Industry</DisplayName>
+    <Description Locale="en">Industry</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=12" BrowseName="ProductName" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>ProductName</DisplayName>
+    <Description Locale="en">ProductName</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/BackendSpecificMaterialInformation/MaterialSystemProperties/ProductName/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=13" BrowseName="MaterialNumber" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>MaterialNumber</DisplayName>
+    <Description Locale="en">MaterialNumber</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=14" BrowseName="Description" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>Description</DisplayName>
+    <Description Locale="en">Description</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/BackendSpecificMaterialInformation/MaterialSystemProperties/Description/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15" BrowseName="Plant" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>Plant</DisplayName>
+    <Description Locale="en">Plant</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=3" BrowseName="Concept Descriptions" ParentNodeId="i=85">
+    <DisplayName>Concept Descriptions</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+</UANodeSet>

@@ -2,6 +2,7 @@
 namespace AdminShell
 {
     using Microsoft.Extensions.Logging;
+    using Opc.Ua;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -11,10 +12,6 @@ namespace AdminShell
         private readonly ILogger _logger;
 
         private UAClient _client = new();
-
-        private const string c_aasRoot = "ns=2;i=1";
-        private const string c_submodelRoot = "ns=2;i=2";
-        private const string c_conceptDescriptionsRoot = "ns=2;i=3";
 
         public AssetAdministrationShellEnvironmentService(ILoggerFactory logger, UAClient client)
         {
@@ -27,65 +24,75 @@ namespace AdminShell
             List<AssetAdministrationShell> output = new();
 
             // get all AASes
-            List<NodesetViewerNode> nodeList = _client.GetChildren(c_aasRoot, string.Empty).GetAwaiter().GetResult();
+            List<NodesetViewerNode> nodeList = _client.GetChildren(ObjectIds.ObjectsFolder.ToString(), string.Empty).GetAwaiter().GetResult();
             if (nodeList != null)
             {
-                foreach (NodesetViewerNode a in nodeList)
+                foreach (NodesetViewerNode node in nodeList)
                 {
-                    AssetAdministrationShell aas = new()
+                    if (node.Text == "Asset Admin Shells")
                     {
-                        ModelType = ModelTypes.AssetAdministrationShell,
-                        Identification = new Identifier() { Id = a.Text, Value = a.Text },
-                        IdShort = a.Text
-                    };
-
-                    // get all asset and submodel refs
-                    List<NodesetViewerNode> assetsAndSubmodelRefs = _client.GetChildren(a.Id, a.SessionId).GetAwaiter().GetResult();
-                    foreach (NodesetViewerNode s in assetsAndSubmodelRefs)
-                    {
-                        if (s.Text.ToLower().Contains("https://admin-shell.io/idta/asset/"))
+                        List<NodesetViewerNode> aasList = _client.GetChildren(node.Id, node.SessionId).GetAwaiter().GetResult();
+                        if (aasList != null)
                         {
-                            aas.AssetInformation = new AssetInformation() { AssetKind = AssetKind.Instance, SpecificAssetIds = new List<IdentifierKeyValuePair>() { new IdentifierKeyValuePair() { Key = s.Text } } };
-                        }
+                            foreach (NodesetViewerNode a in aasList)
+                            {
+                                AssetAdministrationShell aas = new()
+                                {
+                                    ModelType = ModelTypes.AssetAdministrationShell,
+                                    Identification = new Identifier() { Id = a.Text, Value = a.Text },
+                                    IdShort = a.Text
+                                };
 
-                        if (s.Text.ToLower().Contains("https://admin-shell.io/idta/submodel"))
-                        {
-                            aas.Submodels.Add(new ModelReference() { Keys = new List<Key>() { new Key() { Value = s.Text, Type = KeyElements.Submodel } } });
+                                // get all asset and submodel refs
+                                List<NodesetViewerNode> assetsAndSubmodelRefs = _client.GetChildren(a.Id, a.SessionId).GetAwaiter().GetResult();
+                                foreach (NodesetViewerNode s in assetsAndSubmodelRefs)
+                                {
+                                    if (s.Text.ToLower().Contains("https://admin-shell.io/idta/asset/"))
+                                    {
+                                        aas.AssetInformation = new AssetInformation() { AssetKind = AssetKind.Instance, SpecificAssetIds = new List<IdentifierKeyValuePair>() { new IdentifierKeyValuePair() { Key = s.Text } } };
+                                    }
+
+                                    if (s.Text.ToLower().Contains("https://admin-shell.io/idta/submodel"))
+                                    {
+                                        aas.Submodels.Add(new ModelReference() { Keys = new List<Key>() { new Key() { Value = s.Text, Type = KeyElements.Submodel } } });
+                                    }
+                                }
+
+                                output.Add(aas);
+                            }
                         }
                     }
+                }
+            }
 
-                    output.Add(aas);
+            if (output.Any())
+            {
+                // Filter AASs based on IdShort
+                if (!string.IsNullOrEmpty(idShort))
+                {
+                    output = output.Where(a => a.IdShort.Equals(idShort)).ToList();
+                    if ((output == null) || output?.Count == 0)
+                    {
+                        throw new Exception($"AssetAdministrationShells with IdShort {idShort} Not Found.");
+                    }
                 }
 
-                if (output.Any())
+                // Filter based on AssetId
+                if (assetIds != null && assetIds.Count != 0)
                 {
-                    // Filter AASs based on IdShort
-                    if (!string.IsNullOrEmpty(idShort))
+                    List<AssetAdministrationShell> filteredAASes = new();
+                    foreach (var assetId in assetIds)
                     {
-                        output = output.Where(a => a.IdShort.Equals(idShort)).ToList();
-                        if ((output == null) || output?.Count == 0)
-                        {
-                            throw new Exception($"AssetAdministrationShells with IdShort {idShort} Not Found.");
-                        }
+                        filteredAASes.AddRange(output.Where(a => a.AssetInformation.SpecificAssetIds.Contains(new IdentifierKeyValuePair() { Key = assetId })).ToList());
                     }
 
-                    // Filter based on AssetId
-                    if (assetIds != null && assetIds.Count != 0)
+                    if (filteredAASes.Any())
                     {
-                        var aasList = new List<AssetAdministrationShell>();
-                        foreach (var assetId in assetIds)
-                        {
-                            aasList.AddRange(output.Where(a => a.AssetInformation.SpecificAssetIds.Contains(new IdentifierKeyValuePair() { Key = assetId })).ToList());
-                        }
-
-                        if (aasList.Any())
-                        {
-                            return aasList;
-                        }
-                        else
-                        {
-                            throw new Exception($"AssetAdministrationShells with requested SpecificAssetIds Not Found.");
-                        }
+                        return filteredAASes;
+                    }
+                    else
+                    {
+                        throw new Exception($"AssetAdministrationShells with requested SpecificAssetIds Not Found.");
                     }
                 }
             }
@@ -98,56 +105,66 @@ namespace AdminShell
             List<Submodel> output = new();
 
             // Get All Submodels
-            List<NodesetViewerNode> nodeList = _client.GetChildren(c_submodelRoot, string.Empty).GetAwaiter().GetResult();
+            List<NodesetViewerNode> nodeList = _client.GetChildren(ObjectIds.ObjectsFolder.ToString(), string.Empty).GetAwaiter().GetResult();
             if (nodeList != null)
             {
-                foreach (NodesetViewerNode subNode in nodeList)
+                foreach (NodesetViewerNode node in nodeList)
                 {
-                    Submodel sub = new()
+                    if (node.Text == "Submodels")
                     {
-                        ModelType = ModelTypes.Submodel,
-                        Id = subNode.Text,
-                        Identification = new Identifier() { Id = subNode.Text, Value = subNode.Text },
-                        IdShort = subNode.Text,
-                        SemanticId = new Reference() { Type = KeyElements.ExternalReference, Keys = new List<Key>() { new Key() { Value = subNode.Text, Type = KeyElements.GlobalReference } } },
-                        DisplayName = new List<LangString>() { new LangString() { Text = subNode.Text } },
-                        Description = new List<LangString>() { new LangString() { Text = _client.VariableRead(subNode.Id, subNode.SessionId).GetAwaiter().GetResult() } }
-                    };
+                        List<NodesetViewerNode> submodelList = _client.GetChildren(node.Id, node.SessionId).GetAwaiter().GetResult();
+                        if (submodelList != null)
+                        {
+                            foreach (NodesetViewerNode subNode in submodelList)
+                            {
+                                Submodel sub = new()
+                                {
+                                    ModelType = ModelTypes.Submodel,
+                                    Id = subNode.Text,
+                                    Identification = new Identifier() { Id = subNode.Text, Value = subNode.Text },
+                                    IdShort = subNode.Text,
+                                    SemanticId = new Reference() { Type = KeyElements.ExternalReference, Keys = new List<Key>() { new Key() { Value = subNode.Text, Type = KeyElements.GlobalReference } } },
+                                    DisplayName = new List<LangString>() { new LangString() { Text = subNode.Text } },
+                                    Description = new List<LangString>() { new LangString() { Text = _client.VariableRead(subNode.Id, subNode.SessionId).GetAwaiter().GetResult() } }
+                                };
 
-                    // get all submodel elements
-                    sub.SubmodelElements.AddRange(ReadSubmodelElementNodes(subNode));
+                                // get all submodel elements
+                                sub.SubmodelElements.AddRange(ReadSubmodelElementNodes(subNode));
 
-                    output.Add(sub);
+                                output.Add(sub);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Apply filters
+            if (output.Any())
+            {
+                // Filter based on idShort
+                if (!string.IsNullOrEmpty(idShort))
+                {
+                    var submodels = output.Where(s => s.IdShort.Equals(idShort)).ToList();
+                    if ((submodels == null) || (submodels?.Count == 0))
+                    {
+                        _logger.LogInformation($"Submodels with IdShort {idShort} Not Found.");
+                    }
+
+                    output = submodels;
                 }
 
-                // Apply filters
-                if (output.Any())
+                // Filter based on SemanticId
+                if ((reqSemanticId != null) && (reqSemanticId.Keys[0].Value != null))
                 {
-                    // Filter based on idShort
-                    if (!string.IsNullOrEmpty(idShort))
+                    if (output.Any())
                     {
-                        var submodels = output.Where(s => s.IdShort.Equals(idShort)).ToList();
-                        if ((submodels == null) || (submodels?.Count == 0))
+                        var submodels = output.Where(s => s.SemanticId.Matches(reqSemanticId)).ToList();
+                        if ((submodels == null) || submodels?.Count == 0)
                         {
-                            _logger.LogInformation($"Submodels with IdShort {idShort} Not Found.");
+                            _logger.LogInformation($"Submodels with requested SemnaticId Not Found.");
                         }
 
                         output = submodels;
-                    }
-
-                    // Filter based on SemanticId
-                    if ((reqSemanticId != null) && (reqSemanticId.Keys[0].Value != null))
-                    {
-                        if (output.Any())
-                        {
-                            var submodels = output.Where(s => s.SemanticId.Matches(reqSemanticId)).ToList();
-                            if ((submodels == null) || submodels?.Count == 0)
-                            {
-                                _logger.LogInformation($"Submodels with requested SemnaticId Not Found.");
-                            }
-
-                            output = submodels;
-                        }
                     }
                 }
             }
@@ -203,31 +220,41 @@ namespace AdminShell
             List<ConceptDescription> output = new();
 
             // get all concept descriptions
-            List<NodesetViewerNode> nodeList = _client.GetChildren(c_conceptDescriptionsRoot, string.Empty).GetAwaiter().GetResult();
+            List<NodesetViewerNode> nodeList = _client.GetChildren(ObjectIds.ObjectsFolder.ToString(), string.Empty).GetAwaiter().GetResult();
             if (nodeList != null)
             {
-                foreach (NodesetViewerNode a in nodeList)
+                foreach (NodesetViewerNode node in nodeList)
                 {
-                    ConceptDescription cd = new()
+                    if (node.Text == "Concept Descriptions")
                     {
-                        ModelType = ModelTypes.ConceptDescription,
-                        Identification = new Identifier() { Id = a.Text, Value = a.Text },
-                        IdShort = a.Text
-                    };
-
-                    output.Add(cd);
-                }
-
-                if (output.Any())
-                {
-                    // Filter AASs based on IdShort
-                    if (!string.IsNullOrEmpty(idShort))
-                    {
-                        output = output.Where(a => a.IdShort.Equals(idShort)).ToList();
-                        if ((output == null) || output?.Count == 0)
+                        List<NodesetViewerNode> conceptDescrNodes = _client.GetChildren(node.Id, node.SessionId).GetAwaiter().GetResult();
+                        if (conceptDescrNodes != null)
                         {
-                            throw new Exception($"Concept Description with IdShort {idShort} Not Found.");
+                            foreach (NodesetViewerNode cdNode in conceptDescrNodes)
+                            {
+                                ConceptDescription cd = new()
+                                {
+                                    ModelType = ModelTypes.ConceptDescription,
+                                    Identification = new Identifier() { Id = cdNode.Text, Value = cdNode.Text },
+                                    IdShort = cdNode.Text
+                                };
+
+                                output.Add(cd);
+                            }
                         }
+                    }
+                }
+            }
+
+            if (output.Any())
+            {
+                // Filter AASs based on IdShort
+                if (!string.IsNullOrEmpty(idShort))
+                {
+                    output = output.Where(a => a.IdShort.Equals(idShort)).ToList();
+                    if ((output == null) || output?.Count == 0)
+                    {
+                        throw new Exception($"Concept Description with IdShort {idShort} Not Found.");
                     }
                 }
             }

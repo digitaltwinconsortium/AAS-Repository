@@ -16,7 +16,7 @@ IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Ne
 1. Integrated OPC UA Nodeset file browser
 1. Basic authentication header support (use "admin" and ServicePassword environment variable to set password)
 1. CESMII Smart Manufacturing Innovation Plattform (SMIP) imtegration
-1. Loading AAS nodeset XML into OPC UA server using I4AAS Companion Spec mapping
+1. Loading AAS nodeset XML into OPC UA server using mapping to OPC UA built-in types
 
 
 # Calculating the Product Carbon Footprint (PCF)

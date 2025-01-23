@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-22T15:43:04.5444675Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-23T10:39:22.2693705Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
   <NamespaceUris>
     <Uri>http://opcfoundation.org/UA/DigitalNameplateAAS/</Uri>
-    <Uri>http://opcfoundation.org/UA/I4AAS/</Uri>
   </NamespaceUris>
   <Models>
-    <Model ModelUri="http://opcfoundation.org/UA/DigitalNameplateAAS/" Version="1.0.0" PublicationDate="2025-01-22T15:43:04Z">
-      <RequiredModel ModelUri="http://opcfoundation.org/UA/I4AAS/" Version="5.0.0" PublicationDate="2021-06-04T00:00:00Z"/>
-    </Model>
+    <Model ModelUri="http://opcfoundation.org/UA/DigitalNameplateAAS/" Version="1.0.0" PublicationDate="2025-01-23T10:39:22Z"/>
   </Models>
   <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
     <DisplayName>Asset Admin Shells</DisplayName>
@@ -22,24 +19,32 @@
     <References>
       <Reference ReferenceType="i=47">ns=1;i=5</Reference>
       <Reference ReferenceType="i=47">ns=1;i=6</Reference>
-      <Reference ReferenceType="i=40">ns=2;i=1002</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/DigitalNameplate/3/0" ParentNodeId="ns=1;i=4">
+  <UAVariable NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/DigitalNameplate/3/0" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
     <DisplayName>https://admin-shell.io/idta/asset/DigitalNameplate/3/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/asset/DigitalNameplate/3/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1005</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/DigitalNameplate/3/0" ParentNodeId="ns=1;i=4">
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/DigitalNameplate/3/0" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
     <DisplayName>https://admin-shell.io/idta/SubmodelTemplate/DigitalNameplate/3/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SubmodelTemplate/DigitalNameplate/3/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1004</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
-  </UAObject>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
   <UAObject NodeId="ns=1;i=2" BrowseName="Submodels" ParentNodeId="i=85">
     <DisplayName>Submodels</DisplayName>
     <References>
@@ -71,7 +76,7 @@
       <Reference ReferenceType="i=47">ns=1;i=25</Reference>
       <Reference ReferenceType="i=47">ns=1;i=26</Reference>
       <Reference ReferenceType="i=47">ns=1;i=34</Reference>
-      <Reference ReferenceType="i=40">ns=2;i=1006</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
     </References>
   </UAObject>
@@ -274,8 +279,8 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=27" BrowseName="" ParentNodeId="ns=1;i=26">
-    <DisplayName></DisplayName>
+  <UAObject NodeId="ns=1;i=27" BrowseName="0112/2///61360_7#AAS009#001" ParentNodeId="ns=1;i=26">
+    <DisplayName>0112/2///61360_7#AAS009#001</DisplayName>
     <References>
       <Reference ReferenceType="i=47">ns=1;i=28</Reference>
       <Reference ReferenceType="i=47">ns=1;i=29</Reference>
@@ -399,8 +404,8 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=34</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=39" BrowseName="" ParentNodeId="ns=1;i=38">
-    <DisplayName></DisplayName>
+  <UAObject NodeId="ns=1;i=39" BrowseName="0173-1#01-AHD205#004" ParentNodeId="ns=1;i=38">
+    <DisplayName>0173-1#01-AHD205#004</DisplayName>
     <References>
       <Reference ReferenceType="i=47">ns=1;i=40</Reference>
       <Reference ReferenceType="i=47">ns=1;i=41</Reference>
@@ -482,214 +487,334 @@
       <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=44" BrowseName="0112/2///61987#ABN590#002;URIOfTheProduct" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABN590#002;URIOfTheProduct</DisplayName>
+  <UAVariable NodeId="ns=1;i=44" BrowseName="0112/2///61987#ABN590#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABN590#002</DisplayName>
+    <Description Locale="en">0112/2///61987#ABN590#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=45" BrowseName="0112/2///61987#ABA565#009;ManufacturerName" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABA565#009;ManufacturerName</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">URIOfTheProduct</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=45" BrowseName="0112/2///61987#ABA565#009" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABA565#009</DisplayName>
+    <Description Locale="en">0112/2///61987#ABA565#009</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=46" BrowseName="0112/2///61987#ABA567#009;ManufacturerProductDesignation" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABA567#009;ManufacturerProductDesignation</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ManufacturerName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=46" BrowseName="0112/2///61987#ABA567#009" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABA567#009</DisplayName>
+    <Description Locale="en">0112/2///61987#ABA567#009</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=47" BrowseName="0112/2///61360_7#AAS011#001;ManufacturerProductRoot" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61360_7#AAS011#001;ManufacturerProductRoot</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ManufacturerProductDesignation</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=47" BrowseName="0112/2///61360_7#AAS011#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61360_7#AAS011#001</DisplayName>
+    <Description Locale="en">0112/2///61360_7#AAS011#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=48" BrowseName="0112/2///61987#ABP464#002;ManufacturerProductFamily" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABP464#002;ManufacturerProductFamily</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ManufacturerProductRoot</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=48" BrowseName="0112/2///61987#ABP464#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABP464#002</DisplayName>
+    <Description Locale="en">0112/2///61987#ABP464#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=49" BrowseName="0112/2///61987#ABA300#008;ManufacturerProductType" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABA300#008;ManufacturerProductType</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ManufacturerProductFamily</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=49" BrowseName="0112/2///61987#ABA300#008" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABA300#008</DisplayName>
+    <Description Locale="en">0112/2///61987#ABA300#008</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=50" BrowseName="0112/2///61987#ABA950#008;OrderCodeOfManufacturer" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABA950#008;OrderCodeOfManufacturer</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ManufacturerProductType</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=50" BrowseName="0112/2///61987#ABA950#008" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABA950#008</DisplayName>
+    <Description Locale="en">0112/2///61987#ABA950#008</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=51" BrowseName="0112/2///61987#ABA581#007;ProductArticleNumberOfManufacturer" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABA581#007;ProductArticleNumberOfManufacturer</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">OrderCodeOfManufacturer</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=51" BrowseName="0112/2///61987#ABA581#007" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABA581#007</DisplayName>
+    <Description Locale="en">0112/2///61987#ABA581#007</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=52" BrowseName="0112/2///61987#ABA951#009;SerialNumber" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABA951#009;SerialNumber</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ProductArticleNumberOfManufacturer</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=52" BrowseName="0112/2///61987#ABA951#009" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABA951#009</DisplayName>
+    <Description Locale="en">0112/2///61987#ABA951#009</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=53" BrowseName="0112/2///61987#ABP000#002;YearOfConstruction" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABP000#002;YearOfConstruction</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SerialNumber</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=53" BrowseName="0112/2///61987#ABP000#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABP000#002</DisplayName>
+    <Description Locale="en">0112/2///61987#ABP000#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=54" BrowseName="0112/2///61987#ABB757#007;DateOfManufacture" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABB757#007;DateOfManufacture</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">YearOfConstruction</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=54" BrowseName="0112/2///61987#ABB757#007" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABB757#007</DisplayName>
+    <Description Locale="en">0112/2///61987#ABB757#007</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=55" BrowseName="0112/2///61987#ABA926#008;HardwareVersion" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABA926#008;HardwareVersion</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">DateOfManufacture</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=55" BrowseName="0112/2///61987#ABA926#008" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABA926#008</DisplayName>
+    <Description Locale="en">0112/2///61987#ABA926#008</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=56" BrowseName="0112/2///61987#ABA302#006;FirmwareVersion" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABA302#006;FirmwareVersion</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">HardwareVersion</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=56" BrowseName="0112/2///61987#ABA302#006" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABA302#006</DisplayName>
+    <Description Locale="en">0112/2///61987#ABA302#006</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=57" BrowseName="0112/2///61987#ABA601#008;SoftwareVersion" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABA601#008;SoftwareVersion</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">FirmwareVersion</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=57" BrowseName="0112/2///61987#ABA601#008" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABA601#008</DisplayName>
+    <Description Locale="en">0112/2///61987#ABA601#008</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=58" BrowseName="0112/2///61987#ABP462#001;CountryOfOrigin" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABP462#001;CountryOfOrigin</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SoftwareVersion</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=58" BrowseName="0112/2///61987#ABP462#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABP462#001</DisplayName>
+    <Description Locale="en">0112/2///61987#ABP462#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=59" BrowseName="0112/2///61987#ABP463#001;CompanyLogo" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABP463#001;CompanyLogo</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CountryOfOrigin</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=59" BrowseName="0112/2///61987#ABP463#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABP463#001</DisplayName>
+    <Description Locale="en">0112/2///61987#ABP463#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=60" BrowseName="0173-1#01-AGZ672#001;AssetSpecificProperties" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#01-AGZ672#001;AssetSpecificProperties</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CompanyLogo</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=60" BrowseName="0173-1#01-AGZ672#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#01-AGZ672#001</DisplayName>
+    <Description Locale="en">0173-1#01-AGZ672#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=61" BrowseName="0112/2///61987#ABA231#009;MarkingName" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABA231#009;MarkingName</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AssetSpecificProperties</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=61" BrowseName="0112/2///61987#ABA231#009" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABA231#009</DisplayName>
+    <Description Locale="en">0112/2///61987#ABA231#009</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=62" BrowseName="0112/2///61987#ABH783#003;DesignationOfCertificateOrApproval" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABH783#003;DesignationOfCertificateOrApproval</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MarkingName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=62" BrowseName="0112/2///61987#ABH783#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABH783#003</DisplayName>
+    <Description Locale="en">0112/2///61987#ABH783#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=63" BrowseName="0112/2///61987#ABO097#001;IssueDate" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABO097#001;IssueDate</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">DesignationOfCertificateOrApproval</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=63" BrowseName="0112/2///61987#ABO097#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABO097#001</DisplayName>
+    <Description Locale="en">0112/2///61987#ABO097#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=64" BrowseName="0112/2///61987#ABH830#002;ExpiryDate" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABH830#002;ExpiryDate</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">IssueDate</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=64" BrowseName="0112/2///61987#ABH830#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABH830#002</DisplayName>
+    <Description Locale="en">0112/2///61987#ABH830#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=65" BrowseName="0112/2///61987#ABO100#002;MarkingFile" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABO100#002;MarkingFile</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ExpiryDate</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=65" BrowseName="0112/2///61987#ABO100#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABO100#002</DisplayName>
+    <Description Locale="en">0112/2///61987#ABO100#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=66" BrowseName="0112/2///61987#ABB146#007;MarkingAdditionalText__00__" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABB146#007;MarkingAdditionalText__00__</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MarkingFile</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=66" BrowseName="0112/2///61987#ABB146#007" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABB146#007</DisplayName>
+    <Description Locale="en">0112/2///61987#ABB146#007</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=67" BrowseName="0173-1#01-AHD205#001;GuidelineSpecificProperties" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#01-AHD205#001;GuidelineSpecificProperties</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MarkingAdditionalText__00__</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=67" BrowseName="0173-1#01-AHD205#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#01-AHD205#001</DisplayName>
+    <Description Locale="en">0173-1#01-AHD205#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=68" BrowseName="0173-1#02-AAO856#002;GuidelineForConformityDeclaration" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO856#002;GuidelineForConformityDeclaration</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">GuidelineSpecificProperties</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=68" BrowseName="0173-1#02-AAO856#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO856#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO856#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=69" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation;ContactInformation" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation;ContactInformation</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">GuidelineForConformityDeclaration</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=69" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/ContactInformations/ContactInformation</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=70" BrowseName="0:https://admin-shell.io/zvei/nameplate/3/0/Nameplate/Markings;Markings" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/3/0/Nameplate/Markings;Markings</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ContactInformation</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=70" BrowseName="0:https://admin-shell.io/zvei/nameplate/3/0/Nameplate/Markings" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/3/0/Nameplate/Markings</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/3/0/Nameplate/Markings</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=71" BrowseName="0112/2///61360_7#AAS009#001;Marking" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61360_7#AAS009#001;Marking</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Markings</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=71" BrowseName="0112/2///61360_7#AAS009#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61360_7#AAS009#001</DisplayName>
+    <Description Locale="en">0112/2///61360_7#AAS009#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=72" BrowseName="0:http://admin-shell.io/IDTA/DigitalNameplate/GuidelineSpecificProperties/List/1/0;GuidelineSpecificProperties" ParentNodeId="ns=1;i=3">
-    <DisplayName>http://admin-shell.io/IDTA/DigitalNameplate/GuidelineSpecificProperties/List/1/0;GuidelineSpecificProperties</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Marking</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=72" BrowseName="0:http://admin-shell.io/IDTA/DigitalNameplate/GuidelineSpecificProperties/List/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>http://admin-shell.io/IDTA/DigitalNameplate/GuidelineSpecificProperties/List/1/0</DisplayName>
+    <Description Locale="en">http://admin-shell.io/IDTA/DigitalNameplate/GuidelineSpecificProperties/List/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=73" BrowseName="0:https://admin-shell.io/idta/nameplate/3/0/UniqueFacilityIdentifier;UniqueFacilityIdentifier" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/nameplate/3/0/UniqueFacilityIdentifier;UniqueFacilityIdentifier</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">GuidelineSpecificProperties</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=73" BrowseName="0:https://admin-shell.io/idta/nameplate/3/0/UniqueFacilityIdentifier" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/nameplate/3/0/UniqueFacilityIdentifier</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/nameplate/3/0/UniqueFacilityIdentifier</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">UniqueFacilityIdentifier</String>
+    </Value>
+  </UAVariable>
 </UANodeSet>

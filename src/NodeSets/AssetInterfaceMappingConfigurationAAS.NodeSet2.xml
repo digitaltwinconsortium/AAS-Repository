@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-22T15:43:01.0519374Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-23T10:38:49.6768338Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
   <NamespaceUris>
     <Uri>http://opcfoundation.org/UA/AssetInterfaceMappingConfigurationAAS/</Uri>
-    <Uri>http://opcfoundation.org/UA/I4AAS/</Uri>
   </NamespaceUris>
   <Models>
-    <Model ModelUri="http://opcfoundation.org/UA/AssetInterfaceMappingConfigurationAAS/" Version="1.0.0" PublicationDate="2025-01-22T15:43:01Z">
-      <RequiredModel ModelUri="http://opcfoundation.org/UA/I4AAS/" Version="5.0.0" PublicationDate="2021-06-04T00:00:00Z"/>
-    </Model>
+    <Model ModelUri="http://opcfoundation.org/UA/AssetInterfaceMappingConfigurationAAS/" Version="1.0.0" PublicationDate="2025-01-23T10:38:49Z"/>
   </Models>
   <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
     <DisplayName>Asset Admin Shells</DisplayName>
@@ -22,24 +19,32 @@
     <References>
       <Reference ReferenceType="i=47">ns=1;i=5</Reference>
       <Reference ReferenceType="i=47">ns=1;i=6</Reference>
-      <Reference ReferenceType="i=40">ns=2;i=1002</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/AssetInterfacesMappingConfiguration/1/0/" ParentNodeId="ns=1;i=4">
+  <UAVariable NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/AssetInterfacesMappingConfiguration/1/0/" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
     <DisplayName>https://admin-shell.io/idta/asset/AssetInterfacesMappingConfiguration/1/0/</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/asset/AssetInterfacesMappingConfiguration/1/0/</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1005</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/AssetInterfacesMappingConfiguration/1/0/" ParentNodeId="ns=1;i=4">
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/AssetInterfacesMappingConfiguration/1/0/" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
     <DisplayName>https://admin-shell.io/idta/SubmodelTemplate/AssetInterfacesMappingConfiguration/1/0/</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SubmodelTemplate/AssetInterfacesMappingConfiguration/1/0/</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1004</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
-  </UAObject>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
   <UAObject NodeId="ns=1;i=2" BrowseName="Submodels" ParentNodeId="i=85">
     <DisplayName>Submodels</DisplayName>
     <References>
@@ -52,7 +57,7 @@
     <DisplayName>AssetInterfacesMappingConfiguration</DisplayName>
     <References>
       <Reference ReferenceType="i=47">ns=1;i=8</Reference>
-      <Reference ReferenceType="i=40">ns=2;i=1006</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
     </References>
   </UAObject>
@@ -64,39 +69,28 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=9" BrowseName="" ParentNodeId="ns=1;i=8">
-    <DisplayName />
+  <UAObject NodeId="ns=1;i=9" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesMappingConfiguration/1/0/MappingConfiguration" ParentNodeId="ns=1;i=8">
+    <DisplayName>https://admin-shell.io/idta/AssetInterfacesMappingConfiguration/1/0/MappingConfiguration</DisplayName>
     <References>
       <Reference ReferenceType="i=47">ns=1;i=10</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=11</Reference>
       <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAObject>
-  <UAVariable NodeId="ns=1;i=10" BrowseName="InterfaceReference" ParentNodeId="ns=1;i=9" DataType="i=12" ValueRank="0">
-    <DisplayName>InterfaceReference</DisplayName>
-    <Description Locale="en">InterfaceReference</Description>
-    <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
-      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=9</Reference>
-    </References>
-    <Value>
-      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/AssetInterfacesMappingConfiguration/1/0/InterfaceReference</String>
-    </Value>
-  </UAVariable>
-  <UAObject NodeId="ns=1;i=11" BrowseName="MappingSourceSinkRelations" ParentNodeId="ns=1;i=9">
+  <UAObject NodeId="ns=1;i=10" BrowseName="MappingSourceSinkRelations" ParentNodeId="ns=1;i=9">
     <DisplayName>MappingSourceSinkRelations</DisplayName>
     <References>
-      <Reference ReferenceType="i=47">ns=1;i=12</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=11</Reference>
       <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=9</Reference>
     </References>
   </UAObject>
-  <UAVariable NodeId="ns=1;i=12" BrowseName="" ParentNodeId="ns=1;i=11" DataType="i=12" ValueRank="0">
-    <DisplayName />
+  <UAVariable NodeId="ns=1;i=11" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesMappingConfiguration/1/0/MappingSourceSinkRelation" ParentNodeId="ns=1;i=10" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/AssetInterfacesMappingConfiguration/1/0/MappingSourceSinkRelation</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/AssetInterfacesMappingConfiguration/1/0/MappingSourceSinkRelation</Description>
     <References>
       <Reference ReferenceType="i=40">i=63</Reference>
-      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=11</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=10</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/AssetInterfacesMappingConfiguration/1/0/MappingSourceSinkRelation</String>
@@ -105,6 +99,7 @@
   <UAObject NodeId="ns=1;i=3" BrowseName="Concept Descriptions" ParentNodeId="i=85">
     <DisplayName>Concept Descriptions</DisplayName>
     <References>
+      <Reference ReferenceType="i=47">ns=1;i=12</Reference>
       <Reference ReferenceType="i=47">ns=1;i=13</Reference>
       <Reference ReferenceType="i=47">ns=1;i=14</Reference>
       <Reference ReferenceType="i=47">ns=1;i=15</Reference>
@@ -209,744 +204,1055 @@
       <Reference ReferenceType="i=47">ns=1;i=114</Reference>
       <Reference ReferenceType="i=47">ns=1;i=115</Reference>
       <Reference ReferenceType="i=47">ns=1;i=116</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=117</Reference>
       <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=13" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/Submodel;AssetInterfacesDescription" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/Submodel;AssetInterfacesDescription</DisplayName>
+  <UAVariable NodeId="ns=1;i=12" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/Submodel" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/Submodel</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/AssetInterfacesDescription/1/0/Submodel</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=14" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/Interface;GenericInterface" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/Interface;GenericInterface</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">AssetInterfacesDescription</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=13" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/Interface" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/Interface</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/AssetInterfacesDescription/1/0/Interface</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=15" BrowseName="0:https://www.w3.org/2019/wot/td#title;title" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/td#title;title</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">GenericInterface</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=14" BrowseName="0:https://www.w3.org/2019/wot/td#title" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/td#title</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/td#title</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=16" BrowseName="0:https://www.w3.org/2019/wot/td#created;created" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/td#created;created</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">title</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=15" BrowseName="0:https://www.w3.org/2019/wot/td#created" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/td#created</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/td#created</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=17" BrowseName="0:https://www.w3.org/2019/wot/td#modified;modified" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/td#modified;modified</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">created</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=16" BrowseName="0:https://www.w3.org/2019/wot/td#modified" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/td#modified</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/td#modified</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=18" BrowseName="0:https://www.w3.org/2019/wot/td#support;support" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/td#support;support</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">modified</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=17" BrowseName="0:https://www.w3.org/2019/wot/td#support" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/td#support</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/td#support</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=19" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/EndpointMetadata;EndpointMetadata" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/EndpointMetadata;EndpointMetadata</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">support</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=18" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/EndpointMetadata" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/EndpointMetadata</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/AssetInterfacesDescription/1/0/EndpointMetadata</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=20" BrowseName="0:https://www.w3.org/2019/wot/td#baseURI;base" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/td#baseURI;base</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">EndpointMetadata</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=19" BrowseName="0:https://www.w3.org/2019/wot/td#baseURI" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/td#baseURI</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/td#baseURI</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=21" BrowseName="0:https://www.w3.org/2019/wot/hypermedia#forContentType;contentType" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/hypermedia#forContentType;contentType</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">base</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=20" BrowseName="0:https://www.w3.org/2019/wot/hypermedia#forContentType" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/hypermedia#forContentType</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/hypermedia#forContentType</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=22" BrowseName="0:https://www.w3.org/2019/wot/td#hasSecurityConfiguration;security" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/td#hasSecurityConfiguration;security</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">contentType</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=21" BrowseName="0:https://www.w3.org/2019/wot/td#hasSecurityConfiguration" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/td#hasSecurityConfiguration</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/td#hasSecurityConfiguration</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=23" BrowseName="0:https://www.w3.org/2019/wot/td#definesSecurityScheme;securityDefinitions" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/td#definesSecurityScheme;securityDefinitions</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">security</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=22" BrowseName="0:https://www.w3.org/2019/wot/td#definesSecurityScheme" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/td#definesSecurityScheme</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/td#definesSecurityScheme</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=24" BrowseName="0:https://www.w3.org/2019/wot/security#NoSecurityScheme;nosec_sc" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#NoSecurityScheme;nosec_sc</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">securityDefinitions</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=23" BrowseName="0:https://www.w3.org/2019/wot/security#NoSecurityScheme" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#NoSecurityScheme</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#NoSecurityScheme</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=25" BrowseName="0:https://www.w3.org/2019/wot/security#AutoSecurityScheme;auto_sc" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#AutoSecurityScheme;auto_sc</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">nosec_sc</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=24" BrowseName="0:https://www.w3.org/2019/wot/security#AutoSecurityScheme" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#AutoSecurityScheme</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#AutoSecurityScheme</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=26" BrowseName="0:https://www.w3.org/2019/wot/security#proxy;proxy" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#proxy;proxy</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">auto_sc</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=25" BrowseName="0:https://www.w3.org/2019/wot/security#proxy" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#proxy</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#proxy</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=27" BrowseName="0:https://www.w3.org/2019/wot/security#BasicSecurityScheme;basic_sc" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#BasicSecurityScheme;basic_sc</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">proxy</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=26" BrowseName="0:https://www.w3.org/2019/wot/security#BasicSecurityScheme" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#BasicSecurityScheme</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#BasicSecurityScheme</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=28" BrowseName="0:https://www.w3.org/2019/wot/security#name;name" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#name;name</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">basic_sc</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=27" BrowseName="0:https://www.w3.org/2019/wot/security#name" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#name</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#name</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=29" BrowseName="0:https://www.w3.org/2019/wot/security#in;in" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#in;in</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">name</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=28" BrowseName="0:https://www.w3.org/2019/wot/security#in" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#in</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#in</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=30" BrowseName="0:https://www.w3.org/2019/wot/security#ComboSecurityScheme;combo_sc" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#ComboSecurityScheme;combo_sc</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">in</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=29" BrowseName="0:https://www.w3.org/2019/wot/security#ComboSecurityScheme" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#ComboSecurityScheme</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#ComboSecurityScheme</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=31" BrowseName="0:https://www.w3.org/2019/wot/json-schema#oneOf;oneOf" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/json-schema#oneOf;oneOf</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">combo_sc</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=30" BrowseName="0:https://www.w3.org/2019/wot/json-schema#oneOf" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/json-schema#oneOf</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/json-schema#oneOf</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=32" BrowseName="0:https://www.w3.org/2019/wot/json-schema#allOf;allOf" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/json-schema#allOf;allOf</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">oneOf</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=31" BrowseName="0:https://www.w3.org/2019/wot/json-schema#allOf" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/json-schema#allOf</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/json-schema#allOf</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=33" BrowseName="0:https://www.w3.org/2019/wot/security#APIKeySecurityScheme;apikey_sc" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#APIKeySecurityScheme;apikey_sc</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">allOf</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=32" BrowseName="0:https://www.w3.org/2019/wot/security#APIKeySecurityScheme" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#APIKeySecurityScheme</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#APIKeySecurityScheme</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=34" BrowseName="0:https://www.w3.org/2019/wot/security#PSKSecurityScheme;psk_sc" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#PSKSecurityScheme;psk_sc</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">apikey_sc</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=33" BrowseName="0:https://www.w3.org/2019/wot/security#PSKSecurityScheme" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#PSKSecurityScheme</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#PSKSecurityScheme</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=35" BrowseName="0:https://www.w3.org/2019/wot/security#identity;identity" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#identity;identity</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">psk_sc</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=34" BrowseName="0:https://www.w3.org/2019/wot/security#identity" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#identity</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#identity</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=36" BrowseName="0:https://www.w3.org/2019/wot/security#DigestSecurityScheme;digest_sc" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#DigestSecurityScheme;digest_sc</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">identity</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=35" BrowseName="0:https://www.w3.org/2019/wot/security#DigestSecurityScheme" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#DigestSecurityScheme</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#DigestSecurityScheme</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=37" BrowseName="0:https://www.w3.org/2019/wot/security#BearerSecurityScheme;bearer_sc" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#BearerSecurityScheme;bearer_sc</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">digest_sc</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=36" BrowseName="0:https://www.w3.org/2019/wot/security#BearerSecurityScheme" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#BearerSecurityScheme</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#BearerSecurityScheme</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=38" BrowseName="0:https://www.w3.org/2019/wot/security#authorization;authorization" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#authorization;authorization</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">bearer_sc</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=37" BrowseName="0:https://www.w3.org/2019/wot/security#authorization" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#authorization</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#authorization</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=39" BrowseName="0:https://www.w3.org/2019/wot/security#alg;alg" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#alg;alg</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">authorization</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=38" BrowseName="0:https://www.w3.org/2019/wot/security#alg" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#alg</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#alg</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=40" BrowseName="0:https://www.w3.org/2019/wot/security#format;format" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#format;format</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">alg</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=39" BrowseName="0:https://www.w3.org/2019/wot/security#format" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#format</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#format</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=41" BrowseName="0:https://www.w3.org/2019/wot/security#OAuth2SecurityScheme;oauth2_sc" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#OAuth2SecurityScheme;oauth2_sc</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">format</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=40" BrowseName="0:https://www.w3.org/2019/wot/security#OAuth2SecurityScheme" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#OAuth2SecurityScheme</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#OAuth2SecurityScheme</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=42" BrowseName="0:https://www.w3.org/2019/wot/security#token;token" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#token;token</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">oauth2_sc</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=41" BrowseName="0:https://www.w3.org/2019/wot/security#token" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#token</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#token</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=43" BrowseName="0:https://www.w3.org/2019/wot/security#refresh;refresh" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#refresh;refresh</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">token</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=42" BrowseName="0:https://www.w3.org/2019/wot/security#refresh" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#refresh</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#refresh</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=44" BrowseName="0:https://www.w3.org/2019/wot/security#scopes;scopes" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#scopes;scopes</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">refresh</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=43" BrowseName="0:https://www.w3.org/2019/wot/security#scopes" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#scopes</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#scopes</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=45" BrowseName="0:https://www.w3.org/2019/wot/security#flow;flow" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/security#flow;flow</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">scopes</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=44" BrowseName="0:https://www.w3.org/2019/wot/security#flow" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/security#flow</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/security#flow</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=46" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/InteractionMetadata;InteractionMetadata" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/InteractionMetadata;InteractionMetadata</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">flow</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=45" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/InteractionMetadata" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/InteractionMetadata</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/AssetInterfacesDescription/1/0/InteractionMetadata</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=47" BrowseName="0:https://www.w3.org/2019/wot/td#PropertyAffordance;propertiesAffordance" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/td#PropertyAffordance;propertiesAffordance</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InteractionMetadata</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=46" BrowseName="0:https://www.w3.org/2019/wot/td#PropertyAffordance" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/td#PropertyAffordance</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/td#PropertyAffordance</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=48" BrowseName="0:https://admin-shell.io/idta/AssetInterfaceDescription/1/0/PropertyDefinition;propertyName" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/AssetInterfaceDescription/1/0/PropertyDefinition;propertyName</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">propertiesAffordance</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=47" BrowseName="0:https://admin-shell.io/idta/AssetInterfaceDescription/1/0/PropertyDefinition" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/AssetInterfaceDescription/1/0/PropertyDefinition</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/AssetInterfaceDescription/1/0/PropertyDefinition</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=49" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/key;key" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/key;key</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">propertyName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=48" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/key" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/key</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/AssetInterfacesDescription/1/0/key</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=50" BrowseName="0:https://www.w3.org/1999/02/22-rdf-syntax-ns#type;type" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/1999/02/22-rdf-syntax-ns#type;type</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">key</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=49" BrowseName="0:https://www.w3.org/1999/02/22-rdf-syntax-ns#type" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/1999/02/22-rdf-syntax-ns#type</DisplayName>
+    <Description Locale="en">https://www.w3.org/1999/02/22-rdf-syntax-ns#type</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=51" BrowseName="0:https://www.w3.org/2019/wot/td#isObservable;observable" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/td#isObservable;observable</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">type</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=50" BrowseName="0:https://www.w3.org/2019/wot/td#isObservable" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/td#isObservable</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/td#isObservable</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=52" BrowseName="0:https://www.w3.org/2019/wot/json-schema#const;const" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/json-schema#const;const</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">observable</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=51" BrowseName="0:https://www.w3.org/2019/wot/json-schema#const" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/json-schema#const</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/json-schema#const</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=53" BrowseName="0:https://www.w3.org/2019/wot/json-schema#default;default" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/json-schema#default;default</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">const</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=52" BrowseName="0:https://www.w3.org/2019/wot/json-schema#default" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/json-schema#default</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/json-schema#default</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=54" BrowseName="0:https://schema.org/unitCode;unit" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://schema.org/unitCode;unit</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">default</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=53" BrowseName="0:https://schema.org/unitCode" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://schema.org/unitCode</DisplayName>
+    <Description Locale="en">https://schema.org/unitCode</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=55" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/minMaxRange;min_max" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/minMaxRange;min_max</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">unit</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=54" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/minMaxRange" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/minMaxRange</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/AssetInterfacesDescription/1/0/minMaxRange</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=56" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/lengthRange;lengthRange" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/lengthRange;lengthRange</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">min_max</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=55" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/lengthRange" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/lengthRange</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/AssetInterfacesDescription/1/0/lengthRange</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=57" BrowseName="0:https://www.w3.org/2019/wot/json-schema#items;items" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/json-schema#items;items</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">lengthRange</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=56" BrowseName="0:https://www.w3.org/2019/wot/json-schema#items" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/json-schema#items</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/json-schema#items</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=58" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/valueSemantics;valueSemantics" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/valueSemantics;valueSemantics</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">items</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=57" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/valueSemantics" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/valueSemantics</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/AssetInterfacesDescription/1/0/valueSemantics</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=59" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/itemsRange;itemsRange" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/itemsRange;itemsRange</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">valueSemantics</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=58" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/itemsRange" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/itemsRange</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/AssetInterfacesDescription/1/0/itemsRange</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=60" BrowseName="0:https://www.w3.org/2019/wot/json-schema#properties;properties" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/json-schema#properties;properties</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">itemsRange</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=59" BrowseName="0:https://www.w3.org/2019/wot/json-schema#properties" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/json-schema#properties</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/json-schema#properties</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=61" BrowseName="0:https://www.w3.org/2019/wot/json-schema#propertyName;propertyName" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/json-schema#propertyName;propertyName</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">properties</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=60" BrowseName="0:https://www.w3.org/2019/wot/json-schema#propertyName" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/json-schema#propertyName</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/json-schema#propertyName</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=62" BrowseName="0:https://www.w3.org/2019/wot/td#hasForm;forms" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/td#hasForm;forms</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">propertyName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=61" BrowseName="0:https://www.w3.org/2019/wot/td#hasForm" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/td#hasForm</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/td#hasForm</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=63" BrowseName="0:https://www.w3.org/2019/wot/hypermedia#hasTarget;href" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/hypermedia#hasTarget;href</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">forms</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=62" BrowseName="0:https://www.w3.org/2019/wot/hypermedia#hasTarget" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/hypermedia#hasTarget</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/hypermedia#hasTarget</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=64" BrowseName="0:https://www.w3.org/2011/http#methodName;htv_methodName" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2011/http#methodName;htv_methodName</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">href</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=63" BrowseName="0:https://www.w3.org/2011/http#methodName" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2011/http#methodName</DisplayName>
+    <Description Locale="en">https://www.w3.org/2011/http#methodName</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=65" BrowseName="0:https://www.w3.org/2011/http#headers;htv_headers" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2011/http#headers;htv_headers</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">htv_methodName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=64" BrowseName="0:https://www.w3.org/2011/http#headers" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2011/http#headers</DisplayName>
+    <Description Locale="en">https://www.w3.org/2011/http#headers</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=66" BrowseName="0:https://www.w3.org/2011/http#fieldName;htv_fieldName" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2011/http#fieldName;htv_fieldName</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">htv_headers</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=65" BrowseName="0:https://www.w3.org/2011/http#fieldName" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2011/http#fieldName</DisplayName>
+    <Description Locale="en">https://www.w3.org/2011/http#fieldName</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=67" BrowseName="0:https://www.w3.org/2011/http#fieldValue;htv_fieldValue" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2011/http#fieldValue;htv_fieldValue</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">htv_fieldName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=66" BrowseName="0:https://www.w3.org/2011/http#fieldValue" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2011/http#fieldValue</DisplayName>
+    <Description Locale="en">https://www.w3.org/2011/http#fieldValue</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=68" BrowseName="0:https://www.w3.org/2019/wot/td#ActionAffordance;actions" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/td#ActionAffordance;actions</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">htv_fieldValue</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=67" BrowseName="0:https://www.w3.org/2019/wot/td#ActionAffordance" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/td#ActionAffordance</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/td#ActionAffordance</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=69" BrowseName="0:https://www.w3.org/2019/wot/td#EventAffordance;events" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/td#EventAffordance;events</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">actions</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=68" BrowseName="0:https://www.w3.org/2019/wot/td#EventAffordance" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/td#EventAffordance</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/td#EventAffordance</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=70" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/ExternalDescriptor;ExternalDescriptor" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/ExternalDescriptor;ExternalDescriptor</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">events</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=69" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/ExternalDescriptor" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/ExternalDescriptor</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/AssetInterfacesDescription/1/0/ExternalDescriptor</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=71" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/externalDescriptorName;fileName" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/externalDescriptorName;fileName</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ExternalDescriptor</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=70" BrowseName="0:https://admin-shell.io/idta/AssetInterfacesDescription/1/0/externalDescriptorName" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/AssetInterfacesDescription/1/0/externalDescriptorName</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/AssetInterfacesDescription/1/0/externalDescriptorName</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=72" BrowseName="0:https://www.w3.org/2019/wot/modbus#hasFunction;modv_function" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/modbus#hasFunction;modv_function</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">fileName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=71" BrowseName="0:https://www.w3.org/2019/wot/modbus#hasFunction" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/modbus#hasFunction</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/modbus#hasFunction</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=73" BrowseName="0:https://www.w3.org/2019/wot/modbus#hasEntity;modv_entity" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/modbus#hasEntity;modv_entity</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">modv_function</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=72" BrowseName="0:https://www.w3.org/2019/wot/modbus#hasEntity" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/modbus#hasEntity</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/modbus#hasEntity</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=74" BrowseName="0:https://www.w3.org/2019/wot/modbus#hasZeroBasedAddressingFlag;modv_zeroBasedAddressing" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/modbus#hasZeroBasedAddressingFlag;modv_zeroBasedAddressing</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">modv_entity</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=73" BrowseName="0:https://www.w3.org/2019/wot/modbus#hasZeroBasedAddressingFlag" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/modbus#hasZeroBasedAddressingFlag</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/modbus#hasZeroBasedAddressingFlag</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=75" BrowseName="0:https://www.w3.org/2019/wot/modbus#hasPollingTime;modv_pollingTime" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/modbus#hasPollingTime;modv_pollingTime</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">modv_zeroBasedAddressing</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=74" BrowseName="0:https://www.w3.org/2019/wot/modbus#hasPollingTime" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/modbus#hasPollingTime</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/modbus#hasPollingTime</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=76" BrowseName="0:https://www.w3.org/2019/wot/modbus#hasTimeout;modv_timeout" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/modbus#hasTimeout;modv_timeout</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">modv_pollingTime</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=75" BrowseName="0:https://www.w3.org/2019/wot/modbus#hasTimeout" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/modbus#hasTimeout</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/modbus#hasTimeout</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=77" BrowseName="0:https://www.w3.org/2019/wot/modbus#hasPayloadDataType;modv_type" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/modbus#hasPayloadDataType;modv_type</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">modv_timeout</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=76" BrowseName="0:https://www.w3.org/2019/wot/modbus#hasPayloadDataType" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/modbus#hasPayloadDataType</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/modbus#hasPayloadDataType</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=78" BrowseName="0:https://www.w3.org/2019/wot/mqtt#hasRetainFlag;mqv_retain" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/mqtt#hasRetainFlag;mqv_retain</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">modv_type</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=77" BrowseName="0:https://www.w3.org/2019/wot/mqtt#hasRetainFlag" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/mqtt#hasRetainFlag</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/mqtt#hasRetainFlag</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=79" BrowseName="0:https://www.w3.org/2019/wot/mqtt#ControlPacket;mqv_controlPacket" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/mqtt#ControlPacket;mqv_controlPacket</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">mqv_retain</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=78" BrowseName="0:https://www.w3.org/2019/wot/mqtt#ControlPacket" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/mqtt#ControlPacket</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/mqtt#ControlPacket</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=80" BrowseName="0:https://www.w3.org/2019/wot/modbus#hasMostSignificantByte;modv_mostSignificantByte" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/modbus#hasMostSignificantByte;modv_mostSignificantByte</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">mqv_controlPacket</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=79" BrowseName="0:https://www.w3.org/2019/wot/modbus#hasMostSignificantByte" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/modbus#hasMostSignificantByte</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/modbus#hasMostSignificantByte</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=81" BrowseName="0:https://www.w3.org/2019/wot/modbus#hasMostSignificantWord;modv_mostSignificantWord" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://www.w3.org/2019/wot/modbus#hasMostSignificantWord;modv_mostSignificantWord</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">modv_mostSignificantByte</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=80" BrowseName="0:https://www.w3.org/2019/wot/modbus#hasMostSignificantWord" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://www.w3.org/2019/wot/modbus#hasMostSignificantWord</DisplayName>
+    <Description Locale="en">https://www.w3.org/2019/wot/modbus#hasMostSignificantWord</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=82" BrowseName="0173-1#02-AAO677#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO677#002;</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">modv_mostSignificantWord</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=81" BrowseName="0173-1#02-AAO677#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO677#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO677#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=83" BrowseName="0173-1#02-AAW338#001;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAW338#001;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=82" BrowseName="0173-1#02-AAW338#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAW338#001</DisplayName>
+    <Description Locale="en">0173-1#02-AAW338#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=84" BrowseName="0173-1#02-AAQ832#005;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAQ832#005;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=83" BrowseName="0173-1#02-AAQ832#005" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAQ832#005</DisplayName>
+    <Description Locale="en">0173-1#02-AAQ832#005</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=85" BrowseName="0173-1#02-AAO127#003;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO127#003;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=84" BrowseName="0173-1#02-AAO127#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO127#003</DisplayName>
+    <Description Locale="en">0173-1#02-AAO127#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=86" BrowseName="0173-1#02-AAO128#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO128#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=85" BrowseName="0173-1#02-AAO128#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO128#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO128#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=87" BrowseName="0173-1#02-AAO129#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO129#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=86" BrowseName="0173-1#02-AAO129#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO129#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO129#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=88" BrowseName="0173-1#02-AAO130#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO130#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=87" BrowseName="0173-1#02-AAO130#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO130#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO130#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=89" BrowseName="0173-1#02-AAO131#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO131#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=88" BrowseName="0173-1#02-AAO131#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO131#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO131#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=90" BrowseName="0173-1#02-AAO132#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO132#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=89" BrowseName="0173-1#02-AAO132#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO132#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO132#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=91" BrowseName="0173-1#02-AAO133#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO133#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=90" BrowseName="0173-1#02-AAO133#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO133#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO133#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=92" BrowseName="0173-1#02-AAO134#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO134#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=91" BrowseName="0173-1#02-AAO134#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO134#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO134#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=93" BrowseName="0173-1#02-AAO135#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO135#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=92" BrowseName="0173-1#02-AAO135#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO135#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO135#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=94" BrowseName="0173-1#02-AAO202#003;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO202#003;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=93" BrowseName="0173-1#02-AAO202#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO202#003</DisplayName>
+    <Description Locale="en">0173-1#02-AAO202#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=95" BrowseName="0173-1#02-AAQ326#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAQ326#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=94" BrowseName="0173-1#02-AAQ326#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAQ326#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAQ326#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=96" BrowseName="0173-1#02-AAQ833#005;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAQ833#005;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=95" BrowseName="0173-1#02-AAQ833#005" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAQ833#005</DisplayName>
+    <Description Locale="en">0173-1#02-AAQ833#005</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=97" BrowseName="0173-1#02-AAO136#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO136#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=96" BrowseName="0173-1#02-AAO136#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO136#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO136#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=98" BrowseName="0173-1#02-AAO137#003;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO137#003;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=97" BrowseName="0173-1#02-AAO137#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO137#003</DisplayName>
+    <Description Locale="en">0173-1#02-AAO137#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=99" BrowseName="0173-1#02-AAQ834#005;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAQ834#005;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=98" BrowseName="0173-1#02-AAQ834#005" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAQ834#005</DisplayName>
+    <Description Locale="en">0173-1#02-AAQ834#005</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=100" BrowseName="0173-1#02-AAO195#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO195#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=99" BrowseName="0173-1#02-AAO195#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO195#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO195#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=101" BrowseName="0173-1#02-AAO196#003;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO196#003;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=100" BrowseName="0173-1#02-AAO196#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO196#003</DisplayName>
+    <Description Locale="en">0173-1#02-AAO196#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=102" BrowseName="0173-1#02-AAQ836#005;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAQ836#005;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=101" BrowseName="0173-1#02-AAQ836#005" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAQ836#005</DisplayName>
+    <Description Locale="en">0173-1#02-AAQ836#005</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=103" BrowseName="0173-1#02-AAO198#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO198#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=102" BrowseName="0173-1#02-AAO198#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO198#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO198#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=104" BrowseName="0173-1#02-AAO200#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO200#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=103" BrowseName="0173-1#02-AAO200#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO200#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO200#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=105" BrowseName="0173-1#02-AAO199#003;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO199#003;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=104" BrowseName="0173-1#02-AAO199#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO199#003</DisplayName>
+    <Description Locale="en">0173-1#02-AAO199#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=106" BrowseName="0173-1#02-AAO201#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO201#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=105" BrowseName="0173-1#02-AAO201#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO201#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO201#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=107" BrowseName="0173-1#02-AAU731#001;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAU731#001;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=106" BrowseName="0173-1#02-AAU731#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAU731#001</DisplayName>
+    <Description Locale="en">0173-1#02-AAU731#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=108" BrowseName="0173-1#02-AAM556#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAM556#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=107" BrowseName="0173-1#02-AAM556#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAM556#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAM556#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=109" BrowseName="0173-1#02-AAP906#001;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAP906#001;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=108" BrowseName="0173-1#02-AAP906#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAP906#001</DisplayName>
+    <Description Locale="en">0173-1#02-AAP906#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=110" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings;" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=109" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=111" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking;" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=110" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=112" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingName;" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingName;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=111" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingName" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingName</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingName</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=113" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingFile;" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingFile;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=112" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingFile" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingFile</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingFile</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=114" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingAdditionalText;" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingAdditionalText;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=113" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingAdditionalText" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingAdditionalText</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/Nameplate/Markings/Marking/MarkingAdditionalText</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=115" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties;" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=114" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=116" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties/GuidelineSpecificProperties;" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties/GuidelineSpecificProperties;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=115" BrowseName="0:https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties/GuidelineSpecificProperties" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties/GuidelineSpecificProperties</DisplayName>
+    <Description Locale="en">https://admin-shell.io/zvei/nameplate/1/0/Nameplate/AssetSpecificProperties/GuidelineSpecificProperties</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=117" BrowseName="0173-1#02-AAO856#002;" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO856#002;</DisplayName>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=116" BrowseName="0173-1#02-AAO856#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO856#002</DisplayName>
+    <Description Locale="en">0173-1#02-AAO856#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
+  </UAVariable>
 </UANodeSet>

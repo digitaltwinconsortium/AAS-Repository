@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-22T15:43:05.0258504Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-23T10:39:22.7190097Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
   <NamespaceUris>
     <Uri>http://opcfoundation.org/UA/HandoverDocumentationAAS/</Uri>
-    <Uri>http://opcfoundation.org/UA/I4AAS/</Uri>
   </NamespaceUris>
   <Models>
-    <Model ModelUri="http://opcfoundation.org/UA/HandoverDocumentationAAS/" Version="1.0.0" PublicationDate="2025-01-22T15:43:05Z">
-      <RequiredModel ModelUri="http://opcfoundation.org/UA/I4AAS/" Version="5.0.0" PublicationDate="2021-06-04T00:00:00Z"/>
-    </Model>
+    <Model ModelUri="http://opcfoundation.org/UA/HandoverDocumentationAAS/" Version="1.0.0" PublicationDate="2025-01-23T10:39:22Z"/>
   </Models>
   <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
     <DisplayName>Asset Admin Shells</DisplayName>
@@ -22,24 +19,32 @@
     <References>
       <Reference ReferenceType="i=47">ns=1;i=5</Reference>
       <Reference ReferenceType="i=47">ns=1;i=6</Reference>
-      <Reference ReferenceType="i=40">ns=2;i=1002</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/HandoverDocumentation/1/0" ParentNodeId="ns=1;i=4">
+  <UAVariable NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/HandoverDocumentation/1/0" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
     <DisplayName>https://admin-shell.io/idta/asset/HandoverDocumentation/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/asset/HandoverDocumentation/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1005</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/HandoverDocumentation/1/0" ParentNodeId="ns=1;i=4">
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/HandoverDocumentation/1/0" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
     <DisplayName>https://admin-shell.io/idta/SubmodelTemplate/HandoverDocumentation/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SubmodelTemplate/HandoverDocumentation/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1004</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
-  </UAObject>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
   <UAObject NodeId="ns=1;i=2" BrowseName="Submodels" ParentNodeId="i=85">
     <DisplayName>Submodels</DisplayName>
     <References>
@@ -53,8 +58,8 @@
     <References>
       <Reference ReferenceType="i=47">ns=1;i=8</Reference>
       <Reference ReferenceType="i=47">ns=1;i=9</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=35</Reference>
-      <Reference ReferenceType="i=40">ns=2;i=1006</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=31</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
     </References>
   </UAObject>
@@ -72,7 +77,6 @@
       <Reference ReferenceType="i=47">ns=1;i=10</Reference>
       <Reference ReferenceType="i=47">ns=1;i=14</Reference>
       <Reference ReferenceType="i=47">ns=1;i=18</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=34</Reference>
       <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
     </References>
@@ -163,9 +167,6 @@
       <Reference ReferenceType="i=47">ns=1;i=28</Reference>
       <Reference ReferenceType="i=47">ns=1;i=29</Reference>
       <Reference ReferenceType="i=47">ns=1;i=30</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=31</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=32</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=33</Reference>
       <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=9</Reference>
     </References>
@@ -262,40 +263,7 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=18</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=29" BrowseName="RefersTo__00__" ParentNodeId="ns=1;i=18" DataType="i=12" ValueRank="0">
-    <DisplayName>RefersTo__00__</DisplayName>
-    <Description Locale="en">RefersTo__00__</Description>
-    <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
-      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=18</Reference>
-    </References>
-    <Value>
-      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-ABK288#002</String>
-    </Value>
-  </UAVariable>
-  <UAVariable NodeId="ns=1;i=30" BrowseName="BasedOn__00__" ParentNodeId="ns=1;i=18" DataType="i=12" ValueRank="0">
-    <DisplayName>BasedOn__00__</DisplayName>
-    <Description Locale="en">BasedOn__00__</Description>
-    <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
-      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=18</Reference>
-    </References>
-    <Value>
-      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-ABK289#002</String>
-    </Value>
-  </UAVariable>
-  <UAVariable NodeId="ns=1;i=31" BrowseName="TranslationOf__00__" ParentNodeId="ns=1;i=18" DataType="i=12" ValueRank="0">
-    <DisplayName>TranslationOf__00__</DisplayName>
-    <Description Locale="en">TranslationOf__00__</Description>
-    <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
-      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=18</Reference>
-    </References>
-    <Value>
-      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">0173-1#02-ABK290#002</String>
-    </Value>
-  </UAVariable>
-  <UAVariable NodeId="ns=1;i=32" BrowseName="DigitalFile__00__" ParentNodeId="ns=1;i=18" DataType="i=12" ValueRank="0">
+  <UAVariable NodeId="ns=1;i=29" BrowseName="DigitalFile__00__" ParentNodeId="ns=1;i=18" DataType="i=12" ValueRank="0">
     <DisplayName>DigitalFile__00__</DisplayName>
     <Description Locale="en">DigitalFile__00__</Description>
     <References>
@@ -303,7 +271,7 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=18</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=33" BrowseName="PreviewFile__00__" ParentNodeId="ns=1;i=18" DataType="i=12" ValueRank="0">
+  <UAVariable NodeId="ns=1;i=30" BrowseName="PreviewFile__00__" ParentNodeId="ns=1;i=18" DataType="i=12" ValueRank="0">
     <DisplayName>PreviewFile__00__</DisplayName>
     <Description Locale="en">PreviewFile__00__</Description>
     <References>
@@ -311,18 +279,7 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=18</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=34" BrowseName="DocumentedEntity__00__" ParentNodeId="ns=1;i=9" DataType="i=12" ValueRank="0">
-    <DisplayName>DocumentedEntity__00__</DisplayName>
-    <Description Locale="en">DocumentedEntity__00__</Description>
-    <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
-      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=9</Reference>
-    </References>
-    <Value>
-      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/vdi/2770/1/0/Document/DocumentedEntity</String>
-    </Value>
-  </UAVariable>
-  <UAVariable NodeId="ns=1;i=35" BrowseName="Entity" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+  <UAVariable NodeId="ns=1;i=31" BrowseName="Entity" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
     <DisplayName>Entity</DisplayName>
     <Description Locale="en">Entity</Description>
     <References>
@@ -336,6 +293,10 @@
   <UAObject NodeId="ns=1;i=3" BrowseName="Concept Descriptions" ParentNodeId="i=85">
     <DisplayName>Concept Descriptions</DisplayName>
     <References>
+      <Reference ReferenceType="i=47">ns=1;i=32</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=33</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=34</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=35</Reference>
       <Reference ReferenceType="i=47">ns=1;i=36</Reference>
       <Reference ReferenceType="i=47">ns=1;i=37</Reference>
       <Reference ReferenceType="i=47">ns=1;i=38</Reference>
@@ -360,208 +321,316 @@
       <Reference ReferenceType="i=47">ns=1;i=57</Reference>
       <Reference ReferenceType="i=47">ns=1;i=58</Reference>
       <Reference ReferenceType="i=47">ns=1;i=59</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=60</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=61</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=62</Reference>
-      <Reference ReferenceType="i=47">ns=1;i=63</Reference>
       <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=36" BrowseName="0173-1#02-ABH994#003;DocumentDomainId" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABH994#003;DocumentDomainId</DisplayName>
+  <UAVariable NodeId="ns=1;i=32" BrowseName="0173-1#02-ABH994#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABH994#003</DisplayName>
+    <Description Locale="en">0173-1#02-ABH994#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=37" BrowseName="0173-1#02-AAO099#004;ValueId" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO099#004;ValueId</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">DocumentDomainId</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=33" BrowseName="0173-1#02-AAO099#004" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO099#004</DisplayName>
+    <Description Locale="en">0173-1#02-AAO099#004</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=38" BrowseName="0173-1#02-ABH995#004;IsPrimary" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABH995#004;IsPrimary</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ValueId</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=34" BrowseName="0173-1#02-ABH995#004" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABH995#004</DisplayName>
+    <Description Locale="en">0173-1#02-ABH995#004</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=39" BrowseName="0173-1#02-ABH996#003;ClassId" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABH996#003;ClassId</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">IsPrimary</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=35" BrowseName="0173-1#02-ABH996#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABH996#003</DisplayName>
+    <Description Locale="en">0173-1#02-ABH996#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=40" BrowseName="0173-1#02-ABJ219#003;ClassName" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABJ219#003;ClassName</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ClassId</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=36" BrowseName="0173-1#02-ABJ219#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABJ219#003</DisplayName>
+    <Description Locale="en">0173-1#02-ABJ219#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=41" BrowseName="0173-1#02-ABH997#003;ClassificationSystem" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABH997#003;ClassificationSystem</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ClassName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=37" BrowseName="0173-1#02-ABH997#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABH997#003</DisplayName>
+    <Description Locale="en">0173-1#02-ABH997#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=42" BrowseName="0173-1#02-AAN468#009;Language" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAN468#009;Language</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ClassificationSystem</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=38" BrowseName="0173-1#02-AAN468#009" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAN468#009</DisplayName>
+    <Description Locale="en">0173-1#02-AAN468#009</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=43" BrowseName="0173-1#02-AAP003#005;DocumentVersionId" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAP003#005;DocumentVersionId</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Language</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=39" BrowseName="0173-1#02-AAP003#005" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAP003#005</DisplayName>
+    <Description Locale="en">0173-1#02-AAP003#005</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=44" BrowseName="0173-1#02-ABG940#004;Title" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABG940#004;Title</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">DocumentVersionId</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=40" BrowseName="0173-1#02-ABG940#004" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABG940#004</DisplayName>
+    <Description Locale="en">0173-1#02-ABG940#004</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=45" BrowseName="0173-1#02-ABH998#003;SubTitle" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABH998#003;SubTitle</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Title</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=41" BrowseName="0173-1#02-ABH998#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABH998#003</DisplayName>
+    <Description Locale="en">0173-1#02-ABH998#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=46" BrowseName="0173-1#02-AAN466#004;Summary" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAN466#004;Summary</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SubTitle</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=42" BrowseName="0173-1#02-AAN466#004" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAN466#004</DisplayName>
+    <Description Locale="en">0173-1#02-AAN466#004</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=47" BrowseName="0173-1#02-ABH999#003;KeyWords" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABH999#003;KeyWords</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Summary</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=43" BrowseName="0173-1#02-ABH999#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABH999#003</DisplayName>
+    <Description Locale="en">0173-1#02-ABH999#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=48" BrowseName="0173-1#02-ABI000#003;StatusSetDate" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABI000#003;StatusSetDate</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">KeyWords</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=44" BrowseName="0173-1#02-ABI000#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABI000#003</DisplayName>
+    <Description Locale="en">0173-1#02-ABI000#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=49" BrowseName="0173-1#02-ABI001#003;StatusValue" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABI001#003;StatusValue</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">StatusSetDate</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=45" BrowseName="0173-1#02-ABI001#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABI001#003</DisplayName>
+    <Description Locale="en">0173-1#02-ABI001#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=50" BrowseName="0173-1#02-ABI002#003;OrganizationName" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABI002#003;OrganizationName</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">StatusValue</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=46" BrowseName="0173-1#02-ABI002#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABI002#003</DisplayName>
+    <Description Locale="en">0173-1#02-ABI002#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=51" BrowseName="0173-1#02-ABI004#003;OrganizationOfficialName" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABI004#003;OrganizationOfficialName</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">OrganizationName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=47" BrowseName="0173-1#02-ABI004#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABI004#003</DisplayName>
+    <Description Locale="en">0173-1#02-ABI004#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=52" BrowseName="0173-1#02-ABK288#002;RefersTo" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABK288#002;RefersTo</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">OrganizationOfficialName</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=48" BrowseName="0173-1#02-ABK288#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABK288#002</DisplayName>
+    <Description Locale="en">0173-1#02-ABK288#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=53" BrowseName="0173-1#02-ABK289#002;BasedOn" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABK289#002;BasedOn</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">RefersTo</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=49" BrowseName="0173-1#02-ABK289#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABK289#002</DisplayName>
+    <Description Locale="en">0173-1#02-ABK289#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=54" BrowseName="0173-1#02-ABK290#002;TranslationOf" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABK290#002;TranslationOf</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">BasedOn</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=50" BrowseName="0173-1#02-ABK290#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABK290#002</DisplayName>
+    <Description Locale="en">0173-1#02-ABK290#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=55" BrowseName="0173-1#02-AAO214#002 ;MimeType" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-AAO214#002 ;MimeType</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TranslationOf</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=51" BrowseName="0173-1#02-AAO214#002 " ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-AAO214#002 </DisplayName>
+    <Description Locale="en">0173-1#02-AAO214#002 </Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=56" BrowseName="0173-1#02-ABI005#001 ;DocumentPath" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABI005#001 ;DocumentPath</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MimeType</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=52" BrowseName="0173-1#02-ABI005#001 " ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABI005#001 </DisplayName>
+    <Description Locale="en">0173-1#02-ABI005#001 </Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=57" BrowseName="0173-1#02-ABI500#003/0173-1#01-AHF579#003*01;Document" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABI500#003/0173-1#01-AHF579#003*01;Document</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">DocumentPath</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=53" BrowseName="0173-1#02-ABI500#003/0173-1#01-AHF579#003*01" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABI500#003/0173-1#01-AHF579#003*01</DisplayName>
+    <Description Locale="en">0173-1#02-ABI500#003/0173-1#01-AHF579#003*01</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=58" BrowseName="0173-1#02-ABI501#003/0173-1#01-AHF580#001*03;DocumentId" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABI501#003/0173-1#01-AHF580#001*03;DocumentId</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Document</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=54" BrowseName="0173-1#02-ABI501#003/0173-1#01-AHF580#001*03" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABI501#003/0173-1#01-AHF580#001*03</DisplayName>
+    <Description Locale="en">0173-1#02-ABI501#003/0173-1#01-AHF580#001*03</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=59" BrowseName="0173-1#02-ABI502#003/0173-1#01-AHF581#003*01;DocumentClassification" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABI502#003/0173-1#01-AHF581#003*01;DocumentClassification</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">DocumentId</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=55" BrowseName="0173-1#02-ABI502#003/0173-1#01-AHF581#003*01" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABI502#003/0173-1#01-AHF581#003*01</DisplayName>
+    <Description Locale="en">0173-1#02-ABI502#003/0173-1#01-AHF581#003*01</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=60" BrowseName="0173-1#02-ABI503#003/0173-1#01-AHF582#003*01;DocumentVersion" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABI503#003/0173-1#01-AHF582#003*01;DocumentVersion</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">DocumentClassification</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=56" BrowseName="0173-1#02-ABI503#003/0173-1#01-AHF582#003*01" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABI503#003/0173-1#01-AHF582#003*01</DisplayName>
+    <Description Locale="en">0173-1#02-ABI503#003/0173-1#01-AHF582#003*01</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=61" BrowseName="0173-1#02-ABK126#003;DigitalFile" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABK126#003;DigitalFile</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">DocumentVersion</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=57" BrowseName="0173-1#02-ABK126#003" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABK126#003</DisplayName>
+    <Description Locale="en">0173-1#02-ABK126#003</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=62" BrowseName="0173-1#02-ABK127#002;PreviewFile" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABK127#002;PreviewFile</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">DigitalFile</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=58" BrowseName="0173-1#02-ABK127#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABK127#002</DisplayName>
+    <Description Locale="en">0173-1#02-ABK127#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=63" BrowseName="0173-1#02-ABH990#001;numberOfDocuments" ParentNodeId="ns=1;i=3">
-    <DisplayName>0173-1#02-ABH990#001;numberOfDocuments</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PreviewFile</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=59" BrowseName="0173-1#02-ABH990#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0173-1#02-ABH990#001</DisplayName>
+    <Description Locale="en">0173-1#02-ABH990#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">numberOfDocuments</String>
+    </Value>
+  </UAVariable>
 </UANodeSet>

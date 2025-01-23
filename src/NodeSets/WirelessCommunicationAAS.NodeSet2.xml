@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-22T15:43:08.6149869Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-23T10:39:26.332555Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
   <NamespaceUris>
     <Uri>http://opcfoundation.org/UA/WirelessCommunicationAAS/</Uri>
-    <Uri>http://opcfoundation.org/UA/I4AAS/</Uri>
   </NamespaceUris>
   <Models>
-    <Model ModelUri="http://opcfoundation.org/UA/WirelessCommunicationAAS/" Version="1.0.0" PublicationDate="2025-01-22T15:43:08Z">
-      <RequiredModel ModelUri="http://opcfoundation.org/UA/I4AAS/" Version="5.0.0" PublicationDate="2021-06-04T00:00:00Z"/>
-    </Model>
+    <Model ModelUri="http://opcfoundation.org/UA/WirelessCommunicationAAS/" Version="1.0.0" PublicationDate="2025-01-23T10:39:26Z"/>
   </Models>
   <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
     <DisplayName>Asset Admin Shells</DisplayName>
@@ -22,24 +19,32 @@
     <References>
       <Reference ReferenceType="i=47">ns=1;i=5</Reference>
       <Reference ReferenceType="i=47">ns=1;i=6</Reference>
-      <Reference ReferenceType="i=40">ns=2;i=1002</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/aas/WirelessCommunication/1/0" ParentNodeId="ns=1;i=4">
+  <UAVariable NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/aas/WirelessCommunication/1/0" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
     <DisplayName>https://admin-shell.io/idta/aas/WirelessCommunication/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/aas/WirelessCommunication/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1005</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/WirelessCommunication/1/0" ParentNodeId="ns=1;i=4">
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/WirelessCommunication/1/0" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
     <DisplayName>https://admin-shell.io/idta/SubmodelTemplate/WirelessCommunication/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SubmodelTemplate/WirelessCommunication/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1004</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
-  </UAObject>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
   <UAObject NodeId="ns=1;i=2" BrowseName="Submodels" ParentNodeId="i=85">
     <DisplayName>Submodels</DisplayName>
     <References>
@@ -59,7 +64,7 @@
       <Reference ReferenceType="i=47">ns=1;i=41</Reference>
       <Reference ReferenceType="i=47">ns=1;i=89</Reference>
       <Reference ReferenceType="i=47">ns=1;i=95</Reference>
-      <Reference ReferenceType="i=40">ns=2;i=1006</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
     </References>
   </UAObject>
@@ -877,102 +882,158 @@
       <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=98" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/WirelessCommunicationFunction/CommunicationCycle/1/0;CommunicationCycle" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/WirelessCommunicationFunction/CommunicationCycle/1/0;CommunicationCycle</DisplayName>
+  <UAVariable NodeId="ns=1;i=98" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/WirelessCommunicationFunction/CommunicationCycle/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/WirelessCommunicationFunction/CommunicationCycle/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/WirelessCommunicationFunction/CommunicationCycle/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=99" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/RadioFrequency/FrequencyBand/CenterFrequecy/1/0;CenterFrequecy" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/RadioFrequency/FrequencyBand/CenterFrequecy/1/0;CenterFrequecy</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CommunicationCycle</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=99" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/RadioFrequency/FrequencyBand/CenterFrequecy/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/RadioFrequency/FrequencyBand/CenterFrequecy/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/RadioFrequency/FrequencyBand/CenterFrequecy/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=100" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/ReceptionQualityIndicator/Range/1/0;Range" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/ReceptionQualityIndicator/Range/1/0;Range</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CenterFrequecy</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=100" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/ReceptionQualityIndicator/Range/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/ReceptionQualityIndicator/Range/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/ReceptionQualityIndicator/Range/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=101" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication /ReceptionQualityIndicator/SpecifiedValue/1/0;SpecifiedValue" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/WirelessCommunication /ReceptionQualityIndicator/SpecifiedValue/1/0;SpecifiedValue</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Range</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=101" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication /ReceptionQualityIndicator/SpecifiedValue/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication /ReceptionQualityIndicator/SpecifiedValue/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication /ReceptionQualityIndicator/SpecifiedValue/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=102" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/ ReceptionQualityIndicator/ReferenceValue/1/0;ReferenceValue" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/ ReceptionQualityIndicator/ReferenceValue/1/0;ReferenceValue</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SpecifiedValue</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=102" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/ ReceptionQualityIndicator/ReferenceValue/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/ ReceptionQualityIndicator/ReferenceValue/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/ ReceptionQualityIndicator/ReferenceValue/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=103" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/ ReceptionQualityIndicator/CurrentValue/1/0;CurrentValue" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/ ReceptionQualityIndicator/CurrentValue/1/0;CurrentValue</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ReferenceValue</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=103" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/ ReceptionQualityIndicator/CurrentValue/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/ ReceptionQualityIndicator/CurrentValue/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/ ReceptionQualityIndicator/CurrentValue/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=104" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/OutputPower/Range/1/0;Range" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/OutputPower/Range/1/0;Range</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CurrentValue</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=104" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/OutputPower/Range/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/OutputPower/Range/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/OutputPower/Range/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=105" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/OutputPower/SpecifiedValue/1/0;SpecifiedValue" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/OutputPower/SpecifiedValue/1/0;SpecifiedValue</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Range</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=105" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/OutputPower/SpecifiedValue/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/OutputPower/SpecifiedValue/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/OutputPower/SpecifiedValue/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=106" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/OutputPower/ReferenceValue/1/0;ReferenceValue" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/OutputPower/ReferenceValue/1/0;ReferenceValue</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SpecifiedValue</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=106" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/OutputPower/ReferenceValue/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/OutputPower/ReferenceValue/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/OutputPower/ReferenceValue/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=107" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/OutputPower/CurrentValue/1/0;CurrentValue" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/OutputPower/CurrentValue/1/0;CurrentValue</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ReferenceValue</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=107" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/OutputPower/CurrentValue/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/OutputPower/CurrentValue/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/OutputPower/CurrentValue/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=108" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/License/Frequency/1/0;Frequency" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/License/Frequency/1/0;Frequency</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CurrentValue</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=108" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/License/Frequency/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/License/Frequency/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/License/Frequency/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=109" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/License/Frequencies/1/0;Frequencies" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/License/Frequencies/1/0;Frequencies</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Frequency</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=109" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/License/Frequencies/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/License/Frequencies/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/License/Frequencies/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=110" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/LicenseAcquisitionTechnicalData/Bandwidth/1/0;Bandwidth" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/LicenseAcquisitionTechnicalData/Bandwidth/1/0;Bandwidth</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Frequencies</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=110" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/LicenseAcquisitionTechnicalData/Bandwidth/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/LicenseAcquisitionTechnicalData/Bandwidth/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/LicenseAcquisitionTechnicalData/Bandwidth/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=111" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/LicenseAcquisitionTechnicalData/TransmitterOutputPower/1/0;TransmiterOutputPower" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/LicenseAcquisitionTechnicalData/TransmitterOutputPower/1/0;TransmiterOutputPower</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Bandwidth</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=111" BrowseName="0:https://admin-shell.io/idta/WirelessCommunication/LicenseAcquisitionTechnicalData/TransmitterOutputPower/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/WirelessCommunication/LicenseAcquisitionTechnicalData/TransmitterOutputPower/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/WirelessCommunication/LicenseAcquisitionTechnicalData/TransmitterOutputPower/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TransmiterOutputPower</String>
+    </Value>
+  </UAVariable>
 </UANodeSet>

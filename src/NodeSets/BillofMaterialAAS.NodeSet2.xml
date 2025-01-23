@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-23T10:39:22.9415966Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+  <NamespaceUris>
+    <Uri>http://opcfoundation.org/UA/BillofMaterialAAS/</Uri>
+  </NamespaceUris>
+  <Models>
+    <Model ModelUri="http://opcfoundation.org/UA/BillofMaterialAAS/" Version="1.0.0" PublicationDate="2025-01-23T10:39:22Z"/>
+  </Models>
+  <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
+    <DisplayName>Asset Admin Shells</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=4</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=4" BrowseName="BillofMaterialAAS" ParentNodeId="ns=1;i=1">
+    <DisplayName>BillofMaterialAAS</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=5</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=6</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/HierarchicalStructuresBoM/1/1" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/asset/HierarchicalStructuresBoM/1/1</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/asset/HierarchicalStructuresBoM/1/1</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/HierarchicalStructuresBoM/1/1" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/SubmodelTemplate/HierarchicalStructuresBoM/1/1</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SubmodelTemplate/HierarchicalStructuresBoM/1/1</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=2" BrowseName="Submodels" ParentNodeId="i=85">
+    <DisplayName>Submodels</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=7</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+  <UAObject NodeId="ns=1;i=7" BrowseName="HierarchicalStructures" ParentNodeId="ns=1;i=2">
+    <DisplayName>HierarchicalStructures</DisplayName>
+    <References>
+      <Reference ReferenceType="i=47">ns=1;i=8</Reference>
+      <Reference ReferenceType="i=47">ns=1;i=9</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
+    </References>
+  </UAObject>
+  <UAVariable NodeId="ns=1;i=8" BrowseName="EntryNode" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>EntryNode</DisplayName>
+    <Description Locale="en">EntryNode</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">https://admin-shell.io/idta/HierarchicalStructures/EntryNode/1/0</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=9" BrowseName="ArcheType" ParentNodeId="ns=1;i=7" DataType="i=12" ValueRank="0">
+    <DisplayName>ArcheType</DisplayName>
+    <Description Locale="en">ArcheType</Description>
+    <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
+    </References>
+  </UAVariable>
+  <UAObject NodeId="ns=1;i=3" BrowseName="Concept Descriptions" ParentNodeId="i=85">
+    <DisplayName>Concept Descriptions</DisplayName>
+    <References>
+      <Reference ReferenceType="i=40">i=61</Reference>
+      <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
+    </References>
+  </UAObject>
+</UANodeSet>

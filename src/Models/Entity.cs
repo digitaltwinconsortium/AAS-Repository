@@ -17,7 +17,7 @@ namespace AdminShell
 
         [DataMember(Name = "globalAssetId")]
         [XmlElement(ElementName = "globalAssetId")]
-        public Reference GlobalAssetId { get; set; }
+        public string GlobalAssetId { get; set; }
 
         // Important note: XML serialization uses SubModel Element Wrappers while JSON serialization does not!
         // So we have to first deserialize into a placeholder Json member and then copy the contents into the correct member

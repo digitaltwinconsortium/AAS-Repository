@@ -223,7 +223,8 @@ namespace AdminShell
 
                     Debug.WriteLine("Total carbon intensity of batch: " + pcf.ToString() + " gCO2");
 
-                    // TODO: persist AAS with serial number and calculated PCF
+                    // persist AAS with serial number and calculated PCF
+                    PersistAAS(name, 1, pcf);
                 }
             }
             catch (Exception ex)
@@ -273,7 +274,8 @@ namespace AdminShell
                         // finally calculate our PCF
                         float pcf = scope1Emissions + scope2Emissions + scope3Emissions;
 
-                        // TODO: persist AAS with serial number and calculated PCF
+                        // persist AAS with serial number and calculated PCF
+                        PersistAAS(productionLineName, serialNumber, pcf);
                     }
                 }
             }
@@ -281,6 +283,11 @@ namespace AdminShell
             {
                 _logger.LogError(ex, ex.Message);
             }
+        }
+
+        private void PersistAAS(string productionLineName, double serialNumber, float pcf)
+        {
+            throw new NotImplementedException();
         }
 
         private ConcurrentDictionary<string, object> ADXQueryForSpecificValue(string stationName, string productionLineName, string valueToQuery, double desiredValue)

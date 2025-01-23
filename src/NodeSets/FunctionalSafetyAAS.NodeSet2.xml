@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-22T15:43:04.7878763Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-23T10:39:22.4850476Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
   <NamespaceUris>
     <Uri>http://opcfoundation.org/UA/FunctionalSafetyAAS/</Uri>
-    <Uri>http://opcfoundation.org/UA/I4AAS/</Uri>
   </NamespaceUris>
   <Models>
-    <Model ModelUri="http://opcfoundation.org/UA/FunctionalSafetyAAS/" Version="1.0.0" PublicationDate="2025-01-22T15:43:04Z">
-      <RequiredModel ModelUri="http://opcfoundation.org/UA/I4AAS/" Version="5.0.0" PublicationDate="2021-06-04T00:00:00Z"/>
-    </Model>
+    <Model ModelUri="http://opcfoundation.org/UA/FunctionalSafetyAAS/" Version="1.0.0" PublicationDate="2025-01-23T10:39:22Z"/>
   </Models>
   <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
     <DisplayName>Asset Admin Shells</DisplayName>
@@ -22,24 +19,32 @@
     <References>
       <Reference ReferenceType="i=47">ns=1;i=5</Reference>
       <Reference ReferenceType="i=47">ns=1;i=6</Reference>
-      <Reference ReferenceType="i=40">ns=2;i=1002</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/FunctionalSafety/1/0" ParentNodeId="ns=1;i=4">
+  <UAVariable NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/FunctionalSafety/1/0" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
     <DisplayName>https://admin-shell.io/idta/asset/FunctionalSafety/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/asset/FunctionalSafety/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1005</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/FunctionalSafety/1/0" ParentNodeId="ns=1;i=4">
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/FunctionalSafety/1/0" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
     <DisplayName>https://admin-shell.io/idta/SubmodelTemplate/FunctionalSafety/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/SubmodelTemplate/FunctionalSafety/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1004</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
-  </UAObject>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
+    </Value>
+  </UAVariable>
   <UAObject NodeId="ns=1;i=2" BrowseName="Submodels" ParentNodeId="i=85">
     <DisplayName>Submodels</DisplayName>
     <References>
@@ -54,7 +59,7 @@
       <Reference ReferenceType="i=47">ns=1;i=8</Reference>
       <Reference ReferenceType="i=47">ns=1;i=9</Reference>
       <Reference ReferenceType="i=47">ns=1;i=19</Reference>
-      <Reference ReferenceType="i=40">ns=2;i=1006</Reference>
+      <Reference ReferenceType="i=40">i=61</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=2</Reference>
     </References>
   </UAObject>
@@ -363,200 +368,312 @@
       <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
     </References>
   </UAObject>
-  <UAObject NodeId="ns=1;i=39" BrowseName="0112/2///62683#ACE005#001;NumberOfFunctionalSafetySetsOfCharacteristics" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACE005#001;NumberOfFunctionalSafetySetsOfCharacteristics</DisplayName>
+  <UAVariable NodeId="ns=1;i=39" BrowseName="0112/2///62683#ACE005#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACE005#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACE005#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=40" BrowseName="0112/2///62683#ACF057#001;OperatingConditionsOfFunctionalSafetyCharacteristics" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACF057#001;OperatingConditionsOfFunctionalSafetyCharacteristics</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">NumberOfFunctionalSafetySetsOfCharacteristics</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=40" BrowseName="0112/2///62683#ACF057#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACF057#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACF057#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=41" BrowseName="0112/2///62683#ACG057#001;OperatingConditionsOfFunctionalSafetyCharacteristics" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACG057#001;OperatingConditionsOfFunctionalSafetyCharacteristics</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">OperatingConditionsOfFunctionalSafetyCharacteristics</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=41" BrowseName="0112/2///62683#ACG057#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACG057#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACG057#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=42" BrowseName="0112/2///62683#ACE455#002;RatedOperationalVoltage" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACE455#002;RatedOperationalVoltage</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">OperatingConditionsOfFunctionalSafetyCharacteristics</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=42" BrowseName="0112/2///62683#ACE455#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACE455#002</DisplayName>
+    <Description Locale="en">0112/2///62683#ACE455#002</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=43" BrowseName="0112/2///62683#ACE534#001;RatedOperationalCurrentDc" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACE534#001;RatedOperationalCurrentDc</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">RatedOperationalVoltage</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=43" BrowseName="0112/2///62683#ACE534#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACE534#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACE534#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=44" BrowseName="0112/2///62683#ACE053#001;TypeOfInterlockingDevice" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACE053#001;TypeOfInterlockingDevice</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">RatedOperationalCurrentDc</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=44" BrowseName="0112/2///62683#ACE053#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACE053#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACE053#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=45" BrowseName="0112/2///62683#ACE070#001;OtherOperatingConditions" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACE070#001;OtherOperatingConditions</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TypeOfInterlockingDevice</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=45" BrowseName="0112/2///62683#ACE070#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACE070#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACE070#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=46" BrowseName="0112/2///62683#ACE055#001;UsefulLifeInNumberOfOperations" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACE055#001;UsefulLifeInNumberOfOperations</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">OtherOperatingConditions</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=46" BrowseName="0112/2///62683#ACE055#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACE055#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACE055#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=47" BrowseName="0112/2///62683#ACE054#001;UsefulLifeInTimeInterval" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACE054#001;UsefulLifeInTimeInterval</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">UsefulLifeInNumberOfOperations</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=47" BrowseName="0112/2///62683#ACE054#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACE054#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACE054#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=48" BrowseName="0112/2///62683#ACG070#001;SafetyDeviceandTypes" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACG070#001;SafetyDeviceandTypes</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">UsefulLifeInTimeInterval</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=48" BrowseName="0112/2///62683#ACG070#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACG070#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACG070#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=49" BrowseName="0112/2///62683#ACE071#001;FunctionalSafetyDeviceType" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACE071#001;FunctionalSafetyDeviceType</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SafetyDeviceandTypes</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=49" BrowseName="0112/2///62683#ACE071#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACE071#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACE071#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=50" BrowseName="0112/2///62683#ACG065#001;SafetySubsystem" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACG065#001;SafetySubsystem</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">FunctionalSafetyDeviceType</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=50" BrowseName="0112/2///62683#ACG065#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACG065#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACG065#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=51" BrowseName="0112/2///62683#ACE051#001;SafetyIntegrityLevel" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACE051#001;SafetyIntegrityLevel</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SafetySubsystem</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=51" BrowseName="0112/2///62683#ACE051#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACE051#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACE051#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=52" BrowseName="0112/2///62683#ACE052#001;ProbabilityOfDangerousFailureWithinOneHour" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACE052#001;ProbabilityOfDangerousFailureWithinOneHour</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">SafetyIntegrityLevel</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=52" BrowseName="0112/2///62683#ACE052#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACE052#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACE052#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=53" BrowseName="0112/2///62683#ACE063#001;Category" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACE063#001;Category</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ProbabilityOfDangerousFailureWithinOneHour</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=53" BrowseName="0112/2///62683#ACE063#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACE063#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACE063#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=54" BrowseName="0112/2///62683#ACG066#001;ElectronicElement" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACG066#001;ElectronicElement</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Category</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=54" BrowseName="0112/2///62683#ACG066#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACG066#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACG066#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=55" BrowseName="0112/2///62683#ACE057#001;MeanTimeToDangerousFailure" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACE057#001;MeanTimeToDangerousFailure</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ElectronicElement</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=55" BrowseName="0112/2///62683#ACE057#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACE057#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACE057#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=56" BrowseName="0112/2///62683#ACG067#001;ElectromechanicalElement" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACG067#001;ElectromechanicalElement</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MeanTimeToDangerousFailure</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=56" BrowseName="0112/2///62683#ACG067#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACG067#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACG067#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=57" BrowseName="0112/2///62683#ACE056#001;NumberOfOperationsUntilTenPercentDangerousFailure" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACE056#001;NumberOfOperationsUntilTenPercentDangerousFailure</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ElectromechanicalElement</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=57" BrowseName="0112/2///62683#ACE056#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACE056#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACE056#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=58" BrowseName="0112/2///62683#ACG069#001;InherentlySafeSubsystem" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACG069#001;InherentlySafeSubsystem</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">NumberOfOperationsUntilTenPercentDangerousFailure</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=58" BrowseName="0112/2///62683#ACG069#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACG069#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACG069#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=59" BrowseName="0112/2///62683#ACE058#001;ProofTestInterval" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACE058#001;ProofTestInterval</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">InherentlySafeSubsystem</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=59" BrowseName="0112/2///62683#ACE058#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACE058#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACE058#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=60" BrowseName="0112/2///62683#ACE060#001;PerformanceLevel" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///62683#ACE060#001;PerformanceLevel</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ProofTestInterval</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=60" BrowseName="0112/2///62683#ACE060#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///62683#ACE060#001</DisplayName>
+    <Description Locale="en">0112/2///62683#ACE060#001</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=61" BrowseName="0:https://admin-shell.io/idta/FunctionalSafety/RDF/1/0;RDF" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/FunctionalSafety/RDF/1/0;RDF</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PerformanceLevel</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=61" BrowseName="0:https://admin-shell.io/idta/FunctionalSafety/RDF/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/FunctionalSafety/RDF/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/FunctionalSafety/RDF/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=62" BrowseName="0112/2///61987#ABA969#007;TypeOfVoltage" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABA969#007;TypeOfVoltage</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">RDF</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=62" BrowseName="0112/2///61987#ABA969#007" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABA969#007</DisplayName>
+    <Description Locale="en">0112/2///61987#ABA969#007</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=63" BrowseName="0112/2///61987#ABA588#004;RatedVoltage" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABA588#004;RatedVoltage</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TypeOfVoltage</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=63" BrowseName="0112/2///61987#ABA588#004" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABA588#004</DisplayName>
+    <Description Locale="en">0112/2///61987#ABA588#004</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=64" BrowseName="0112/2///61987#ABD461#004;MinimumRatedVoltage" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABD461#004;MinimumRatedVoltage</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">RatedVoltage</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=64" BrowseName="0112/2///61987#ABD461#004" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABD461#004</DisplayName>
+    <Description Locale="en">0112/2///61987#ABD461#004</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=65" BrowseName="0112/2///61987#ABD462#004;MaximumRatedVoltage" ParentNodeId="ns=1;i=3">
-    <DisplayName>0112/2///61987#ABD462#004;MaximumRatedVoltage</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MinimumRatedVoltage</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=65" BrowseName="0112/2///61987#ABD462#004" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>0112/2///61987#ABD462#004</DisplayName>
+    <Description Locale="en">0112/2///61987#ABD462#004</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
-  <UAObject NodeId="ns=1;i=66" BrowseName="0:https://admin-shell.io/idta/FunctionalSafety/RatedOperationalCurrent/1/0;RatedOperationalCurrent" ParentNodeId="ns=1;i=3">
-    <DisplayName>https://admin-shell.io/idta/FunctionalSafety/RatedOperationalCurrent/1/0;RatedOperationalCurrent</DisplayName>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">MaximumRatedVoltage</String>
+    </Value>
+  </UAVariable>
+  <UAVariable NodeId="ns=1;i=66" BrowseName="0:https://admin-shell.io/idta/FunctionalSafety/RatedOperationalCurrent/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
+    <DisplayName>https://admin-shell.io/idta/FunctionalSafety/RatedOperationalCurrent/1/0</DisplayName>
+    <Description Locale="en">https://admin-shell.io/idta/FunctionalSafety/RatedOperationalCurrent/1/0</Description>
     <References>
-      <Reference ReferenceType="i=40">ns=2;i=1007</Reference>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
-  </UAObject>
+    <Value>
+      <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">RatedOperationalCurrent</String>
+    </Value>
+  </UAVariable>
 </UANodeSet>

@@ -34,13 +34,13 @@
     <Content Include="LICENSE.TXT">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="I4AAS.NodeSet2.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="NodeSets\AssetInterfaceDescriptionAAS.NodeSet2.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="NodeSets\AssetInterfaceMappingConfigurationAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\BillofMaterialAAS.NodeSet2.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="NodeSets\CarbonFootprintAAS.NodeSet2.xml">
@@ -95,6 +95,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="NodeSets\ServiceRequestNotificationAAS.NodeSet2.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NodeSets\SizingofPowerDriveTrainsAAS.NodeSet2.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="NodeSets\SoftwareNameplateAAS.NodeSet2.xml">
