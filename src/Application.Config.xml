@@ -22,19 +22,19 @@
 
     <!-- The location of the application instance certificate in the Windows certificate store -->
     <ApplicationCertificate>
-      <StoreType>X509Store</StoreType>
-      <StorePath>CurrentUser\My</StorePath>
-      <SubjectName>UA NodeSet Web Viewer</SubjectName>
+      <StoreType>Directory</StoreType>
+      <StorePath>./pki/own</StorePath>
+      <SubjectName>AAS-Repository</SubjectName>
     </ApplicationCertificate>
 
     <TrustedIssuerCertificates>
       <StoreType>Directory</StoreType>
-      <StorePath>%LocalFolder%/OPC Foundation/CertificateStores/UA Certificate Authorities</StorePath>
+      <StorePath>./pki/issuer</StorePath>
     </TrustedIssuerCertificates>
 
     <TrustedPeerCertificates>
       <StoreType>Directory</StoreType>
-      <StorePath>%LocalFolder%/OPC Foundation/CertificateStores/UA Applications</StorePath>
+      <StorePath>./pki/trusted</StorePath>
     </TrustedPeerCertificates>
 
     <!-- Applications exchange Nonces during the CreateSession. This value specifies the length. Must be >= 32 -->
@@ -43,7 +43,7 @@
     <!-- The directory used to store invalid certficates for later review by the administrator. -->
     <RejectedCertificateStore>
       <StoreType>Directory</StoreType>
-      <StorePath>%LocalFolder%/OPC Foundation/CertificateStores/RejectedCertificates</StorePath>
+      <StorePath>./pki/rejected</StorePath>
     </RejectedCertificateStore>
 
     <AutoAcceptUntrustedCertificates>true</AutoAcceptUntrustedCertificates>
