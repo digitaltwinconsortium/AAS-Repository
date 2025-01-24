@@ -149,9 +149,9 @@ namespace AdminShell
             {
                 DataValueCollection values = null;
                 DiagnosticInfoCollection diagnosticInfos = null;
-                ReadValueIdCollection nodesToRead = new ReadValueIdCollection();
+                ReadValueIdCollection nodesToRead = new();
 
-                ReadValueId valueId = new ReadValueId();
+                ReadValueId valueId = new();
                 valueId.NodeId = new NodeId(nodeId);
                 valueId.AttributeId = Attributes.Value;
                 valueId.IndexRange = null;
@@ -161,6 +161,9 @@ namespace AdminShell
                 session = await OpcSessionHelper.Instance.GetSessionAsync(Program.App.ApplicationConfiguration, sessionId, "opc.tcp://localhost/").ConfigureAwait(false);
 
                 ResponseHeader responseHeader = session.Read(null, 0, TimestampsToReturn.Both, nodesToRead, out values, out diagnosticInfos);
+
+                ClientBase.ValidateResponse(values, nodesToRead);
+                ClientBase.ValidateDiagnosticInfos(diagnosticInfos, nodesToRead);
 
                 if ((values.Count > 0) && (values[0].Value != null))
                 {
@@ -178,6 +181,41 @@ namespace AdminShell
             }
 
             return value;
+        }
+
+        public async Task VariableWrite(NodeId nodeId, string sessionId, string value)
+        {
+            Session session = null;
+
+            try
+            {
+                DiagnosticInfoCollection diagnosticInfos = null;
+                StatusCodeCollection statusCodes = null;
+                WriteValueCollection nodesToWrite = new();
+
+                WriteValue valueId = new();
+                valueId.NodeId = new NodeId(nodeId);
+                valueId.AttributeId = Attributes.Value;
+                valueId.IndexRange = null;
+                valueId.Value = new DataValue(new Variant(value));
+                nodesToWrite.Add(valueId);
+
+                session = await OpcSessionHelper.Instance.GetSessionAsync(Program.App.ApplicationConfiguration, sessionId, "opc.tcp://localhost/").ConfigureAwait(false);
+
+                ResponseHeader responseHeader = session.Write(null, nodesToWrite, out statusCodes, out diagnosticInfos);
+
+                ClientBase.ValidateResponse(statusCodes, nodesToWrite);
+                ClientBase.ValidateDiagnosticInfos(diagnosticInfos, nodesToWrite);
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex.Message);
+
+                if ((session != null) && session.Connected)
+                {
+                    OpcSessionHelper.Instance.Disconnect(session.SessionId.ToString());
+                }
+            }
         }
     }
 }

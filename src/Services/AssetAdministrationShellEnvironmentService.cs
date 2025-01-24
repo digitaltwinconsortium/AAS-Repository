@@ -10,8 +10,7 @@ namespace AdminShell
     public class AssetAdministrationShellEnvironmentService
     {
         private readonly ILogger _logger;
-
-        private UAClient _client = new();
+        private readonly UAClient _client;
 
         public AssetAdministrationShellEnvironmentService(ILoggerFactory logger, UAClient client)
         {

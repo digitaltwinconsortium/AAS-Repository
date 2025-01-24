@@ -14,13 +14,13 @@ namespace UaRestGateway.Server.Controllers
 
         protected ILogger _logger { get; private set; }
 
-        private readonly UAClient _viewer;
+        private readonly UAClient _client;
 
         static protected StandardServer _server;
 
-        public CommonController(ILogger logger, UAClient viewer)
+        public CommonController(ILogger logger, UAClient client)
         {
-            _viewer = viewer;
+            _client = client;
             _logger = logger;
         }
 
@@ -28,7 +28,7 @@ namespace UaRestGateway.Server.Controllers
         {
             lock (m_lock)
             {
-                return _viewer.GetSession(context.Session.Id).GetAwaiter().GetResult();
+                return _client.GetSession(context.Session.Id).GetAwaiter().GetResult();
             }
         }
     }

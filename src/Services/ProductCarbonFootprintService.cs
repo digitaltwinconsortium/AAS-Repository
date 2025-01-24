@@ -3,6 +3,7 @@ namespace AdminShell
 {
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
+    using Opc.Ua;
     using SMIP;
     using System;
     using System.Collections.Concurrent;
@@ -287,7 +288,29 @@ namespace AdminShell
 
         private void PersistAAS(string productionLineName, double serialNumber, float pcf)
         {
-            throw new NotImplementedException();
+            string aasName = "CarbonFootprintAAS_" + productionLineName + "_" + serialNumber.ToString();
+            string pathToAAS = "./NodeSets/CarbonFootprintAAS_" + aasName + ".xml";
+            string namespaceUri = "http://opcfoundation.org/UA/" + aasName + "/";
+
+            // copy AAS Submodel Template for CO2 footprint to our Nodeset directory
+            System.IO.File.Copy("./CarbonFootprintAAS.NodeSet2.xml", pathToAAS, true);
+
+            // replace namespace in .nodeset XML file
+            System.IO.File.WriteAllText(pathToAAS, System.IO.File.ReadAllText(pathToAAS).Replace("CarbonFootprintAAS", aasName));
+
+            // restart the server
+            Program.App.Server.Stop();
+            Program.App.Server.Start(Program.App.ApplicationConfiguration);
+
+            // wait 10 seconds for server to come back up
+            Thread.Sleep(10000);
+
+            // retrieve node Id of PCFCO2eq in AAS PCF submodel template
+            NodeId nodeId = new NodeId(10, (ushort)((SimpleServer)Program.App.Server).CurrentInstance.NamespaceUris.GetIndex(namespaceUri));
+
+            // update the node value for PCF
+            UAClient client = (UAClient)Program.AppHost.Services.GetService(typeof(UAClient));
+            client.VariableWrite(nodeId, string.Empty, pcf.ToString()).GetAwaiter().GetResult();
         }
 
         private ConcurrentDictionary<string, object> ADXQueryForSpecificValue(string stationName, string productionLineName, string valueToQuery, double desiredValue)

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-23T10:38:49.975801Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-24T15:16:19.697922Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
   <NamespaceUris>
     <Uri>http://opcfoundation.org/UA/CarbonFootprintAAS/</Uri>
   </NamespaceUris>
   <Models>
-    <Model ModelUri="http://opcfoundation.org/UA/CarbonFootprintAAS/" Version="1.0.0" PublicationDate="2025-01-23T10:38:49Z"/>
+    <Model ModelUri="http://opcfoundation.org/UA/CarbonFootprintAAS/" Version="1.0.0" PublicationDate="2025-01-24T15:16:19Z"/>
   </Models>
   <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
     <DisplayName>Asset Admin Shells</DisplayName>
@@ -23,22 +23,18 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=1</Reference>
     </References>
   </UAObject>
-  <UAVariable NodeId="ns=1;i=5" BrowseName="0:https://admin-shell.io/idta/asset/CarbonFootprint/0/9" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
-    <DisplayName>https://admin-shell.io/idta/asset/CarbonFootprint/0/9</DisplayName>
-    <Description Locale="en">https://admin-shell.io/idta/asset/CarbonFootprint/0/9</Description>
+  <UAVariable NodeId="ns=1;i=5" BrowseName="1:https://admin-shell.io/idta/asset/CarbonFootprint/0/9" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=4" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">https://admin-shell.io/idta/asset/CarbonFootprint/0/9</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd" />
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=6" BrowseName="0:https://admin-shell.io/idta/SubmodelTemplate/CarbonFootprint/0/9" ParentNodeId="ns=1;i=4" DataType="i=12" ValueRank="0">
-    <DisplayName>https://admin-shell.io/idta/SubmodelTemplate/CarbonFootprint/0/9</DisplayName>
-    <Description Locale="en">https://admin-shell.io/idta/SubmodelTemplate/CarbonFootprint/0/9</Description>
+  <UAVariable NodeId="ns=1;i=6" BrowseName="1:https://admin-shell.io/idta/SubmodelTemplate/CarbonFootprint/0/9" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=4" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">https://admin-shell.io/idta/SubmodelTemplate/CarbonFootprint/0/9</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
     <Value>
@@ -78,51 +74,39 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
     </References>
   </UAObject>
-  <UAVariable NodeId="ns=1;i=9" BrowseName="PCFCalculationMethod" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
-    <DisplayName>PCFCalculationMethod</DisplayName>
-    <Description Locale="en">PCFCalculationMethod</Description>
+  <UAVariable NodeId="ns=1;i=9" BrowseName="1:PCFCalculationMethod" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=8" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">PCFCalculationMethod</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=10" BrowseName="PCFCO2eq" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
-    <DisplayName>PCFCO2eq</DisplayName>
-    <Description Locale="en">PCFCO2eq</Description>
+  <UAVariable NodeId="ns=1;i=10" BrowseName="1:PCFCO2eq" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=8" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">PCFCO2eq</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=11" BrowseName="PCFReferenceValueForCalculation" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
-    <DisplayName>PCFReferenceValueForCalculation</DisplayName>
-    <Description Locale="en">PCFReferenceValueForCalculation</Description>
+  <UAVariable NodeId="ns=1;i=11" BrowseName="1:PCFReferenceValueForCalculation" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=8" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">PCFReferenceValueForCalculation</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=12" BrowseName="PCFQuantityOfMeasureForCalculation" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
-    <DisplayName>PCFQuantityOfMeasureForCalculation</DisplayName>
-    <Description Locale="en">PCFQuantityOfMeasureForCalculation</Description>
+  <UAVariable NodeId="ns=1;i=12" BrowseName="1:PCFQuantityOfMeasureForCalculation" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=8" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">PCFQuantityOfMeasureForCalculation</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=13" BrowseName="PCFLifeCyclePhase" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
-    <DisplayName>PCFLifeCyclePhase</DisplayName>
-    <Description Locale="en">PCFLifeCyclePhase</Description>
+  <UAVariable NodeId="ns=1;i=13" BrowseName="1:PCFLifeCyclePhase" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=8" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">PCFLifeCyclePhase</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=14" BrowseName="ExplanatoryStatement" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
-    <DisplayName>ExplanatoryStatement</DisplayName>
-    <Description Locale="en">ExplanatoryStatement</Description>
+  <UAVariable NodeId="ns=1;i=14" BrowseName="1:ExplanatoryStatement" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=8" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">ExplanatoryStatement</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAVariable>
@@ -138,59 +122,45 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAObject>
-  <UAVariable NodeId="ns=1;i=16" BrowseName="Street" ParentNodeId="ns=1;i=15" DataType="i=12" ValueRank="0">
-    <DisplayName>Street</DisplayName>
-    <Description Locale="en">Street</Description>
+  <UAVariable NodeId="ns=1;i=16" BrowseName="1:Street" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=15" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">Street</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=15</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=17" BrowseName="HouseNumber" ParentNodeId="ns=1;i=15" DataType="i=12" ValueRank="0">
-    <DisplayName>HouseNumber</DisplayName>
-    <Description Locale="en">HouseNumber</Description>
+  <UAVariable NodeId="ns=1;i=17" BrowseName="1:HouseNumber" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=15" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">HouseNumber</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=15</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=18" BrowseName="ZipCode" ParentNodeId="ns=1;i=15" DataType="i=12" ValueRank="0">
-    <DisplayName>ZipCode</DisplayName>
-    <Description Locale="en">ZipCode</Description>
+  <UAVariable NodeId="ns=1;i=18" BrowseName="1:ZipCode" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=15" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">ZipCode</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=15</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=19" BrowseName="CityTown" ParentNodeId="ns=1;i=15" DataType="i=12" ValueRank="0">
-    <DisplayName>CityTown</DisplayName>
-    <Description Locale="en">CityTown</Description>
+  <UAVariable NodeId="ns=1;i=19" BrowseName="1:CityTown" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=15" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">CityTown</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=15</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=20" BrowseName="Country" ParentNodeId="ns=1;i=15" DataType="i=12" ValueRank="0">
-    <DisplayName>Country</DisplayName>
-    <Description Locale="en">Country</Description>
+  <UAVariable NodeId="ns=1;i=20" BrowseName="1:Country" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=15" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">Country</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=15</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=21" BrowseName="PublicationDate" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
-    <DisplayName>PublicationDate</DisplayName>
-    <Description Locale="en">PublicationDate</Description>
+  <UAVariable NodeId="ns=1;i=21" BrowseName="1:PublicationDate" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=8" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">PublicationDate</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=22" BrowseName="ExpirationDate" ParentNodeId="ns=1;i=8" DataType="i=12" ValueRank="0">
-    <DisplayName>ExpirationDate</DisplayName>
-    <Description Locale="en">ExpirationDate</Description>
+  <UAVariable NodeId="ns=1;i=22" BrowseName="1:ExpirationDate" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=8" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">ExpirationDate</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAVariable>
@@ -211,51 +181,39 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=7</Reference>
     </References>
   </UAObject>
-  <UAVariable NodeId="ns=1;i=24" BrowseName="TCFCalculationMethod" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
-    <DisplayName>TCFCalculationMethod</DisplayName>
-    <Description Locale="en">TCFCalculationMethod</Description>
+  <UAVariable NodeId="ns=1;i=24" BrowseName="1:TCFCalculationMethod" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=23" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">TCFCalculationMethod</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=25" BrowseName="TCFCO2eq" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
-    <DisplayName>TCFCO2eq</DisplayName>
-    <Description Locale="en">TCFCO2eq</Description>
+  <UAVariable NodeId="ns=1;i=25" BrowseName="1:TCFCO2eq" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=23" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">TCFCO2eq</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=26" BrowseName="TCFReferenceValueForCalculation" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
-    <DisplayName>TCFReferenceValueForCalculation</DisplayName>
-    <Description Locale="en">TCFReferenceValueForCalculation</Description>
+  <UAVariable NodeId="ns=1;i=26" BrowseName="1:TCFReferenceValueForCalculation" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=23" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">TCFReferenceValueForCalculation</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=27" BrowseName="TCFQuantityOfMeasureForCalculation" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
-    <DisplayName>TCFQuantityOfMeasureForCalculation</DisplayName>
-    <Description Locale="en">TCFQuantityOfMeasureForCalculation</Description>
+  <UAVariable NodeId="ns=1;i=27" BrowseName="1:TCFQuantityOfMeasureForCalculation" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=23" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">TCFQuantityOfMeasureForCalculation</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=28" BrowseName="TCFProcessesForGreenhouseGasEmissionInATransportService" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
-    <DisplayName>TCFProcessesForGreenhouseGasEmissionInATransportService</DisplayName>
-    <Description Locale="en">TCFProcessesForGreenhouseGasEmissionInATransportService</Description>
+  <UAVariable NodeId="ns=1;i=28" BrowseName="1:TCFProcessesForGreenhouseGasEmissionInATransportService" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=23" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">TCFProcessesForGreenhouseGasEmissionInATransportService</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=29" BrowseName="ExplanatoryStatement" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
-    <DisplayName>ExplanatoryStatement</DisplayName>
-    <Description Locale="en">ExplanatoryStatement</Description>
+  <UAVariable NodeId="ns=1;i=29" BrowseName="1:ExplanatoryStatement" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=23" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">ExplanatoryStatement</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAVariable>
@@ -271,43 +229,33 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAObject>
-  <UAVariable NodeId="ns=1;i=31" BrowseName="Street" ParentNodeId="ns=1;i=30" DataType="i=12" ValueRank="0">
-    <DisplayName>Street</DisplayName>
-    <Description Locale="en">Street</Description>
+  <UAVariable NodeId="ns=1;i=31" BrowseName="1:Street" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=30" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">Street</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=30</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=32" BrowseName="HouseNumber" ParentNodeId="ns=1;i=30" DataType="i=12" ValueRank="0">
-    <DisplayName>HouseNumber</DisplayName>
-    <Description Locale="en">HouseNumber</Description>
+  <UAVariable NodeId="ns=1;i=32" BrowseName="1:HouseNumber" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=30" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">HouseNumber</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=30</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=33" BrowseName="ZipCode" ParentNodeId="ns=1;i=30" DataType="i=12" ValueRank="0">
-    <DisplayName>ZipCode</DisplayName>
-    <Description Locale="en">ZipCode</Description>
+  <UAVariable NodeId="ns=1;i=33" BrowseName="1:ZipCode" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=30" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">ZipCode</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=30</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=34" BrowseName="CityTown" ParentNodeId="ns=1;i=30" DataType="i=12" ValueRank="0">
-    <DisplayName>CityTown</DisplayName>
-    <Description Locale="en">CityTown</Description>
+  <UAVariable NodeId="ns=1;i=34" BrowseName="1:CityTown" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=30" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">CityTown</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=30</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=35" BrowseName="Country" ParentNodeId="ns=1;i=30" DataType="i=12" ValueRank="0">
-    <DisplayName>Country</DisplayName>
-    <Description Locale="en">Country</Description>
+  <UAVariable NodeId="ns=1;i=35" BrowseName="1:Country" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=30" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">Country</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=30</Reference>
     </References>
   </UAVariable>
@@ -323,59 +271,45 @@
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAObject>
-  <UAVariable NodeId="ns=1;i=37" BrowseName="Street" ParentNodeId="ns=1;i=36" DataType="i=12" ValueRank="0">
-    <DisplayName>Street</DisplayName>
-    <Description Locale="en">Street</Description>
+  <UAVariable NodeId="ns=1;i=37" BrowseName="1:Street" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=36" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">Street</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=36</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=38" BrowseName="HouseNumber" ParentNodeId="ns=1;i=36" DataType="i=12" ValueRank="0">
-    <DisplayName>HouseNumber</DisplayName>
-    <Description Locale="en">HouseNumber</Description>
+  <UAVariable NodeId="ns=1;i=38" BrowseName="1:HouseNumber" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=36" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">HouseNumber</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=36</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=39" BrowseName="ZipCode" ParentNodeId="ns=1;i=36" DataType="i=12" ValueRank="0">
-    <DisplayName>ZipCode</DisplayName>
-    <Description Locale="en">ZipCode</Description>
+  <UAVariable NodeId="ns=1;i=39" BrowseName="1:ZipCode" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=36" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">ZipCode</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=36</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=40" BrowseName="CityTown" ParentNodeId="ns=1;i=36" DataType="i=12" ValueRank="0">
-    <DisplayName>CityTown</DisplayName>
-    <Description Locale="en">CityTown</Description>
+  <UAVariable NodeId="ns=1;i=40" BrowseName="1:CityTown" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=36" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">CityTown</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=36</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=41" BrowseName="Country" ParentNodeId="ns=1;i=36" DataType="i=12" ValueRank="0">
-    <DisplayName>Country</DisplayName>
-    <Description Locale="en">Country</Description>
+  <UAVariable NodeId="ns=1;i=41" BrowseName="1:Country" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=36" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">Country</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=36</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=42" BrowseName="PublicationDate" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
-    <DisplayName>PublicationDate</DisplayName>
-    <Description Locale="en">PublicationDate</Description>
+  <UAVariable NodeId="ns=1;i=42" BrowseName="1:PublicationDate" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=23" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">PublicationDate</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=43" BrowseName="ExpirationDate" ParentNodeId="ns=1;i=23" DataType="i=12" ValueRank="0">
-    <DisplayName>ExpirationDate</DisplayName>
-    <Description Locale="en">ExpirationDate</Description>
+  <UAVariable NodeId="ns=1;i=43" BrowseName="1:ExpirationDate" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=23" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">ExpirationDate</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAVariable>
@@ -407,231 +341,189 @@
       <Reference ReferenceType="i=47" IsForward="false">i=85</Reference>
     </References>
   </UAObject>
-  <UAVariable NodeId="ns=1;i=44" BrowseName="0:https://admin-shell.io/idta/CarbonFootprint/ExplanatoryStatement/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>https://admin-shell.io/idta/CarbonFootprint/ExplanatoryStatement/1/0</DisplayName>
-    <Description Locale="en">https://admin-shell.io/idta/CarbonFootprint/ExplanatoryStatement/1/0</Description>
+  <UAVariable NodeId="ns=1;i=44" BrowseName="1:https://admin-shell.io/idta/CarbonFootprint/ExplanatoryStatement/1/0" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">https://admin-shell.io/idta/CarbonFootprint/ExplanatoryStatement/1/0</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ExplanatoryStatement</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=45" BrowseName="0:https://admin-shell.io/idta/CarbonFootprint/PublicationDate/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>https://admin-shell.io/idta/CarbonFootprint/PublicationDate/1/0</DisplayName>
-    <Description Locale="en">https://admin-shell.io/idta/CarbonFootprint/PublicationDate/1/0</Description>
+  <UAVariable NodeId="ns=1;i=45" BrowseName="1:https://admin-shell.io/idta/CarbonFootprint/PublicationDate/1/0" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">https://admin-shell.io/idta/CarbonFootprint/PublicationDate/1/0</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PublicationDate</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=46" BrowseName="0:https://admin-shell.io/idta/CarbonFootprint/ExpirationnDate/1/0" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>https://admin-shell.io/idta/CarbonFootprint/ExpirationnDate/1/0</DisplayName>
-    <Description Locale="en">https://admin-shell.io/idta/CarbonFootprint/ExpirationnDate/1/0</Description>
+  <UAVariable NodeId="ns=1;i=46" BrowseName="1:https://admin-shell.io/idta/CarbonFootprint/ExpirationnDate/1/0" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">https://admin-shell.io/idta/CarbonFootprint/ExpirationnDate/1/0</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ExpirationDate</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=47" BrowseName="0173-1#02-ABG854#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-ABG854#001</DisplayName>
-    <Description Locale="en">0173-1#02-ABG854#001</Description>
+  <UAVariable NodeId="ns=1;i=47" BrowseName="1:0173-1#02-ABG854#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-ABG854#001</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PCFCalculationMethod</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=48" BrowseName="0173-1#02-ABG855#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-ABG855#001</DisplayName>
-    <Description Locale="en">0173-1#02-ABG855#001</Description>
+  <UAVariable NodeId="ns=1;i=48" BrowseName="1:0173-1#02-ABG855#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-ABG855#001</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PCFCO2eq</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=49" BrowseName="0173-1#02-ABG856#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-ABG856#001</DisplayName>
-    <Description Locale="en">0173-1#02-ABG856#001</Description>
+  <UAVariable NodeId="ns=1;i=49" BrowseName="1:0173-1#02-ABG856#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-ABG856#001</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PCFReferenceValueForCalculation</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=50" BrowseName="0173-1#02-ABG857#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-ABG857#001</DisplayName>
-    <Description Locale="en">0173-1#02-ABG857#001</Description>
+  <UAVariable NodeId="ns=1;i=50" BrowseName="1:0173-1#02-ABG857#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-ABG857#001</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PCFQuantityOfMeasureForCalculation</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=51" BrowseName="0173-1#02-ABG858#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-ABG858#001</DisplayName>
-    <Description Locale="en">0173-1#02-ABG858#001</Description>
+  <UAVariable NodeId="ns=1;i=51" BrowseName="1:0173-1#02-ABG858#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-ABG858#001</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PCFLifeCyclePhase</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=52" BrowseName="0173-1#02-ABI497#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-ABI497#001</DisplayName>
-    <Description Locale="en">0173-1#02-ABI497#001</Description>
+  <UAVariable NodeId="ns=1;i=52" BrowseName="1:0173-1#02-ABI497#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-ABI497#001</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">PCFGoodsAddressHandover</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=53" BrowseName="0173-1#02-ABG859#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-ABG859#002</DisplayName>
-    <Description Locale="en">0173-1#02-ABG859#002</Description>
+  <UAVariable NodeId="ns=1;i=53" BrowseName="1:0173-1#02-ABG859#002" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-ABG859#002</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TCFCalculationMethod</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=54" BrowseName="0173-1#02-ABG860#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-ABG860#001</DisplayName>
-    <Description Locale="en">0173-1#02-ABG860#001</Description>
+  <UAVariable NodeId="ns=1;i=54" BrowseName="1:0173-1#02-ABG860#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-ABG860#001</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TCFCO2eq</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=55" BrowseName="0173-1#02-ABG861#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-ABG861#002</DisplayName>
-    <Description Locale="en">0173-1#02-ABG861#002</Description>
+  <UAVariable NodeId="ns=1;i=55" BrowseName="1:0173-1#02-ABG861#002" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-ABG861#002</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TCFReferenceValueForCalculation</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=56" BrowseName="0173-1#02-ABG862#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-ABG862#001</DisplayName>
-    <Description Locale="en">0173-1#02-ABG862#001</Description>
+  <UAVariable NodeId="ns=1;i=56" BrowseName="1:0173-1#02-ABG862#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-ABG862#001</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TCFQuantityOfMeasureForCalculation</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=57" BrowseName="0173-1#02-ABG863#002" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-ABG863#002</DisplayName>
-    <Description Locale="en">0173-1#02-ABG863#002</Description>
+  <UAVariable NodeId="ns=1;i=57" BrowseName="1:0173-1#02-ABG863#002" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-ABG863#002</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TCFProcessesForGreenhouseGasEmissionInATransportService</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=58" BrowseName="0173-1#02-ABI499#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-ABI499#001</DisplayName>
-    <Description Locale="en">0173-1#02-ABI499#001</Description>
+  <UAVariable NodeId="ns=1;i=58" BrowseName="1:0173-1#02-ABI499#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-ABI499#001</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TCFGoodsTransportAddressTakeover</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=59" BrowseName="0173-1#02-ABI498#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-ABI498#001</DisplayName>
-    <Description Locale="en">0173-1#02-ABI498#001</Description>
+  <UAVariable NodeId="ns=1;i=59" BrowseName="1:0173-1#02-ABI498#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-ABI498#001</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">TCFGoodsTransportAddressHandover</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=60" BrowseName="0173-1#02-ABH956#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-ABH956#001</DisplayName>
-    <Description Locale="en">0173-1#02-ABH956#001</Description>
+  <UAVariable NodeId="ns=1;i=60" BrowseName="1:0173-1#02-ABH956#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-ABH956#001</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">Street</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=61" BrowseName="0173-1#02-ABH957#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-ABH957#001</DisplayName>
-    <Description Locale="en">0173-1#02-ABH957#001</Description>
+  <UAVariable NodeId="ns=1;i=61" BrowseName="1:0173-1#02-ABH957#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-ABH957#001</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">HouseNumber</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=62" BrowseName="0173-1#02-ABH958#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-ABH958#001</DisplayName>
-    <Description Locale="en">0173-1#02-ABH958#001</Description>
+  <UAVariable NodeId="ns=1;i=62" BrowseName="1:0173-1#02-ABH958#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-ABH958#001</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">ZipCode</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=63" BrowseName="0173-1#02-ABH959#001" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-ABH959#001</DisplayName>
-    <Description Locale="en">0173-1#02-ABH959#001</Description>
+  <UAVariable NodeId="ns=1;i=63" BrowseName="1:0173-1#02-ABH959#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-ABH959#001</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
       <String xmlns="http://opcfoundation.org/UA/2008/02/Types.xsd">CityTown</String>
     </Value>
   </UAVariable>
-  <UAVariable NodeId="ns=1;i=64" BrowseName="0173-1#02-AAO259#005" ParentNodeId="ns=1;i=3" DataType="i=12" ValueRank="0">
-    <DisplayName>0173-1#02-AAO259#005</DisplayName>
-    <Description Locale="en">0173-1#02-AAO259#005</Description>
+  <UAVariable NodeId="ns=1;i=64" BrowseName="1:0173-1#02-AAO259#005" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
+    <DisplayName Locale="en">0173-1#02-AAO259#005</DisplayName>
     <References>
-      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
