@@ -34,12 +34,6 @@ namespace AdminShell
                     // file name validation
                     new FileInfo(file.FileName);
 
-                    // directory validation
-                    if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets")))
-                    {
-                        Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets"));
-                    }
-
                     // store the file on the webserver
                     string filePath = Path.Combine(Directory.GetCurrentDirectory(), "NodeSets", file.FileName);
                     using (FileStream stream = new FileStream(filePath, FileMode.Create))

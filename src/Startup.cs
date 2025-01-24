@@ -139,9 +139,6 @@
                     Nullable = false
                 });
             });
-
-            // Setup file storage
-            services.AddSingleton<IFileStorage, LocalFileStorage>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

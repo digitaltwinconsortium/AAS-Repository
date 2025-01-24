@@ -18,8 +18,14 @@ namespace AdminShell
 
             List<string> namespaceUris = new();
 
+            // directory validation
+            if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets")))
+            {
+                Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets"));
+            }
+
             // check if we have existing nodesets in our nodesets directory
-            IEnumerable<string> nodesetFiles = Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "Nodesets"));
+            IEnumerable<string> nodesetFiles = Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets"));
             if (nodesetFiles.Count() > 0)
             {
                 foreach (string file in nodesetFiles)
