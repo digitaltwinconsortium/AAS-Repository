@@ -14,27 +14,30 @@ namespace AdminShell
         public NodesetFileNodeManager(IServerInternal server, ApplicationConfiguration configuration)
         : base(server, configuration)
         {
-            SystemContext.NodeIdFactory = this;
-
-            List<string> namespaceUris = new();
-
-            // directory validation
-            if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets")))
+            lock (Lock)
             {
-                Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets"));
-            }
+                SystemContext.NodeIdFactory = this;
 
-            // check if we have existing nodesets in our nodesets directory
-            IEnumerable<string> nodesetFiles = Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets"));
-            if (nodesetFiles.Count() > 0)
-            {
-                foreach (string file in nodesetFiles)
+                List<string> namespaceUris = new();
+
+                // directory validation
+                if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets")))
                 {
-                    LoadNamespaceUrisFromNodesetXml(namespaceUris, file);
+                    Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets"));
                 }
-            }
 
-            NamespaceUris = namespaceUris;
+                // check if we have existing nodesets in our nodesets directory
+                IEnumerable<string> nodesetFiles = Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets"));
+                if (nodesetFiles.Count() > 0)
+                {
+                    foreach (string file in nodesetFiles)
+                    {
+                        LoadNamespaceUrisFromNodesetXml(namespaceUris, file);
+                    }
+                }
+
+                NamespaceUris = namespaceUris;
+            }
         }
 
         private void LoadNamespaceUrisFromNodesetXml(List<string> namespaceUris, string nodesetFile)
@@ -53,6 +56,23 @@ namespace AdminShell
                         }
                     }
                 }
+            }
+        }
+
+        public void AddNamespace(string namespaceUri)
+        {
+            lock (Lock)
+            {
+                var arguments = new List<string>(NamespaceUris)
+                {
+                    namespaceUri
+                };
+
+                // Update the table used by this NodeManager
+                SetNamespaces(arguments.ToArray());
+
+                // Register the new URI with the MasterNodeManager
+                Server.NodeManager.RegisterNamespaceManager(namespaceUri, this);
             }
         }
 
@@ -75,29 +95,53 @@ namespace AdminShell
                         AddNodesFromNodesetXml(file);
                     }
                 }
-
-                AddReverseReferences(externalReferences);
-                base.CreateAddressSpace(externalReferences);
             }
         }
 
-        private void AddNodesFromNodesetXml(string nodesetFile)
+        public void AddNodesFromNodesetXml(string nodesetFile)
         {
-            using (Stream stream = new FileStream(nodesetFile, FileMode.Open))
+            lock (Lock)
             {
-                UANodeSet nodeSet = UANodeSet.Read(stream);
-                NodeStateCollection predefinedNodes = new NodeStateCollection();
-                nodeSet.Import(SystemContext, predefinedNodes);
-
-                for (int i = 0; i < predefinedNodes.Count; i++)
+                using (Stream stream = new FileStream(nodesetFile, FileMode.Open))
                 {
-                    try
+                    UANodeSet nodeSet = UANodeSet.Read(stream);
+                    NodeStateCollection predefinedNodes = new NodeStateCollection();
+                    nodeSet.Import(SystemContext, predefinedNodes);
+
+                    for (int i = 0; i < predefinedNodes.Count; i++)
                     {
-                        AddPredefinedNode(SystemContext, predefinedNodes[i]);
+                        try
+                        {
+                            AddPredefinedNode(SystemContext, predefinedNodes[i]);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message, ex);
+                        }
                     }
-                    catch (Exception ex)
+
+                    // add references for our top-level nodes to the objects folder
+                    Server.NodeManager.GetManagerHandle(ObjectIds.ObjectsFolder, out INodeManager objectsFolderNodeManager);
+                    string namespaceUri = nodeSet.NamespaceUris[0];
+                    foreach (UANode node in nodeSet.Items)
                     {
-                        Console.WriteLine(ex.Message, ex);
+                        if (node is UAObject uAObject)
+                        {
+                            if (uAObject.ParentNodeId == ObjectIds.ObjectsFolder)
+                            {
+                                List<IReference> references = new()
+                                {
+                                    new NodeStateReference(ReferenceTypeIds.Organizes, false, new NodeId(NodeId.Parse(uAObject.NodeId).Identifier, (ushort)Server.NamespaceUris.GetIndex(namespaceUri)))
+                                };
+
+                                Dictionary<NodeId, IList<IReference>> dictionary = new()
+                                {
+                                    { ObjectIds.ObjectsFolder, references }
+                                };
+
+                                objectsFolderNodeManager.AddReferences(dictionary);
+                            }
+                        }
                     }
                 }
             }

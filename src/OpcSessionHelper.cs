@@ -67,6 +67,26 @@ namespace AdminShell
             }
         }
 
+        public void DisconnectAll()
+        {
+            foreach (var entry in OpcSessionCache)
+            {
+                try
+                {
+                    if (entry.Value.OPCSession != null)
+                    {
+                        entry.Value.OPCSession.Close();
+                    }
+                }
+                catch (Exception)
+                {
+                    // do nothing
+                }
+            }
+
+            OpcSessionCache.Clear();
+        }
+
         /// <summary>
         /// Ensures session is closed when server does not reply.
         /// </summary>

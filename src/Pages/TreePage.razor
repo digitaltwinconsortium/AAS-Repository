@@ -50,6 +50,8 @@
 
     protected override void OnInitialized()
     {
+        TreeNodes.Clear();
+
         NodesetViewerNode root = new NodesetViewerNode()
         {
             Id = ObjectIds.RootFolder.ToString(),

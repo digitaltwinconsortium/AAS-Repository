@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Opc.Ua;
 using SMIP;
@@ -292,22 +291,32 @@ namespace AdminShell
             string pathToAAS = "./NodeSets/CarbonFootprintAAS_" + aasName + ".xml";
             string namespaceUri = "http://opcfoundation.org/UA/" + aasName + "/";
 
+            SimpleServer server = (SimpleServer)Program.App.Server;
+            NodesetFileNodeManager nodeManager = (NodesetFileNodeManager)server.CurrentInstance.NodeManager.NodeManagers[2];
+
             // copy AAS Submodel Template for CO2 footprint to our Nodeset directory
             System.IO.File.Copy("./CarbonFootprintAAS.NodeSet2.xml", pathToAAS, true);
 
             // replace namespace in .nodeset XML file
             System.IO.File.WriteAllText(pathToAAS, System.IO.File.ReadAllText(pathToAAS).Replace("CarbonFootprintAAS", aasName));
 
-            // restart the server
-            Program.App.Server.Stop();
-            Program.App.Server.Start(Program.App.ApplicationConfiguration);
+            // add the namespace to the server
+            nodeManager.AddNamespace(namespaceUri);
+
+            // add the nodes to the server
+            nodeManager.AddNodesFromNodesetXml(pathToAAS);
 
             // retrieve node Id of PCFCO2eq in AAS PCF submodel template
-            NodeId nodeId = new NodeId(10, (ushort)((SimpleServer)Program.App.Server).CurrentInstance.NamespaceUris.GetIndex(namespaceUri));
+            NodeId nodeId = new NodeId(10, (ushort)server.CurrentInstance.NamespaceUris.GetIndex(namespaceUri));
 
             // update the node value for PCF
             UAClient client = (UAClient)Program.AppHost.Services.GetService(typeof(UAClient));
             client.VariableWrite(nodeId, string.Empty, pcf.ToString()).GetAwaiter().GetResult();
+
+            // disconnect all client sessions
+            OpcSessionHelper.Instance.DisconnectAll();
+
+            Console.WriteLine("Persisted AAS for " + aasName + " with PCF " + pcf.ToString() + " gCO2.");
         }
 
         private ConcurrentDictionary<string, object> ADXQueryForSpecificValue(string stationName, string productionLineName, string valueToQuery, double desiredValue)
