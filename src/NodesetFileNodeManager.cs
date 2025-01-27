@@ -127,7 +127,8 @@ namespace AdminShell
                     {
                         if (node is UAObject uAObject)
                         {
-                            if (uAObject.ParentNodeId == ObjectIds.ObjectsFolder)
+                            if ((uAObject.ParentNodeId == ObjectIds.ObjectsFolder)
+                              || uAObject.References.Where(r => (r.ReferenceType == "Organizes") && (r.Value == ObjectIds.ObjectsFolder)).ToList().Count > 0)
                             {
                                 List<IReference> references = new()
                                 {

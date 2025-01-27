@@ -1,9 +1,10 @@
-
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Opc.Ua.Export;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AdminShell
@@ -42,7 +43,33 @@ namespace AdminShell
                         await file.CopyToAsync(stream).ConfigureAwait(false);
                     }
 
-                    // TODO: Restart the server with the new nodeset
+                    SimpleServer server = (SimpleServer)Program.App.Server;
+                    NodesetFileNodeManager nodeManager = (NodesetFileNodeManager)server.CurrentInstance.NodeManager.NodeManagers[2];
+
+                    // add the namespace to the server
+                    using (FileStream stream = new(filePath, FileMode.Open, FileAccess.Read))
+                    {
+                        UANodeSet nodeSet = UANodeSet.Read(stream);
+
+                        if ((nodeSet.NamespaceUris != null) && (nodeSet.NamespaceUris.Length > 0))
+                        {
+                            foreach (string ns in nodeSet.NamespaceUris)
+                            {
+                                if (!nodeManager.NamespaceUris.Contains(ns))
+                                {
+                                    nodeManager.AddNamespace(ns);
+                                }
+                            }
+                        }
+                    }
+
+                    // add the nodes to the server
+                    nodeManager.AddNodesFromNodesetXml(filePath);
+
+                    // disconnect all client sessions
+                    OpcSessionHelper.Instance.DisconnectAll();
+
+                    Console.WriteLine($"Nodeset {file.FileName} loaded successfully.");
                 }
             }
             catch (Exception ex)
