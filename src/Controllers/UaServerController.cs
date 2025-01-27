@@ -1,4 +1,6 @@
-﻿using AdminShell;
+﻿
+using AdminShell;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Opc.Ua;
 using System.Collections.Generic;
@@ -6,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace UaRestGateway.Server.Controllers
 {
+    [Authorize]
     [ApiController]
     public class UaServerController : ControllerBase
     {
@@ -18,7 +21,7 @@ namespace UaRestGateway.Server.Controllers
         }
 
         [HttpPost]
-        [Route("read")]
+        [Route("/api/ua/read")]
         public async Task<IActionResult> Read([FromBody] string nodeId)
         {
             if (string.IsNullOrEmpty(nodeId))
@@ -33,7 +36,7 @@ namespace UaRestGateway.Server.Controllers
         }
 
         [HttpPost]
-        [Route("browse")]
+        [Route("/api/ua/browse")]
         public async Task<IActionResult> Browse([FromBody] string nodeId)
         {
             if (string.IsNullOrEmpty(nodeId))

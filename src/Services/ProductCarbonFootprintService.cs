@@ -1,15 +1,15 @@
 ﻿
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Opc.Ua;
+using SMIP;
+using System;
+using System.Collections.Concurrent;
+using System.Diagnostics;
+using System.Threading;
+
 namespace AdminShell
 {
-    using Microsoft.Extensions.Logging;
-    using Newtonsoft.Json;
-    using Opc.Ua;
-    using SMIP;
-    using System;
-    using System.Collections.Concurrent;
-    using System.Diagnostics;
-    using System.Threading;
-
     public class ProductCarbonFootprintService : IDisposable
     {
         private Timer _timer;

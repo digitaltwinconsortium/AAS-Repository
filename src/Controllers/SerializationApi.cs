@@ -1,15 +1,15 @@
 
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Annotations;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
+
 namespace AdminShell
 {
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.IdentityModel.Tokens;
-    using Swashbuckle.AspNetCore.Annotations;
-    using System;
-    using System.Collections.Generic;
-    using System.Dynamic;
-    using System.Linq;
-    using System.Text;
-
+    [Authorize]
     [ApiController]
     public class SerializationApiController : ControllerBase
     {

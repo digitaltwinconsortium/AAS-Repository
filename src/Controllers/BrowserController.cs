@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,7 +16,7 @@ namespace AdminShell
         }
 
         [HttpPost]
-        public async Task<ActionResult> LocalFileOpen(IFormFile[] files, bool autodownloadreferences)
+        public async Task<ActionResult> LocalFileOpen(IFormFile[] files, bool autodownloadreferences = false)
         {
             try
             {

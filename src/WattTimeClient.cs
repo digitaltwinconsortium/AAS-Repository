@@ -1,14 +1,14 @@
 ﻿
+using Kusto.Cloud.Platform.Utils;
+using Newtonsoft.Json;
+using System;
+using System.Diagnostics;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+
 namespace AdminShell
 {
-    using Kusto.Cloud.Platform.Utils;
-    using Newtonsoft.Json;
-    using System;
-    using System.Diagnostics;
-    using System.Net.Http;
-    using System.Text;
-    using System.Threading.Tasks;
-
     public class WattTimeClient
     {
         public static async Task<CarbonIntensityQueryResult> GetCarbonIntensity(string latitude, string longitude)

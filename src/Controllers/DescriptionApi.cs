@@ -1,10 +1,12 @@
 
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+using System.Collections.Generic;
+
 namespace AdminShell
 {
-    using Microsoft.AspNetCore.Mvc;
-    using Swashbuckle.AspNetCore.Annotations;
-    using System.Collections.Generic;
-
+    [Authorize]
     [ApiController]
     public class DescriptionApiController : ControllerBase
     {

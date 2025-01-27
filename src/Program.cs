@@ -1,10 +1,10 @@
 ﻿
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using Opc.Ua.Configuration;
+
 namespace AdminShell
 {
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Hosting;
-    using Opc.Ua.Configuration;
-
     public class Program
     {
         public static IHost AppHost { get; private set; }

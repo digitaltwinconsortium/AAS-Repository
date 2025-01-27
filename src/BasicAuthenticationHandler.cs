@@ -1,18 +1,18 @@
 ﻿
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Primitives;
+using System;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Security.Claims;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
+
 namespace AdminShell
 {
-    using Microsoft.AspNetCore.Authentication;
-    using Microsoft.Extensions.Logging;
-    using Microsoft.Extensions.Options;
-    using Microsoft.Extensions.Primitives;
-    using System;
-    using System.Linq;
-    using System.Net.Http.Headers;
-    using System.Security.Claims;
-    using System.Text;
-    using System.Text.Encodings.Web;
-    using System.Threading.Tasks;
-
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         public BasicAuthenticationHandler(
@@ -39,7 +39,7 @@ namespace AdminShell
             {
                 return Task.FromResult(AuthenticateResult.Fail($"Authentication failed: Invalid credentials!"));
             }
-            
+
             Claim[] claims = new[] {
                 new Claim(ClaimTypes.Name, username)
             };

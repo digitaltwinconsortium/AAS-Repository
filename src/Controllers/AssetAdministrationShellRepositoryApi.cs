@@ -1,17 +1,19 @@
 
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Annotations;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Net.Mime;
+using System.Text.Json.Nodes;
+
 namespace AdminShell
 {
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.IdentityModel.Tokens;
-    using Newtonsoft.Json;
-    using Swashbuckle.AspNetCore.Annotations;
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Net.Mime;
-    using System.Text.Json.Nodes;
-
+    [Authorize]
     [ApiController]
     public class AssetAdministrationShellRepositoryApiController : ControllerBase
     {

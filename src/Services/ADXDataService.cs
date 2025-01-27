@@ -1,15 +1,15 @@
 ﻿
+using Azure.Identity;
+using Kusto.Data;
+using Kusto.Data.Common;
+using Kusto.Data.Net.Client;
+using System;
+using System.Collections.Concurrent;
+using System.Data;
+using System.Diagnostics;
+
 namespace AdminShell
 {
-    using Azure.Identity;
-    using Kusto.Data;
-    using Kusto.Data.Common;
-    using Kusto.Data.Net.Client;
-    using System;
-    using System.Collections.Concurrent;
-    using System.Data;
-    using System.Diagnostics;
-
     public class ADXDataService : IDisposable
     {
         private ICslQueryProvider _queryProvider = null;

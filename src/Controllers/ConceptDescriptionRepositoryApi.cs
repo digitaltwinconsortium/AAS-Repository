@@ -1,5 +1,6 @@
 ﻿
 using AdminShell;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Annotations;
@@ -8,6 +9,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IO.Swagger.Controllers
 {
+    [Authorize]
     [ApiController]
     public class ConceptDescriptionRepositoryApiController : ControllerBase
     {

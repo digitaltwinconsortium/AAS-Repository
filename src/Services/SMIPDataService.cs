@@ -1,16 +1,16 @@
 ﻿
+using GraphQL;
+using GraphQL.Client.Http;
+using GraphQL.Client.Serializer.Newtonsoft;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Diagnostics;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+
 namespace AdminShell
 {
-    using GraphQL;
-    using GraphQL.Client.Http;
-    using GraphQL.Client.Serializer.Newtonsoft;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
-    using System;
-    using System.Diagnostics;
-    using System.Net.Http.Headers;
-    using System.Threading.Tasks;
-
     public class SMIPDataService : IDisposable
     {
         string _instanceGraphQLEndpoint = string.Empty;

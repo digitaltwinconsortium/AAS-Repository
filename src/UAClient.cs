@@ -1,13 +1,13 @@
 ﻿
+using Opc.Ua;
+using Opc.Ua.Client;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
+
 namespace AdminShell
 {
-    using Opc.Ua;
-    using Opc.Ua.Client;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Threading.Tasks;
-
     public class UAClient
     {
         public async Task<Session> GetSession(string sessionId)
