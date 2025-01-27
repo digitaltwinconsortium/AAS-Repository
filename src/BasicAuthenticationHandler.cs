@@ -25,6 +25,9 @@ namespace AdminShell
 
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
+            string username = string.Empty;
+
+#if !DEBUG
             if (StringValues.IsNullOrEmpty(Request.Headers["Authorization"]))
             {
                 return Task.FromResult(AuthenticateResult.Fail($"Authentication failed: Authentication header missing in request!"));
@@ -32,30 +35,26 @@ namespace AdminShell
 
             AuthenticationHeaderValue authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
             string[] credentials = Encoding.UTF8.GetString(Convert.FromBase64String(authHeader.Parameter)).Split(':');
-            string username = credentials.FirstOrDefault();
-            string password = credentials.LastOrDefault();
 
-            if (!ValidateCredentials(username, password))
+            username = credentials.FirstOrDefault();
+            if (!ValidateCredentials(username, credentials.LastOrDefault()))
             {
                 return Task.FromResult(AuthenticateResult.Fail($"Authentication failed: Invalid credentials!"));
             }
-
-            Claim[] claims = new[] {
+#endif
+            Claim[] claims = [
                 new Claim(ClaimTypes.Name, username)
-            };
+            ];
 
-            ClaimsIdentity identity = new ClaimsIdentity(claims, Scheme.Name);
-            ClaimsPrincipal principal = new ClaimsPrincipal(identity);
-            AuthenticationTicket ticket = new AuthenticationTicket(principal, Scheme.Name);
+            ClaimsIdentity identity = new(claims, Scheme.Name);
+            ClaimsPrincipal principal = new(identity);
+            AuthenticationTicket ticket = new(principal, Scheme.Name);
 
             return Task.FromResult(AuthenticateResult.Success(ticket));
         }
 
         public bool ValidateCredentials(string username, string password)
         {
-#if DEBUG
-            return true;
-#else
             string passwordFromEnvironment = Environment.GetEnvironmentVariable("ServicePassword");
             if (string.IsNullOrEmpty(passwordFromEnvironment))
             {
@@ -65,7 +64,6 @@ namespace AdminShell
             {
                 return username.Equals("admin") && password.Equals(passwordFromEnvironment);
             }
-#endif
         }
     }
 }
