@@ -215,7 +215,7 @@
 
         private static void CertificateValidator_CertificateValidation(CertificateValidator validator, CertificateValidationEventArgs e)
         {
-            if (e.Error.StatusCode == Opc.Ua.StatusCodes.BadCertificateUntrusted)
+            if (e.Error.StatusCode == StatusCodes.BadCertificateUntrusted)
             {
                 // accept all OPC UA client certificates
                 e.Accept = true;

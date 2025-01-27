@@ -40,6 +40,8 @@ namespace AdminShell
                     {
                         await file.CopyToAsync(stream).ConfigureAwait(false);
                     }
+
+                    // TODO: Restart the server with the new nodeset
                 }
             }
             catch (Exception ex)

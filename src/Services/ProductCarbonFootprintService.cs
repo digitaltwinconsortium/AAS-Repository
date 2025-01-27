@@ -302,9 +302,6 @@ namespace AdminShell
             Program.App.Server.Stop();
             Program.App.Server.Start(Program.App.ApplicationConfiguration);
 
-            // wait 10 seconds for server to come back up
-            Thread.Sleep(10000);
-
             // retrieve node Id of PCFCO2eq in AAS PCF submodel template
             NodeId nodeId = new NodeId(10, (ushort)((SimpleServer)Program.App.Server).CurrentInstance.NamespaceUris.GetIndex(namespaceUri));
 
