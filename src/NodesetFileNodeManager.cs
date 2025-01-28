@@ -1,4 +1,4 @@
-
+using Newtonsoft.Json;
 using Opc.Ua;
 using Opc.Ua.Export;
 using Opc.Ua.Server;
@@ -27,7 +27,7 @@ namespace AdminShell
                 }
 
                 // check if we have existing nodesets in our nodesets directory
-                IEnumerable<string> nodesetFiles = Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets"));
+                IEnumerable<string> nodesetFiles = Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets"), "*.xml");
                 if (nodesetFiles.Count() > 0)
                 {
                     foreach (string file in nodesetFiles)
@@ -48,31 +48,45 @@ namespace AdminShell
 
                 if ((nodeSet.NamespaceUris != null) && (nodeSet.NamespaceUris.Length > 0))
                 {
-                    foreach (string ns in nodeSet.NamespaceUris)
+                    foreach (string namespaceUri in nodeSet.NamespaceUris)
                     {
-                        if (!namespaceUris.Contains(ns))
+                        if (!namespaceUris.Contains(namespaceUri))
                         {
-                            namespaceUris.Add(ns);
+                            namespaceUris.Add(namespaceUri);
                         }
                     }
                 }
             }
         }
 
-        public void AddNamespace(string namespaceUri)
+        public void AddNamespace(string filePath)
         {
             lock (Lock)
             {
-                var arguments = new List<string>(NamespaceUris)
+                using (FileStream stream = new(filePath, FileMode.Open, FileAccess.Read))
                 {
-                    namespaceUri
-                };
+                    UANodeSet nodeSet = UANodeSet.Read(stream);
 
-                // Update the table used by this NodeManager
-                SetNamespaces(arguments.ToArray());
+                    if ((nodeSet.NamespaceUris != null) && (nodeSet.NamespaceUris.Length > 0))
+                    {
+                        foreach (string namespaceUri in nodeSet.NamespaceUris)
+                        {
+                            if (!NamespaceUris.Contains(namespaceUri))
+                            {
+                                List<string> updatedNamespaces = new List<string>(NamespaceUris)
+                                {
+                                    namespaceUri
+                                };
 
-                // Register the new URI with the MasterNodeManager
-                Server.NodeManager.RegisterNamespaceManager(namespaceUri, this);
+                                // Update the table used by this NodeManager
+                                SetNamespaces(updatedNamespaces.ToArray());
+
+                                // Register the new URI with the MasterNodeManager
+                                Server.NodeManager.RegisterNamespaceManager(namespaceUri, this);
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -87,7 +101,7 @@ namespace AdminShell
                 }
 
                 // check if we have existing nodesets in our nodesets directory
-                IEnumerable<string> nodesetFiles = Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "Nodesets"));
+                IEnumerable<string> nodesetFiles = Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "Nodesets"), "*.xml");
                 if (nodesetFiles.Count() > 0)
                 {
                     foreach (string file in nodesetFiles)
@@ -104,10 +118,14 @@ namespace AdminShell
             {
                 using (Stream stream = new FileStream(nodesetFile, FileMode.Open))
                 {
+                    // import nodes
                     UANodeSet nodeSet = UANodeSet.Read(stream);
                     NodeStateCollection predefinedNodes = new NodeStateCollection();
                     nodeSet.Import(SystemContext, predefinedNodes);
+                    Server.NodeManager.GetManagerHandle(ObjectIds.ObjectsFolder, out INodeManager objectsFolderNodeManager);
+                    string namespaceUri = nodeSet.NamespaceUris[0];
 
+                    // add nodes
                     for (int i = 0; i < predefinedNodes.Count; i++)
                     {
                         try
@@ -121,8 +139,6 @@ namespace AdminShell
                     }
 
                     // add references for our top-level nodes to the objects folder
-                    Server.NodeManager.GetManagerHandle(ObjectIds.ObjectsFolder, out INodeManager objectsFolderNodeManager);
-                    string namespaceUri = nodeSet.NamespaceUris[0];
                     foreach (UANode node in nodeSet.Items)
                     {
                         if (node is UAObject uAObject)
@@ -143,6 +159,28 @@ namespace AdminShell
                                 objectsFolderNodeManager.AddReferences(dictionary);
                             }
                         }
+                    }
+
+                    // patch the values from our values file
+                    try
+                    {
+                        string valuesFile = Path.Combine(nodesetFile.Replace(".NodeSet2.xml", "_Values.json"));
+                        if (System.IO.File.Exists(valuesFile))
+                        {
+                            Dictionary<string, string> values = JsonConvert.DeserializeObject<Dictionary<string, string>>(System.IO.File.ReadAllText(valuesFile));
+                            foreach (KeyValuePair<string, string> value in values)
+                            {
+                                NodeId nodeId = new NodeId(NodeId.Parse(value.Key).Identifier, (ushort)Server.NamespaceUris.GetIndex(namespaceUri));
+                                if (Find(nodeId) is BaseVariableState variable)
+                                {
+                                    variable.Value = new Variant(value.Value);
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // skip loading values
                     }
                 }
             }

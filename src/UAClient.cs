@@ -75,7 +75,7 @@ namespace AdminShell
                         Id = ExpandedNodeId.ToNodeId(description.NodeId, session.NamespaceUris).ToString(),
                         Text = description.DisplayName.ToString(),
                         Children = new List<NodesetViewerNode>(),
-                        SessionId = session.SessionId.ToString()
+                        SessionId = session.SessionId?.ToString()
                     });
                 }
             }
@@ -183,7 +183,7 @@ namespace AdminShell
             return value;
         }
 
-        public async Task VariableWrite(NodeId nodeId, string sessionId, string value)
+        public async Task VariableWrite(string nodeId, string sessionId, string value)
         {
             Session session = null;
 

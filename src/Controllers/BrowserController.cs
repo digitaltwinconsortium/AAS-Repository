@@ -47,21 +47,7 @@ namespace AdminShell
                     NodesetFileNodeManager nodeManager = (NodesetFileNodeManager)server.CurrentInstance.NodeManager.NodeManagers[2];
 
                     // add the namespace to the server
-                    using (FileStream stream = new(filePath, FileMode.Open, FileAccess.Read))
-                    {
-                        UANodeSet nodeSet = UANodeSet.Read(stream);
-
-                        if ((nodeSet.NamespaceUris != null) && (nodeSet.NamespaceUris.Length > 0))
-                        {
-                            foreach (string ns in nodeSet.NamespaceUris)
-                            {
-                                if (!nodeManager.NamespaceUris.Contains(ns))
-                                {
-                                    nodeManager.AddNamespace(ns);
-                                }
-                            }
-                        }
-                    }
+                    nodeManager.AddNamespace(filePath);
 
                     // add the nodes to the server
                     nodeManager.AddNodesFromNodesetXml(filePath);

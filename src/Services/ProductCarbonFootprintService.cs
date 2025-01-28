@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Opc.Ua;
 using SMIP;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 
@@ -288,11 +288,18 @@ namespace AdminShell
         private void PersistAAS(string productionLineName, double serialNumber, float pcf)
         {
             string aasName = "CarbonFootprintAAS_" + productionLineName + "_" + serialNumber.ToString();
-            string pathToAAS = "./NodeSets/CarbonFootprintAAS_" + aasName + ".xml";
-            string namespaceUri = "http://opcfoundation.org/UA/" + aasName + "/";
+            string pathToAAS = "./NodeSets/CarbonFootprintAAS_" + aasName + ".NodeSet2.xml";
 
             SimpleServer server = (SimpleServer)Program.App.Server;
             NodesetFileNodeManager nodeManager = (NodesetFileNodeManager)server.CurrentInstance.NodeManager.NodeManagers[2];
+
+            // write the values to a JSON file
+            Dictionary<string, string> values = new()
+            {
+                { "i=10", pcf.ToString() }
+            };
+            string pathToAASValues = "./NodeSets/CarbonFootprintAAS_" + aasName + "_Values.json";
+            System.IO.File.WriteAllText(pathToAASValues, JsonConvert.SerializeObject(values));
 
             // copy AAS Submodel Template for CO2 footprint to our Nodeset directory
             System.IO.File.Copy("./CarbonFootprintAAS.NodeSet2.xml", pathToAAS, true);
@@ -301,17 +308,10 @@ namespace AdminShell
             System.IO.File.WriteAllText(pathToAAS, System.IO.File.ReadAllText(pathToAAS).Replace("CarbonFootprintAAS", aasName));
 
             // add the namespace to the server
-            nodeManager.AddNamespace(namespaceUri);
+            nodeManager.AddNamespace(pathToAAS);
 
             // add the nodes to the server
             nodeManager.AddNodesFromNodesetXml(pathToAAS);
-
-            // retrieve node Id of PCFCO2eq in AAS PCF submodel template
-            NodeId nodeId = new NodeId(10, (ushort)server.CurrentInstance.NamespaceUris.GetIndex(namespaceUri));
-
-            // update the node value for PCF
-            UAClient client = (UAClient)Program.AppHost.Services.GetService(typeof(UAClient));
-            client.VariableWrite(nodeId, string.Empty, pcf.ToString()).GetAwaiter().GetResult();
 
             // disconnect all client sessions
             OpcSessionHelper.Instance.DisconnectAll();
