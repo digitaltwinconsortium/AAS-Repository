@@ -198,12 +198,13 @@ namespace AdminShell
                     }
                     else
                     {
-                        SubmodelElement sme = new()
+                        Property sme = new()
                         {
                             ModelType = ModelTypes.Property,
                             DisplayName = new List<LangString>() { new LangString() { Text = smeNode.Text } },
                             IdShort = smeNode.Text,
-                            SemanticId = new SemanticId() {Type = KeyElements.ExternalReference, Keys = new List<Key>() { new Key() { Value = smeNode.Text, Type = KeyElements.GlobalReference } } }
+                            SemanticId = new SemanticId() {Type = KeyElements.ExternalReference, Keys = new List<Key>() { new Key() { Value = smeNode.Text, Type = KeyElements.GlobalReference } } },
+                            Value = _client.VariableRead(smeNode.Id, smeNode.SessionId).GetAwaiter().GetResult()
                         };
 
                         output.Add(sme);
