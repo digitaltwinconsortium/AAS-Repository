@@ -92,7 +92,7 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllSubmodelReferences([FromRoute][Required]string aasIdentifier, [FromQuery]int limit, [FromQuery]string cursor)
         {
-            var decodedAasIdentifier = Base64UrlEncoder.Decode(aasIdentifier);
+            string decodedAasIdentifier = Base64UrlEncoder.Decode(aasIdentifier);
             if (decodedAasIdentifier == null)
             {
                 throw new ArgumentException($"Cannot proceed as {nameof(decodedAasIdentifier)} is null");
@@ -128,14 +128,14 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetThumbnail([FromRoute][Required]string aasIdentifier)
         {
-            var decodedAasIdentifier = Base64UrlEncoder.Decode(aasIdentifier);
+            string decodedAasIdentifier = Base64UrlEncoder.Decode(aasIdentifier);
 
             if (decodedAasIdentifier == null)
             {
                 throw new ArgumentException($"Cannot proceed as {nameof(decodedAasIdentifier)} is null");
             }
 
-            var fileName = _aasEnvService.GetThumbnail(decodedAasIdentifier, out byte[] content, out long fileSize);
+            string fileName = _aasEnvService.GetThumbnail(decodedAasIdentifier, out byte[] content, out long fileSize);
 
             // content-disposition so that the file can be downloaded from the web browser
             ContentDisposition contentDisposition = new() { FileName = fileName };
@@ -170,14 +170,14 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAssetInformation([FromRoute][Required]string aasIdentifier)
         {
-            var decodedAasIdentifier = Base64UrlEncoder.Decode(aasIdentifier);
+            string decodedAasIdentifier = Base64UrlEncoder.Decode(aasIdentifier);
 
             if (decodedAasIdentifier == null)
             {
                 throw new ArgumentException($"Cannot proceed as {nameof(decodedAasIdentifier)} is null");
             }
 
-            var output = _aasEnvService.GetAssetInformationFromAas(decodedAasIdentifier);
+            AssetInformation output = _aasEnvService.GetAssetInformationFromAas(decodedAasIdentifier);
 
             return new ObjectResult(output);
         }

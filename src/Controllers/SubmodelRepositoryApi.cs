@@ -139,9 +139,9 @@ namespace AdminShell
 	            throw new ArgumentException($"Cannot proceed as {nameof(decodedSubmodelIdentifier)} is null");
 	        }
 
-	        string fileName = _aasEnvService.GetFileByPath(string.Empty, decodedSubmodelIdentifier, idShortPath, out byte[] content, out long fileSize);
+	        string fileName = _aasEnvService.GetFileByPath(decodedSubmodelIdentifier, idShortPath, out byte[] content, out long fileSize);
 
-	        //content-disposition so that the aasx file can be downloaded from the web browser.
+	        // content-disposition so that the aasx file can be downloaded from the web browser.
 	        ContentDisposition contentDisposition = new()
 	        {
 	            FileName = fileName ?? throw new ArgumentException(nameof(fileName)),
@@ -198,7 +198,7 @@ namespace AdminShell
                 decodedSubmodelIdentifier = Base64UrlEncoder.Decode(submodelIdentifier);
             }
 
-	        SubmodelElement output = _aasEnvService.GetSubmodelElementByPath(string.Empty, decodedSubmodelIdentifier, idShortPath);
+	        SubmodelElement output = _aasEnvService.GetSubmodelElementByPath(decodedSubmodelIdentifier, idShortPath, out _);
 
 	        return new ObjectResult(output);
 	    }

@@ -340,21 +340,6 @@ namespace AdminShell
             return null;
         }
 
-        public SubmodelElement GetSubmodelElementByPath(string aasIdentifier, string submodelIdentifier, string idShortPath)
-        {
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
-            if (aas != null)
-            {
-                if (IsSubmodelPresentInAAS(aas, submodelIdentifier))
-                {
-                    var output = GetSubmodelElementByPath(submodelIdentifier, idShortPath, out _);
-                    return output;
-                }
-            }
-
-            return null;
-        }
-
         public List<Reference> GetAllSubmodelReferences(string decodedAasId)
         {
             var aas = GetAssetAdministrationShellById(decodedAasId, out _);
@@ -405,16 +390,16 @@ namespace AdminShell
         {
             var submodel = GetSubmodelById(submodelIdentifier, out _);
             if (submodel == null)
+            {
                 return null;
+            }
 
             return submodel.SubmodelElements;
         }
 
         public SubmodelElement GetSubmodelElementByPath(string submodelIdentifier, string idShortPath, out object smeParent)
         {
-            bool found = IsSubmodelElementPresent(submodelIdentifier, idShortPath, out SubmodelElement output, out smeParent);
-
-            if (found)
+            if (IsSubmodelElementPresent(submodelIdentifier, idShortPath, out SubmodelElement output, out smeParent))
             {
                 return output;
             }
@@ -428,8 +413,8 @@ namespace AdminShell
         {
             output = null;
             smeParent = null;
-            var submodel = GetSubmodelById(submodelIdentifier, out _);
 
+            Submodel submodel = GetSubmodelById(submodelIdentifier, out _);
             if (submodel != null)
             {
                 output = GetSubmodelElementByPath(submodel, idShortPath, out object parent);
@@ -483,103 +468,27 @@ namespace AdminShell
         private SubmodelElement GetSubmodelElementByPath(object parent, string idShortPath, out object outParent)
         {
             outParent = parent;
-            if (idShortPath.Contains('.'))
+
+            if (parent is Submodel submodel)
             {
-                string[] idShorts = idShortPath.Split('.', 2);
-                if (parent is Submodel submodel)
-                {
-                    var submodelElement = FindSubmodelElementByIdShort(submodel, idShorts[0]);
-                    if (submodelElement != null)
-                    {
-                        return GetSubmodelElementByPath(submodelElement, idShorts[1], out outParent);
-                    }
-                }
-                else if (parent is SubmodelElementList collection)
-                {
-                    var submodelElement = FindSubmodelElementByIdShort(collection, idShorts[0]);
-                    if (submodelElement != null)
-                    {
-                        return GetSubmodelElementByPath(submodelElement, idShorts[1], out outParent);
-                    }
-                }
-                else if (parent is SubmodelElementList list)
-                {
-                    var submodelElement = FindSubmodelElementByIdShort(list, idShorts[0]);
-                    if (submodelElement != null)
-                    {
-                        return GetSubmodelElementByPath(submodelElement, idShorts[1], out outParent);
-                    }
-                }
-                else if (parent is Entity entity)
-                {
-                    var submodelElement = FindSubmodelElementByIdShort(entity, idShortPath);
-                    if (submodelElement != null)
-                    {
-                        return GetSubmodelElementByPath(submodelElement, idShorts[1], out outParent);
-                    }
-                }
-                else if (parent is AnnotatedRelationshipElement annotatedRelationshipElement)
-                {
-                    var submodelElement = FindSubmodelElementByIdShort(annotatedRelationshipElement, idShortPath);
-                    if (submodelElement != null)
-                    {
-                        return GetSubmodelElementByPath(submodelElement, idShorts[1], out outParent);
-                    }
-                }
-                else
-                {
-                    throw new Exception($"Parent of Type {parent.GetType()} not supported.");
-                }
+                return FindSubmodelElementByIdShort(submodel, idShortPath);
+            }
+            else if (parent is SubmodelElementList list)
+            {
+                return FindSubmodelElementByIdShort(list, idShortPath);
+            }
+            else if (parent is Entity entity)
+            {
+                return FindSubmodelElementByIdShort(entity, idShortPath);
+            }
+            else if (parent is DataElement dataElement)
+            {
+                return FindSubmodelElementByIdShort(dataElement, idShortPath);
             }
             else
             {
-                if (parent is Submodel submodel)
-                {
-                    var submodelElement = FindSubmodelElementByIdShort(submodel, idShortPath);
-                    if (submodelElement != null)
-                    {
-                        return submodelElement;
-                    }
-                }
-                else if (parent is SubmodelElementList collection)
-                {
-                    var submodelElement = FindSubmodelElementByIdShort(collection, idShortPath);
-                    if (submodelElement != null)
-                    {
-                        return submodelElement;
-                    }
-                }
-                else if (parent is SubmodelElementList list)
-                {
-                    var submodelElement = FindSubmodelElementByIdShort(list, idShortPath);
-                    if (submodelElement != null)
-                    {
-                        return submodelElement;
-                    }
-                }
-                else if (parent is Entity entity)
-                {
-                    var submodelElement = FindSubmodelElementByIdShort(entity, idShortPath);
-                    if (submodelElement != null)
-                    {
-                        return submodelElement;
-                    }
-                }
-                else if (parent is AnnotatedRelationshipElement annotatedRelationshipElement)
-                {
-                    var submodelElement = FindSubmodelElementByIdShort(annotatedRelationshipElement, idShortPath);
-                    if (submodelElement != null)
-                    {
-                        return submodelElement;
-                    }
-                }
-                else
-                {
-                    throw new Exception($"Parent of Type {parent.GetType()} not supported.");
-                }
+                throw new Exception($"Parent of Type {parent.GetType()} not supported.");
             }
-
-            return null;
         }
 
         public string GetFileByPath(string submodelIdentifier, string idShortPath, out byte[] byteArray, out long fileSize)
@@ -588,21 +497,18 @@ namespace AdminShell
             string fileName = null;
             fileSize = 0;
 
-            var submodel = GetSubmodelById(submodelIdentifier, out string key);
-
-            var fileElement = GetSubmodelElementByPath(submodelIdentifier, idShortPath, out _);
-
-            if (fileElement != null)
+            SubmodelElement sme = GetSubmodelElementByPath(submodelIdentifier, idShortPath, out _);
+            if (sme != null)
             {
-                if (fileElement is File file)
+                if (sme is File file)
                 {
                     fileName = file.Value;
-                    byteArray = new byte[0]; // TODO: Get file content
+                    byteArray = System.IO.File.ReadAllBytes(System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "wwwroot", fileName));
                     fileSize = byteArray.Length;
                 }
                 else
                 {
-                    throw new Exception($"Submodel element {fileElement.IdShort} is not of Type File.");
+                    throw new Exception($"Submodel element {sme.IdShort} is not of Type File.");
                 }
             }
 
@@ -611,7 +517,7 @@ namespace AdminShell
 
         public string GetThumbnail(string decodedAasIdentifier, out byte[] content, out long fileSize)
         {
-            throw new NotImplementedException();
+            return GetFileByPath(decodedAasIdentifier, "https://admin-shell.io/idta/asset/thumbnail", out content, out fileSize);
         }
     }
 }
