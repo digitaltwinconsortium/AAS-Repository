@@ -5,7 +5,6 @@ using Opc.Ua.Client;
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace AdminShell
@@ -16,8 +15,6 @@ namespace AdminShell
 
         private static OpcSessionHelper _instance = null;
         private static Object _instanceLock = new Object();
-
-        private static SemaphoreSlim _trustedSessionCertificateValidation = null;
 
         internal static string Delimiter { get; } = "__$__";
 
@@ -38,11 +35,6 @@ namespace AdminShell
 
                 return _instance;
             }
-        }
-
-        public OpcSessionHelper()
-        {
-            _trustedSessionCertificateValidation = new SemaphoreSlim(1);
         }
 
         /// <summary>
@@ -144,38 +136,27 @@ namespace AdminShell
             EndpointConfiguration endpointConfiguration = EndpointConfiguration.Create(config);
             ConfiguredEndpoint endpoint = new ConfiguredEndpoint(null, selectedEndpoint, endpointConfiguration);
 
-            Session session = null;
-            try
-            {
-                // lock the session creation for the enforced trust case
-                await _trustedSessionCertificateValidation.WaitAsync().ConfigureAwait(false);
-
-               session = await Session.Create(
+            Session session = await Session.Create(
                     config,
                     endpoint,
                     true,
                     false,
                     string.Empty,
-                    60000,
+                    30000,
                     new UserIdentity(new AnonymousIdentityToken()),
                     null).ConfigureAwait(false);
 
-                if (session != null)
-                {
-                    session.KeepAlive += new KeepAliveEventHandler(StandardClient_KeepAlive);
-
-                    // Update our cache data
-                    OpcSessionCacheData newEntry = new OpcSessionCacheData
-                    {
-                        EndpointURL = endpointURI,
-                        OPCSession = session
-                    };
-                    OpcSessionCache.TryAdd(session.SessionId.ToString(), newEntry);
-                }
-            }
-            finally
+            if (session != null)
             {
-                _trustedSessionCertificateValidation.Release();
+                session.KeepAlive += new KeepAliveEventHandler(StandardClient_KeepAlive);
+
+                // Update our cache data
+                OpcSessionCacheData newEntry = new OpcSessionCacheData
+                {
+                    EndpointURL = endpointURI,
+                    OPCSession = session
+                };
+                OpcSessionCache.TryAdd(session.SessionId.ToString(), newEntry);
             }
 
             return session;

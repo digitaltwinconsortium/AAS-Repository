@@ -153,7 +153,7 @@
       </ua:UserTokenPolicy>
     </UserTokenPolicies>
     <DiagnosticsEnabled>true</DiagnosticsEnabled>
-    <MaxSessionCount>100</MaxSessionCount>
+    <MaxSessionCount>1000</MaxSessionCount>
     <MinSessionTimeout>10000</MinSessionTimeout>
     <MaxSessionTimeout>3600000</MaxSessionTimeout>
     <MaxBrowseContinuationPoints>10</MaxBrowseContinuationPoints>

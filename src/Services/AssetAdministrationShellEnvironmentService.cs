@@ -44,16 +44,19 @@ namespace AdminShell
 
                                 // get all asset and submodel refs
                                 List<NodesetViewerNode> assetsAndSubmodelRefs = _client.GetChildren(a.Id, a.SessionId).GetAwaiter().GetResult();
-                                foreach (NodesetViewerNode s in assetsAndSubmodelRefs)
+                                if (assetsAndSubmodelRefs != null)
                                 {
-                                    if (s.Text.ToLower().Contains("https://admin-shell.io/idta/asset/"))
+                                    foreach (NodesetViewerNode s in assetsAndSubmodelRefs)
                                     {
-                                        aas.AssetInformation = new AssetInformation() { AssetKind = AssetKind.Instance, SpecificAssetIds = new List<IdentifierKeyValuePair>() { new IdentifierKeyValuePair() { Key = s.Text } } };
-                                    }
+                                        if (s.Text.ToLower().Contains("https://admin-shell.io/idta/asset/"))
+                                        {
+                                            aas.AssetInformation = new AssetInformation() { AssetKind = AssetKind.Instance, SpecificAssetIds = new List<IdentifierKeyValuePair>() { new IdentifierKeyValuePair() { Key = s.Text } } };
+                                        }
 
-                                    if (s.Text.ToLower().Contains("https://admin-shell.io/idta/submodel"))
-                                    {
-                                        aas.Submodels.Add(new ModelReference() { Keys = new List<Key>() { new Key() { Value = s.Text, Type = KeyElements.Submodel } } });
+                                        if (s.Text.ToLower().Contains("https://admin-shell.io/idta/submodel"))
+                                        {
+                                            aas.Submodels.Add(new ModelReference() { Keys = new List<Key>() { new Key() { Value = s.Text, Type = KeyElements.Submodel } } });
+                                        }
                                     }
                                 }
 

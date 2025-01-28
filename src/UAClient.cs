@@ -10,28 +10,6 @@ namespace AdminShell
 {
     public class UAClient
     {
-        public async Task<Session> GetSession(string sessionId)
-        {
-            Session session = null;
-
-            try
-            {
-                session =  await OpcSessionHelper.Instance.GetSessionAsync(Program.App.ApplicationConfiguration, sessionId, "opc.tcp://localhost/").ConfigureAwait(false);
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceError(ex.Message);
-
-                if ((session != null) && session.Connected)
-                {
-                    OpcSessionHelper.Instance.Disconnect(session.SessionId.ToString());
-                }
-
-            }
-
-            return session;
-        }
-
         public async Task<List<NodesetViewerNode>> GetChildren(string nodeId, string sessionId)
         {
             List<NodesetViewerNode> nodes = null;

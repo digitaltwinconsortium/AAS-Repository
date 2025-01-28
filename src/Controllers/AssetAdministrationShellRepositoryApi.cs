@@ -68,6 +68,36 @@ namespace AdminShell
         }
 
         /// <summary>
+        /// Returns a specific Asset Administration Shell
+        /// </summary>
+        /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
+        /// <response code="200">Requested Asset Administration Shell</response>
+        /// <response code="400">Bad Request, e.g. the request parameters of the format of the request body is wrong.</response>
+        /// <response code="401">Unauthorized, e.g. the server refused the authorization attempt.</response>
+        /// <response code="403">Forbidden</response>
+        /// <response code="404">Not Found</response>
+        /// <response code="500">Internal Server Error</response>
+        /// <response code="0">Default error handling for unmentioned status codes</response>
+        [HttpGet]
+        [Route("/api/v3.0/shells/{aasIdentifier}")]
+        [SwaggerOperation("GetAssetAdministrationShellById")]
+        [SwaggerResponse(statusCode: 200, type: typeof(AssetAdministrationShell), description: "Requested Asset Administration Shell")]
+        [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request, e.g. the request parameters of the format of the request body is wrong.")]
+        [SwaggerResponse(statusCode: 401, type: typeof(Result), description: "Unauthorized, e.g. the server refused the authorization attempt.")]
+        [SwaggerResponse(statusCode: 403, type: typeof(Result), description: "Forbidden")]
+        [SwaggerResponse(statusCode: 404, type: typeof(Result), description: "Not Found")]
+        [SwaggerResponse(statusCode: 500, type: typeof(Result), description: "Internal Server Error")]
+        [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
+        public virtual IActionResult GetAssetAdministrationShellById([FromRoute][Required] string aasIdentifier)
+        {
+            string decodedAasIdentifier = Base64UrlEncoder.Decode(aasIdentifier);
+
+            AssetAdministrationShell aas = _aasEnvService.GetAssetAdministrationShellById(decodedAasIdentifier, out _);
+
+            return new ObjectResult(aas);
+        }
+
+        /// <summary>
         /// Returns all submodel references
         /// </summary>
         /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
