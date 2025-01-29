@@ -192,17 +192,21 @@ namespace AdminShell
                 endpoints.MapFallbackToPage("/_Host");
             });
 
-            StartServerAsync().GetAwaiter().GetResult();
+            // run the OPC UA server in a separate thread
+            Task.Run(() => StartServerAsync().GetAwaiter().GetResult());
 
             Program.PCFService = app.ApplicationServices.GetRequiredService<ProductCarbonFootprintService>();
         }
 
         private async Task StartServerAsync()
         {
-            // load the application configuration.
+            // Wait 5 seconds for the HTTP server to start
+            await Task.Delay(5000).ConfigureAwait(false);
+
+            // load the application configuration
             ApplicationConfiguration config = await Program.App.LoadApplicationConfiguration(Path.Combine(Directory.GetCurrentDirectory(), "Application.Config.xml"), false).ConfigureAwait(false);
 
-            // check the application certificate.
+            // check the application certificate
             await Program.App.CheckApplicationInstanceCertificate(false, 0).ConfigureAwait(false);
 
             // create cert validator
@@ -210,7 +214,7 @@ namespace AdminShell
             config.CertificateValidator.CertificateValidation += new CertificateValidationEventHandler(CertificateValidator_CertificateValidation);
             config.CertificateValidator.Update(config.SecurityConfiguration).GetAwaiter().GetResult();
 
-            // start the server.
+            // start the server
             await Program.App.Start(new SimpleServer()).ConfigureAwait(false);
         }
 
