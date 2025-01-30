@@ -33,7 +33,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("GetChildren: " + ex.Message);
 
                 if ((session != null) && session.Connected)
                 {
@@ -118,7 +118,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Browse: " + ex.Message);
 
                 if ((session != null) && session.Connected)
                 {
@@ -161,7 +161,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("VariableRead:" + ex.Message);
 
                 if ((session != null) && session.Connected)
                 {
@@ -198,7 +198,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("VariableWrite: " + ex.Message);
 
                 if ((session != null) && session.Connected)
                 {

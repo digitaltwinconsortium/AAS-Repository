@@ -59,7 +59,7 @@ namespace AdminShell
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("GetCarbonIntensity:" + ex.Message);
                     return null;
                 }
             }

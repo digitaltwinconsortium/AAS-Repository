@@ -1,10 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Opc.Ua.Export;
 using System;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AdminShell
@@ -60,7 +57,8 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("LocalFileOpen: " + ex.Message);
+
                 return View("Index", new BrowserModel() { StatusMessage = ex.Message });
             }
 

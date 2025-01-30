@@ -68,7 +68,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("GeneratePCFAAS: " + ex.Message);
             }
         }
 
@@ -224,7 +224,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("GeneratePCFAASForSMIP: " + ex.Message);
             }
         }
 
@@ -276,7 +276,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("GeneratePCFAASForProductionLine:" + ex.Message);
             }
         }
 
