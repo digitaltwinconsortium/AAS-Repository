@@ -73,8 +73,6 @@
     <None Remove="gebhardt_agv.aasx" />
     <None Remove="I4AAS_Export.nodeset2.xml" />
     <None Remove="LICENSE.TXT" />
-    <None Remove="NodeSets\AASwithOPCUAExample.xml" />
-    <None Remove="NodeSets\I4AAS.NodeSet2.xml" />
     <None Remove="OPCUA.png" />
     <None Remove="ProductCarbonFootprintNCSU.aasx" />
   </ItemGroup>
@@ -83,9 +81,5 @@
     <Content Update="wwwroot\OPCUA.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="NodeSets\" />
   </ItemGroup>
 </Project>

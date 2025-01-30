@@ -194,6 +194,12 @@ namespace AdminShell
                 endpoints.MapFallbackToPage("/_Host");
             });
 
+            // directory validation
+            if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets")))
+            {
+                Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets"));
+            }
+
             // run the OPC UA server in a separate thread
             Task.Run(() => StartServerAsync().GetAwaiter().GetResult());
 
