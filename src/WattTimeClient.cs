@@ -12,6 +12,13 @@ namespace AdminShell
     {
         public static async Task<CarbonIntensityQueryResult> GetCarbonIntensity(string latitude, string longitude)
         {
+            CarbonIntensityQueryResult intensity = new()
+            {
+                data = new CarbonData[1]
+            };
+            intensity.data[0] = new CarbonData();
+            intensity.data[0].intensity = new CarbonIntensity();
+
             string watttimeUser = Environment.GetEnvironmentVariable("WATTTIME_USER");
             if (!string.IsNullOrEmpty(watttimeUser))
             {
@@ -41,30 +48,24 @@ namespace AdminShell
                     string content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                     WattTimeQueryResult result = JsonConvert.DeserializeObject<WattTimeQueryResult>(content);
 
-                    CarbonIntensityQueryResult intensity = new()
-                    {
-                        data = new CarbonData[1]
-                    };
-
                     // convert from lbs/MWh to g/KWh
-                    intensity.data[0] = new CarbonData
-                    {
-                        intensity = new CarbonIntensity()
-                        {
-                            actual = (int)(result.data[0].value * 453.592f / 1000.0f)
-                        }
-                    };
-
-                    return intensity;
+                    intensity.data[0].intensity.actual = (int)(result.data[0].value * 453.592f / 1000.0f);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("GetCarbonIntensity:" + ex.Message);
-                    return null;
+
+                    // set an average and return this instead
+                    intensity.data[0].intensity.actual = 500;
                 }
             }
+            else
+            {
+                // set an average and return this instead
+                intensity.data[0].intensity.actual = 500;
+            }
 
-            return null;
+            return intensity;
         }
     }
 }
