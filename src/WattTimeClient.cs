@@ -53,7 +53,7 @@ namespace AdminShell
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("GetCarbonIntensity:" + ex.Message);
+                    Console.WriteLine("GetCarbonIntensity: " + ex.Message);
 
                     // set an average and return this instead
                     intensity.data[0].intensity.actual = 500;

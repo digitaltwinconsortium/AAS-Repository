@@ -161,7 +161,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Console.WriteLine("VariableRead:" + ex.Message);
+                Console.WriteLine("VariableRead: " + ex.Message);
 
                 if ((session != null) && session.Connected)
                 {
