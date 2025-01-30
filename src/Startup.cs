@@ -1,4 +1,5 @@
 ﻿
+using AAS_Repository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -222,6 +223,8 @@ namespace AdminShell
                 config.CertificateValidator.CertificateValidation += new CertificateValidationEventHandler(CertificateValidator_CertificateValidation);
                 config.CertificateValidator.Update(config.SecurityConfiguration).GetAwaiter().GetResult();
 
+                Utils.Tracing.TraceEventHandler += new EventHandler<TraceEventArgs>(OpcStackLoggingHandler);
+
                 // start the server
                 await Program.App.Start(new SimpleServer()).ConfigureAwait(false);
             }
@@ -240,6 +243,28 @@ namespace AdminShell
             {
                 // accept all OPC UA client certificates
                 e.Accept = true;
+            }
+        }
+
+        private static void OpcStackLoggingHandler(object sender, TraceEventArgs e)
+        {
+            if ((e.TraceMask & Program.App.ApplicationConfiguration.TraceConfiguration.TraceMasks) != 0)
+            {
+                if (e.Exception != null)
+                {
+                    Console.WriteLine("OPCUA: " + e.Exception.Message);
+                    return;
+                }
+
+                if (!string.IsNullOrEmpty(e.Format))
+                {
+                    Console.WriteLine("OPCUA: " + e.Format);
+                }
+
+                if (!string.IsNullOrEmpty(e.Message))
+                {
+                    Console.WriteLine("OPCUA: " + e.Message);
+                }
             }
         }
     }
