@@ -3,7 +3,6 @@ using Opc.Ua;
 using Opc.Ua.Client;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace AdminShell
@@ -34,7 +33,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Trace.TraceError(ex.Message);
+                Console.WriteLine(ex.Message);
 
                 if ((session != null) && session.Connected)
                 {
@@ -70,7 +69,9 @@ namespace AdminShell
                 nodeToBrowse
             };
 
-            session.Browse(
+            try
+            {
+                session.Browse(
                 null,
                 null,
                 0,
@@ -78,42 +79,52 @@ namespace AdminShell
                 out BrowseResultCollection results,
                 out DiagnosticInfoCollection diagnosticInfos);
 
-            ClientBase.ValidateResponse(results, nodesToBrowse);
-            ClientBase.ValidateDiagnosticInfos(diagnosticInfos, nodesToBrowse);
+                ClientBase.ValidateResponse(results, nodesToBrowse);
+                ClientBase.ValidateDiagnosticInfos(diagnosticInfos, nodesToBrowse);
 
-            do
-            {
-                if (StatusCode.IsBad(results[0].StatusCode))
+                do
                 {
-                    break;
-                }
+                    if (StatusCode.IsBad(results[0].StatusCode))
+                    {
+                        break;
+                    }
 
-                for (int i = 0; i < results[0].References.Count; i++)
-                {
-                    references.Add(results[0].References[i]);
-                }
+                    for (int i = 0; i < results[0].References.Count; i++)
+                    {
+                        references.Add(results[0].References[i]);
+                    }
 
-                if (results[0].References.Count == 0 || results[0].ContinuationPoint == null)
-                {
-                    break;
-                }
+                    if (results[0].References.Count == 0 || results[0].ContinuationPoint == null)
+                    {
+                        break;
+                    }
 
-                ByteStringCollection continuationPoints = new ByteStringCollection
+                    ByteStringCollection continuationPoints = new ByteStringCollection
                 {
                     results[0].ContinuationPoint
                 };
 
-                session.BrowseNext(
-                    null,
-                    false,
-                    continuationPoints,
-                    out results,
-                    out diagnosticInfos);
+                    session.BrowseNext(
+                        null,
+                        false,
+                        continuationPoints,
+                        out results,
+                        out diagnosticInfos);
 
-                ClientBase.ValidateResponse(results, continuationPoints);
-                ClientBase.ValidateDiagnosticInfos(diagnosticInfos, continuationPoints);
+                    ClientBase.ValidateResponse(results, continuationPoints);
+                    ClientBase.ValidateDiagnosticInfos(diagnosticInfos, continuationPoints);
+                }
+                while (true);
             }
-            while (true);
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                if ((session != null) && session.Connected)
+                {
+                    OpcSessionHelper.Instance.Disconnect(session.SessionId.ToString());
+                }
+            }
 
             return references;
         }
@@ -150,7 +161,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Trace.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message);
 
                 if ((session != null) && session.Connected)
                 {
@@ -187,7 +198,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Trace.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message);
 
                 if ((session != null) && session.Connected)
                 {

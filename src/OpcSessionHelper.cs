@@ -4,7 +4,6 @@ using Opc.Ua;
 using Opc.Ua.Client;
 using System;
 using System.Collections.Concurrent;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace AdminShell
@@ -124,7 +123,7 @@ namespace AdminShell
                     }
                     catch (Exception e)
                     {
-                        Trace.TraceError("Reason = {0}", e.Message);
+                        Console.WriteLine("Reason = {0}", e.Message);
                         throw;
                     }
                 }
@@ -181,8 +180,8 @@ namespace AdminShell
                 }
                 catch (Exception e)
                 {
-                    Trace.TraceError("Can not fetch endpoints from url: {0}", discoveryUrl);
-                    Trace.TraceError("Reason = {0}", e.Message);
+                    Console.WriteLine("Can not fetch endpoints from url: {0}", discoveryUrl);
+                    Console.WriteLine("Reason = {0}", e.Message);
                     throw;
                 }
             }

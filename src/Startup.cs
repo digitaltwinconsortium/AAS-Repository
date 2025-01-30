@@ -195,13 +195,17 @@ namespace AdminShell
             // run the OPC UA server in a separate thread
             Task.Run(() => StartServerAsync().GetAwaiter().GetResult());
 
+            Console.WriteLine("Preparing for PCF service start...");
             Program.PCFService = app.ApplicationServices.GetRequiredService<ProductCarbonFootprintService>();
+            Console.WriteLine("PCF service started.");
         }
 
         private async Task StartServerAsync()
         {
-            // Wait 5 seconds for the HTTP server to start
-            await Task.Delay(5000).ConfigureAwait(false);
+            Console.WriteLine("Preparing for OPC UA server start...");
+
+            // Wait 10 seconds for the HTTP server to start
+            await Task.Delay(10000).ConfigureAwait(false);
 
             // load the application configuration
             ApplicationConfiguration config = await Program.App.LoadApplicationConfiguration(Path.Combine(Directory.GetCurrentDirectory(), "Application.Config.xml"), false).ConfigureAwait(false);
@@ -216,6 +220,8 @@ namespace AdminShell
 
             // start the server
             await Program.App.Start(new SimpleServer()).ConfigureAwait(false);
+
+            Console.WriteLine("OPC UA server started.");
         }
 
         private static void CertificateValidator_CertificateValidation(CertificateValidator validator, CertificateValidationEventArgs e)

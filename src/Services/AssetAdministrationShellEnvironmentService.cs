@@ -9,12 +9,10 @@ namespace AdminShell
 {
     public class AssetAdministrationShellEnvironmentService
     {
-        private readonly ILogger _logger;
         private readonly UAClient _client;
 
-        public AssetAdministrationShellEnvironmentService(ILoggerFactory logger, UAClient client)
+        public AssetAdministrationShellEnvironmentService(UAClient client)
         {
-            _logger = logger.CreateLogger("AssetAdministrationShellEnvironmentService");
             _client = client;
         }
 
@@ -149,7 +147,7 @@ namespace AdminShell
                     var submodels = output.Where(s => s.IdShort.Equals(idShort)).ToList();
                     if ((submodels == null) || (submodels?.Count == 0))
                     {
-                        _logger.LogInformation($"Submodels with IdShort {idShort} Not Found.");
+                        Console.WriteLine($"Submodels with IdShort {idShort} Not Found.");
                     }
 
                     output = submodels;
@@ -163,7 +161,7 @@ namespace AdminShell
                         var submodels = output.Where(s => s.SemanticId.Matches(reqSemanticId)).ToList();
                         if ((submodels == null) || submodels?.Count == 0)
                         {
-                            _logger.LogInformation($"Submodels with requested SemnaticId Not Found.");
+                            Console.WriteLine($"Submodels with requested SemnaticId Not Found.");
                         }
 
                         output = submodels;

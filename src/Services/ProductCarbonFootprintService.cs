@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SMIP;
 using System;
 using System.Collections.Concurrent;
@@ -13,16 +12,12 @@ namespace AdminShell
     {
         private Timer _timer;
 
-        private readonly ILogger _logger;
-
         private readonly ADXDataService _adxDataService;
         private readonly SMIPDataService _smipDataService;
         private readonly AssetAdministrationShellEnvironmentService _envService;
 
-        public ProductCarbonFootprintService(ILoggerFactory logger, ADXDataService adxDataService, SMIPDataService smipDataService, AssetAdministrationShellEnvironmentService envService)
+        public ProductCarbonFootprintService(ADXDataService adxDataService, SMIPDataService smipDataService, AssetAdministrationShellEnvironmentService envService)
         {
-            _logger = logger.CreateLogger("ProductCarbonFootprintService");
-
             _adxDataService = adxDataService;
             _smipDataService = smipDataService;
             _envService = envService;
@@ -73,7 +68,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, ex.Message);
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -229,7 +224,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, ex.Message);
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -281,7 +276,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, ex.Message);
+                Console.WriteLine(ex.Message);
             }
         }
 

@@ -2,7 +2,6 @@
 using Kusto.Cloud.Platform.Utils;
 using Newtonsoft.Json;
 using System;
-using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,7 +59,7 @@ namespace AdminShell
                 }
                 catch (Exception ex)
                 {
-                    Trace.TraceError(ex.Message);
+                    Console.WriteLine(ex.Message);
                     return null;
                 }
             }

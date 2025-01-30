@@ -60,7 +60,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Trace.TraceError(ex.Message);
+                Console.WriteLine(ex.Message);
                 return View("Index", new BrowserModel() { StatusMessage = ex.Message });
             }
 
