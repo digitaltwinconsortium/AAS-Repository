@@ -227,6 +227,7 @@ namespace AdminShell
             catch (Exception ex)
             {
                 Console.WriteLine("StartServerAsync: " + ex.Message);
+                return;
             }
 
             Console.WriteLine("OPC UA server started.");
