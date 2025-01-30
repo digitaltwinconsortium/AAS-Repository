@@ -236,7 +236,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Console.WriteLine("StartServerAsync: " + ex.Message + "\r\n" + ex.InnerException?.Message + "\r\n" + ex?.StackTrace);
+                Console.WriteLine("StartServerAsync: " + ex.Message);
                 return;
             }
 
