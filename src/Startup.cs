@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AdminShell
@@ -204,22 +205,29 @@ namespace AdminShell
         {
             Console.WriteLine("Preparing for OPC UA server start...");
 
-            // Wait 10 seconds for the HTTP server to start
-            await Task.Delay(10000).ConfigureAwait(false);
+            try
+            {
+                // Wait 10 seconds for the HTTP server to start
+                Thread.Sleep(10000);
 
-            // load the application configuration
-            ApplicationConfiguration config = await Program.App.LoadApplicationConfiguration(Path.Combine(Directory.GetCurrentDirectory(), "Application.Config.xml"), false).ConfigureAwait(false);
+                // load the application configuration
+                ApplicationConfiguration config = await Program.App.LoadApplicationConfiguration(Path.Combine(Directory.GetCurrentDirectory(), "Application.Config.xml"), false).ConfigureAwait(false);
 
-            // check the application certificate
-            await Program.App.CheckApplicationInstanceCertificate(false, 0).ConfigureAwait(false);
+                // check the application certificate
+                await Program.App.CheckApplicationInstanceCertificate(false, 0).ConfigureAwait(false);
 
-            // create cert validator
-            config.CertificateValidator = new CertificateValidator();
-            config.CertificateValidator.CertificateValidation += new CertificateValidationEventHandler(CertificateValidator_CertificateValidation);
-            config.CertificateValidator.Update(config.SecurityConfiguration).GetAwaiter().GetResult();
+                // create cert validator
+                config.CertificateValidator = new CertificateValidator();
+                config.CertificateValidator.CertificateValidation += new CertificateValidationEventHandler(CertificateValidator_CertificateValidation);
+                config.CertificateValidator.Update(config.SecurityConfiguration).GetAwaiter().GetResult();
 
-            // start the server
-            await Program.App.Start(new SimpleServer()).ConfigureAwait(false);
+                // start the server
+                await Program.App.Start(new SimpleServer()).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             Console.WriteLine("OPC UA server started.");
         }
