@@ -207,8 +207,9 @@ namespace AdminShell
 
             try
             {
-                // Wait 10 seconds for the HTTP server to start
-                Thread.Sleep(10000);
+                // wait 5 seconds for the HTTP server to complete starting up
+                // for Azure Container Apps, the HTTP server must be started before the OPC UA server
+                Thread.Sleep(5000);
 
                 // load the application configuration
                 ApplicationConfiguration config = await Program.App.LoadApplicationConfiguration(Path.Combine(Directory.GetCurrentDirectory(), "Application.Config.xml"), false).ConfigureAwait(false);
@@ -226,7 +227,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Console.WriteLine("StartServerAsync: " + ex.Message + "\r\n" + ex.InnerException.Message + "\r\n" + ex.StackTrace);
+                Console.WriteLine("StartServerAsync: " + ex.Message + "\r\n" + ex.InnerException?.Message + "\r\n" + ex?.StackTrace);
                 return;
             }
 
