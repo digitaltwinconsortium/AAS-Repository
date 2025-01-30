@@ -87,7 +87,7 @@ namespace AdminShell
             }
 
             // check if we have existing nodesets in our nodesets directory
-            IEnumerable<string> nodesetFiles = Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "Nodesets"), "*.xml");
+            IEnumerable<string> nodesetFiles = Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(), "NodeSets"), "*.xml");
             if (nodesetFiles.Count() > 0)
             {
                 foreach (string file in nodesetFiles)
