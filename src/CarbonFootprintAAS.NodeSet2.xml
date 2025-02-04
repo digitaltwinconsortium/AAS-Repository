@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-01-24T15:16:19.697922Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-02-04T09:42:13.5301248Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
   <NamespaceUris>
     <Uri>http://opcfoundation.org/UA/CarbonFootprintAAS/</Uri>
   </NamespaceUris>
   <Models>
-    <Model ModelUri="http://opcfoundation.org/UA/CarbonFootprintAAS/" Version="1.0.0" PublicationDate="2025-01-24T15:16:19Z"/>
+    <Model ModelUri="http://opcfoundation.org/UA/CarbonFootprintAAS/" Version="1.0.0" PublicationDate="2025-02-04T09:42:13Z"/>
   </Models>
   <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
     <DisplayName>Asset Admin Shells</DisplayName>
@@ -26,6 +26,7 @@
   <UAVariable NodeId="ns=1;i=5" BrowseName="1:https://admin-shell.io/idta/asset/CarbonFootprint/0/9" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=4" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">https://admin-shell.io/idta/asset/CarbonFootprint/0/9</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
     <Value>
@@ -35,6 +36,7 @@
   <UAVariable NodeId="ns=1;i=6" BrowseName="1:https://admin-shell.io/idta/SubmodelTemplate/CarbonFootprint/0/9" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=4" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">https://admin-shell.io/idta/SubmodelTemplate/CarbonFootprint/0/9</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=4</Reference>
     </References>
     <Value>
@@ -77,36 +79,42 @@
   <UAVariable NodeId="ns=1;i=9" BrowseName="1:PCFCalculationMethod" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=8" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">PCFCalculationMethod</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=10" BrowseName="1:PCFCO2eq" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=8" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">PCFCO2eq</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=11" BrowseName="1:PCFReferenceValueForCalculation" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=8" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">PCFReferenceValueForCalculation</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=12" BrowseName="1:PCFQuantityOfMeasureForCalculation" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=8" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">PCFQuantityOfMeasureForCalculation</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=13" BrowseName="1:PCFLifeCyclePhase" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=8" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">PCFLifeCyclePhase</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=14" BrowseName="1:ExplanatoryStatement" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=8" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">ExplanatoryStatement</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAVariable>
@@ -125,42 +133,49 @@
   <UAVariable NodeId="ns=1;i=16" BrowseName="1:Street" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=15" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">Street</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=15</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=17" BrowseName="1:HouseNumber" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=15" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">HouseNumber</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=15</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=18" BrowseName="1:ZipCode" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=15" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">ZipCode</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=15</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=19" BrowseName="1:CityTown" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=15" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">CityTown</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=15</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=20" BrowseName="1:Country" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=15" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">Country</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=15</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=21" BrowseName="1:PublicationDate" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=8" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">PublicationDate</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=22" BrowseName="1:ExpirationDate" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=8" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">ExpirationDate</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=8</Reference>
     </References>
   </UAVariable>
@@ -184,36 +199,42 @@
   <UAVariable NodeId="ns=1;i=24" BrowseName="1:TCFCalculationMethod" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=23" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">TCFCalculationMethod</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=25" BrowseName="1:TCFCO2eq" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=23" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">TCFCO2eq</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=26" BrowseName="1:TCFReferenceValueForCalculation" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=23" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">TCFReferenceValueForCalculation</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=27" BrowseName="1:TCFQuantityOfMeasureForCalculation" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=23" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">TCFQuantityOfMeasureForCalculation</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=28" BrowseName="1:TCFProcessesForGreenhouseGasEmissionInATransportService" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=23" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">TCFProcessesForGreenhouseGasEmissionInATransportService</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=29" BrowseName="1:ExplanatoryStatement" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=23" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">ExplanatoryStatement</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAVariable>
@@ -232,30 +253,35 @@
   <UAVariable NodeId="ns=1;i=31" BrowseName="1:Street" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=30" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">Street</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=30</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=32" BrowseName="1:HouseNumber" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=30" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">HouseNumber</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=30</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=33" BrowseName="1:ZipCode" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=30" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">ZipCode</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=30</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=34" BrowseName="1:CityTown" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=30" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">CityTown</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=30</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=35" BrowseName="1:Country" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=30" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">Country</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=30</Reference>
     </References>
   </UAVariable>
@@ -274,42 +300,49 @@
   <UAVariable NodeId="ns=1;i=37" BrowseName="1:Street" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=36" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">Street</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=36</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=38" BrowseName="1:HouseNumber" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=36" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">HouseNumber</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=36</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=39" BrowseName="1:ZipCode" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=36" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">ZipCode</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=36</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=40" BrowseName="1:CityTown" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=36" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">CityTown</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=36</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=41" BrowseName="1:Country" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=36" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">Country</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=36</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=42" BrowseName="1:PublicationDate" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=23" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">PublicationDate</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAVariable>
   <UAVariable NodeId="ns=1;i=43" BrowseName="1:ExpirationDate" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=23" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">ExpirationDate</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=23</Reference>
     </References>
   </UAVariable>
@@ -344,6 +377,7 @@
   <UAVariable NodeId="ns=1;i=44" BrowseName="1:https://admin-shell.io/idta/CarbonFootprint/ExplanatoryStatement/1/0" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">https://admin-shell.io/idta/CarbonFootprint/ExplanatoryStatement/1/0</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -353,6 +387,7 @@
   <UAVariable NodeId="ns=1;i=45" BrowseName="1:https://admin-shell.io/idta/CarbonFootprint/PublicationDate/1/0" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">https://admin-shell.io/idta/CarbonFootprint/PublicationDate/1/0</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -362,6 +397,7 @@
   <UAVariable NodeId="ns=1;i=46" BrowseName="1:https://admin-shell.io/idta/CarbonFootprint/ExpirationnDate/1/0" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">https://admin-shell.io/idta/CarbonFootprint/ExpirationnDate/1/0</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -371,6 +407,7 @@
   <UAVariable NodeId="ns=1;i=47" BrowseName="1:0173-1#02-ABG854#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-ABG854#001</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -380,6 +417,7 @@
   <UAVariable NodeId="ns=1;i=48" BrowseName="1:0173-1#02-ABG855#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-ABG855#001</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -389,6 +427,7 @@
   <UAVariable NodeId="ns=1;i=49" BrowseName="1:0173-1#02-ABG856#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-ABG856#001</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -398,6 +437,7 @@
   <UAVariable NodeId="ns=1;i=50" BrowseName="1:0173-1#02-ABG857#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-ABG857#001</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -407,6 +447,7 @@
   <UAVariable NodeId="ns=1;i=51" BrowseName="1:0173-1#02-ABG858#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-ABG858#001</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -416,6 +457,7 @@
   <UAVariable NodeId="ns=1;i=52" BrowseName="1:0173-1#02-ABI497#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-ABI497#001</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -425,6 +467,7 @@
   <UAVariable NodeId="ns=1;i=53" BrowseName="1:0173-1#02-ABG859#002" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-ABG859#002</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -434,6 +477,7 @@
   <UAVariable NodeId="ns=1;i=54" BrowseName="1:0173-1#02-ABG860#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-ABG860#001</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -443,6 +487,7 @@
   <UAVariable NodeId="ns=1;i=55" BrowseName="1:0173-1#02-ABG861#002" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-ABG861#002</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -452,6 +497,7 @@
   <UAVariable NodeId="ns=1;i=56" BrowseName="1:0173-1#02-ABG862#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-ABG862#001</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -461,6 +507,7 @@
   <UAVariable NodeId="ns=1;i=57" BrowseName="1:0173-1#02-ABG863#002" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-ABG863#002</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -470,6 +517,7 @@
   <UAVariable NodeId="ns=1;i=58" BrowseName="1:0173-1#02-ABI499#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-ABI499#001</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -479,6 +527,7 @@
   <UAVariable NodeId="ns=1;i=59" BrowseName="1:0173-1#02-ABI498#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-ABI498#001</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -488,6 +537,7 @@
   <UAVariable NodeId="ns=1;i=60" BrowseName="1:0173-1#02-ABH956#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-ABH956#001</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -497,6 +547,7 @@
   <UAVariable NodeId="ns=1;i=61" BrowseName="1:0173-1#02-ABH957#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-ABH957#001</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -506,6 +557,7 @@
   <UAVariable NodeId="ns=1;i=62" BrowseName="1:0173-1#02-ABH958#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-ABH958#001</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -515,6 +567,7 @@
   <UAVariable NodeId="ns=1;i=63" BrowseName="1:0173-1#02-ABH959#001" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-ABH959#001</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>
@@ -524,6 +577,7 @@
   <UAVariable NodeId="ns=1;i=64" BrowseName="1:0173-1#02-AAO259#005" WriteMask="2097152" UserWriteMask="2097152" ParentNodeId="ns=1;i=3" DataType="i=12" AccessLevel="3">
     <DisplayName Locale="en">0173-1#02-AAO259#005</DisplayName>
     <References>
+      <Reference ReferenceType="i=40">i=63</Reference>
       <Reference ReferenceType="i=47" IsForward="false">ns=1;i=3</Reference>
     </References>
     <Value>

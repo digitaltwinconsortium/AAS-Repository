@@ -291,8 +291,15 @@ namespace AdminShell
             // write the values to a JSON file
             Dictionary<string, string> values = new()
             {
-                { "i=10", pcf.ToString() }
+                { "i=9", "GHG Protocol" },              // PCFCalculationMethod
+                { "i=10", pcf.ToString() },             // PCFCO2eq
+                { "i=11", serialNumber.ToString() },    // PCFReferenceValueForCalculation
+                { "i=12", "gCO2" },                     // PCFQuantityOfMeasureForCalculation
+                { "i=14", "Scope 2 Emissions" },        // ExplanatoryStatement
+                { "i=19", productionLineName },         // PCFGoodsAddressHandover.CityTown
+                { "i=21", DateTime.UtcNow.ToString() }  // PublicationDate
             };
+
             string pathToAASValues = "./NodeSets/CarbonFootprintAAS_" + aasName + "_Values.json";
             System.IO.File.WriteAllText(pathToAASValues, JsonConvert.SerializeObject(values));
 
