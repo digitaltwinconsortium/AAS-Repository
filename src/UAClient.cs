@@ -10,6 +10,8 @@ namespace AdminShell
     public class UAClient
     {
         private Session _session;
+        private SessionReconnectHandler m_reconnectHandler;
+        private const int _reconnectPeriod = 10000;
 
         public async Task<List<NodesetViewerNode>> GetChildren(string nodeId)
         {
@@ -27,6 +29,10 @@ namespace AdminShell
                 {
                     return null;
                 }
+                else
+                {
+                    _session.KeepAlive += new KeepAliveEventHandler(StandardClient_KeepAlive);
+                }
 
                 BrowseDescription nodeToBrowse = new()
                 {
@@ -43,6 +49,7 @@ namespace AdminShell
             catch (Exception ex)
             {
                 Console.WriteLine("GetChildren: " + ex.Message);
+                _session = null;
             }
 
             if ((references != null) && (references.Count > 0))
@@ -81,6 +88,49 @@ namespace AdminShell
                     30000,
                     new UserIdentity(new AnonymousIdentityToken()),
                     null).ConfigureAwait(false);
+        }
+
+        private void Client_ReconnectComplete(object sender, EventArgs e)
+        {
+            // ignore callbacks from discarded objects.
+            if (!Object.ReferenceEquals(sender, m_reconnectHandler))
+            {
+                return;
+            }
+
+            _session = (Session)m_reconnectHandler.Session;
+            m_reconnectHandler.Dispose();
+            m_reconnectHandler = null;
+
+            Console.WriteLine(string.Format("--- RECONNECTED --- {0}", _session.Endpoint.EndpointUrl));
+        }
+
+        private void StandardClient_KeepAlive(ISession sender, KeepAliveEventArgs e)
+        {
+            if (e != null && sender != null)
+            {
+                // ignore callbacks from discarded objects.
+                if (!Object.ReferenceEquals(sender, _session))
+                {
+                    return;
+                }
+
+                if (!ServiceResult.IsGood(e.Status))
+                {
+                    Console.WriteLine(String.Format(
+                        "Status: {0} Outstanding requests: {1} Defunct requests: {2}",
+                        e.Status,
+                        sender.OutstandingRequestCount,
+                        sender.DefunctRequestCount));
+
+                    if (e.Status.StatusCode == StatusCodes.BadNoCommunication && m_reconnectHandler == null)
+                    {
+                        Console.WriteLine("--- RECONNECTING --- {0}", sender.Endpoint.EndpointUrl);
+                        m_reconnectHandler = new SessionReconnectHandler();
+                        m_reconnectHandler.BeginReconnect(sender, _reconnectPeriod, Client_ReconnectComplete);
+                    }
+                }
+            }
         }
 
         private ReferenceDescriptionCollection Browse(Session session, BrowseDescription nodeToBrowse)
@@ -142,6 +192,7 @@ namespace AdminShell
             catch (Exception ex)
             {
                 Console.WriteLine("Browse: " + ex.Message);
+                _session = null;
             }
 
             return references;
@@ -187,6 +238,7 @@ namespace AdminShell
             catch (Exception ex)
             {
                 Console.WriteLine("VariableRead: " + ex.Message);
+                _session = null;
             }
 
             return value;
