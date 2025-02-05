@@ -34,8 +34,8 @@ namespace AdminShell
                                 AssetAdministrationShell aas = new()
                                 {
                                     ModelType = ModelTypes.AssetAdministrationShell,
-                                    Identification = new Identifier() { Id = a.Text, Value = a.Text },
-                                    IdShort = a.Text,
+                                    Identification = new Identifier() { Id = a.Id, Value = a.Text },
+                                    IdShort = a.Id + ";" + a.Text,
                                     Id = a.Id
                                 };
 
@@ -120,8 +120,8 @@ namespace AdminShell
                                 {
                                     ModelType = ModelTypes.Submodel,
                                     Id = subNode.Id,
-                                    Identification = new Identifier() { Id = subNode.Text, Value = subNode.Text },
-                                    IdShort = subNode.Text,
+                                    Identification = new Identifier() { Id = subNode.Id, Value = subNode.Text },
+                                    IdShort = subNode.Id + ";" + subNode.Text,
                                     SemanticId = new Reference() { Type = KeyElements.ExternalReference, Keys = new List<Key>() { new Key() { Value = subNode.Text, Type = KeyElements.GlobalReference } } },
                                     DisplayName = new List<LangString>() { new LangString() { Text = subNode.Text } },
                                     Description = new List<LangString>() { new LangString() { Text = _client.VariableRead(subNode.Id).GetAwaiter().GetResult() } }
@@ -235,8 +235,8 @@ namespace AdminShell
                                 ConceptDescription cd = new()
                                 {
                                     ModelType = ModelTypes.ConceptDescription,
-                                    Identification = new Identifier() { Id = cdNode.Text, Value = cdNode.Text },
-                                    IdShort = cdNode.Text,
+                                    Identification = new Identifier() { Id = cdNode.Id, Value = cdNode.Text },
+                                    IdShort = cdNode.Id + ";" + cdNode.Text,
                                     Id = cdNode.Id
                                 };
 

@@ -103,26 +103,6 @@
     <SecurityPolicies>
       <ServerSecurityPolicy>
         <SecurityMode>SignAndEncrypt_3</SecurityMode>
-        <SecurityPolicyUri>http://opcfoundation.org/UA/SecurityPolicy#Basic128Rsa15</SecurityPolicyUri>
-      </ServerSecurityPolicy>
-      <ServerSecurityPolicy>
-        <SecurityMode>Sign_2</SecurityMode>
-        <SecurityPolicyUri>http://opcfoundation.org/UA/SecurityPolicy#Basic256</SecurityPolicyUri>
-      </ServerSecurityPolicy>
-      <ServerSecurityPolicy>
-        <SecurityMode>Sign_2</SecurityMode>
-        <SecurityPolicyUri>http://opcfoundation.org/UA/SecurityPolicy#Basic128Rsa15</SecurityPolicyUri>
-      </ServerSecurityPolicy>
-      <ServerSecurityPolicy>
-        <SecurityMode>SignAndEncrypt_3</SecurityMode>
-        <SecurityPolicyUri>http://opcfoundation.org/UA/SecurityPolicy#Basic256</SecurityPolicyUri>
-      </ServerSecurityPolicy>
-      <ServerSecurityPolicy>
-        <SecurityMode>Sign_2</SecurityMode>
-        <SecurityPolicyUri>http://opcfoundation.org/UA/SecurityPolicy#Basic256Sha256</SecurityPolicyUri>
-      </ServerSecurityPolicy>
-      <ServerSecurityPolicy>
-        <SecurityMode>SignAndEncrypt_3</SecurityMode>
         <SecurityPolicyUri>http://opcfoundation.org/UA/SecurityPolicy#Basic256Sha256</SecurityPolicyUri>
       </ServerSecurityPolicy>
     </SecurityPolicies>
@@ -132,26 +112,12 @@
     <MaxQueuedRequestCount>2000</MaxQueuedRequestCount>
 
     <UserTokenPolicies>
-      <!-- Allows anonymous users -->
       <ua:UserTokenPolicy>
         <ua:TokenType>Anonymous_0</ua:TokenType>
         <ua:SecurityPolicyUri>http://opcfoundation.org/UA/SecurityPolicy#None</ua:SecurityPolicyUri>
       </ua:UserTokenPolicy>
-
-      <!-- Allows username/password -->
-      <ua:UserTokenPolicy>
-        <ua:TokenType>UserName_1</ua:TokenType>
-        <!-- passwords must be encrypted - this specifies what algorithm to use -->
-        <ua:SecurityPolicyUri>http://opcfoundation.org/UA/SecurityPolicy#Basic256</ua:SecurityPolicyUri>
-      </ua:UserTokenPolicy>
-
-      <!-- Allows user certificates -->
-      <ua:UserTokenPolicy>
-        <ua:TokenType>Certificate_2</ua:TokenType>
-        <!-- certificate possession must be proven with a digital signature - this specifies what algorithm to use -->
-        <ua:SecurityPolicyUri>http://opcfoundation.org/UA/SecurityPolicy#Basic256</ua:SecurityPolicyUri>
-      </ua:UserTokenPolicy>
     </UserTokenPolicies>
+
     <DiagnosticsEnabled>true</DiagnosticsEnabled>
     <MaxSessionCount>1000</MaxSessionCount>
     <MinSessionTimeout>10000</MinSessionTimeout>

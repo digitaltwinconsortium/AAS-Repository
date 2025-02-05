@@ -150,7 +150,6 @@ namespace AdminShell
         public async Task<string> VariableRead(string nodeId)
         {
             string value = string.Empty;
-            Session session = null;
 
             try
             {
@@ -175,7 +174,7 @@ namespace AdminShell
                     return string.Empty;
                 }
 
-                ResponseHeader responseHeader = session.Read(null, 0, TimestampsToReturn.Both, nodesToRead, out values, out diagnosticInfos);
+                ResponseHeader responseHeader = _session.Read(null, 0, TimestampsToReturn.Both, nodesToRead, out values, out diagnosticInfos);
 
                 ClientBase.ValidateResponse(values, nodesToRead);
                 ClientBase.ValidateDiagnosticInfos(diagnosticInfos, nodesToRead);
