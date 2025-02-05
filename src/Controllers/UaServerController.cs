@@ -30,7 +30,7 @@ namespace UaRestGateway.Server.Controllers
                 nodeId = ObjectIds.RootFolder.ToString();
             }
 
-            string value = await _client.VariableRead(nodeId, string.Empty).ConfigureAwait(false);
+            string value = await _client.VariableRead(nodeId).ConfigureAwait(false);
 
             return new ObjectResult(value);
         }
@@ -45,16 +45,7 @@ namespace UaRestGateway.Server.Controllers
                 nodeId = ObjectIds.RootFolder.ToString();
             }
 
-            List<NodesetViewerNode> nodes = await _client.GetChildren(nodeId, string.Empty).ConfigureAwait(false);
-
-            // remove session ID
-            if (nodes != null)
-            {
-                foreach (NodesetViewerNode node in nodes)
-                {
-                    node.SessionId = string.Empty;
-                }
-            }
+            List<NodesetViewerNode> nodes = await _client.GetChildren(nodeId).ConfigureAwait(false);
 
             return new ObjectResult(nodes);
         }

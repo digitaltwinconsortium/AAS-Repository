@@ -9,15 +9,24 @@ namespace AdminShell
 {
     public class UAClient
     {
-        public async Task<List<NodesetViewerNode>> GetChildren(string nodeId, string sessionId)
+        private Session _session;
+
+        public async Task<List<NodesetViewerNode>> GetChildren(string nodeId)
         {
             List<NodesetViewerNode> nodes = null;
-            Session session = null;
             ReferenceDescriptionCollection references = null;
 
             try
             {
-                session = await OpcSessionHelper.Instance.GetSessionAsync(Program.App.ApplicationConfiguration, sessionId, "opc.tcp://localhost/").ConfigureAwait(false);
+                if (_session == null || !_session.Connected)
+                {
+                    _session = await CreaterSessionAsync(Program.App.ApplicationConfiguration, "opc.tcp://localhost/").ConfigureAwait(false);
+                }
+
+                if (_session == null || !_session.Connected)
+                {
+                    return null;
+                }
 
                 BrowseDescription nodeToBrowse = new()
                 {
@@ -29,16 +38,11 @@ namespace AdminShell
                     ResultMask = (uint)BrowseResultMask.All
                 };
 
-                references = Browse(session, nodeToBrowse);
+                references = Browse(_session, nodeToBrowse);
             }
             catch (Exception ex)
             {
                 Console.WriteLine("GetChildren: " + ex.Message);
-
-                if ((session != null) && session.Connected)
-                {
-                    OpcSessionHelper.Instance.Disconnect(session.SessionId.ToString());
-                }
             }
 
             if ((references != null) && (references.Count > 0))
@@ -49,15 +53,34 @@ namespace AdminShell
                 {
                     nodes.Add(new NodesetViewerNode()
                     {
-                        Id = ExpandedNodeId.ToNodeId(description.NodeId, session.NamespaceUris).ToString(),
+                        Id = ExpandedNodeId.ToNodeId(description.NodeId, _session.NamespaceUris).ToString(),
                         Text = description.DisplayName.ToString(),
-                        Children = new List<NodesetViewerNode>(),
-                        SessionId = session.SessionId?.ToString()
+                        Children = new List<NodesetViewerNode>()
                     });
                 }
             }
 
             return nodes;
+        }
+
+        private async Task<Session> CreaterSessionAsync(ApplicationConfiguration config, string endpointURL)
+        {
+            if (string.IsNullOrEmpty(endpointURL))
+            {
+                return null;
+            }
+
+            EndpointDescription selectedEndpoint = CoreClientUtils.SelectEndpoint(endpointURL, true);
+            ConfiguredEndpoint configuredEndpoint = new ConfiguredEndpoint(null, selectedEndpoint, EndpointConfiguration.Create(config));
+            return await Session.Create(
+                    config,
+                    configuredEndpoint,
+                    true,
+                    false,
+                    string.Empty,
+                    30000,
+                    new UserIdentity(new AnonymousIdentityToken()),
+                    null).ConfigureAwait(false);
         }
 
         private ReferenceDescriptionCollection Browse(Session session, BrowseDescription nodeToBrowse)
@@ -119,17 +142,12 @@ namespace AdminShell
             catch (Exception ex)
             {
                 Console.WriteLine("Browse: " + ex.Message);
-
-                if ((session != null) && session.Connected)
-                {
-                    OpcSessionHelper.Instance.Disconnect(session.SessionId.ToString());
-                }
             }
 
             return references;
         }
 
-        public async Task<string> VariableRead(string nodeId, string sessionId)
+        public async Task<string> VariableRead(string nodeId)
         {
             string value = string.Empty;
             Session session = null;
@@ -147,7 +165,15 @@ namespace AdminShell
                 valueId.DataEncoding = null;
                 nodesToRead.Add(valueId);
 
-                session = await OpcSessionHelper.Instance.GetSessionAsync(Program.App.ApplicationConfiguration, sessionId, "opc.tcp://localhost/").ConfigureAwait(false);
+                if (_session == null || !_session.Connected)
+                {
+                    _session = await CreaterSessionAsync(Program.App.ApplicationConfiguration, "opc.tcp://localhost/").ConfigureAwait(false);
+                }
+
+                if (_session == null || !_session.Connected)
+                {
+                    return string.Empty;
+                }
 
                 ResponseHeader responseHeader = session.Read(null, 0, TimestampsToReturn.Both, nodesToRead, out values, out diagnosticInfos);
 
@@ -162,49 +188,9 @@ namespace AdminShell
             catch (Exception ex)
             {
                 Console.WriteLine("VariableRead: " + ex.Message);
-
-                if ((session != null) && session.Connected)
-                {
-                    OpcSessionHelper.Instance.Disconnect(session.SessionId.ToString());
-                }
             }
 
             return value;
-        }
-
-        public async Task VariableWrite(string nodeId, string sessionId, string value)
-        {
-            Session session = null;
-
-            try
-            {
-                DiagnosticInfoCollection diagnosticInfos = null;
-                StatusCodeCollection statusCodes = null;
-                WriteValueCollection nodesToWrite = new();
-
-                WriteValue valueId = new();
-                valueId.NodeId = new NodeId(nodeId);
-                valueId.AttributeId = Attributes.Value;
-                valueId.IndexRange = null;
-                valueId.Value = new DataValue(new Variant(value));
-                nodesToWrite.Add(valueId);
-
-                session = await OpcSessionHelper.Instance.GetSessionAsync(Program.App.ApplicationConfiguration, sessionId, "opc.tcp://localhost/").ConfigureAwait(false);
-
-                ResponseHeader responseHeader = session.Write(null, nodesToWrite, out statusCodes, out diagnosticInfos);
-
-                ClientBase.ValidateResponse(statusCodes, nodesToWrite);
-                ClientBase.ValidateDiagnosticInfos(diagnosticInfos, nodesToWrite);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("VariableWrite: " + ex.Message);
-
-                if ((session != null) && session.Connected)
-                {
-                    OpcSessionHelper.Instance.Disconnect(session.SessionId.ToString());
-                }
-            }
         }
     }
 }

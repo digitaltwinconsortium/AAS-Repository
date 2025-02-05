@@ -315,9 +315,6 @@ namespace AdminShell
             // add the nodes to the server
             nodeManager.AddNodesFromNodesetXml(pathToAAS);
 
-            // disconnect all client sessions
-            OpcSessionHelper.Instance.DisconnectAll();
-
             Console.WriteLine("Persisted AAS for " + aasName + " with PCF " + pcf.ToString() + " gCO2.");
         }
 

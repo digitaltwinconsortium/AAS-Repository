@@ -49,9 +49,6 @@ namespace AdminShell
                     // add the nodes to the server
                     nodeManager.AddNodesFromNodesetXml(filePath);
 
-                    // disconnect all client sessions
-                    OpcSessionHelper.Instance.DisconnectAll();
-
                     Console.WriteLine($"Nodeset {file.FileName} loaded successfully.");
                 }
             }

@@ -19,14 +19,14 @@ namespace AdminShell
             List<AssetAdministrationShell> output = new();
 
             // get all AASes
-            List<NodesetViewerNode> nodeList = _client.GetChildren(ObjectIds.ObjectsFolder.ToString(), string.Empty).GetAwaiter().GetResult();
+            List<NodesetViewerNode> nodeList = _client.GetChildren(ObjectIds.ObjectsFolder.ToString()).GetAwaiter().GetResult();
             if (nodeList != null)
             {
                 foreach (NodesetViewerNode node in nodeList)
                 {
                     if (node.Text == "Asset Admin Shells")
                     {
-                        List<NodesetViewerNode> aasList = _client.GetChildren(node.Id, node.SessionId).GetAwaiter().GetResult();
+                        List<NodesetViewerNode> aasList = _client.GetChildren(node.Id).GetAwaiter().GetResult();
                         if (aasList != null)
                         {
                             foreach (NodesetViewerNode a in aasList)
@@ -39,7 +39,7 @@ namespace AdminShell
                                 };
 
                                 // get all asset and submodel refs
-                                List<NodesetViewerNode> assetsAndSubmodelRefs = _client.GetChildren(a.Id, a.SessionId).GetAwaiter().GetResult();
+                                List<NodesetViewerNode> assetsAndSubmodelRefs = _client.GetChildren(a.Id).GetAwaiter().GetResult();
                                 if (assetsAndSubmodelRefs != null)
                                 {
                                     foreach (NodesetViewerNode s in assetsAndSubmodelRefs)
@@ -103,14 +103,14 @@ namespace AdminShell
             List<Submodel> output = new();
 
             // Get All Submodels
-            List<NodesetViewerNode> nodeList = _client.GetChildren(ObjectIds.ObjectsFolder.ToString(), string.Empty).GetAwaiter().GetResult();
+            List<NodesetViewerNode> nodeList = _client.GetChildren(ObjectIds.ObjectsFolder.ToString()).GetAwaiter().GetResult();
             if (nodeList != null)
             {
                 foreach (NodesetViewerNode node in nodeList)
                 {
                     if (node.Text == "Submodels")
                     {
-                        List<NodesetViewerNode> submodelList = _client.GetChildren(node.Id, node.SessionId).GetAwaiter().GetResult();
+                        List<NodesetViewerNode> submodelList = _client.GetChildren(node.Id).GetAwaiter().GetResult();
                         if (submodelList != null)
                         {
                             foreach (NodesetViewerNode subNode in submodelList)
@@ -123,7 +123,7 @@ namespace AdminShell
                                     IdShort = subNode.Text,
                                     SemanticId = new Reference() { Type = KeyElements.ExternalReference, Keys = new List<Key>() { new Key() { Value = subNode.Text, Type = KeyElements.GlobalReference } } },
                                     DisplayName = new List<LangString>() { new LangString() { Text = subNode.Text } },
-                                    Description = new List<LangString>() { new LangString() { Text = _client.VariableRead(subNode.Id, subNode.SessionId).GetAwaiter().GetResult() } }
+                                    Description = new List<LangString>() { new LangString() { Text = _client.VariableRead(subNode.Id).GetAwaiter().GetResult() } }
                                 };
 
                                 // get all submodel elements
@@ -174,7 +174,7 @@ namespace AdminShell
         {
             List<SubmodelElement> output = new();
 
-            List<NodesetViewerNode> submodelElementNodes = _client.GetChildren(subNode.Id, subNode.SessionId).GetAwaiter().GetResult();
+            List<NodesetViewerNode> submodelElementNodes = _client.GetChildren(subNode.Id).GetAwaiter().GetResult();
             if (submodelElementNodes != null)
             {
                 foreach (NodesetViewerNode smeNode in submodelElementNodes)
@@ -203,7 +203,7 @@ namespace AdminShell
                             DisplayName = new List<LangString>() { new LangString() { Text = smeNode.Text } },
                             IdShort = smeNode.Text,
                             SemanticId = new SemanticId() {Type = KeyElements.ExternalReference, Keys = new List<Key>() { new Key() { Value = smeNode.Text, Type = KeyElements.GlobalReference } } },
-                            Value = _client.VariableRead(smeNode.Id, smeNode.SessionId).GetAwaiter().GetResult()
+                            Value = _client.VariableRead(smeNode.Id).GetAwaiter().GetResult()
                         };
 
                         output.Add(sme);
@@ -219,14 +219,14 @@ namespace AdminShell
             List<ConceptDescription> output = new();
 
             // get all concept descriptions
-            List<NodesetViewerNode> nodeList = _client.GetChildren(ObjectIds.ObjectsFolder.ToString(), string.Empty).GetAwaiter().GetResult();
+            List<NodesetViewerNode> nodeList = _client.GetChildren(ObjectIds.ObjectsFolder.ToString()).GetAwaiter().GetResult();
             if (nodeList != null)
             {
                 foreach (NodesetViewerNode node in nodeList)
                 {
                     if (node.Text == "Concept Descriptions")
                     {
-                        List<NodesetViewerNode> conceptDescrNodes = _client.GetChildren(node.Id, node.SessionId).GetAwaiter().GetResult();
+                        List<NodesetViewerNode> conceptDescrNodes = _client.GetChildren(node.Id).GetAwaiter().GetResult();
                         if (conceptDescrNodes != null)
                         {
                             foreach (NodesetViewerNode cdNode in conceptDescrNodes)
