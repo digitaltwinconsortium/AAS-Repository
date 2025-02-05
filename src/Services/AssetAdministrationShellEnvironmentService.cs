@@ -35,7 +35,8 @@ namespace AdminShell
                                 {
                                     ModelType = ModelTypes.AssetAdministrationShell,
                                     Identification = new Identifier() { Id = a.Text, Value = a.Text },
-                                    IdShort = a.Text
+                                    IdShort = a.Text,
+                                    Id = a.Id
                                 };
 
                                 // get all asset and submodel refs
@@ -118,7 +119,7 @@ namespace AdminShell
                                 Submodel sub = new()
                                 {
                                     ModelType = ModelTypes.Submodel,
-                                    Id = subNode.Text,
+                                    Id = subNode.Id,
                                     Identification = new Identifier() { Id = subNode.Text, Value = subNode.Text },
                                     IdShort = subNode.Text,
                                     SemanticId = new Reference() { Type = KeyElements.ExternalReference, Keys = new List<Key>() { new Key() { Value = subNode.Text, Type = KeyElements.GlobalReference } } },
@@ -235,7 +236,8 @@ namespace AdminShell
                                 {
                                     ModelType = ModelTypes.ConceptDescription,
                                     Identification = new Identifier() { Id = cdNode.Text, Value = cdNode.Text },
-                                    IdShort = cdNode.Text
+                                    IdShort = cdNode.Text,
+                                    Id = cdNode.Id
                                 };
 
                                 output.Add(cd);
