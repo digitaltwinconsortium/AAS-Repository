@@ -133,7 +133,7 @@ namespace AdminShell
         {
             string decodedSubmodelIdentifier = Base64UrlEncoder.Decode(submodelIdentifier);
 
-            Submodel output = _aasEnvService.GetSubmodelById(decodedSubmodelIdentifier, out _);
+            Submodel output = _aasEnvService.GetSubmodelById(decodedSubmodelIdentifier);
 
             return new ObjectResult(output);
         }
@@ -230,7 +230,7 @@ namespace AdminShell
                 decodedSubmodelIdentifier = Base64UrlEncoder.Decode(submodelIdentifier);
             }
 
-	        SubmodelElement output = _aasEnvService.GetSubmodelElementByPath(decodedSubmodelIdentifier, idShortPath, out _);
+	        SubmodelElement output = _aasEnvService.GetSubmodelElementByPath(decodedSubmodelIdentifier, idShortPath);
 
 	        return new ObjectResult(output);
 	    }

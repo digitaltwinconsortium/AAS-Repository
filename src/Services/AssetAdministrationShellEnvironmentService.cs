@@ -215,7 +215,7 @@ namespace AdminShell
             return output;
         }
 
-        internal List<ConceptDescription> GetAllConceptDescriptions(string idShort = null, string reqIsCaseOf = null, string reqDataSpecificationRef = null)
+        public List<ConceptDescription> GetAllConceptDescriptions(string idShort = null, string reqIsCaseOf = null, string reqDataSpecificationRef = null)
         {
             List<ConceptDescription> output = new();
 
@@ -263,12 +263,130 @@ namespace AdminShell
             return output;
         }
 
-        internal ConceptDescription GetConceptDescriptionById(string cdIdentifier)
+        public AssetAdministrationShell GetAssetAdministrationShellById(string aasIdentifier)
         {
-            IEnumerable<ConceptDescription> cd = GetAllConceptDescriptions().Where(a => a.Identification.Id.Equals(cdIdentifier));
-            if (cd.Any())
+            List<NodesetViewerNode> nodeList = _client.GetChildren(ObjectIds.ObjectsFolder.ToString()).GetAwaiter().GetResult();
+            if (nodeList != null)
             {
-                return cd.First();
+                foreach (NodesetViewerNode node in nodeList)
+                {
+                    if (node.Text == "Asset Admin Shells")
+                    {
+                        List<NodesetViewerNode> aasList = _client.GetChildren(node.Id).GetAwaiter().GetResult();
+                        if (aasList != null)
+                        {
+                            foreach (NodesetViewerNode a in aasList)
+                            {
+                                if (a.Id.Equals(aasIdentifier))
+                                {
+                                    AssetAdministrationShell aas = new()
+                                    {
+                                        ModelType = ModelTypes.AssetAdministrationShell,
+                                        Identification = new Identifier() { Id = a.Id, Value = a.Text },
+                                        IdShort = a.Id + ";" + a.Text,
+                                        Id = a.Id
+                                    };
+
+                                    // get all asset and submodel refs
+                                    List<NodesetViewerNode> assetsAndSubmodelRefs = _client.GetChildren(a.Id).GetAwaiter().GetResult();
+                                    if (assetsAndSubmodelRefs != null)
+                                    {
+                                        foreach (NodesetViewerNode s in assetsAndSubmodelRefs)
+                                        {
+                                            if (s.Text.ToLower().Contains("https://admin-shell.io/idta/asset/"))
+                                            {
+                                                aas.AssetInformation = new AssetInformation() { AssetKind = AssetKind.Instance, SpecificAssetIds = new List<IdentifierKeyValuePair>() { new IdentifierKeyValuePair() { Key = s.Text } } };
+                                            }
+
+                                            if (s.Text.ToLower().Contains("https://admin-shell.io/idta/submodel"))
+                                            {
+                                                aas.Submodels.Add(new ModelReference() { Keys = new List<Key>() { new Key() { Value = s.Text, Type = KeyElements.Submodel } } });
+                                            }
+                                        }
+                                    }
+
+                                    return aas;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public Submodel GetSubmodelById(string submodelIdentifier)
+        {
+            List<NodesetViewerNode> nodeList = _client.GetChildren(ObjectIds.ObjectsFolder.ToString()).GetAwaiter().GetResult();
+            if (nodeList != null)
+            {
+                foreach (NodesetViewerNode node in nodeList)
+                {
+                    if (node.Text == "Submodels")
+                    {
+                        List<NodesetViewerNode> submodelList = _client.GetChildren(node.Id).GetAwaiter().GetResult();
+                        if (submodelList != null)
+                        {
+                            foreach (NodesetViewerNode subNode in submodelList)
+                            {
+                                if (subNode.Id.Equals(submodelIdentifier))
+                                {
+                                    Submodel sub = new()
+                                    {
+                                        ModelType = ModelTypes.Submodel,
+                                        Id = subNode.Id,
+                                        Identification = new Identifier() { Id = subNode.Id, Value = subNode.Text },
+                                        IdShort = subNode.Id + ";" + subNode.Text,
+                                        SemanticId = new Reference() { Type = KeyElements.ExternalReference, Keys = new List<Key>() { new Key() { Value = subNode.Text, Type = KeyElements.GlobalReference } } },
+                                        DisplayName = new List<LangString>() { new LangString() { Text = subNode.Text } },
+                                        Description = new List<LangString>() { new LangString() { Text = _client.VariableRead(subNode.Id).GetAwaiter().GetResult() } }
+                                    };
+
+                                    // get all submodel elements
+                                    sub.SubmodelElements.AddRange(ReadSubmodelElementNodes(subNode));
+
+                                    return sub;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public ConceptDescription GetConceptDescriptionById(string cdIdentifier)
+        {
+            List<NodesetViewerNode> nodeList = _client.GetChildren(ObjectIds.ObjectsFolder.ToString()).GetAwaiter().GetResult();
+            if (nodeList != null)
+            {
+                foreach (NodesetViewerNode node in nodeList)
+                {
+                    if (node.Text == "Concept Descriptions")
+                    {
+                        List<NodesetViewerNode> conceptDescrNodes = _client.GetChildren(node.Id).GetAwaiter().GetResult();
+                        if (conceptDescrNodes != null)
+                        {
+                            foreach (NodesetViewerNode cdNode in conceptDescrNodes)
+                            {
+                                if (cdNode.Id.Equals(cdIdentifier))
+                                {
+                                    ConceptDescription cd = new()
+                                    {
+                                        ModelType = ModelTypes.ConceptDescription,
+                                        Identification = new Identifier() { Id = cdNode.Id, Value = cdNode.Text },
+                                        IdShort = cdNode.Id + ";" + cdNode.Text,
+                                        Id = cdNode.Id
+                                    };
+
+                                    return cd;
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             return null;
@@ -276,7 +394,7 @@ namespace AdminShell
 
         public AssetInformation GetAssetInformationFromAas(string aasIdentifier)
         {
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
+            var aas = GetAssetAdministrationShellById(aasIdentifier);
             if (aas != null)
             {
                 return aas.AssetInformation;
@@ -285,66 +403,33 @@ namespace AdminShell
             return null;
         }
 
-        private bool IsAssetAdministrationShellPresent(string aasIdentifier, out AssetAdministrationShell output, out string key)
+        public string GetFileByPath(string submodelIdentifier, string idShortPath, out byte[] byteArray, out long fileSize)
         {
-            var aas = GetAllAssetAdministrationShells().Where(a => a.Identification.Id.Equals(aasIdentifier));
-            if (aas.Any())
-            {
-                output = aas.First();
-                key = aasIdentifier;
-                return true;
-            }
-
-            output = null;
-            key = null;
-            return false;
-        }
-
-        public AssetAdministrationShell GetAssetAdministrationShellById(string aasIdentifier, out string key)
-        {
-            bool found = IsAssetAdministrationShellPresent(aasIdentifier, out AssetAdministrationShell output, out key);
-
-            if (found)
-            {
-                return output;
-            }
-            else
-            {
-                throw new Exception($"AssetAdministrationShell with Id {aasIdentifier} not found.");
-            }
-        }
-
-        private bool IsSubmodelPresentInAAS(AssetAdministrationShell aas, string submodelIdentifier)
-        {
-            if (aas.Submodels.Any(s => s.Keys[0].Value == submodelIdentifier))
-            {
-                return true;
-            }
-            else
-            {
-                throw new Exception($"SubmodelReference with Id {submodelIdentifier} not found in AAS with Id {aas.Identification}");
-            }
-        }
-
-        public string GetFileByPath(string aasIdentifier, string submodelIdentifier, string idShortPath, out byte[] content, out long fileSize)
-        {
-            content = null;
+            byteArray = null;
+            string fileName = null;
             fileSize = 0;
-            var aas = GetAssetAdministrationShellById(aasIdentifier, out _);
-            if (aas != null)
+
+            SubmodelElement sme = GetSubmodelElementByPath(submodelIdentifier, idShortPath, out _);
+            if (sme != null)
             {
-                if (IsSubmodelPresentInAAS(aas, submodelIdentifier))
+                if (sme is File file)
                 {
-                    return GetFileByPath(submodelIdentifier, idShortPath, out content, out fileSize);
+                    fileName = file.Value;
+                    byteArray = System.IO.File.ReadAllBytes(System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "wwwroot", fileName));
+                    fileSize = byteArray.Length;
+                }
+                else
+                {
+                    throw new Exception($"Submodel element {sme.IdShort} is not of Type File.");
                 }
             }
 
-            return null;
+            return fileName;
         }
 
         public List<Reference> GetAllSubmodelReferences(string decodedAasId)
         {
-            var aas = GetAssetAdministrationShellById(decodedAasId, out _);
+            var aas = GetAssetAdministrationShellById(decodedAasId);
 
             if (aas != null)
             {
@@ -360,75 +445,30 @@ namespace AdminShell
             return null;
         }
 
-        public Submodel GetSubmodelById(string submodelIdentifier, out string key)
+        public List<SubmodelElement> GetAllSubmodelElementsFromSubmodel(string submodelIdentifier)
         {
-            bool found = IsSubmodelPresent(submodelIdentifier, out Submodel output, out key);
-            if (found)
-            {
-                return output;
-            }
-            else
-            {
-                throw new Exception($"Submodel with Id {submodelIdentifier} not found.");
-            }
-        }
-
-        private bool IsSubmodelPresent(string submodelIdentifier, out Submodel output, out string key)
-        {
-            var submodels = GetAllSubmodels().Where(a => a.Identification.Id.Equals(submodelIdentifier));
-            if (submodels.Any())
-            {
-                output = submodels.First();
-                key = submodelIdentifier;
-                return true;
-            }
-
-            output = null;
-            key = null;
-            return false;
-        }
-
-        public List<SubmodelElement> GetAllSubmodelElementsFromSubmodel(string submodelIdentifier = null)
-        {
-            var submodel = GetSubmodelById(submodelIdentifier, out _);
+            var submodel = GetSubmodelById(submodelIdentifier);
             if (submodel == null)
             {
                 return null;
             }
-
-            return submodel.SubmodelElements;
+            else
+            {
+                return submodel.SubmodelElements;
+            }
         }
 
-        public SubmodelElement GetSubmodelElementByPath(string submodelIdentifier, string idShortPath, out object smeParent)
+        public SubmodelElement GetSubmodelElementByPath(string submodelIdentifier, string idShortPath)
         {
-            if (IsSubmodelElementPresent(submodelIdentifier, idShortPath, out SubmodelElement output, out smeParent))
+            Submodel submodel = GetSubmodelById(submodelIdentifier);
+            if (submodel != null)
             {
-                return output;
+                return GetSubmodelElementByPath(submodel, idShortPath, out object parent);
             }
             else
             {
                 return null;
             }
-        }
-
-        private bool IsSubmodelElementPresent(string submodelIdentifier, string idShortPath, out SubmodelElement output, out object smeParent)
-        {
-            output = null;
-            smeParent = null;
-
-            Submodel submodel = GetSubmodelById(submodelIdentifier, out _);
-            if (submodel != null)
-            {
-                output = GetSubmodelElementByPath(submodel, idShortPath, out object parent);
-                smeParent = parent;
-                if (output != null)
-                {
-                    return true;
-                }
-
-            }
-
-            return false;
         }
 
         private SubmodelElement FindSubmodelElementByIdShort(Submodel sm, string idShort)
@@ -491,35 +531,6 @@ namespace AdminShell
             {
                 throw new Exception($"Parent of Type {parent.GetType()} not supported.");
             }
-        }
-
-        public string GetFileByPath(string submodelIdentifier, string idShortPath, out byte[] byteArray, out long fileSize)
-        {
-            byteArray = null;
-            string fileName = null;
-            fileSize = 0;
-
-            SubmodelElement sme = GetSubmodelElementByPath(submodelIdentifier, idShortPath, out _);
-            if (sme != null)
-            {
-                if (sme is File file)
-                {
-                    fileName = file.Value;
-                    byteArray = System.IO.File.ReadAllBytes(System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "wwwroot", fileName));
-                    fileSize = byteArray.Length;
-                }
-                else
-                {
-                    throw new Exception($"Submodel element {sme.IdShort} is not of Type File.");
-                }
-            }
-
-            return fileName;
-        }
-
-        public string GetThumbnail(string decodedAasIdentifier, out byte[] content, out long fileSize)
-        {
-            return GetFileByPath(decodedAasIdentifier, "https://admin-shell.io/idta/asset/thumbnail", out content, out fileSize);
         }
     }
 }

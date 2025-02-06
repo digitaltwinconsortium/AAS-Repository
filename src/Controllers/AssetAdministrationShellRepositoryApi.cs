@@ -92,7 +92,7 @@ namespace AdminShell
         {
             string decodedAasIdentifier = Base64UrlEncoder.Decode(aasIdentifier);
 
-            AssetAdministrationShell aas = _aasEnvService.GetAssetAdministrationShellById(decodedAasIdentifier, out _);
+            AssetAdministrationShell aas = _aasEnvService.GetAssetAdministrationShellById(decodedAasIdentifier);
 
             return new ObjectResult(aas);
         }
@@ -165,7 +165,7 @@ namespace AdminShell
                 throw new ArgumentException($"Cannot proceed as {nameof(decodedAasIdentifier)} is null");
             }
 
-            string fileName = _aasEnvService.GetThumbnail(decodedAasIdentifier, out byte[] content, out long fileSize);
+            string fileName = _aasEnvService.GetFileByPath(decodedAasIdentifier, "https://admin-shell.io/idta/asset/thumbnail", out byte[] content, out long fileSize);
 
             // content-disposition so that the file can be downloaded from the web browser
             ContentDisposition contentDisposition = new() { FileName = fileName };
