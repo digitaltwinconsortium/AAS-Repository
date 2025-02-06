@@ -399,8 +399,10 @@ namespace AdminShell
             {
                 return aas.AssetInformation;
             }
-
-            return null;
+            else
+            {
+                return null;
+            }
         }
 
         public string GetFileByPath(string submodelIdentifier, string idShortPath, out byte[] byteArray, out long fileSize)
@@ -409,7 +411,7 @@ namespace AdminShell
             string fileName = null;
             fileSize = 0;
 
-            SubmodelElement sme = GetSubmodelElementByPath(submodelIdentifier, idShortPath, out _);
+            SubmodelElement sme = GetSubmodelElementByPath(submodelIdentifier, idShortPath);
             if (sme != null)
             {
                 if (sme is File file)
@@ -434,15 +436,17 @@ namespace AdminShell
             if (aas != null)
             {
                 List<Reference> references = new();
-                foreach(ModelReference smr in aas.Submodels)
+                foreach (ModelReference smr in aas.Submodels)
                 {
                     references.Add(smr);
                 }
 
                 return references;
             }
-
-            return null;
+            else
+            {
+                return null;
+            }
         }
 
         public List<SubmodelElement> GetAllSubmodelElementsFromSubmodel(string submodelIdentifier)
@@ -463,7 +467,7 @@ namespace AdminShell
             Submodel submodel = GetSubmodelById(submodelIdentifier);
             if (submodel != null)
             {
-                return GetSubmodelElementByPath(submodel, idShortPath, out object parent);
+                return FindSubmodelElementByIdShortPath(submodel, idShortPath);
             }
             else
             {
@@ -471,65 +475,107 @@ namespace AdminShell
             }
         }
 
-        private SubmodelElement FindSubmodelElementByIdShort(Submodel sm, string idShort)
+        private SubmodelElement FindSubmodelElementByIdShortPath(object element, string idShortPath)
         {
-            foreach (SubmodelElement sme in sm.SubmodelElements)
+            string[] path = idShortPath.Split(".");
+            if (path.Length == 0)
             {
-                if (sme.IdShort == idShort)
+                return null;
+            }
+
+            // we're at the end of the path
+            if (path.Length == 1)
+            {
+                if (element is Submodel submodel)
                 {
-                    return sme;
+                    foreach (SubmodelElement sme in submodel.SubmodelElements)
+                    {
+                        if (sme.IdShort == path[0])
+                        {
+                            return sme;
+                        }
+                    }
+
+                    return null;
                 }
-            }
-
-            return null;
-        }
-
-        private SubmodelElement FindSubmodelElementByIdShort(SubmodelElementList smec, string idShort)
-        {
-            foreach (SubmodelElement sme in smec.Value)
-            {
-                if (sme.IdShort == idShort)
+                else if (element is SubmodelElementList list)
                 {
-                    return sme;
+                    foreach (SubmodelElement sme in list.Value)
+                    {
+                        if (sme.IdShort == path[0])
+                        {
+                            return sme;
+                        }
+                    }
+
+                    return null;
                 }
-            }
-
-            return null;
-        }
-
-        private SubmodelElement FindSubmodelElementByIdShort(SubmodelElement sme, string idShort)
-        {
-            if (sme.IdShort == idShort)
-            {
-                return sme;
-            }
-
-            return null;
-        }
-
-        private SubmodelElement GetSubmodelElementByPath(object parent, string idShortPath, out object outParent)
-        {
-            outParent = parent;
-
-            if (parent is Submodel submodel)
-            {
-                return FindSubmodelElementByIdShort(submodel, idShortPath);
-            }
-            else if (parent is SubmodelElementList list)
-            {
-                return FindSubmodelElementByIdShort(list, idShortPath);
-            }
-            else if (parent is Entity entity)
-            {
-                return FindSubmodelElementByIdShort(entity, idShortPath);
-            }
-            else if (parent is DataElement dataElement)
-            {
-                return FindSubmodelElementByIdShort(dataElement, idShortPath);
+                else if (element is Entity entity)
+                {
+                    if (entity.IdShort == path[0])
+                    {
+                        return entity;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else if (element is DataElement dataElement)
+                {
+                    if (dataElement.IdShort == path[0])
+                    {
+                        return dataElement;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
             }
             else
             {
-                throw new Exception($"Parent of Type {parent.GetType()} not supported.");
+                string currentPathElement = path[0];
+                string restOfPath = string.Join(".", path.Skip(1).ToArray());
+                if (restOfPath != null)
+                {
+                    if (element is Submodel submodel)
+                    {
+                        foreach (SubmodelElement sme in submodel.SubmodelElements)
+                        {
+                            if (sme.IdShort == path[0])
+                            {
+                                return FindSubmodelElementByIdShortPath(sme, restOfPath);
+                            }
+                        }
+
+                        return null;
+                    }
+                    else if (element is SubmodelElementList list)
+                    {
+                        foreach (SubmodelElement sme in list.Value)
+                        {
+                            if (sme.IdShort == path[0])
+                            {
+                                return FindSubmodelElementByIdShortPath(sme, restOfPath);
+                            }
+                        }
+
+                        return null;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
     }
