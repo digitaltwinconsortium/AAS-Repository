@@ -214,10 +214,10 @@ namespace AdminShell
                     }
                     else
                     {
-                        // add just a basic submodel element
-                        SubmodelElement sme = new()
+                        // add just one property to be spec conform
+                        Property sme = new()
                         {
-                            ModelType = ModelTypes.SubmodelElement,
+                            ModelType = ModelTypes.Property,
                             DisplayName = new List<LangString>() { new LangString() { Text = smeNode.Text } },
                             IdShort = smeNode.Text,
                             SemanticId = new SemanticId() { Type = KeyElements.ExternalReference, Keys = new List<Key>() { new Key() { Value = smeNode.Text, Type = KeyElements.GlobalReference } } }
