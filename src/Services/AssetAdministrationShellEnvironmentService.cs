@@ -127,6 +127,9 @@ namespace AdminShell
                                     Description = new List<LangString>() { new LangString() { Text = _client.VariableRead(subNode.Id).GetAwaiter().GetResult() } }
                                 };
 
+                                // get all submodel elements
+                                sub.SubmodelElements.AddRange(ReadSubmodelElementNodes(subNode, false));
+
                                 output.Add(sub);
                             }
                         }
@@ -168,7 +171,7 @@ namespace AdminShell
             return output;
         }
 
-        private List<SubmodelElement> ReadSubmodelElementNodes(NodesetViewerNode subNode)
+        private List<SubmodelElement> ReadSubmodelElementNodes(NodesetViewerNode subNode, bool browseDeep)
         {
             List<SubmodelElement> output = new();
 
@@ -177,31 +180,47 @@ namespace AdminShell
             {
                 foreach (NodesetViewerNode smeNode in submodelElementNodes)
                 {
-                    // check for children - if there are, create a smel instead of an sme
-                    List<SubmodelElement> children = ReadSubmodelElementNodes(smeNode);
-                    if (children.Count > 0)
+                    if (browseDeep)
                     {
-                        SubmodelElementList smel = new()
+                        // check for children - if there are, create a smel instead of an sme
+                        List<SubmodelElement> children = ReadSubmodelElementNodes(smeNode, browseDeep);
+                        if (children.Count > 0)
                         {
-                            ModelType = ModelTypes.SubmodelElementCollection,
-                            DisplayName = new List<LangString>() { new LangString() { Text = smeNode.Text } },
-                            IdShort = smeNode.Text,
-                            SemanticId = new SemanticId() { Type = KeyElements.ExternalReference, Keys = new List<Key>() { new Key() { Value = smeNode.Text, Type = KeyElements.GlobalReference } } }
-                        };
+                            SubmodelElementList smel = new()
+                            {
+                                ModelType = ModelTypes.SubmodelElementCollection,
+                                DisplayName = new List<LangString>() { new LangString() { Text = smeNode.Text } },
+                                IdShort = smeNode.Text,
+                                SemanticId = new SemanticId() { Type = KeyElements.ExternalReference, Keys = new List<Key>() { new Key() { Value = smeNode.Text, Type = KeyElements.GlobalReference } } }
+                            };
 
-                        smel.Value.AddRange(children);
+                            smel.Value.AddRange(children);
 
-                        output.Add(smel);
+                            output.Add(smel);
+                        }
+                        else
+                        {
+                            Property sme = new()
+                            {
+                                ModelType = ModelTypes.Property,
+                                DisplayName = new List<LangString>() { new LangString() { Text = smeNode.Text } },
+                                IdShort = smeNode.Text,
+                                SemanticId = new SemanticId() { Type = KeyElements.ExternalReference, Keys = new List<Key>() { new Key() { Value = smeNode.Text, Type = KeyElements.GlobalReference } } },
+                                Value = _client.VariableRead(smeNode.Id).GetAwaiter().GetResult()
+                            };
+
+                            output.Add(sme);
+                        }
                     }
                     else
                     {
-                        Property sme = new()
+                        // add just a basic submodel element
+                        SubmodelElement sme = new()
                         {
-                            ModelType = ModelTypes.Property,
+                            ModelType = ModelTypes.SubmodelElement,
                             DisplayName = new List<LangString>() { new LangString() { Text = smeNode.Text } },
                             IdShort = smeNode.Text,
-                            SemanticId = new SemanticId() {Type = KeyElements.ExternalReference, Keys = new List<Key>() { new Key() { Value = smeNode.Text, Type = KeyElements.GlobalReference } } },
-                            Value = _client.VariableRead(smeNode.Id).GetAwaiter().GetResult()
+                            SemanticId = new SemanticId() { Type = KeyElements.ExternalReference, Keys = new List<Key>() { new Key() { Value = smeNode.Text, Type = KeyElements.GlobalReference } } }
                         };
 
                         output.Add(sme);
@@ -341,7 +360,7 @@ namespace AdminShell
                                     };
 
                                     // get all submodel elements
-                                    sub.SubmodelElements.AddRange(ReadSubmodelElementNodes(subNode));
+                                    sub.SubmodelElements.AddRange(ReadSubmodelElementNodes(subNode, true));
 
                                     return sub;
                                 }
