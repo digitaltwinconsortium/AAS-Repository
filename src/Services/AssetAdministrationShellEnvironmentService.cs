@@ -127,9 +127,6 @@ namespace AdminShell
                                     Description = new List<LangString>() { new LangString() { Text = _client.VariableRead(subNode.Id).GetAwaiter().GetResult() } }
                                 };
 
-                                // get all submodel elements
-                                sub.SubmodelElements.AddRange(ReadSubmodelElementNodes(subNode));
-
                                 output.Add(sub);
                             }
                         }
