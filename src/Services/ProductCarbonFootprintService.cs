@@ -14,13 +14,13 @@ namespace AdminShell
 
         private readonly ADXDataService _adxDataService;
         private readonly SMIPDataService _smipDataService;
-        private readonly AssetAdministrationShellEnvironmentService _envService;
+        private readonly DynamicsDataService _dynamicsDataService;
 
-        public ProductCarbonFootprintService(ADXDataService adxDataService, SMIPDataService smipDataService, AssetAdministrationShellEnvironmentService envService)
+        public ProductCarbonFootprintService(ADXDataService adxDataService, SMIPDataService smipDataService, DynamicsDataService dynamicsDataService)
         {
             _adxDataService = adxDataService;
             _smipDataService = smipDataService;
-            _envService = envService;
+            _dynamicsDataService = dynamicsDataService;
 
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF"))
              || !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF_SMIP")))

@@ -74,6 +74,8 @@ namespace AdminShell
 
             services.AddSingleton<SMIPDataService>();
 
+            services.AddSingleton<DynamicsDataService>();
+
             services.AddSingleton<UAClient>();
 
             services.AddLogging(builder => builder.AddConsole());

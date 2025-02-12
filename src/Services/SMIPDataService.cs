@@ -55,9 +55,9 @@ namespace AdminShell
             {
                 if (ex.Message.ToLower().Contains("forbidden") || ex.Message.ToLower().Contains("unauthorized") || ex.Message.ToLower().Contains("badrequest"))
                 {
-                    Debug.WriteLine("Bearer Token expired! Attempting to retreive a new GraphQL Bearer Token.");
+                    Debug.WriteLine("Bearer Token expired! Attempting to retrieve a new barer token.");
 
-                    // re-authenticate
+                    // re-authorize
                     _currentBearerToken = GetBearerToken().GetAwaiter().GetResult();
 
                     // re-try our data request, using the updated bearer token
