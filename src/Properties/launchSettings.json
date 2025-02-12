@@ -32,8 +32,8 @@
       "publishAllPorts": true,
       "environmentVariables": {
         "ServicePassword": "",
-        "ADX_HOST": "",
-        "ADX_DB": "",
+        "ADX_HOST": "https://erichbtestadx.westeurope.kusto.windows.net",
+        "ADX_DB": "ontologies",
         "AAD_APPLICATION_ID": "",
         "DATA_QUERY_INTERVAL": "",
         "CALCULATE_PCF": "1",
