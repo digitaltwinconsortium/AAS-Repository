@@ -220,12 +220,12 @@ namespace AdminShell
                 ApplicationConfiguration config = await Program.App.LoadApplicationConfiguration(Path.Combine(Directory.GetCurrentDirectory(), "Application.Config.xml"), false).ConfigureAwait(false);
 
                 // check the application certificate
-                await Program.App.CheckApplicationInstanceCertificate(false, 0).ConfigureAwait(false);
+                await Program.App.CheckApplicationInstanceCertificates(false, 0).ConfigureAwait(false);
 
                 // create cert validator
                 config.CertificateValidator = new CertificateValidator();
                 config.CertificateValidator.CertificateValidation += new CertificateValidationEventHandler(CertificateValidator_CertificateValidation);
-                config.CertificateValidator.Update(config.SecurityConfiguration).GetAwaiter().GetResult();
+                config.CertificateValidator.Update(config).GetAwaiter().GetResult();
 
                 Utils.Tracing.TraceEventHandler += new EventHandler<TraceEventArgs>(OpcStackLoggingHandler);
 

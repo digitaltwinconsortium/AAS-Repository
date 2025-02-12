@@ -77,7 +77,7 @@ namespace AdminShell
                 return null;
             }
 
-            EndpointDescription selectedEndpoint = CoreClientUtils.SelectEndpoint(endpointURL, true);
+            EndpointDescription selectedEndpoint = CoreClientUtils.SelectEndpoint(config, endpointURL, true);
             ConfiguredEndpoint configuredEndpoint = new ConfiguredEndpoint(null, selectedEndpoint, EndpointConfiguration.Create(config));
             return await Session.Create(
                     config,
