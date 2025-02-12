@@ -13,12 +13,12 @@ namespace AdminShell
 {
     public class SMIPDataService : IDisposable
     {
-        string _instanceGraphQLEndpoint = string.Empty;
-        string _clientId = string.Empty;
-        string _clientPassword = string.Empty;
-        string _userName = string.Empty;
-        string _role = string.Empty;
-        string _currentBearerToken = string.Empty;
+        private string _instanceGraphQLEndpoint = string.Empty;
+        private string _clientId = string.Empty;
+        private string _clientPassword = string.Empty;
+        private string _userName = string.Empty;
+        private string _role = string.Empty;
+        private string _currentBearerToken = string.Empty;
 
         public SMIPDataService()
         {
@@ -32,7 +32,7 @@ namespace AdminShell
             // optionally login
             if (!string.IsNullOrEmpty(_instanceGraphQLEndpoint) && string.IsNullOrEmpty(_currentBearerToken))
             {
-                string newToken = GetBearerToken(_instanceGraphQLEndpoint).GetAwaiter().GetResult();
+                string newToken = GetBearerToken().GetAwaiter().GetResult();
                 if (newToken != null)
                 {
                     _currentBearerToken = newToken;
@@ -58,7 +58,7 @@ namespace AdminShell
                     Debug.WriteLine("Bearer Token expired! Attempting to retreive a new GraphQL Bearer Token.");
 
                     // re-authenticate
-                    _currentBearerToken = GetBearerToken(_instanceGraphQLEndpoint).GetAwaiter().GetResult();
+                    _currentBearerToken = GetBearerToken().GetAwaiter().GetResult();
 
                     // re-try our data request, using the updated bearer token
                     smpResponse = PerformGraphQLRequest(query, _instanceGraphQLEndpoint, _currentBearerToken).GetAwaiter().GetResult();
@@ -84,11 +84,11 @@ namespace AdminShell
             return data.ToString(Formatting.Indented);
         }
 
-        private async Task<string> GetBearerToken(string endPoint)
+        private async Task<string> GetBearerToken()
         {
             try
             {
-                var graphQLClient = new GraphQLHttpClient(endPoint, new NewtonsoftJsonSerializer());
+                var graphQLClient = new GraphQLHttpClient(_instanceGraphQLEndpoint, new NewtonsoftJsonSerializer());
 
                 // Step 1: Request a challenge
                 string authRequestQuery = @$"
