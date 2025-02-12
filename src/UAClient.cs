@@ -1,4 +1,5 @@
 ﻿
+using Newtonsoft.Json.Linq;
 using Opc.Ua;
 using Opc.Ua.Client;
 using System;
@@ -198,6 +199,49 @@ namespace AdminShell
             return references;
         }
 
+        public async Task<IServiceResponse> Browse(BrowseRequest request)
+        {
+            try
+            {
+                if (_session == null || !_session.Connected)
+                {
+                    _session = await CreaterSessionAsync(Program.App.ApplicationConfiguration, "opc.tcp://localhost/").ConfigureAwait(false);
+                }
+
+                if (_session == null || !_session.Connected)
+                {
+                    return null;
+                }
+                else
+                {
+                    _session.KeepAlive += new KeepAliveEventHandler(StandardClient_KeepAlive);
+                }
+
+                ResponseHeader responseHeader = _session.Browse(
+                    request.RequestHeader,
+                    request.View,
+                    request.RequestedMaxReferencesPerNode,
+                    request.NodesToBrowse,
+                    out BrowseResultCollection results,
+                    out DiagnosticInfoCollection diagnosticInfos);
+
+                BrowseResponse response = new()
+                {
+                    ResponseHeader = responseHeader,
+                    Results = results,
+                    DiagnosticInfos = diagnosticInfos
+                };
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Browse: " + ex.Message);
+                _session = null;
+                return null;
+            }
+        }
+
         public async Task<string> VariableRead(string nodeId)
         {
             string value = string.Empty;
@@ -242,6 +286,138 @@ namespace AdminShell
             }
 
             return value;
+        }
+
+        public async Task<IServiceResponse> Read(ReadRequest request)
+        {
+            try
+            {
+                if (_session == null || !_session.Connected)
+                {
+                    _session = await CreaterSessionAsync(Program.App.ApplicationConfiguration, "opc.tcp://localhost/").ConfigureAwait(false);
+                }
+
+                if (_session == null || !_session.Connected)
+                {
+                    return null;
+                }
+                else
+                {
+                    _session.KeepAlive += new KeepAliveEventHandler(StandardClient_KeepAlive);
+                }
+
+                ResponseHeader responseHeader = _session.Read(
+                    request.RequestHeader,
+                    request.MaxAge,
+                    request.TimestampsToReturn,
+                    request.NodesToRead,
+                    out DataValueCollection results,
+                    out DiagnosticInfoCollection diagnosticInfos);
+
+                for (int ii = 0; ii < request.NodesToRead.Count; ii++)
+                {
+                    if (request.NodesToRead[ii].AttributeId == 60)
+                    {
+                        results[ii] = ReadProperties(request, request.NodesToRead[ii]);
+                    }
+                }
+
+                ReadResponse response = new()
+                {
+                    ResponseHeader = responseHeader,
+                    Results = results,
+                    DiagnosticInfos = diagnosticInfos
+                };
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Read: " + ex.Message);
+                _session = null;
+                return null;
+            }
+        }
+
+        private DataValue ReadProperties(ReadRequest request, ReadValueId nodeToRead)
+        {
+            _session.Browse(
+                request.RequestHeader,
+                null,
+                0,
+                new BrowseDescriptionCollection([
+                    new BrowseDescription() {
+                        NodeId = nodeToRead.NodeId,
+                        ReferenceTypeId = ReferenceTypeIds.HasProperty,
+                        BrowseDirection = BrowseDirection.Forward,
+                        IncludeSubtypes = true,
+                        NodeClassMask = (uint)NodeClass.Variable,
+                        ResultMask = (uint)BrowseResultMask.BrowseName
+                    }
+                ]),
+                out BrowseResultCollection results1,
+                out DiagnosticInfoCollection diagnosticInfos1);
+
+            if (results1.Count == 0)
+            {
+                return new DataValue() { StatusCode = StatusCodes.BadNotFound, ServerTimestamp = DateTime.UtcNow };
+            }
+
+            ReadValueIdCollection nodesToRead = new();
+
+            foreach (var node in results1)
+            {
+                foreach (var reference in node.References)
+                {
+                    nodesToRead.Add(new ReadValueId()
+                    {
+                        NodeId = (NodeId)reference.NodeId,
+                        AttributeId = Attributes.Value,
+                        Handle = reference
+                    });
+                }
+            }
+
+            var responseHeader = _session.Read(
+                request.RequestHeader,
+                request.MaxAge,
+                TimestampsToReturn.Neither,
+                nodesToRead,
+                out DataValueCollection results,
+                out DiagnosticInfoCollection diagnosticInfos);
+
+            using (JsonEncoder encoder = new(ServiceMessageContext.GlobalContext, JsonEncodingType.Compact))
+            {
+                // TODO: Reenable once new encoder is released
+                // encoder.SuppressArtifacts = true;
+
+                for (int ii = 0; ii < nodesToRead.Count; ii++)
+                {
+                    ReferenceDescription reference = nodesToRead[ii].Handle as ReferenceDescription;
+
+                    // TODO: Reenable once new encoder is released
+                    //encoder.WriteRawValue(
+                    //    new FieldMetaData()
+                    //    {
+                    //        Name = reference.BrowseName.Name,
+                    //        BuiltInType = (byte)results[ii].WrappedValue.TypeInfo.BuiltInType,
+                    //        ValueRank = results[ii].WrappedValue.TypeInfo.ValueRank,
+                    //        DataType = DataTypeIds.BaseDataType
+                    //    },
+                    //    results[ii],
+                    //    DataSetFieldContentMask.RawData);
+                }
+
+                string json = encoder.CloseAndReturnText();
+                JObject jobject = JObject.Parse(json);
+
+                return new DataValue()
+                {
+                    WrappedValue = new ExtensionObject(nodeToRead.NodeId, jobject),
+                    StatusCode = Opc.Ua.StatusCodes.Good,
+                    ServerTimestamp = DateTime.UtcNow
+                };
+            }
         }
     }
 }
