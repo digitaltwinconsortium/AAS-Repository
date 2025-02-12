@@ -65,7 +65,7 @@ namespace AdminShell
                 AuthenticationResult result = await app.AcquireTokenForClient(scopes).ExecuteAsync();
                 Debug.WriteLine($"Token: {result.AccessToken}");
 
-                // Step 2: Get token
+                // Step 2: Get bearer token
                 // TODO
                 return result.AccessToken;
             }
