@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
 namespace AdminShell
@@ -37,43 +38,19 @@ namespace AdminShell
     {
         public string tracingDirection { get; set; }
 
-        public Root root { get; set; }
+        public ErpNode root { get; set; }
     }
 
-    public class Root
+    public class ErpNode
     {
         public string trackingId { get; set; }
 
-        public List<Next> next { get; set; }
+        public List<ErpNode> next { get; set; }
 
-        public List<Event> events { get; set; }
+        public List<ErpEvent> events { get; set; }
     }
 
-    public class ConsumptionTransaction
-    {
-        public string transactionId { get; set; }
-
-        public string itemId { get; set; }
-
-        public string trackingId { get; set; }
-
-        public string eventId { get; set; }
-
-        public int quantity { get; set; }
-
-        public string unitOfMeasure { get; set; }
-
-        public string transactionType { get; set; }
-
-        public string batchId { get; set; }
-    }
-
-    public class Details
-    {
-        public string datacollectionname { get; set; }
-    }
-
-    public class Event
+    public class ErpEvent
     {
         public string eventId { get; set; }
 
@@ -89,23 +66,12 @@ namespace AdminShell
 
         public string datetime { get; set; }
 
-        public Details details { get; set; }
+        public List<ErpTransaction> consumptionTransactions { get; set; }
 
-        public List<ConsumptionTransaction> consumptionTransactions { get; set; }
-
-        public List<ProductTransaction> productTransactions { get; set; }
+        public List<ErpTransaction> productTransactions { get; set; }
     }
 
-    public class Next
-    {
-        public string trackingId { get; set; }
-
-        public List<object> next { get; set; }
-
-        public List<object> events { get; set; }
-    }
-
-    public class ProductTransaction
+    public class ErpTransaction
     {
         public string transactionId { get; set; }
 
@@ -113,16 +79,18 @@ namespace AdminShell
 
         public string trackingId { get; set; }
 
-        public Details details { get; set; }
-
         public string eventId { get; set; }
 
-        public int quantity { get; set; }
+        public float quantity { get; set; }
 
         public string unitOfMeasure { get; set; }
 
         public string transactionType { get; set; }
 
+        public string batchId { get; set; }
+
         public string serialId { get; set; }
+
+        public JObject details { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SMIP;
 using System;
 using System.Collections.Concurrent;
@@ -263,8 +264,8 @@ namespace AdminShell
                         // finally calculate the scope 2 product carbon footprint by multiplying the full energy consumption by the current carbon intensity
                         float scope2Emissions = (float)energyTotal * currentCarbonIntensity.data[0].intensity.actual;
 
-                        // we set scope 3 emissions to 0
-                        float scope3Emissions = 0.0f;
+                        // we get scope 3 emissions from Dynamics as part of the Bill of Material (BoM)
+                        float scope3Emissions = RetrieveScope3Emissions();
 
                         // finally calculate our PCF
                         float pcf = scope1Emissions + scope2Emissions + scope3Emissions;
@@ -278,6 +279,69 @@ namespace AdminShell
             {
                 Console.WriteLine("GeneratePCFAASForProductionLine: " + ex.Message);
             }
+        }
+
+        private float RetrieveScope3Emissions()
+        {
+            try
+            {
+                DynamicsQueryResponse response = _dynamicsDataService.RunDynamicsQuery(new DynamicsQuery() {
+                    tracingDirection = "Backward",
+                    company = Environment.GetEnvironmentVariable("DYNAMICS_COMPANY_NAME"),
+                    itemNumber = Environment.GetEnvironmentVariable("DYNAMICS_PRODUCT_NAME"),
+                    serialNumber = Environment.GetEnvironmentVariable("DYNAMICS_BATCH_NAME"),
+                    shouldIncludeEvents = true
+                }).GetAwaiter().GetResult();
+
+                if (response != null)
+                {
+                    return FindPcf(response.root);
+                }
+                else
+                {
+                    return 0.0f;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("RetrieveScope3Emissions: " + ex.Message);
+                return 0.0f;
+            }
+        }
+
+        private float FindPcf(ErpNode node)
+        {
+            if (node.events != null)
+            {
+                foreach (ErpEvent erpEvent in node.events)
+                {
+                    if (erpEvent.productTransactions != null)
+                    {
+                        foreach (ErpTransaction transaction in erpEvent.productTransactions)
+                        {
+                            if ((transaction.details != null) && (transaction.details.First != null) && ((JProperty)transaction.details.First).Name.ToLowerInvariant() == "pcf")
+                            {
+                                return float.Parse(((JProperty)transaction.details.First).Value.ToString()) / transaction.quantity;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (node.next != null)
+            {
+                foreach (ErpNode nextNode in node.next)
+                {
+                    float pcf = FindPcf(nextNode);
+                    if (pcf != 0.0f)
+                    {
+                        return pcf;
+                    }
+                }
+            }
+
+            // not found
+            return 0.0f;
         }
 
         private void PersistAAS(string productionLineName, double serialNumber, float pcf)
