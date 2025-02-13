@@ -82,39 +82,22 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                Console.WriteLine("Authorize: " + ex.Message);
             }
         }
 
         public async Task<DynamicsQueryResponse> RunDynamicsQuery(DynamicsQuery query)
         {
-            try
+            if (!string.IsNullOrEmpty(_instanceEndpoint))
             {
-                HttpResponseMessage response = _client.Send(
-                    new HttpRequestMessage(
-                        HttpMethod.Post,
-                        _instanceEndpoint + "/api/environment/" + _environmentId + "/traces/Query")
-                    {
-                        Content = new StringContent(
-                                JsonConvert.SerializeObject(query),
-                                Encoding.UTF8,
-                                "application/json"
-                        )
-                    }
-                );
-
-                if ((response.StatusCode == HttpStatusCode.Unauthorized) || (response.StatusCode == HttpStatusCode.Forbidden))
+                try
                 {
-                    Debug.WriteLine("Bearer Token expired! Attempting to retrieve a new barer token.");
-
-                    // re-authorize
-                    await Authorize().ConfigureAwait(false);
-
-                    // re-try our data request, using the updated bearer token
-                    response = _client.Send(
+                    string url = _instanceEndpoint + "/api/environments/" + _environmentId + "/traces/Query";
+                    HttpResponseMessage response = _client.Send(
                         new HttpRequestMessage(
                             HttpMethod.Post,
-                            _instanceEndpoint + "/api/environment/" + _environmentId + "/traces/Query")
+                            url
+                            )
                         {
                             Content = new StringContent(
                                     JsonConvert.SerializeObject(query),
@@ -123,18 +106,44 @@ namespace AdminShell
                             )
                         }
                     );
-                }
 
-                if (response.StatusCode != HttpStatusCode.OK)
+                    if ((response.StatusCode == HttpStatusCode.Unauthorized) || (response.StatusCode == HttpStatusCode.Forbidden))
+                    {
+                        Debug.WriteLine("Bearer Token expired! Attempting to retrieve a new barer token.");
+
+                        // re-authorize
+                        await Authorize().ConfigureAwait(false);
+
+                        // re-try our data request, using the updated bearer token
+                        response = _client.Send(
+                            new HttpRequestMessage(
+                                HttpMethod.Post,
+                                _instanceEndpoint + "/api/environment/" + _environmentId + "/traces/Query")
+                            {
+                                Content = new StringContent(
+                                        JsonConvert.SerializeObject(query),
+                                        Encoding.UTF8,
+                                        "application/json"
+                                )
+                            }
+                        );
+                    }
+
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        throw new Exception(response.StatusCode.ToString());
+                    }
+
+                    return JsonConvert.DeserializeObject<DynamicsQueryResponse>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
+                }
+                catch (Exception ex)
                 {
-                    throw new Exception(response.StatusCode.ToString());
+                    Console.WriteLine("RunDynamicsQuery: " + ex.Message);
+                    return null;
                 }
-
-                return JsonConvert.DeserializeObject<DynamicsQueryResponse>(await response.Content.ReadAsStringAsync().ConfigureAwait(false));
             }
-            catch (Exception ex)
+            else
             {
-                Debug.WriteLine(ex.Message);
                 return null;
             }
         }

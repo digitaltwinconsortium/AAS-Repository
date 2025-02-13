@@ -106,7 +106,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                Console.WriteLine("RunADXQuery: " + ex.Message);
             }
         }
     }

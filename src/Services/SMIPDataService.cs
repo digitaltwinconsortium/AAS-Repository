@@ -65,7 +65,7 @@ namespace AdminShell
                 }
                 else
                 {
-                    Debug.WriteLine(ex.Message);
+                    Console.WriteLine("RunSMIPQuery: " + ex.Message);
                 }
             }
 
@@ -121,7 +121,7 @@ namespace AdminShell
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                Console.WriteLine("GetBearerToken: " + ex.Message);
                 return null;
             }
         }
