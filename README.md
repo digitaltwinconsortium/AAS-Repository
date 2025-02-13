@@ -13,9 +13,10 @@ IEC 63278 Asset Admin Shell Repository reference implementation using C# and .Ne
 1. WattTime integration
 1. Time-series database operational data integration
 1. Azure Data Explorer data source integration
+1. Dynamics 365 ERP data source integration
 1. Integrated OPC UA Nodeset file browser
 1. Basic authentication header support (use "admin" and ServicePassword environment variable to set password)
-1. CESMII Smart Manufacturing Innovation Plattform (SMIP) imtegration
+1. CESMII Smart Manufacturing Innovation Plattform (SMIP) integration
 1. Loading AAS nodeset XML into OPC UA server using mapping to OPC UA built-in types
 
 
@@ -70,3 +71,11 @@ Note: For a quickstart, the AAS Repository is integrated in the [Manufacturing O
 1. SMIP_CLIENT_PASSWORD: The CESMII SMIP client password of this AAS Repo
 1. SMIP_CLIENT_ROLE: The CESMII SMIP client role of this AAS Repo
 1. SMIP_BEARER_TOKEN: The current CESMII SMIP bearer token. If blank, the other SMIP env variables are used to request a new token
+1. DYNAMICS_ENDPOINT_URL: The Url of your Dynamics 365 instance
+1. DYNAMICS_TENANT_ID: The tenant of your Dynamics 365 instance
+1. DYNAMICS_ENVIRONMENT_ID: The environment of your Dynamics 365 instance
+1. DYNAMICS_CLIENT_ID: The ID of the client/app to acces your Dynamics 365 instance
+1. DYNAMICS_CLIENT_PASSWORD: The password of the client/app to acces your Dynamics 365 instance
+1. DYNAMICS_COMPANY_NAME: The company name of the material used in the Dynamics 365 Product Carbon Footprint calculation
+1. DYNAMICS_PRODUCT_NAME: The product name of the material used in the Dynamics 365 Product Carbon Footprint calculation
+1. DYNAMICS_BATCH_NAME: The batch name of the material used in the Dynamics 365 Product Carbon Footprint calculation
