@@ -79,3 +79,4 @@ Note: For a quickstart, the AAS Repository is integrated in the [Manufacturing O
 1. DYNAMICS_COMPANY_NAME: The company name of the material used in the Dynamics 365 Product Carbon Footprint calculation
 1. DYNAMICS_PRODUCT_NAME: The product name of the material used in the Dynamics 365 Product Carbon Footprint calculation
 1. DYNAMICS_BATCH_NAME: The batch name of the material used in the Dynamics 365 Product Carbon Footprint calculation
+1. GENERATE_FULL_AAS: Generate full AAS instances (Asset Descriptions, Concept Descriptions and Submodels), rather than just Submodels

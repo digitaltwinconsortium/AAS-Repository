@@ -127,19 +127,23 @@ namespace AdminShell
                     if (node is UAObject uAObject)
                     {
                         if ((uAObject.ParentNodeId == ObjectIds.ObjectsFolder)
-                            || uAObject.References.Where(r => (r.ReferenceType == "Organizes") && (r.Value == ObjectIds.ObjectsFolder)).ToList().Count > 0)
+                         || (uAObject.References.Where(r => (r.ReferenceType == "Organizes") && (r.Value == ObjectIds.ObjectsFolder)).ToList().Count > 0))
                         {
-                            List<IReference> references = new()
+                            if (((node.DisplayName != null) && (node.DisplayName.Count() > 0) && (node.DisplayName[0].Value == "Submodels"))
+                             || (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("GENERATE_FULL_AAS"))))
                             {
-                                new NodeStateReference(ReferenceTypeIds.Organizes, false, new NodeId(NodeId.Parse(uAObject.NodeId).Identifier, (ushort)Server.NamespaceUris.GetIndex(namespaceUri)))
-                            };
+                                List<IReference> references = new()
+                                {
+                                    new NodeStateReference(ReferenceTypeIds.Organizes, false, new NodeId(NodeId.Parse(uAObject.NodeId).Identifier, (ushort)Server.NamespaceUris.GetIndex(namespaceUri)))
+                                };
 
-                            Dictionary<NodeId, IList<IReference>> dictionary = new()
-                            {
-                                { ObjectIds.ObjectsFolder, references }
-                            };
+                                Dictionary<NodeId, IList<IReference>> dictionary = new()
+                                {
+                                    { ObjectIds.ObjectsFolder, references }
+                                };
 
-                            objectsFolderNodeManager.AddReferences(dictionary);
+                                objectsFolderNodeManager.AddReferences(dictionary);
+                            }
                         }
                     }
                 }
