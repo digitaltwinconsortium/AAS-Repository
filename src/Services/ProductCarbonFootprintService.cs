@@ -56,7 +56,7 @@ namespace AdminShell
                 if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF_SMIP")))
                 {
                     // we have a single pulp & paper machine from North Carolina State Univeristy that produced a roll of paper over 3 days
-                    GeneratePCFAASForSMIP("NCSU Pulp & Paper batch ", "35.787222", "-78.670556", "79078", new DateTime(2023, 10, 12, 0, 0, 0), new DateTime(2023, 10, 14, 23, 59, 59));
+                    GeneratePCFAASForSMIP("NCSU_Paper_Batch", "35.787222", "-78.670556", "79078", new DateTime(2023, 10, 12, 0, 0, 0), new DateTime(2023, 10, 14, 23, 59, 59));
                 }
 
                 if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF")))
