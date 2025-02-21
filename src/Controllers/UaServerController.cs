@@ -56,7 +56,7 @@ namespace UaRestGateway.Server.Controllers
         }
 
         [HttpPost]
-        [Route("future/read")]
+        [Route("/openapi/opcua/read")]
         public async Task<IActionResult> Read()
         {
             ReadRequest request = await Decode<ReadRequest>().ConfigureAwait(false);
@@ -68,7 +68,7 @@ namespace UaRestGateway.Server.Controllers
 
 
         [HttpPost]
-        [Route("future/browse")]
+        [Route("/openapi/opcua/browse")]
         public async Task<IActionResult> Browse()
         {
             BrowseRequest request = await Decode<BrowseRequest>().ConfigureAwait(false);

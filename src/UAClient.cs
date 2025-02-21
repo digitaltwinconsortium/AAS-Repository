@@ -388,24 +388,22 @@ namespace AdminShell
 
             using (JsonEncoder encoder = new(ServiceMessageContext.GlobalContext, JsonEncodingType.Compact))
             {
-                // TODO: Reenable once new encoder is released
-                // encoder.SuppressArtifacts = true;
+                encoder.SuppressArtifacts = true;
 
                 for (int ii = 0; ii < nodesToRead.Count; ii++)
                 {
                     ReferenceDescription reference = nodesToRead[ii].Handle as ReferenceDescription;
 
-                    // TODO: Reenable once new encoder is released
-                    //encoder.WriteRawValue(
-                    //    new FieldMetaData()
-                    //    {
-                    //        Name = reference.BrowseName.Name,
-                    //        BuiltInType = (byte)results[ii].WrappedValue.TypeInfo.BuiltInType,
-                    //        ValueRank = results[ii].WrappedValue.TypeInfo.ValueRank,
-                    //        DataType = DataTypeIds.BaseDataType
-                    //    },
-                    //    results[ii],
-                    //    DataSetFieldContentMask.RawData);
+                   encoder.WriteRawValue(
+                       new FieldMetaData()
+                       {
+                           Name = reference.BrowseName.Name,
+                           BuiltInType = (byte)results[ii].WrappedValue.TypeInfo.BuiltInType,
+                           ValueRank = results[ii].WrappedValue.TypeInfo.ValueRank,
+                           DataType = DataTypeIds.BaseDataType
+                       },
+                       results[ii],
+                       DataSetFieldContentMask.RawData);
                 }
 
                 string json = encoder.CloseAndReturnText();
