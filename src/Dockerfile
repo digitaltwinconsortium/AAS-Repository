@@ -5,11 +5,9 @@ EXPOSE 8080
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-WORKDIR /src
-COPY ["AAS-Repository.csproj", "."]
-RUN dotnet restore "./AAS-Repository.csproj"
 COPY . .
-WORKDIR "/src/."
+WORKDIR /src
+RUN dotnet restore "AAS-Repository.csproj"
 RUN dotnet build "AAS-Repository.csproj" -c Release -o /app/build
 
 FROM build AS publish

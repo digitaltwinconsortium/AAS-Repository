@@ -39,7 +39,7 @@ These emissions come from the parts and raw materials used within the product be
 
 # Optionally Building the Project
 
-If you want to build the project from sources, you first need to sync the OPC UA Stack submodule. From the Visual Studio command prompt of this project:
+If you want to build the project from sources, you first need to sync the OPC UA Stack submodule. **Make sure you have Git for Windows installed!** From the Visual Studio command prompt of this project:
 
 ```
 git submodule init
