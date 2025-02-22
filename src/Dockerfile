@@ -6,11 +6,12 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 COPY . .
-RUN dotnet restore "./src/AAS-Repository.csproj"
-RUN dotnet build "./src/AAS-Repository.csproj" -c Release -o /app/build
+WORKDIR src
+RUN dotnet restore "AAS-Repository.csproj"
+RUN dotnet build "AAS-Repository.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "./src/AAS-Repository.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "AAS-Repository.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
