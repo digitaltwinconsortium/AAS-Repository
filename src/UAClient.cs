@@ -37,7 +37,7 @@ namespace AdminShell
 
                 BrowseDescription nodeToBrowse = new()
                 {
-                    NodeId = new NodeId(nodeId),
+                    NodeId = ExpandedNodeId.ToNodeId(nodeId, _session.NamespaceUris),
                     BrowseDirection = BrowseDirection.Forward,
                     ReferenceTypeId = ReferenceTypeIds.HierarchicalReferences,
                     IncludeSubtypes = true,
@@ -59,9 +59,10 @@ namespace AdminShell
 
                 foreach (ReferenceDescription description in references)
                 {
+                    NodeId id = ExpandedNodeId.ToNodeId(description.NodeId, _session.NamespaceUris);
                     nodes.Add(new NodesetViewerNode()
                     {
-                        Id = ExpandedNodeId.ToNodeId(description.NodeId, _session.NamespaceUris).ToString(),
+                        Id = NodeId.ToExpandedNodeId(id, _session.NamespaceUris).ToString(),
                         Text = description.DisplayName.ToString(),
                         Children = new List<NodesetViewerNode>()
                     });
@@ -253,7 +254,7 @@ namespace AdminShell
                 ReadValueIdCollection nodesToRead = new();
 
                 ReadValueId valueId = new();
-                valueId.NodeId = new NodeId(nodeId);
+                valueId.NodeId = ExpandedNodeId.ToNodeId(nodeId, _session.NamespaceUris);
                 valueId.AttributeId = Attributes.Value;
                 valueId.IndexRange = null;
                 valueId.DataEncoding = null;

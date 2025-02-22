@@ -21,11 +21,11 @@
 </div>
 <hr />
 <div class="col-12 row">
-    <div class="col-6">
+    <div class="col-8">
         <Tree Nodes="TreeNodes" TNode="NodesetViewerNode" ChildSelector="node => node.Children" SelectedNodeChanged="SelectedNodeChanged" OnNodeExpand="OnNodeExpand" HasChildNodes="HasChildNodes">
             <TitleTemplate>
                 @{
-                    if (context.Id.StartsWith("ns="))
+                    if (context.Id.StartsWith("nsu="))
                     {
                         <span>@context.Text (@context.Id)</span>
                     }
@@ -37,7 +37,7 @@
             </TitleTemplate>
         </Tree>
     </div>
-    <div class="col-6">
+    <div class="col-4">
         Node Value: @NodeValue
     </div>
 </div>
