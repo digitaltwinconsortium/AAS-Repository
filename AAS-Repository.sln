@@ -5,9 +5,9 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{649BCC9C-9758-465C-9B5C-01A5878CE723}"
 	ProjectSection(SolutionItems) = preProject
-		..\.github\workflows\docker-publish.yml = ..\.github\workflows\docker-publish.yml
-		..\LICENSE.TXT = ..\LICENSE.TXT
-		..\README.md = ..\README.md
+		.github\workflows\docker-publish.yml = .github\workflows\docker-publish.yml
+		LICENSE.TXT = LICENSE.TXT
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UaStack", "UaStack", "{51412AB1-0812-4D75-A16C-A86838C969E9}"
