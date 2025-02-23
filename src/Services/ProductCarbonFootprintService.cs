@@ -359,7 +359,7 @@ namespace AdminShell
                 { "i=10", pcf.ToString() },             // PCFCO2eq
                 { "i=11", serialNumber.ToString() },    // PCFReferenceValueForCalculation
                 { "i=12", "gCO2" },                     // PCFQuantityOfMeasureForCalculation
-                { "i=14", "Scope 2 Emissions" },        // ExplanatoryStatement
+                { "i=14", "Scope 2 & 3 Emissions" },    // ExplanatoryStatement
                 { "i=19", productionLineName },         // PCFGoodsAddressHandover.CityTown
                 { "i=21", DateTime.UtcNow.ToString() }  // PublicationDate
             };
