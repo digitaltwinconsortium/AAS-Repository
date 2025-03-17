@@ -35,6 +35,8 @@ namespace AdminShell
                     _session.KeepAlive += new KeepAliveEventHandler(StandardClient_KeepAlive);
                 }
 
+                _session.FetchNamespaceTables();
+
                 BrowseDescription nodeToBrowse = new()
                 {
                     NodeId = ExpandedNodeId.ToNodeId(nodeId, _session.NamespaceUris),
@@ -218,6 +220,8 @@ namespace AdminShell
                     _session.KeepAlive += new KeepAliveEventHandler(StandardClient_KeepAlive);
                 }
 
+                _session.FetchNamespaceTables();
+
                 ResponseHeader responseHeader = _session.Browse(
                     request.RequestHeader,
                     request.View,
@@ -253,13 +257,6 @@ namespace AdminShell
                 DiagnosticInfoCollection diagnosticInfos = null;
                 ReadValueIdCollection nodesToRead = new();
 
-                ReadValueId valueId = new();
-                valueId.NodeId = ExpandedNodeId.ToNodeId(nodeId, _session.NamespaceUris);
-                valueId.AttributeId = Attributes.Value;
-                valueId.IndexRange = null;
-                valueId.DataEncoding = null;
-                nodesToRead.Add(valueId);
-
                 if (_session == null || !_session.Connected)
                 {
                     _session = await CreaterSessionAsync(Program.App.ApplicationConfiguration, "opc.tcp://localhost/").ConfigureAwait(false);
@@ -269,6 +266,15 @@ namespace AdminShell
                 {
                     return string.Empty;
                 }
+
+                _session.FetchNamespaceTables();
+
+                ReadValueId valueId = new();
+                valueId.NodeId = ExpandedNodeId.ToNodeId(nodeId, _session.NamespaceUris);
+                valueId.AttributeId = Attributes.Value;
+                valueId.IndexRange = null;
+                valueId.DataEncoding = null;
+                nodesToRead.Add(valueId);
 
                 ResponseHeader responseHeader = _session.Read(null, 0, TimestampsToReturn.Both, nodesToRead, out values, out diagnosticInfos);
 
@@ -306,6 +312,8 @@ namespace AdminShell
                 {
                     _session.KeepAlive += new KeepAliveEventHandler(StandardClient_KeepAlive);
                 }
+
+                _session.FetchNamespaceTables();
 
                 ResponseHeader responseHeader = _session.Read(
                     request.RequestHeader,
