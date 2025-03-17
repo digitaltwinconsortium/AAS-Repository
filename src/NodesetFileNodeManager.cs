@@ -58,20 +58,23 @@ namespace AdminShell
 
                 if ((nodeSet.NamespaceUris != null) && (nodeSet.NamespaceUris.Length > 0))
                 {
-                    foreach (string namespaceUri in nodeSet.NamespaceUris)
+                    List<string> newNamespaceUris = nodeSet.NamespaceUris.ToList();
+                    List<string> existingNamespaceUris = NamespaceUris.ToList();
+
+                    foreach (string ns in newNamespaceUris)
                     {
-                        if (!NamespaceUris.Contains(namespaceUri))
+                        if (!existingNamespaceUris.Contains(ns))
                         {
-                            List<string> updatedNamespaces = new List<string>(NamespaceUris)
+                            lock (Lock)
                             {
-                                namespaceUri
-                            };
+                                existingNamespaceUris.Add(ns);
 
-                            // Update the table used by this NodeManager
-                            SetNamespaces(updatedNamespaces.ToArray());
+                                // update the table used by this NodeManager
+                                SetNamespaces(existingNamespaceUris.ToArray());
 
-                            // Register the new URI with the MasterNodeManager
-                            Server.NodeManager.RegisterNamespaceManager(namespaceUri, this);
+                                // register the new URI with the MasterNodeManager
+                                Server.NodeManager.RegisterNamespaceManager(ns, this);
+                            }
                         }
                     }
                 }
