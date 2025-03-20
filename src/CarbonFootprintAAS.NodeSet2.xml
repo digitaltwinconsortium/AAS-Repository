@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-02-04T09:42:13.5301248Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
+<UANodeSet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" LastModified="2025-03-19T12:32:35.0804881Z" xmlns="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd">
   <NamespaceUris>
-    <Uri>http://opcfoundation.org/UA/CarbonFootprintAAS/</Uri>
+    <Uri>http://industrialdigitaltwin.org/UA/CarbonFootprintAAS/</Uri>
   </NamespaceUris>
   <Models>
-    <Model ModelUri="http://opcfoundation.org/UA/CarbonFootprintAAS/" Version="1.0.0" PublicationDate="2025-02-04T09:42:13Z"/>
+    <Model ModelUri="http://industrialdigitaltwin.org/UA/CarbonFootprintAAS/" Version="0.4.0" PublicationDate="2025-03-19T12:32:35Z"/>
   </Models>
   <UAObject NodeId="ns=1;i=1" BrowseName="Asset Admin Shells" ParentNodeId="i=85">
     <DisplayName>Asset Admin Shells</DisplayName>
