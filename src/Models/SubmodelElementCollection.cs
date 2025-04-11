@@ -3,30 +3,17 @@ namespace AdminShell
 {
     using System.Collections.Generic;
     using System.Runtime.Serialization;
-    using System.Xml;
     using System.Xml.Serialization;
 
+    /// <summary>
+    /// In V2.0, this was the most important SME to hold multiple child SMEs.
+    /// In V3.0, this is deprecated. Use SubmodelElementList, SubmodelElementStruct instead.
+    /// </summary>
     [DataContract]
-    public class Submodel : Identifiable
+    public class SubmodelElementCollection : SubmodelElement
     {
-        [DataMember(Name = "embeddedDataSpecifications")]
-        [XmlArray(ElementName = "embeddedDataSpecifications")]
-        public List<EmbeddedDataSpecification> EmbeddedDataSpecifications { get; set; } = new();
-
-        [DataMember(Name = "qualifiers")]
-        [XmlArray(ElementName = "qualifiers")]
-        public List<Qualifier> Qualifiers { get; set; } = new();
-
-        [DataMember(Name = "semanticId")]
-        [XmlElement(ElementName = "semanticId")]
-        public Reference SemanticId { get; set; } = new();
-
-        [DataMember(Name = "kind")]
-        [XmlElement(ElementName = "kind")]
-        public ModelingKind Kind { get; set; } = new();
-
-        [DataMember(Name = "submodelElements")]
-        [XmlArray(ElementName = "submodelElements")]
+        [DataMember(Name = "value")]
+        [XmlArray(ElementName = "value")]
         [XmlArrayItem(ElementName = "property", Type = typeof(Property))]
         [XmlArrayItem(ElementName = "multiLanguageProperty", Type = typeof(MultiLanguageProperty))]
         [XmlArrayItem(ElementName = "range", Type = typeof(Range))]
@@ -44,38 +31,34 @@ namespace AdminShell
         [XmlArrayItem(ElementName = "submodelElementStruct", Type = typeof(SubmodelElementStruct))]
         [XmlArrayItem(ElementName = "globalReferenceElement", Type = typeof(GlobalReferenceElement))]
         [XmlArrayItem(ElementName = "modelReferenceElement", Type = typeof(ModelReferenceElement))]
-        public List<SubmodelElement> SubmodelElements { get; set; } = new();
+        public List<SubmodelElement> Value { get; set; } = new();
 
-        public Submodel()
-            : base()
+        [XmlIgnore]
+        public bool Ordered = false;
+
+        [XmlIgnore]
+        public bool AllowDuplicates = false;
+
+        public SubmodelElementCollection()
         {
+            ModelType = ModelTypes.SubmodelElementCollection;
         }
 
-        public Submodel(Submodel other)
-            : base()
+        public SubmodelElementCollection(SubmodelElement src)
+            : base(src)
         {
-            if (other == null)
+            if (!(src is SubmodelElementCollection smc))
             {
                 return;
             }
 
-            foreach (var ed in other.EmbeddedDataSpecifications)
+            Ordered = smc.Ordered;
+            AllowDuplicates = smc.AllowDuplicates;
+            ModelType = ModelTypes.SubmodelElementCollection;
+
+            foreach (var sme in smc.Value)
             {
-                EmbeddedDataSpecifications.Add(new EmbeddedDataSpecification(ed));
-            }
-
-            foreach (var q in other.Qualifiers)
-            {
-                Qualifiers.Add(new Qualifier(q));
-            }
-
-            SemanticId = new Reference(other.SemanticId);
-
-            Kind = other.Kind;
-
-            foreach (var sme in other.SubmodelElements)
-            {
-                SubmodelElements.Add(new SubmodelElement(sme));
+                Value.Add(sme);
             }
         }
     }

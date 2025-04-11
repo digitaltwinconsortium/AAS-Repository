@@ -10,6 +10,23 @@ namespace AdminShell
     {
         [DataMember(Name = "value")]
         [XmlArray(ElementName = "value")]
+        [XmlArrayItem(ElementName = "property", Type = typeof(Property))]
+        [XmlArrayItem(ElementName = "multiLanguageProperty", Type = typeof(MultiLanguageProperty))]
+        [XmlArrayItem(ElementName = "range", Type = typeof(Range))]
+        [XmlArrayItem(ElementName = "file", Type = typeof(File))]
+        [XmlArrayItem(ElementName = "blob", Type = typeof(Blob))]
+        [XmlArrayItem(ElementName = "referenceElement", Type = typeof(ReferenceElement))]
+        [XmlArrayItem(ElementName = "relationshipElement", Type = typeof(RelationshipElement))]
+        [XmlArrayItem(ElementName = "annotatedRelationshipElement", Type = typeof(AnnotatedRelationshipElement))]
+        [XmlArrayItem(ElementName = "capability", Type = typeof(Capability))]
+        [XmlArrayItem(ElementName = "submodelElementCollection", Type = typeof(SubmodelElementCollection))]
+        [XmlArrayItem(ElementName = "operation", Type = typeof(Operation))]
+        [XmlArrayItem(ElementName = "basicEvent", Type = typeof(BasicEvent))]
+        [XmlArrayItem(ElementName = "entity", Type = typeof(Entity))]
+        [XmlArrayItem(ElementName = "submodelElementList", Type = typeof(SubmodelElementList))]
+        [XmlArrayItem(ElementName = "submodelElementStruct", Type = typeof(SubmodelElementStruct))]
+        [XmlArrayItem(ElementName = "globalReferenceElement", Type = typeof(GlobalReferenceElement))]
+        [XmlArrayItem(ElementName = "modelReferenceElement", Type = typeof(ModelReferenceElement))]
         public List<SubmodelElement> Value { get; set; } = new();
 
         [DataMember(Name = "semanticIdValues")]
