@@ -27,6 +27,21 @@ namespace AdminShell
 
         [DataMember(Name = "submodelElements")]
         [XmlArray(ElementName = "submodelElements")]
+        [XmlArrayItem(ElementName = "property", Type = typeof(Property))]
+        [XmlArrayItem(ElementName = "multiLanguageProperty", Type = typeof(MultiLanguageProperty))]
+        [XmlArrayItem(ElementName = "range", Type = typeof(Range))]
+        [XmlArrayItem(ElementName = "file", Type = typeof(File))]
+        [XmlArrayItem(ElementName = "blob", Type = typeof(Blob))]
+        [XmlArrayItem(ElementName = "referenceElement", Type = typeof(ReferenceElement))]
+        [XmlArrayItem(ElementName = "relationshipElement", Type = typeof(RelationshipElement))]
+        [XmlArrayItem(ElementName = "annotatedRelationshipElement", Type = typeof(AnnotatedRelationshipElement))]
+        [XmlArrayItem(ElementName = "capability", Type = typeof(Capability))]
+        [XmlArrayItem(ElementName = "operation", Type = typeof(Operation))]
+        [XmlArrayItem(ElementName = "basicEvent", Type = typeof(BasicEvent))]
+        [XmlArrayItem(ElementName = "entity", Type = typeof(Entity))]
+        [XmlArrayItem(ElementName = "submodelElementList", Type = typeof(SubmodelElementList))]
+        [XmlArrayItem(ElementName = "globalReferenceElement", Type = typeof(GlobalReferenceElement))]
+        [XmlArrayItem(ElementName = "modelReferenceElement", Type = typeof(ModelReferenceElement))]
         public List<SubmodelElement> SubmodelElements { get; set; } = new();
 
         public Submodel()

@@ -6,7 +6,7 @@ namespace AdminShell
     using System.Xml.Serialization;
 
     [DataContract]
-    [XmlRoot(ElementName = "aasenv")]
+    [XmlRoot(ElementName = "environment")]
     public class AssetAdministrationShellEnvironment
     {
         [DataMember(Name="assetAdministrationShells")]

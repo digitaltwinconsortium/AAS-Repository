@@ -19,41 +19,9 @@ namespace AdminShell
         [XmlElement(ElementName = "globalAssetId")]
         public string GlobalAssetId { get; set; }
 
-        // Important note: XML serialization uses SubModel Element Wrappers while JSON serialization does not!
-        // So we have to first deserialize into a placeholder Json member and then copy the contents into the correct member
-        [JsonIgnore]
+        [DataMember(Name = "statements")]
         [XmlArray(ElementName = "statements")]
         public List<SubmodelElement> Statements { get; set; } = new();
-
-        [XmlIgnore]
-        [DataMember(Name = "statements")]
-        public SubmodelElement[] JsonStatements
-        {
-            get
-            {
-                var submodelElements = new List<SubmodelElement>();
-
-                foreach (SubmodelElement smew in Statements)
-                {
-                    submodelElements.Add(smew);
-                }
-
-                return submodelElements.ToArray();
-            }
-
-            set
-            {
-                if (value != null)
-                {
-                    Statements.Clear();
-
-                    foreach (SubmodelElement sme in value)
-                    {
-                        Statements.Add(sme);
-                    }
-                }
-            }
-        }
 
         public Entity()
         {

@@ -1,7 +1,6 @@
 ﻿
 namespace AdminShell
 {
-    using Newtonsoft.Json;
     using System.Runtime.Serialization;
     using System.Xml.Serialization;
 
@@ -12,25 +11,12 @@ namespace AdminShell
         [XmlElement(ElementName = "administration")]
         public AdministrativeInformation Administration { get; set; }
 
-        [JsonIgnore]
+        [DataMember(Name = "identification")]
         [XmlElement(ElementName = "identification")]
         public Identifier Identification { get; set; } = new Identifier();
 
-        [XmlIgnore]
         [DataMember(Name = "id")]
-        public string Id
-        {
-            get
-            {
-                return Identification?.Id;
-            }
-            set
-            {
-                if (Identification != null)
-                {
-                    Identification.Id = value;
-                }
-            }
-        }
+        [XmlElement(ElementName = "id")]
+        public string Id { get; set; } = string.Empty;
     }
 }
