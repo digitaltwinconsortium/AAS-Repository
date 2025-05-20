@@ -16,6 +16,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.5" />
     <PackageReference Include="Microsoft.Azure.Kusto.Data" Version="13.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.2" />
+    <PackageReference Include="OPCFoundation.NetStandard.Opc.Ua" Version="1.5.376.213" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="8.1.1" />
     <PackageReference Include="GraphQL.Client" Version="6.1.0" />
@@ -72,15 +73,6 @@
     <None Remove="LICENSE.TXT" />
     <None Remove="OPCUA.png" />
     <None Remove="ProductCarbonFootprintNCSU.aasx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\UaStack\Libraries\Opc.Ua.Client.ComplexTypes\Opc.Ua.Client.ComplexTypes.csproj" />
-    <ProjectReference Include="..\UaStack\Libraries\Opc.Ua.Client\Opc.Ua.Client.csproj" />
-    <ProjectReference Include="..\UaStack\Libraries\Opc.Ua.Configuration\Opc.Ua.Configuration.csproj" />
-    <ProjectReference Include="..\UaStack\Libraries\Opc.Ua.Security.Certificates\Opc.Ua.Security.Certificates.csproj" />
-    <ProjectReference Include="..\UaStack\Libraries\Opc.Ua.Server\Opc.Ua.Server.csproj" />
-    <ProjectReference Include="..\UaStack\Stack\Opc.Ua.Core\Opc.Ua.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
