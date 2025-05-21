@@ -28,7 +28,8 @@ namespace AdminShell
             {  Profiles = new List<ServiceDescription.ProfilesEnum>()
                 {
                     ServiceDescription.ProfilesEnum.AssetAdministrationShellRepositoryServiceSpecificationV30MinimalProfileEnum,
-                    ServiceDescription.ProfilesEnum.SubmodelRepositoryServiceSpecificationV30MinimalProfileEnum
+                    ServiceDescription.ProfilesEnum.SubmodelRepositoryServiceSpecificationV30MinimalProfileEnum,
+                    ServiceDescription.ProfilesEnum.RegistryServiceSpecificationV30AssetAdministrationShellRegistryEnum
                 }
             });
         }
