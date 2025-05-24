@@ -1,6 +1,7 @@
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
@@ -41,8 +42,46 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAllAssetAdministrationShellDescriptors([FromQuery]int? limit, [FromQuery]string cursor, [FromQuery]AssetKind assetKind, [FromQuery][RegularExpression("/^([\\\\x09\\\\x0a\\\\x0d\\\\x20-\\\\ud7ff\\\\ue000-\\\\ufffd]|\\\\ud800[\\\\udc00-\\\\udfff]|[\\\\ud801-\\\\udbfe][\\\\udc00-\\\\udfff]|\\\\udbff[\\\\udc00-\\\\udfff])*$/")][StringLength(2048, MinimumLength=1)]string assetType)
         {
+            List<AssetAdministrationShell> aasList = _aasEnvService.GetAllAssetAdministrationShells();
+
+            var output = new List<AssetAdministrationShellDescriptor>();
+
+            int cIncluded = 0; // Use to respect the requested "limit"
+
+            foreach (AssetAdministrationShell myshell in aasList)
+            {
+                // Check if the AssetKind matches the requested one
+                if (assetKind == myshell.AssetInformation.AssetKind)
+                {
+                    // List<ModelReference> listSubmodels = myshell.Submodels;
+                    // List<Endpoint> listEp = listSubmodels[0].Endpoints;
+
+                    AssetAdministrationShellDescriptor descriptor = new AssetAdministrationShellDescriptor
+                    {
+                        Administration = myshell.Administration,
+                        AssetKind = myshell.AssetInformation.AssetKind,
+                        /* AssetType = ssetType, *
+                        /* Endpoints = ep, */
+                        GlobalAssetId = myshell.AssetInformation.GlobalAssetId,
+                        IdShort = myshell.IdShort,
+                        Id = myshell.Id,
+                        /* SpecificAsset Ids = */
+                        /* SubmodelDescriptors = */
+                    };
+                    output.Add(descriptor);
+
+                    cIncluded++;
+                    if (limit.HasValue && cIncluded >= limit.Value)
+                    {
+                        break; // Stop if we reached the limit
+                    }
+                }
+            }
+
+
+
             // TODO: Implement the logic to retrieve all Asset Administration Shell Descriptors based on the provided parameters.
-            return new ObjectResult(new List<AssetAdministrationShellDescriptor>());
+            return new ObjectResult(output);
         }
 
         /// <summary>
@@ -66,8 +105,23 @@ namespace AdminShell
         [SwaggerResponse(statusCode: 0, type: typeof(Result), description: "Default error handling for unmentioned status codes")]
         public virtual IActionResult GetAssetAdministrationShellDescriptorById([FromRoute][Required]string aasIdentifier)
         {
+            string decodedAasIdentifier = Base64UrlEncoder.Decode(aasIdentifier);
+            AssetAdministrationShell myshell = _aasEnvService.GetAssetAdministrationShellById(decodedAasIdentifier);
+            AssetAdministrationShellDescriptor descriptor = new AssetAdministrationShellDescriptor
+            {
+                Administration = myshell.Administration,
+                AssetKind = myshell.AssetInformation.AssetKind,
+                /* AssetType = assetType, */
+                /* Endpoints = ep, */
+                GlobalAssetId = myshell.AssetInformation.GlobalAssetId,
+                IdShort = myshell.IdShort,
+                Id = myshell.Id,
+                /* SpecificAsset Ids = */
+                /* SubmodelDescriptors = */
+            };
+
             // TODO: Implement the logic to retrieve a specific Asset Administration Shell Descriptor based on the provided aasIdentifier.
-            return new ObjectResult(new AssetAdministrationShellDescriptor());
+            return new ObjectResult(descriptor);
         }
     }
 }
