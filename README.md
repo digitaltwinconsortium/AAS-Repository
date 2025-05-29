@@ -62,7 +62,7 @@ Note: For a quickstart, the AAS Repository is integrated in the [Manufacturing O
 
 # Required Environment variables
 
-1. Admin User Authenitcation
+1. Admin User Authentication
     * ServicePassword: Password to access the service via basic authentication header with user 'admin'. Project is swagger-enabled. Access by adding '/swagger' to URL, then authenticate with user 'admin' and password defined in this environment variable.
 
 
