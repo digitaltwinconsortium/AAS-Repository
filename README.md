@@ -62,33 +62,38 @@ Note: For a quickstart, the AAS Repository is integrated in the [Manufacturing O
 
 # Required Environment variables
 
-1. ServicePassword: Password to access the service via basic authentication header
+1. Admin User Authenitcation
+    * ServicePassword: Password to access the service via basic authentication header with user 'admin'. Project is swagger-enabled. Access by adding '/swagger' to URL, then authenticate with user 'admin' and password defined in this environment variable.
 
 
 # Optional Environment variables
 
-1. ADX_HOST: Azure Data Explorer host name
-1. ADX_DB: Azure Data Explorer database name
-1. AAD_APPLICATION_ID: Azure Active Directory application ID (GUID, set this up via an app registration in the Azure Portal)
-1. DATA_QUERY_INTERVAL: The query interval for the connected database in milliseconds
-1. WATTTIME_USER: WattTime service username
-1. WATTTIME_PASSWORD: WattTime service password
-1. WATTTIME_LATITUDE: WattTime location to query
-1. WATTTIME_LONGITUDE: WattTime location to query
-1. CALCULATE_PCF: Set to "1" to enable PCF calculation for the DTC's Manufacturing Ontologies Reference Solution
-1. CALCULATE_PCF_SMIP: Set to "1" to enable PCF calculation for CESMII's Smart Manufacturing Innovation Platform
-1. SMIP_GRAPHQL_ENDPOINT_URL: The CESMII SMIP GarphQL Endpoint URL, e.g. "https://demo.cesmii.net/graphql"
-1. SMIP_USERNAME: Your CESMII SMIP username
-1. SMIP_CLIENT_ID: The CESMII SMIP client ID of this AAS Repo
-1. SMIP_CLIENT_PASSWORD: The CESMII SMIP client password of this AAS Repo
-1. SMIP_CLIENT_ROLE: The CESMII SMIP client role of this AAS Repo
-1. SMIP_BEARER_TOKEN: The current CESMII SMIP bearer token. If blank, the other SMIP env variables are used to request a new token
-1. DYNAMICS_ENDPOINT_URL: The Url of your Dynamics 365 instance
-1. DYNAMICS_TENANT_ID: The tenant of your Dynamics 365 instance
-1. DYNAMICS_ENVIRONMENT_ID: The environment of your Dynamics 365 instance
-1. DYNAMICS_CLIENT_ID: The ID of the client/app to acces your Dynamics 365 instance
-1. DYNAMICS_CLIENT_PASSWORD: The password of the client/app to acces your Dynamics 365 instance
-1. DYNAMICS_COMPANY_NAME: The company name of the material used in the Dynamics 365 Product Carbon Footprint calculation
-1. DYNAMICS_PRODUCT_NAME: The product name of the material used in the Dynamics 365 Product Carbon Footprint calculation
-1. DYNAMICS_BATCH_NAME: The batch name of the material used in the Dynamics 365 Product Carbon Footprint calculation
-1. GENERATE_FULL_AAS: Generate full AAS instances (Asset Descriptions, Concept Descriptions and Submodels), rather than just Submodels
+1. Admin Asset Shell instances
+    * GENERATE_FULL_AAS: Generate full AAS instances (Asset Descriptions, Concept Descriptions and Submodels), rather than just Submodels
+1. Azure Data Explorer Configuration
+    * ADX_HOST: Azure Data Explorer host name
+    * ADX_DB: Azure Data Explorer database name
+    * AAD_APPLICATION_ID: Azure Active Directory application ID (GUID, set this up via an app registration in the Azure Portal)
+1. CESMII SMIP Processing
+    * SMIP_GRAPHQL_ENDPOINT_URL: The CESMII SMIP GarphQL Endpoint URL, e.g. "https://demo.cesmii.net/graphql"
+    * SMIP_USERNAME: Your CESMII SMIP username
+    * SMIP_CLIENT_ID: The CESMII SMIP client ID of this AAS Repo
+    * SMIP_CLIENT_PASSWORD: The CESMII SMIP client password of this AAS Repo
+    * SMIP_CLIENT_ROLE: The CESMII SMIP client role of this AAS Repo
+    * SMIP_BEARER_TOKEN: The current CESMII SMIP bearer token. If blank, the other SMIP env variables are used to request a new token
+1. Microsoft Dynamics 365 Connection
+    * DYNAMICS_ENDPOINT_URL: The Url of your Dynamics 365 instance
+    * DYNAMICS_TENANT_ID: The tenant of your Dynamics 365 instance
+    * DYNAMICS_ENVIRONMENT_ID: The environment of your Dynamics 365 instance
+    * DYNAMICS_CLIENT_ID: The ID of the client/app to acces your Dynamics 365 instance
+    * DYNAMICS_CLIENT_PASSWORD: The password of the client/app to acces your Dynamics 365 instance
+    * DYNAMICS_COMPANY_NAME: The company name of the material used in the Dynamics 365 Product Carbon Footprint calculation
+    * DYNAMICS_PRODUCT_NAME: The product name of the material used in the Dynamics 365 Product Carbon Footprint calculation
+    * DYNAMICS_BATCH_NAME: The batch name of the material used in the Dynamics 365 Product Carbon Footprint calculation
+1. Product Carbon Footprint Calculation
+    * CALCULATE_PCF: Set to "1" to enable PCF calculation for the DTC's Manufacturing Ontologies Reference Solution
+    * CALCULATE_PCF_SMIP: Set to "1" to enable PCF calculation for CESMII's Smart Manufacturing Innovation Platform
+    * DATA_QUERY_INTERVAL: Set to override default value of 15000 ms (15 seconds).
+1. Watt Time Configuration
+    * WATTTIME_USER: WattTime service username
+    * WATTTIME_PASSWORD: WattTime service password
