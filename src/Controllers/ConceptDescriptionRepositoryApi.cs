@@ -22,7 +22,7 @@ namespace IO.Swagger.Controllers
         }
 
         /// <summary>
-        /// Returns all Concept Descriptions
+        /// Returns all Concept Descriptions for all asset administration shells
         /// </summary>
         /// <param name="idShort">The Concept Description’s IdShort</param>
         /// <param name="isCaseOf">IsCaseOf reference (UTF8-BASE64-URL-encoded)</param>
@@ -65,7 +65,7 @@ namespace IO.Swagger.Controllers
         }
 
         /// <summary>
-        /// Returns a specific Concept Description
+        /// Returns a specific Concept Description for a specified asset administration shell
         /// </summary>
         /// <param name="cdIdentifier">The Concept Description’s unique id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="200">Requested Concept Description</response>
@@ -75,7 +75,7 @@ namespace IO.Swagger.Controllers
         /// <response code="500">Internal Server Error</response>
         /// <response code="0">Default error handling for unmentioned status codes</response>
         [HttpGet]
-        [Route("concept-descriptions/{cdIdentifier}")]
+        [Route("/api/v3.0/concept-descriptions/{cdIdentifier}")]
         [SwaggerOperation("GetConceptDescriptionById")]
         [SwaggerResponse(statusCode: 200, type: typeof(ConceptDescription), description: "Requested Concept Description")]
         [SwaggerResponse(statusCode: 400, type: typeof(Result), description: "Bad Request, e.g. the request parameters of the format of the request body is wrong.")]
