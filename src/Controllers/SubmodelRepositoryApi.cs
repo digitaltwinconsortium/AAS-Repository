@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 
 namespace AdminShell
 {
+    /// <summary>
+    /// REST API for Asset Administration Shell (Submodels)
+    /// </summary>
     [Authorize]
     [ApiController]
     public class SubmodelRepositoryApiController : ControllerBase

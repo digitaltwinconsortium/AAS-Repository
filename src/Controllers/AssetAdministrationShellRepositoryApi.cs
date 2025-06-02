@@ -13,6 +13,9 @@ using System.Text.Json.Nodes;
 
 namespace AdminShell
 {
+    /// <summary>
+    /// REST API for Asset Administration Shell (Repository API)
+    /// </summary>
     [Authorize]
     [ApiController]
     public class AssetAdministrationShellRepositoryApiController : ControllerBase
@@ -68,7 +71,7 @@ namespace AdminShell
         }
 
         /// <summary>
-        /// Returns a specific Asset Administration Shell
+        /// Returns a specific Asset Administration Shell as specified by the provided unique id
         /// </summary>
         /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="200">Requested Asset Administration Shell</response>
@@ -98,7 +101,7 @@ namespace AdminShell
         }
 
         /// <summary>
-        /// Returns all submodel references
+        /// Returns all submodel references for a given asset administration shell
         /// </summary>
         /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
         /// <param name="limit">The maximum number of elements in the response array</param>
@@ -136,7 +139,7 @@ namespace AdminShell
         }
 
         /// <summary>
-        ///
+        /// Retrieves the thumbnail for the specified asset administration shell
         /// </summary>
         /// <param name="aasIdentifier">The Asset Administration Shell’s unique id</param>
         /// <response code="200">The thumbnail of the Asset Information.</response>
@@ -178,7 +181,7 @@ namespace AdminShell
         }
 
         /// <summary>
-        /// Returns the Asset Information
+        /// Returns the Asset Information for a specified asset administration shell
         /// </summary>
         /// <param name="aasIdentifier">The Asset Administration Shell’s unique id (UTF8-BASE64-URL-encoded)</param>
         /// <response code="200">Requested Asset Information</response>

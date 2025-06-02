@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace AdminShell
 {
+    /// <summary>
+    /// AssetAdministrationShellEnvironmentService - 
+    /// </summary>
     public class AssetAdministrationShellEnvironmentService
     {
         private readonly UAClient _client;

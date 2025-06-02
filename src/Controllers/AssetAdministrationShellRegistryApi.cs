@@ -9,6 +9,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AdminShell
 {
+    /// <summary>
+    /// REST API for Asset Administration Shell (Registry API)
+    /// </summary>
     [Authorize]
     [ApiController]
     public class AssetAdministrationShellRegistryApiController : ControllerBase

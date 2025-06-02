@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace UaRestGateway.Server.Controllers
 {
+    /// <summary>
+    /// REST API for OPC / UA reading and browsing nodes.)
+    /// </summary>
     [Authorize]
     [ApiController]
     public class UaServerController : ControllerBase

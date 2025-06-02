@@ -11,6 +11,10 @@ using System.Threading.Tasks;
 
 namespace AdminShell
 {
+    /// <summary>
+    /// Support for accessing the SMIP service via GraphQL. In support of the
+    /// accompanying product carbon footprint calculation example.
+    /// </summary>
     public class SMIPDataService : IDisposable
     {
         private string _instanceGraphQLEndpoint = string.Empty;
@@ -55,7 +59,7 @@ namespace AdminShell
             {
                 if (ex.Message.ToLower().Contains("forbidden") || ex.Message.ToLower().Contains("unauthorized") || ex.Message.ToLower().Contains("badrequest"))
                 {
-                    Debug.WriteLine("Bearer Token expired! Attempting to retrieve a new barer token.");
+                    Debug.WriteLine("Bearer Token expired! Attempting to retrieve a new bearer token.");
 
                     // re-authorize
                     _currentBearerToken = GetBearerToken().GetAwaiter().GetResult();

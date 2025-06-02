@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 namespace AdminShell
 {
+    /// <summary>
+    /// REST API for Asset Administration Shell (Network Service Description)
+    /// </summary>
     [Authorize]
     [ApiController]
     public class DescriptionApiController : ControllerBase

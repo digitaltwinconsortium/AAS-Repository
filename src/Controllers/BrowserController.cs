@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AdminShell
 {
+    /// <summary>
+    /// Browser-related support: uploading NodeSet files.
+    /// </summary>
     public class BrowserController : Controller
     {
         public ActionResult Index()

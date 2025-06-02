@@ -9,6 +9,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IO.Swagger.Controllers
 {
+    /// <summary>
+    /// REST API for Asset Administration Shell (Concept Descriptions)
+    /// </summary>
     [Authorize]
     [ApiController]
     public class ConceptDescriptionRepositoryApiController : ControllerBase

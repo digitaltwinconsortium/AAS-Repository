@@ -10,6 +10,11 @@ using System.Diagnostics;
 
 namespace AdminShell
 {
+    /// <summary>
+    /// ADXDataService - Uses Kusto libraries to 
+    /// -- Connect to an Azure Data Explorer (ADX) cluster.
+    /// -- Run Kusto queries (KQL) against the data stored in ADX.
+    /// </summary>
     public class ADXDataService : IDisposable
     {
         private ICslQueryProvider _queryProvider = null;

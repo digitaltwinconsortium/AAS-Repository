@@ -9,6 +9,10 @@ using System.Threading;
 
 namespace AdminShell
 {
+    /// <summary>
+    /// Example of what a Product Carbon Footprint calculation looks like, using the
+    /// CESMII SMIP service.
+    /// </summary>
     public class ProductCarbonFootprintService : IDisposable
     {
         private Timer _timer;
@@ -55,7 +59,7 @@ namespace AdminShell
             {
                 if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("CALCULATE_PCF_SMIP")))
                 {
-                    // we have a single pulp & paper machine from North Carolina State Univeristy that produced a roll of paper over 3 days
+                    // we have a single pulp & paper machine from North Carolina State University that produced a roll of paper over 3 days
                     GeneratePCFAASForSMIP("NCSU_Paper_Batch", "35.787222", "-78.670556", "79078", new DateTime(2023, 10, 12, 0, 0, 0), new DateTime(2023, 10, 14, 23, 59, 59));
                 }
 

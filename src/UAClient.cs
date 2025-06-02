@@ -8,11 +8,22 @@ using System.Threading.Tasks;
 
 namespace AdminShell
 {
+    /// <summary>
+    /// UAClient - Create an OPC/UA client that starts at runtime. When 
+    /// queried for child nodes, it connects to a local OPC/UA server 
+    /// at the url opc.tcp://localhost
+    /// </summary>
     public class UAClient
     {
         private Session _session;
         private SessionReconnectHandler m_reconnectHandler;
         private const int _reconnectPeriod = 10000;
+
+        public UAClient()
+        {
+            _session = null;
+            m_reconnectHandler = null;
+        }
 
         public async Task<List<NodesetViewerNode>> GetChildren(string nodeId)
         {
